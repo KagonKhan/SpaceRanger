@@ -19,21 +19,18 @@
     <Filter Include="Managers">
       <UniqueIdentifier>{0b22e00e-6189-4c0f-bdb0-d5a67c7e739e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{03875279-cd2d-4aff-a622-c26b279fd1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Action">
+      <UniqueIdentifier>{5481b2e5-e805-417a-a85d-1acbb2b529ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{13252918-56f8-4f24-b27d-7c62f20855e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
@@ -48,26 +45,56 @@
     <ClCompile Include="Meteor.cpp">
       <Filter>Header Files\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Action</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionTarget.cpp">
+      <Filter>Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
     <ClCompile Include="Configuration.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Layout.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="VLayout.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
@@ -80,11 +107,56 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Configuration.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionTarget.h">
+      <Filter>Action</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMap.h">
+      <Filter>Action</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Resource Files</Filter>
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VLayout.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

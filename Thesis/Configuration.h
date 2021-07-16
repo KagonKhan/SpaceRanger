@@ -1,5 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "ResourceManager.h"
+#include "ActionMap.h"
 
 class Player;
 class Configuration
@@ -67,13 +69,13 @@ public:
 	};
 
 
-	/*static ResourceManager<sf::Texture, int> textures;
+	static ResourceManager<sf::Texture, int> textures;
 	static ResourceManager<sf::SoundBuffer, int> sounds;
 	static ResourceManager<sf::Music, int> musics;
-	static ResourceManager<sf::Font, int> fonts;*/
+	static ResourceManager<sf::Font, int> fonts;
 
 
-	/*static ActionMap<int> playerInputs;*/
+	static ActionMap<int> playerInputs;
 
 
 	static void initialize();

@@ -48,7 +48,7 @@ template <typename IDENTIFIER>
 class ResourceManager<sf::Music, IDENTIFIER>
 {
 private:
-	std::unordered_map<IDENTIFIER, std::unique_ptr<RESOURCE>> m_ResMap;
+	std::unordered_map<IDENTIFIER, std::unique_ptr<sf::Music>> m_ResMap;
 
 public:
 	ResourceManager(const ResourceManager&) = delete;

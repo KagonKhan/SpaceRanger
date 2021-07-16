@@ -92,11 +92,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -143,28 +147,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="ActionTarget.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Layout.cpp" />
     <ClCompile Include="Meteor.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="VLayout.cpp" />
+    <ClCompile Include="Widget.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="ActionMap.h" />
+    <ClInclude Include="ActionTarget.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Configuration.h" />
+    <ClInclude Include="Container.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="Layout.h" />
     <ClInclude Include="Meteor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="TextButton.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="VLayout.h" />
+    <ClInclude Include="Widget.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

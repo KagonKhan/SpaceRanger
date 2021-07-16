@@ -1,10 +1,12 @@
 #include "Configuration.h"
-//ResourceManager<sf::Texture, int> Configuration::textures;
-//ResourceManager<sf::Font, int> Configuration::fonts;
-//ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
-//ResourceManager<sf::Music, int> Configuration::musics;
+ResourceManager<sf::Texture, int> Configuration::textures;
+ResourceManager<sf::Font, int> Configuration::fonts;
+ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
+ResourceManager<sf::Music, int> Configuration::musics;
 
-//ActionMap<int> Configuration::playerInputs;
+ActionMap<int> Configuration::playerInputs;
+
+
 int Configuration::level;
 int Configuration::lives;
 

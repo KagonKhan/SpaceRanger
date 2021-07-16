@@ -12,6 +12,7 @@ private:
 protected:
 	sf::Sprite m_Sprite;
 	sf::RectangleShape m_Shape;
+	double hp;
 
 	sf::Vector2f m_Velocity;
 
