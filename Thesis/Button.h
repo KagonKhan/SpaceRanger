@@ -3,10 +3,12 @@
 #include <functional>
 
 namespace GUI {
+	/* Virtual class, template for specific types of buttons */
 	class Button : public Widget
 	{
 	private:
-		enum class Status { Hover = 1 };
+		/* TODO: Expand this later - for now not really used*/
+		enum Status {Idle = 0,  Hover = 1, Pressed = 2};
 		int m_Status;
 
 	protected:

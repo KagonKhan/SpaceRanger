@@ -17,6 +17,7 @@ private:
 	static void initMusics();
 
 	static void initPlayerInputs();
+	static void initGuiInputs();
 
 public:
 	Configuration() = delete;
@@ -68,13 +69,16 @@ public:
 		Theme
 	};
 
+	enum GuiInputs : int {
+		Escape,
+	};
 
 	static ResourceManager<sf::Texture, int> textures;
 	static ResourceManager<sf::SoundBuffer, int> sounds;
 	static ResourceManager<sf::Music, int> musics;
 	static ResourceManager<sf::Font, int> fonts;
-
-
+	
+	static ActionMap<int> gui_inputs;
 	static ActionMap<int> playerInputs;
 
 

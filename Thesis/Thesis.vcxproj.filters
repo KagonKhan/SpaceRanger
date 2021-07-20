@@ -16,17 +16,23 @@
     <Filter Include="Header Files\Entity">
       <UniqueIdentifier>{ae2c667f-ff62-4881-8832-0325a5f91c37}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers">
-      <UniqueIdentifier>{0b22e00e-6189-4c0f-bdb0-d5a67c7e739e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{03875279-cd2d-4aff-a622-c26b279fd1a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Action">
-      <UniqueIdentifier>{5481b2e5-e805-417a-a85d-1acbb2b529ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{13252918-56f8-4f24-b27d-7c62f20855e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{4e44c9e0-3cdf-4d4a-8454-8211edff87cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Managers">
+      <UniqueIdentifier>{0b22e00e-6189-4c0f-bdb0-d5a67c7e739e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Action">
+      <UniqueIdentifier>{5481b2e5-e805-417a-a85d-1acbb2b529ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Animation">
+      <UniqueIdentifier>{f5a364ad-433d-44d3-9d8d-593d56707911}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,19 +58,16 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
-      <Filter>Action</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionTarget.cpp">
-      <Filter>Action</Filter>
+      <Filter>Utilities\Action</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Utilities\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Configuration.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Utilities\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Utilities\Managers</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>GUI</Filter>
@@ -93,6 +96,24 @@
     <ClCompile Include="VLayout.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Space.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Hangar.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Planet.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Utilities\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Utilities\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -114,22 +135,22 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
-      <Filter>Action</Filter>
+      <Filter>Utilities\Action</Filter>
     </ClInclude>
     <ClInclude Include="ActionTarget.h">
-      <Filter>Action</Filter>
+      <Filter>Utilities\Action</Filter>
     </ClInclude>
     <ClInclude Include="ActionMap.h">
-      <Filter>Action</Filter>
+      <Filter>Utilities\Action</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Managers</Filter>
+      <Filter>Utilities\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Managers</Filter>
+      <Filter>Utilities\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Configuration.h">
-      <Filter>Managers</Filter>
+      <Filter>Utilities\Managers</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>GUI</Filter>
@@ -157,6 +178,24 @@
     </ClInclude>
     <ClInclude Include="Widget.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Hangar.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Space.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Planet.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Utilities\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Utilities\Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

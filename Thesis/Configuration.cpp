@@ -5,7 +5,7 @@ ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
 ResourceManager<sf::Music, int> Configuration::musics;
 
 ActionMap<int> Configuration::playerInputs;
-
+ActionMap<int> Configuration::gui_inputs;
 
 int Configuration::level;
 int Configuration::lives;
@@ -95,7 +95,7 @@ void Configuration::initTextures()
 
 void Configuration::initFonts()
 {
-	/*fonts.load(Fonts::Gui, "../media/font/trs-million.ttf");*/
+	fonts.load(Fonts::Gui, "../media/font/trs-million.ttf");
 }
 
 void Configuration::initSounds()
@@ -131,6 +131,10 @@ void Configuration::initPlayerInputs()
 }
 
 
+void Configuration::initGuiInputs()
+{
+	gui_inputs.map(GuiInputs::Escape, Action(sf::Keyboard::Escape, Action::Type::Pressed));
+}
 
 
 

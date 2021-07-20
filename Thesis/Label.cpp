@@ -4,7 +4,7 @@
 namespace GUI
 {
 	
-	Label::Label(std::string_view text, Widget* parent = nullptr)
+	Label::Label(std::string_view text, Widget* parent)
 		: Widget(parent)
 	{
 		m_Text.setFont(Configuration::fonts.get(Configuration::Fonts::Gui));
