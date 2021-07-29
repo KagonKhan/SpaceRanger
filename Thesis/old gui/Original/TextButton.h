@@ -11,7 +11,7 @@ namespace GUI {
 		Label m_Label;
 		sf::Color m_FillColor, m_OutlineColor;
 
-		void updateShape()override;
+		void updateShape() override;
 		virtual void onMouseEntered() override;
 		virtual void onMouseLeft() override;
 
@@ -19,7 +19,11 @@ namespace GUI {
 
 
 	public:
+		TextButton(const TextButton&) = delete;
+		TextButton& operator=(const TextButton&) = delete;
+
 		TextButton(std::string_view text, Widget* parent = nullptr);
+		TextButton(std::string_view text, sf::Font& font, Widget* parent = nullptr);
 		virtual ~TextButton();
 
 		void setText(std::string_view text);

@@ -24,6 +24,15 @@ public:
 	Configuration(const Configuration&) = delete;
 	Configuration& operator= (const Configuration&) = delete;
 
+	struct Colors
+	{
+		static sf::Color button_fill;
+		static sf::Color button_outline;
+		static sf::Color label_text;
+
+		static float lighting;
+	};
+
 
 	enum Textures : int {
 		Player,
@@ -44,7 +53,8 @@ public:
 		ShootSaucer
 	};
 	enum Fonts : int {
-		Gui
+		Gui,
+		SpaceGui
 	};
 	enum PlayerInputs : int {
 		Up,

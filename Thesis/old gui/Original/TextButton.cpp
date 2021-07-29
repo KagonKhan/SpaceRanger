@@ -1,14 +1,22 @@
+#include "..\..\..\..\SFML playground\SFML playground\Button.h"
 #include "TextButton.h"
-
+#include "Configuration.h"
 namespace GUI {
 
 	TextButton::TextButton(std::string_view text, Widget* parent)
-		: Button(parent), m_Label(text, this)
+		: TextButton(text, Configuration::fonts.get(Configuration::Gui), parent)
+	{
+
+	}
+
+	TextButton::TextButton(std::string_view text, sf::Font& font, Widget* parent)
+		: Button(parent), m_Label(text, font, this)
 	{
 		setFillColor(sf::Color(86, 20, 19));
 		setOutlineColor(sf::Color(86, 20, 19));
 		setOutlineThickness(5);
 	}
+
 
 	TextButton::~TextButton()
 	{
@@ -63,6 +71,11 @@ namespace GUI {
 		Widget::updateShape();
 	}
 
+	bool TextButton::processEvent(const sf::Event& sfevent)
+	{
+		return false;
+	}
+
 	void TextButton::onMouseEntered()
 	{
 		const float light = 1.4f;
@@ -80,7 +93,7 @@ namespace GUI {
 	void TextButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		states.transform.translate(m_Position);
-		target.draw(m_Shape);
-		target.draw(m_Label);
+		target.draw(m_Shape, states);
+		target.draw(m_Label, states);
 	}
 }

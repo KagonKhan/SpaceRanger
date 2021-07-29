@@ -10,9 +10,7 @@ namespace GUI
 
 	GUI::VLayout::~VLayout()
 	{
-		for (Widget* widget : m_Widgets)
-			if (widget->m_Parent == this)
-				delete widget;
+		clear();
 	}
 
 	sf::Vector2f GUI::VLayout::getSize() const
@@ -28,6 +26,16 @@ namespace GUI
 			y += m_Space + size.y;
 		}
 		return sf::Vector2f(max_x + m_Space * 2, y + m_Space);
+	}
+
+	void VLayout::clear()
+	{
+		for (Widget* widget : m_Widgets)
+			if (widget->m_Parent == this)
+				delete widget;
+
+		m_Widgets.clear();
+		updateShape();
 	}
 
 	void GUI::VLayout::updateShape()

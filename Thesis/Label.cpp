@@ -1,55 +1,53 @@
 #include "Label.h"
-#include "Configuration.h"
 
-namespace GUI
+void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	
-	Label::Label(std::string_view text, Widget* parent)
-		: Widget(parent)
-	{
-		m_Text.setFont(Configuration::fonts.get(Configuration::Fonts::Gui));
-		setText(text);
-		setTextColor(sf::Color(180, 93, 23));
-	}
+	target.draw(m_Text, states);
+}
 
-	Label::~Label()
-	{
+Label::Label(std::string_view text, Widget* parent)
+	: Widget(parent)
+{
 
-	}
+	m_Font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
+	m_Text.setFont(m_Font);
+	m_Text.setCharacterSize(25);
+	m_Text.setString(text.data());
+}
 
-	void Label::setText(std::string_view text)
-	{
-		m_Text.setString(text.data());
-		updateShape();
-	}
+Label::Label(std::string_view text, const sf::Font& font, unsigned int charSize, Widget* parent)
+	: Widget(parent)
+{
+	m_Text.setFont(font);
+	m_Text.setCharacterSize(charSize);
+	m_Text.setString(text.data());
+}
 
-	void Label::setCharacterSize(unsigned int size)
-	{
-		m_Text.setCharacterSize(size);
-		updateShape();
-	}
+sf::Vector2f Label::getSize() const
+{
+	sf::FloatRect rect = m_Text.getGlobalBounds();
+	return sf::Vector2f(rect.width, rect.height);
+}
 
-	void Label::setTextColor(const sf::Color& color)
-	{
-		m_Text.setFillColor(color);
-	}
+void Label::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+	m_Text.setPosition(m_Position);
+}
 
-	unsigned int Label::getCharacterSize() const
-	{
-		return m_Text.getCharacterSize();
-	}
+void Label::setPosition(float x, float y)
+{
+	m_Position.x = x;
+	m_Position.y = y;
+	m_Text.setPosition(m_Position);
+}
 
-	sf::Vector2f Label::getSize() const
-	{
-		sf::FloatRect rect = m_Text.getGlobalBounds();
-		return sf::Vector2f(rect.width, rect.height);
-	}
+void Label::setTextColor(const sf::Color& color)
+{
+	m_Text.setFillColor(color);
+}
 
-	void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	{
-		/* TODO check what this changes */
-		/* Each widget has its own position, so we translate the transform matrix by relative position */
-		states.transform.translate(m_Position);
-		target.draw(m_Text, states);
-	}
+unsigned int Label::getCharacterSize() const
+{
+	return m_Text.getCharacterSize();
 }

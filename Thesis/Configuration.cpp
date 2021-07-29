@@ -16,6 +16,10 @@ int Configuration::m_Score;
 sf::Text	Configuration::m_Txt_Score;
 sf::Sprite	Configuration::m_Spr_Life;
 
+sf::Color Configuration::Colors::button_fill(86, 20, 19);
+sf::Color Configuration::Colors::button_outline(146, 20, 19);
+sf::Color Configuration::Colors::label_text(180, 93, 23);
+float Configuration::Colors::lighting = 1.4;
 
 void Configuration::initialize()
 {
@@ -92,10 +96,11 @@ void Configuration::initTextures()
 	textures.load(Textures::ShootSaucer, "../media/Shoot/Saucer.png");*/
 }
 
-
+/* TODO: have a get function that tries to find existing, or loads from file */
 void Configuration::initFonts()
 {
 	fonts.load(Fonts::Gui, "../media/font/trs-million.ttf");
+	fonts.load(Fonts::SpaceGui, "../media/font/Chopsic.ttf");
 }
 
 void Configuration::initSounds()

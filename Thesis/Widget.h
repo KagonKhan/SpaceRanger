@@ -1,35 +1,30 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "Configuration.h"
 
-namespace GUI
+/* Base class for polymorphism*/
+class Widget : public sf::Drawable
 {
-	/* Basis for other GUI components, can be moved, displayed */
-	class Widget : public sf::Drawable
-	{
-	protected:
-		friend class Containers;
-		friend class VLayout;
+protected:
+	friend class UI;
+	friend class VerticalLayout;
+	friend class HorizontalLayout;
 
-		/* Default behavior, should be overloaded in inheriting classes */
-		virtual bool processEvent(const sf::Event& sfevent, const sf::Vector2f& parent_pos);
-		virtual void processEvents(const sf::Vector2f& parent_pos);
-		/* If parent exists, update parent - propagates the update call through the entire tree */
-		virtual void updateShape();
 
-		/* Widget can be attached to another, so the reference to it is kept here */
-		Widget* m_Parent;
-		sf::Vector2f m_Position;
+	sf::Vector2f m_Position;
 
-	public:
+	virtual bool processEvent(const sf::Event& sfevent);
 
-		Widget(Widget* parent = nullptr);
-		virtual ~Widget();
+public:
+	Widget(const Widget&) = delete;
+	Widget& operator=(const Widget&) = delete;
 
-		void setPosition(const sf::Vector2f& pos);
-		void setPosition(float x, float y);
-		const sf::Vector2f& getPosition() const;
-		/* Each widget should return own size, since it depends on children */
-		virtual sf::Vector2f getSize() const = 0;
-	};
+	Widget(Widget* parent = nullptr);
+	virtual ~Widget();
 
-}
+	virtual void setPosition(const sf::Vector2f& pos);
+	virtual void setPosition(float x, float y);
+
+	virtual sf::Vector2f getSize() const = 0;
+	const sf::Vector2f& getPosition() const;
+};

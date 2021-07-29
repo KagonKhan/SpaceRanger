@@ -24,6 +24,8 @@ namespace GUI
 		void add(Widget* widget);
 		Widget* at(unsigned int index) const;
 		virtual sf::Vector2f getSize() const override;
+
+		virtual void clear();
 	};
 
 }

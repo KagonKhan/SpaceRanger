@@ -1,24 +1,114 @@
 #include "Layout.h"
-
-namespace GUI
+#include "Button.h"
+/* ==============================    LAYOUT    ============================== */
+void Layout::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	Layout::Layout(Widget* parent)
-		: Widget(parent), m_Space(5)
-	{
+	for (Widget* widget : m_Widgets)
+		target.draw(*widget, states);
+
+}
+
+
+Layout::Layout(float padding, Widget* parent)
+	: padding(padding)
+{
+
+}
+
+Layout::~Layout()
+{
+}
+
+sf::Vector2f Layout::getSize() const
+{
+	return sf::Vector2f(0, 0);
+}
+
+void Layout::setPosition(sf::Vector2f position)
+{
+	m_Position = position;
+}
+
+
+
+
+/* ===========================    VERTICAL LAYOUT    =========================== */
+void VerticalLayout::updateShape()
+{
+	float pos_y = m_Position.y;
+
+	for (Widget* widget : m_Widgets) {
+		sf::Vector2f size = widget->getSize();
+
+		widget->setPosition(m_Position.x, pos_y);
+		pos_y += size.y + padding;
 
 	}
+}
 
-	Layout::~Layout()
-	{
+VerticalLayout::VerticalLayout(Widget* parent)
+	: Layout(2.5f, parent)
+{
+}
+
+VerticalLayout::~VerticalLayout()
+{
+}
+
+bool VerticalLayout::processEvent(const sf::Event& sfevent)
+{
+	for (Widget* widget : m_Widgets)
+		widget->processEvent(sfevent);
+
+	return true;
+}
+
+void VerticalLayout::add(Widget* widget)
+{
+
+	m_Widgets.emplace_back(widget);
+
+	updateShape();
+}
+
+
+/* =========================    HORIZONTAL LAYOUT    ========================= */
+
+void HorizontalLayout::updateShape()
+{
+	float pos_x = m_Position.x;
+
+	for (Widget* widget : m_Widgets) {
+		sf::Vector2f size = widget->getSize();
+
+		widget->setPosition(pos_x, m_Position.y);
+		pos_x += size.x + padding;
 
 	}
+}
 
-	void Layout::setSpace(float pixels)
-	{
-		if (pixels >= 0) {
-			m_Space = pixels;
-			updateShape();
-		}
-		else throw std::invalid_argument("[ERROR] pixel value must be >= 0");
-	}
+HorizontalLayout::HorizontalLayout(Widget* parent)
+	: Layout(2.5f, parent)
+{
+}
+
+HorizontalLayout::~HorizontalLayout()
+{
+}
+
+void HorizontalLayout::add(Widget* widget)
+{
+
+	m_Widgets.emplace_back(widget);
+
+
+	updateShape();
+}
+
+bool HorizontalLayout::processEvent(const sf::Event& sfevent)
+{
+	for (Widget* widget : m_Widgets)
+		widget->processEvent(sfevent);
+
+	return true;
 }

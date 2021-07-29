@@ -8,10 +8,13 @@ namespace GUI
 	{
 	private:
 		sf::RenderWindow& m_Window;
+		sf::View m_View;
+		sf::Vector2f m_Size;
+
 
 		virtual bool processEvent(const sf::Event& sfevent, const sf::Vector2f& parent_pos) override;
 		virtual void processEvents(const sf::Vector2f& parent_pos) override;
-
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	
 	public:
 		Frame(const Frame&) = delete;
@@ -20,6 +23,7 @@ namespace GUI
 		using ActionTarget<int>::FuncType;
 
 		Frame(sf::RenderWindow& window);
+		Frame(sf::RenderWindow& window, const ActionMap<int>& map);
 		virtual ~Frame();
 
 		void processEvents();
@@ -30,6 +34,7 @@ namespace GUI
 
 		void draw();
 		virtual sf::Vector2f getSize() const override;
+		void setSize(const sf::Vector2f& size);
 
 	};
 

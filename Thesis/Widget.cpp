@@ -1,46 +1,30 @@
 #include "Widget.h"
 
-namespace GUI
+bool Widget::processEvent(const sf::Event& sfevent)
 {
-	Widget::Widget(Widget* parent)
-		: m_Parent(parent)
-	{
-	}
+	return false;
+}
 
-	Widget::~Widget()
-	{
-	}
-
-	void Widget::setPosition(const sf::Vector2f& pos)
-	{
-		m_Position = pos;
-	}
-
-	void Widget::setPosition(float x, float y)
-	{
-		m_Position = sf::Vector2f(x, y);
-	}
-
-	const sf::Vector2f& Widget::getPosition() const
-	{
-		return m_Position;
-	}
+Widget::Widget(Widget* parent)
+{
+}
 
 
-	bool Widget::processEvent(const sf::Event& sfevent, const sf::Vector2f& parent_pos)
-	{
-		return false;
-	}
+Widget::~Widget()
+{
+}
 
-	void Widget::processEvents(const sf::Vector2f& parent_pos)
-	{
+void Widget::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+}
 
-	}
+void Widget::setPosition(float x, float y)
+{
+	m_Position = sf::Vector2f(x, y);
+}
 
-	void Widget::updateShape()
-	{
-		if (m_Parent)
-			m_Parent->updateShape();
-	}
-
+const sf::Vector2f& Widget::getPosition() const
+{
+	return m_Position;
 }

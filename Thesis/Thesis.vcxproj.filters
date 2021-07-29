@@ -34,6 +34,12 @@
     <Filter Include="Utilities\Animation">
       <UniqueIdentifier>{f5a364ad-433d-44d3-9d8d-593d56707911}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Widgets">
+      <UniqueIdentifier>{07bd7ff1-a127-45bb-aa1b-00bd8557bc56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Widgets\Component">
+      <UniqueIdentifier>{a49b4783-96ec-47e2-b145-36858817f7db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -66,34 +72,7 @@
     <ClCompile Include="Configuration.cpp">
       <Filter>Utilities\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Utilities\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Container.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Frame.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Label.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Layout.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextButton.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Widget.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="VLayout.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="Space.cpp">
@@ -113,6 +92,18 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Utilities\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>GUI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Layout.cpp">
+      <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,30 +146,6 @@
     <ClInclude Include="UI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Frame.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Label.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Layout.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextButton.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="VLayout.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Widget.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Hangar.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -197,5 +164,20 @@
     <ClInclude Include="Animation.h">
       <Filter>Utilities\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>GUI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout.h">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
