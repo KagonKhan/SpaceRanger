@@ -47,7 +47,44 @@ void Label::setTextColor(const sf::Color& color)
 	m_Text.setFillColor(color);
 }
 
+void Label::setCharacterSize(unsigned int size)
+{
+	m_Text.setCharacterSize(size);
+}
+
+void Label::setText(std::string_view text)
+{
+	m_Text.setString(text.data());
+}
+
+void Label::setLetterSpacing(float spacing)
+{
+	m_Text.setLetterSpacing(spacing);
+}
+
+void Label::setOutlineThickness(float thickness)
+{
+	m_Text.setOutlineThickness(thickness);
+}
+
+void Label::setOutlineColor(const sf::Color& color)
+{
+	m_Text.setOutlineColor(color);
+}
+
+
+
 unsigned int Label::getCharacterSize() const
 {
 	return m_Text.getCharacterSize();
+}
+
+const sf::Color& Label::getFillColor() const
+{
+	return m_Text.getFillColor();
+}
+
+const sf::Color& Label::getOutlineColor() const
+{
+	return m_Text.getOutlineColor();
 }

@@ -3,7 +3,9 @@
 
 
 MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& states)
-	: State(window, states), ui(window), m_BackgroundTexture(Configuration::background_textures.get(Configuration::Backgrounds::MainMenu))
+	: State(window, states), ui(window),
+	m_BackgroundTexture(Configuration::background_textures.get(Configuration::Backgrounds::MainMenu)),
+	m_Title("SPACE RANGER")
 {
 	initGUI();
 	initBackground();
@@ -18,19 +20,29 @@ MainMenuState::~MainMenuState()
 void MainMenuState::initGUI()
 {
 	VerticalLayout* layout = new VerticalLayout;
+
 	TextButton* button = new TextButton("New Game");
-	TextButton* button2 = new TextButton("Options");
 	button->on_click = [this](const sf::Event&, Button& button) {
 		std::cout << "New Game\n";
 	};
 
+	TextButton* button2 = new TextButton("Options");
 	button2->on_click = [this](const sf::Event&, Button& button) {
 		std::cout << "Options\n";
 	};
 
+	m_Title.setCharacterSize(100);
+	m_Title.setLetterSpacing(8);
+	m_Title.setOutlineThickness(9);
+	m_Title.setOutlineColor(sf::Color::Blue);
+	sf::Vector2f position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
+
+	m_Title.setPosition(position);
+
 
 	layout->add(button);
 	layout->add(button2);
+
 
 	ui.addLayout(layout);
 
@@ -81,7 +93,6 @@ void MainMenuState::updateBackground(const sf::Time& deltaTime)
 
 
 	sf::IntRect rect = m_BackgroundSprite.getTextureRect();
-	std::cout << rect.left << " " << win_size.x << " " << tex_size.x << "\n";
 		 
 	if (move_right) {
 		if (rect.left + win_size.x < tex_size.x) {
@@ -104,8 +115,38 @@ void MainMenuState::updateBackground(const sf::Time& deltaTime)
 			move_right = !move_right;
 	}
 
-
 	m_BackgroundSprite.setTextureRect(rect);
+}
+
+void MainMenuState::updateTitle(const sf::Time& deltaTime)
+{
+	static bool move_up = true;
+	static const sf::Color tit_col = m_Title.getOutlineColor(); 
+
+	static auto is_in_range = [](int val, int lower, int upper)
+	{
+		return lower <= val && val <= upper;
+	};
+
+	/* Current title color */
+	sf::Color ctc= m_Title.getOutlineColor();
+	if (move_up) {
+		if (is_in_range(ctc.r, 0, 253)) {
+			ctc.r += 1;
+		}
+		else
+			move_up = !move_up;
+	}
+	else
+	{
+		if (is_in_range(ctc.r, 1, 254)) {
+			ctc.r -= 1;
+		}
+		else
+			move_up = !move_up;
+	}
+
+	m_Title.setOutlineColor(ctc);
 }
 
 void MainMenuState::processEvents(const sf::Event& sfevent)
@@ -118,14 +159,14 @@ void MainMenuState::processEvents(const sf::Event& sfevent)
 void MainMenuState::update(const sf::Time& deltaTime)
 {
 	updateBackground(deltaTime);
+	updateTitle(deltaTime);
 }
-
-
 
 
 void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_BackgroundSprite);
+	target.draw(m_Title);
 	target.draw(ui);
 }
 

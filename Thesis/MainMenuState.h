@@ -6,6 +6,8 @@
 class MainMenuState: public State
 {
 	UI ui;
+	Label m_Title;
+	
 	sf::Texture& m_BackgroundTexture;
 	sf::Sprite m_BackgroundSprite;
 
@@ -13,6 +15,7 @@ class MainMenuState: public State
 	void initBackground();
 
 	void updateBackground(const sf::Time& deltaTime);
+	void updateTitle(const sf::Time& deltaTime);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 

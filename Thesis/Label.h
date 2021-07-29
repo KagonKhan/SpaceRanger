@@ -24,9 +24,18 @@ public:
 
 	void setPosition(const sf::Vector2f& pos) override final;
 	void setPosition(float x, float y) override final;
-
 	void setTextColor(const sf::Color& color);
+	void setCharacterSize(unsigned int size);
+	void setText(std::string_view text);
+	void setLetterSpacing(float spacing);
+	void setOutlineThickness(float thickness);
+	void setOutlineColor(const sf::Color& color);
+
+
+
 
 	unsigned int getCharacterSize() const;
+	const sf::Color& getFillColor() const;
+	const sf::Color& getOutlineColor() const;
 };
 
