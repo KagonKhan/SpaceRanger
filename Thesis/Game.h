@@ -1,13 +1,19 @@
 #pragma once
-#include "World.h"
-#include "SFML/Graphics.hpp"
-#include "SFML/Window.hpp"
+
+#include "State.h"
+#include <stack>
+
 class Game
 {
 private:
 	sf::RenderWindow m_Window;
-	World m_World;
+	std::stack<State*> m_States;
 
+	sf::Event sfevent;
+
+	void initWindow(int frameRateLimit, bool verticalSync);
+	void initStates();
+	
 	void processEvents();
 	void update(sf::Time deltaTime);
 	void render();
@@ -17,5 +23,6 @@ public:
 	Game& operator=(const Game&) = delete;
 
 	Game(sf::VideoMode size, std::string title, int frameRateLimit, bool verticalSync);
+	void run(int minFPS);
 };
 

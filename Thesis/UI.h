@@ -1,7 +1,8 @@
 #pragma once
-#include "Widget.h"
+
 #include "Layout.h"
 #include "ActionTarget.h"
+#include "Button.h"
 
 class UI : public Widget, protected ActionTarget<int>
 {
@@ -23,5 +24,7 @@ public:
 	void addLayout(Layout* layout);
 	void setLayoutPosition(sf::Vector2f position);
 
+	void bind(int key, const FuncType& callback);
+	void unbind(int key);
 
 };

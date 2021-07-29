@@ -1,5 +1,6 @@
 #include "Configuration.h"
 ResourceManager<sf::Texture, int> Configuration::textures;
+ResourceManager<sf::Texture, int> Configuration::background_textures;
 ResourceManager<sf::Font, int> Configuration::fonts;
 ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
 ResourceManager<sf::Music, int> Configuration::musics;
@@ -24,11 +25,14 @@ float Configuration::Colors::lighting = 1.4;
 void Configuration::initialize()
 {
 	initTextures();
+	initBackgrounds();
 	initFonts();
 	initSounds();
 	initMusics();
 
 	initPlayerInputs();
+
+	initGuiInputs();
 
 	/*rand_init();
 	m_Txt_Score.setFont(fonts.get(Fonts::Gui));
@@ -78,6 +82,7 @@ void Configuration::draw(sf::RenderTarget& target)
 }
 void Configuration::initTextures()
 {
+
 	/*textures.load(Textures::Player, "../media/Player/Ship.png");
 	textures.load(Textures::PlayerLife, "../media/Player/life.png");
 	textures.load(Textures::BigSaucer, "../media/Saucer/Big.png");
@@ -94,6 +99,11 @@ void Configuration::initTextures()
 	textures.load(Textures::SmallMeteor4, "../media/Meteor/Small4.png");
 	textures.load(Textures::ShootPlayer, "../media/Shoot/Player.png");
 	textures.load(Textures::ShootSaucer, "../media/Shoot/Saucer.png");*/
+}
+
+void Configuration::initBackgrounds()
+{
+	background_textures.load(Backgrounds::MainMenu, "../media/backgrounds/MainMenuBG.jpg");
 }
 
 /* TODO: have a get function that tries to find existing, or loads from file */
@@ -139,6 +149,8 @@ void Configuration::initPlayerInputs()
 void Configuration::initGuiInputs()
 {
 	gui_inputs.map(GuiInputs::Escape, Action(sf::Keyboard::Escape, Action::Type::Pressed));
+	gui_inputs.map(GuiInputs::N, Action(sf::Keyboard::N, Action::Type::Pressed));
+	gui_inputs.map(GuiInputs::O, Action(sf::Keyboard::O, Action::Type::Pressed));
 }
 
 

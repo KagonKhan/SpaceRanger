@@ -12,6 +12,7 @@ private:
 	static sf::Sprite m_Spr_Life;
 
 	static void initTextures();
+	static void initBackgrounds();
 	static void initFonts();
 	static void initSounds();
 	static void initMusics();
@@ -36,21 +37,11 @@ public:
 
 	enum Textures : int {
 		Player,
-		PlayerLife,
-		BigSaucer,
-		SmallSaucer,
-		BigMeteor1,
-		BigMeteor2,
-		BigMeteor3,
-		BigMeteor4,
-		MediumMeteor1,
-		MediumMeteor2,
-		SmallMeteor1,
-		SmallMeteor2,
-		SmallMeteor3,
-		SmallMeteor4,
-		ShootPlayer,
-		ShootSaucer
+		
+	};
+	enum Backgrounds : int {
+		MainMenu,
+
 	};
 	enum Fonts : int {
 		Gui,
@@ -81,9 +72,12 @@ public:
 
 	enum GuiInputs : int {
 		Escape,
+		N,
+		O,
 	};
 
 	static ResourceManager<sf::Texture, int> textures;
+	static ResourceManager<sf::Texture, int> background_textures;
 	static ResourceManager<sf::SoundBuffer, int> sounds;
 	static ResourceManager<sf::Music, int> musics;
 	static ResourceManager<sf::Font, int> fonts;

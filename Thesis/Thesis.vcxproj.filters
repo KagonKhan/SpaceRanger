@@ -40,6 +40,12 @@
     <Filter Include="GUI\Widgets\Component">
       <UniqueIdentifier>{a49b4783-96ec-47e2-b145-36858817f7db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\States">
+      <UniqueIdentifier>{0822afc7-b8ac-4604-8674-17f1a5d41108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\States\GameStates">
+      <UniqueIdentifier>{96f48efb-f6ac-4574-a929-a02032fc3119}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -60,9 +66,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Utilities\Action</Filter>
     </ClCompile>
@@ -74,18 +77,6 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Space.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Hangar.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Planet.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSprite.cpp">
       <Filter>Utilities\Animation</Filter>
@@ -105,6 +96,27 @@
     <ClCompile Include="Layout.cpp">
       <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Hangar.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Planet.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceState.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsState.cpp">
+      <Filter>Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -120,9 +132,6 @@
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
@@ -146,18 +155,6 @@
     <ClInclude Include="UI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Hangar.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Space.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Planet.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="AnimatedSprite.h">
       <Filter>Utilities\Animation</Filter>
     </ClInclude>
@@ -175,6 +172,27 @@
     </ClInclude>
     <ClInclude Include="Layout.h">
       <Filter>GUI\Widgets\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Hangar.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Planet.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceState.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsState.h">
+      <Filter>Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
