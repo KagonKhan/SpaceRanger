@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Label.h"
 
 void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Widget.h"
 
 bool Widget::processEvent(const sf::Event& sfevent)

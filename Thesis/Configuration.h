@@ -71,9 +71,11 @@ public:
 	};
 
 	enum GuiInputs : int {
-		Escape,
 		N,
 		O,
+		H,
+		Q,
+		Escape
 	};
 
 	static ResourceManager<sf::Texture, int> textures;

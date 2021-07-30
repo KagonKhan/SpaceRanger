@@ -66,6 +66,7 @@ public:
 	void setTextColor(const sf::Color& color);
 	void setOutlineThickness(float thickness);
 	void setSize(const sf::Vector2f& size);
+	void setLetterSpacing(float spacing);
 	// Automatically calculate size of the button, based on label
 	void adjustSize();
 

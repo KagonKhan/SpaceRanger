@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "SpaceState.h"
 
 void SpaceState::initGUI()

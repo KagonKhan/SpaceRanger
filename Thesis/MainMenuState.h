@@ -13,6 +13,7 @@ class MainMenuState: public State
 
 	void initGUI();
 	void initBackground();
+	void initTitle();
 
 	void updateBackground(const sf::Time& deltaTime);
 	void updateTitle(const sf::Time& deltaTime);

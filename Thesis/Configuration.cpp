@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Configuration.h"
 ResourceManager<sf::Texture, int> Configuration::textures;
 ResourceManager<sf::Texture, int> Configuration::background_textures;
@@ -148,9 +149,11 @@ void Configuration::initPlayerInputs()
 
 void Configuration::initGuiInputs()
 {
-	gui_inputs.map(GuiInputs::Escape, Action(sf::Keyboard::Escape, Action::Type::Pressed));
 	gui_inputs.map(GuiInputs::N, Action(sf::Keyboard::N, Action::Type::Pressed));
 	gui_inputs.map(GuiInputs::O, Action(sf::Keyboard::O, Action::Type::Pressed));
+	gui_inputs.map(GuiInputs::H, Action(sf::Keyboard::H, Action::Type::Pressed));
+	gui_inputs.map(GuiInputs::Q, Action(sf::Keyboard::Q, Action::Type::Pressed));
+	gui_inputs.map(GuiInputs::Escape, Action(sf::Keyboard::Escape, Action::Type::Pressed));
 }
 
 

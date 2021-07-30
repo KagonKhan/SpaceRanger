@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Collision.h"
 
 bool Collision::CircleTest(const sf::Sprite& first, const sf::Sprite& second)

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "AnimatedSprite.h"
 
 AnimatedSprite::FuncType AnimatedSprite::defaultFunc = []()->void {};

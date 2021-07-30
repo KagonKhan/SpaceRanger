@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Layout.h"
 #include "Button.h"
 /* ==============================    LAYOUT    ============================== */
@@ -27,6 +28,7 @@ sf::Vector2f Layout::getSize() const
 void Layout::setPosition(sf::Vector2f position)
 {
 	m_Position = position;
+	updateShape();
 }
 
 

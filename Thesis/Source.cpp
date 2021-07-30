@@ -1,7 +1,22 @@
+#include "pch.h"
 #pragma warning(disable : 26812)
 
 
 #include "Game.h"
+
+
+
+/* 
+	TODO:
+		- Add precompiled headers
+		- Animate main menu buttons 
+
+
+
+
+
+*/
+
 int main() {
 	Configuration::initialize();
 	

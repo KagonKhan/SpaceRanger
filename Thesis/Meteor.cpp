@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Meteor.h"
 
 void Meteor::draw(sf::RenderTarget& target, sf::RenderStates states) const

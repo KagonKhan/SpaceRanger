@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Button.h"
 
 Button::FuncType Button::defaultFunc = [](const sf::Event&, Button&)->void {};
@@ -148,6 +149,12 @@ void TextButton::setSize(const sf::Vector2f& size)
 	m_Shape.setSize(size);
 }
 
+void TextButton::setLetterSpacing(float spacing)
+{
+	m_Label.setLetterSpacing(spacing);
+	adjustSize();
+}
+
 void TextButton::adjustSize()
 {
 	sf::Vector2f size(0, 0);
@@ -171,8 +178,6 @@ sf::Vector2f TextButton::getSize() const
 {
 	return m_Shape.getSize();
 }
-
-
 
 
 void TextButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
