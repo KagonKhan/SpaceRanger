@@ -1,7 +1,6 @@
 #pragma once
 #include "Widget.h"
 #include "Label.h"
-#include <functional>
 
 class Button :
 	public Widget

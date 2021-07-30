@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Animation.h"
-#include <functional>
-#include <cassert>
+
+
 
 class AnimatedSprite : public sf::Drawable, public sf::Transformable
 {

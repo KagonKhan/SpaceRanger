@@ -1,6 +1,6 @@
 #pragma once
 #pragma warning(disable : 26812)
-#include "SFML/Graphics.hpp"
+
 
 /* Contains internal event, basis for ActionMap, wrapper for particular keys */
 class Action

@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "MainMenuState.h"
-#include <iostream>
-
 
 MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& states)
 	: State(window, states), ui(window),

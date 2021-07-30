@@ -1,5 +1,4 @@
 #pragma once
-#include "SFML/Graphics.hpp"
 #include "Collision.h"
 #include "World.h"
 #include "Configuration.h"

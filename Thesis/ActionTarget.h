@@ -1,9 +1,7 @@
 #pragma once
 #include "ActionMap.h"
 
-#include <functional>
-#include <utility>
-#include <list>
+
 
 /* Usage: Target should inherit from this, use the constructor, then bind functionality */
 /* The constructor accepts ActionMap, which should be initialized earlier */

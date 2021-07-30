@@ -9,11 +9,15 @@
 #include <vector>
 #include <stack>
 #include <list>
+#include <unordered_map>
 
 
-
-#include<functional>
+#include <functional>
+#include <utility>
 #include <cmath>
+#include <cassert>
+#include <stdexcept>
+#include <memory>
 
 
 #include "SFML/System.hpp"

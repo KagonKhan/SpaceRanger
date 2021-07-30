@@ -1,11 +1,7 @@
 #pragma once
-#include <unordered_map>
-#include <memory>
-#include <string>
-#include "SFML/Audio.hpp"
 
-#include <stdexcept>
-#include <utility>
+
+
 
 
 template <typename RESOURCE, typename IDENTIFIER = int>

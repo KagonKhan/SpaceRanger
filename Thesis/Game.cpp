@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Game.h"
-#include <iostream>
 #include "MainMenuState.h"
 
 Game::Game(sf::VideoMode size, std::string title, int frameRateLimit, bool verticalSync)

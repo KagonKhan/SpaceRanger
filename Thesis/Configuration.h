@@ -1,5 +1,5 @@
 #pragma once
-#include "SFML/Graphics.hpp"
+
 #include "ResourceManager.h"
 #include "ActionMap.h"
 
