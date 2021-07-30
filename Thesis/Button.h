@@ -27,6 +27,8 @@ public:
 	FuncType on_click;
 
 
+	virtual bool getStatus() const ;
+
 };
 
 
@@ -34,18 +36,18 @@ public:
 class TextButton :
 	public Button
 {
-private:
-	bool processEvent(const sf::Event& sfevent) override final;
-	void onMouseEntered() override final;
-	void onMouseLeft() override final;
+protected:
+	virtual bool processEvent(const sf::Event& sfevent) override;
+	virtual void onMouseEntered() override;
+	virtual void onMouseLeft() override;
 
 	sf::RectangleShape m_Shape;
 	Label m_Label;
 	sf::Color m_OutlineColor, m_FillColor;
 
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
-	void updateTextPosition();
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void updateTextPosition();
 
 public:
 	TextButton(const TextButton&) = delete;
@@ -58,8 +60,8 @@ public:
 		Widget* parent = nullptr);
 
 
-	void setPosition(const sf::Vector2f& pos) override final;
-	void setPosition(float x, float y) override final;
+	virtual void setPosition(const sf::Vector2f& pos) override;
+	virtual void setPosition(float x, float y) override;
 	void setOutlineColor(const sf::Color& color);
 	void setFillColor(const sf::Color& color);
 	void setTextColor(const sf::Color& color);
@@ -67,7 +69,8 @@ public:
 	void setSize(const sf::Vector2f& size);
 	void setLetterSpacing(float spacing);
 	// Automatically calculate size of the button, based on label
-	void adjustSize();
+	virtual	void adjustSize();
 
-	sf::Vector2f getSize() const override final;
+	virtual sf::Vector2f getSize() const override;
+
 };

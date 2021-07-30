@@ -3,7 +3,10 @@
 #include "ResourceManager.h"
 #include "ActionMap.h"
 
+
 class Player;
+class OptionsState;
+class MainMenuState;
 class Configuration
 {
 private:
@@ -97,6 +100,9 @@ public:
 	static int getScore();
 
 	static class Player* player;
+	static class OptionsState* m_Options;
+	static class MainMenuState* m_MainMenu;
+
 	static int level;
 	static int lives;
 

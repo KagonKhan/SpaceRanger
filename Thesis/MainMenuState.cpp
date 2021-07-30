@@ -5,11 +5,15 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& state
 	: State(window, states), ui(window),
 	m_BackgroundTexture(Configuration::background_textures.get(Configuration::Backgrounds::MainMenu)),
 	m_Title("SPACE RANGER")
+	
 {
 	initGUI();
 	initBackground();
 	initTitle();
 	initMusic();
+
+	Configuration::m_Options = new OptionsState(m_Window, m_States, m_BackgroundSprite);
+	Configuration::m_MainMenu = this;
 }
 
 MainMenuState::~MainMenuState()
@@ -31,7 +35,7 @@ void MainMenuState::initGUI()
 	TextButton* options = new TextButton("(O)ptions");
 	options->setLetterSpacing(5);
 	options->on_click = [this](const sf::Event&, Button& button) {
-		std::cout << "Options\n";
+		Options();
 	};
 	
 	TextButton* high_scores = new TextButton("(H)igh Scores");
@@ -43,7 +47,7 @@ void MainMenuState::initGUI()
 	TextButton* quit = new TextButton("(Q)uit");
 	quit->setLetterSpacing(5);
 	quit->on_click = [this](const sf::Event&, Button& button) {
-		std::cout << "Quit\n";
+		m_Window.close();
 	};
 
 	layout->add(new_game);
@@ -110,7 +114,6 @@ void MainMenuState::initTitle()
 	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
 
 	m_Title.setPosition(title_position);
-
 }
 
 void MainMenuState::initMusic()
@@ -212,11 +215,28 @@ void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 void MainMenuState::Options()
 {
-	m_States.emplace(std::move(new OptionsState(m_Window, m_States)));
+	m_States.push(Configuration::m_Options);
 }
 
 void MainMenuState::NewGame()
 {
 	m_States.emplace(std::move(new SpaceState(m_Window, m_States)));
+}
+
+void MainMenuState::recalculatePositions()
+{
+
+	sf::Vector2u win_size = m_Window.getSize();
+	sf::Vector2u tex_size = m_BackgroundTexture.getSize();
+	sf::IntRect rect(unsigned(0), (tex_size - win_size).y / (unsigned)2, win_size.x, win_size.y);
+	m_BackgroundSprite.setTextureRect(rect);
+
+
+	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
+
+	m_Title.setPosition(title_position);
+
+
+	ui.setLayoutPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
 }
 

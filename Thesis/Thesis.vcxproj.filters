@@ -120,6 +120,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Checkbox.cpp">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkbox.h">
+      <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

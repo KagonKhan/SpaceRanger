@@ -3,8 +3,7 @@
 
 void UI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (Layout* layout : _layouts)
-		target.draw(*layout, states);
+		target.draw(*_layout, states);
 }
 
 UI::UI(sf::RenderWindow& window, Widget* parent)
@@ -20,8 +19,8 @@ sf::Vector2f UI::getSize() const
 
 bool UI::processEvent(const sf::Event& sfevent)
 {
-	for (Layout* layout : _layouts)
-		layout->processEvent(sfevent);
+	
+	_layout->processEvent(sfevent);
 
 	ActionTarget::processEvent(sfevent);
 	return true;
@@ -29,12 +28,15 @@ bool UI::processEvent(const sf::Event& sfevent)
 
 void UI::addLayout(Layout* layout)
 {
-	_layouts.emplace_back(layout);
+	_layout = layout;
+	_layout->updateShape();
 }
 
 void UI::setLayoutPosition(sf::Vector2f position)
 {
 	m_Position = position;
+	_layout->setPosition(position);
+	_layout->updateShape();
 }
 
 void UI::bind(int key, const FuncType& callback)

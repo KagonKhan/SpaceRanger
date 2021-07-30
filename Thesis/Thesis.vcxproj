@@ -159,6 +159,7 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Checkbox.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Enemy.h" />

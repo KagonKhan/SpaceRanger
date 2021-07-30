@@ -15,6 +15,11 @@ Button::Button(float minwidth, float minheight, float maxwidth, float maxheigth,
 
 }
 
+bool Button::getStatus() const
+{
+	return false;
+}
+
 void Button::onMouseEntered()
 {
 }
@@ -38,6 +43,26 @@ bool Button::processEvent(const sf::Event& sfevent)
 
 
 
+TextButton::TextButton(std::string_view text, Widget* parent)
+	: Button(200, 100, 0, 0, parent), m_Label(text, this)
+{
+	m_FillColor = sf::Color::Red;
+	m_Shape.setFillColor(m_FillColor);
+	adjustSize();
+}
+
+TextButton::TextButton(std::string_view text, const sf::Font& font, unsigned int charSize, const sf::Vector2f& size,
+	float outlineThicc, const sf::Color& outlinecolor, const sf::Color& fillColor, const sf::Color& textColor,
+	float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent)
+	: Button(minwidth, minheight, maxwidth, maxheigth, parent),
+	m_Label(text, font, charSize, this)
+{
+	setOutlineColor(outlinecolor);
+	setFillColor(fillColor);
+	setTextColor(textColor);
+	setOutlineThickness(outlineThicc);
+	setSize(size);
+}
 
 bool TextButton::processEvent(const sf::Event& sfevent)
 {
@@ -85,26 +110,6 @@ void TextButton::updateTextPosition()
 	m_Label.setPosition(position);
 }
 
-TextButton::TextButton(std::string_view text, Widget* parent)
-	: Button(200, 100, 0, 0, parent), m_Label(text, this)
-{
-	m_FillColor = sf::Color::Red;
-	m_Shape.setFillColor(m_FillColor);
-	adjustSize();
-}
-
-TextButton::TextButton(std::string_view text, const sf::Font& font, unsigned int charSize, const sf::Vector2f& size,
-	float outlineThicc, const sf::Color& outlinecolor, const sf::Color& fillColor, const sf::Color& textColor,
-	float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent)
-	: Button(minwidth, minheight, maxwidth, maxheigth, parent),
-	m_Label(text, font, charSize, this)
-{
-	setOutlineColor(outlinecolor);
-	setFillColor(fillColor);
-	setTextColor(textColor);
-	setOutlineThickness(outlineThicc);
-	setSize(size);
-}
 
 void TextButton::setPosition(const sf::Vector2f& pos)
 {

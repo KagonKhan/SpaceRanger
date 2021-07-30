@@ -11,8 +11,9 @@
 		- DONE = Add precompiled headers
 		- Animate main menu buttons 
 		- Convert to using smart pointers? i guess?
-
-
+		- Fix leaks
+		- Reposition for fullscreen
+		- Have somewhere window options saved so that it can be recreated properly (config)
 
 
 */

@@ -9,9 +9,9 @@ protected:
 	std::vector<Widget*> m_Widgets;
 	float padding;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	virtual void updateShape() = 0;
 
 public:
+	virtual void updateShape() = 0;
 	Layout(Layout&) = delete;
 	Layout& operator=(Layout&) = delete;
 
