@@ -67,7 +67,7 @@ public:
 		Jump
 	};
 	enum Musics : int {
-		Theme
+		MainMenuTheme
 	};
 
 	enum GuiInputs : int {

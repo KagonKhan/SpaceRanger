@@ -8,9 +8,9 @@
 
 /* 
 	TODO:
-		- Add precompiled headers
+		- DONE = Add precompiled headers
 		- Animate main menu buttons 
-
+		- Convert to using smart pointers? i guess?
 
 
 

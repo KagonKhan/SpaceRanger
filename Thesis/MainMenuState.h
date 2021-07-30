@@ -10,10 +10,12 @@ class MainMenuState: public State
 	
 	sf::Texture& m_BackgroundTexture;
 	sf::Sprite m_BackgroundSprite;
+	sf::Music* m_MainMenuMusic;
 
 	void initGUI();
 	void initBackground();
 	void initTitle();
+	void initMusic();
 
 	void updateBackground(const sf::Time& deltaTime);
 	void updateTitle(const sf::Time& deltaTime);

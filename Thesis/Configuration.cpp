@@ -134,7 +134,7 @@ void Configuration::initSounds()
 }
 void Configuration::initMusics()
 {
-	/*musics.load(Musics::Theme, "../media/musics/theme.ogg");*/
+	musics.load(Musics::MainMenuTheme, "../media/musics/MainMenuTheme.ogg");
 }
 
 void Configuration::initPlayerInputs()

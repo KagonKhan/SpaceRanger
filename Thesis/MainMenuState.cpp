@@ -9,6 +9,7 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& state
 	initGUI();
 	initBackground();
 	initTitle();
+	initMusic();
 }
 
 MainMenuState::~MainMenuState()
@@ -110,6 +111,15 @@ void MainMenuState::initTitle()
 
 	m_Title.setPosition(title_position);
 
+}
+
+void MainMenuState::initMusic()
+{
+	m_MainMenuMusic = &Configuration::musics.get(Configuration::Musics::MainMenuTheme);
+	m_MainMenuMusic->setAttenuation(0);
+	m_MainMenuMusic->setLoop(true);
+	m_MainMenuMusic->setVolume(5);
+	m_MainMenuMusic->play();
 }
 
 void MainMenuState::updateBackground(const sf::Time& deltaTime)
