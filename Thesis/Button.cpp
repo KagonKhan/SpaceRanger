@@ -3,21 +3,31 @@
 
 Button::FuncType Button::defaultFunc = [](const sf::Event&, Button&)->void {};
 
-Button::Button(Widget* parent)
-	: Widget(parent), m_MinWidth(0), m_MinHeight(0), m_MaxWidth(0), m_MaxHeight(0)
+Button::Button(Widget* parent, short int id)
+	: Widget(parent), m_MinWidth(0), m_MinHeight(0), m_MaxWidth(0), m_MaxHeight(0), m_ID(id), m_Status(Status::Idle)
 {
 
 }
 
-Button::Button(float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent)
-	: Widget(parent), m_MinWidth(minwidth), m_MinHeight(minheight), m_MaxWidth(maxwidth), m_MaxHeight(maxheigth)
+Button::Button(float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent, short int id)
+	: Widget(parent), m_MinWidth(minwidth), m_MinHeight(minheight), m_MaxWidth(maxwidth), m_MaxHeight(maxheigth), m_ID(id), m_Status(Status::Idle)
 {
 
 }
 
 bool Button::getStatus() const
 {
-	return false;
+	return m_Status;
+}
+
+short int Button::getID() const
+{
+	return m_ID;
+}
+
+void Button::setID(short int id) 
+{
+	m_ID = id;
 }
 
 void Button::onMouseEntered()
@@ -27,7 +37,6 @@ void Button::onMouseEntered()
 void Button::onMouseLeft()
 {
 }
-
 
 bool Button::processEvent(const sf::Event& sfevent)
 {
@@ -54,6 +63,7 @@ TextButton::TextButton(std::string_view text, Widget* parent)
 TextButton::TextButton(std::string_view text, const sf::Font& font, unsigned int charSize, const sf::Vector2f& size,
 	float outlineThicc, const sf::Color& outlinecolor, const sf::Color& fillColor, const sf::Color& textColor,
 	float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent)
+
 	: Button(minwidth, minheight, maxwidth, maxheigth, parent),
 	m_Label(text, font, charSize, this)
 {
@@ -64,6 +74,7 @@ TextButton::TextButton(std::string_view text, const sf::Font& font, unsigned int
 	setSize(size);
 }
 
+/* TODO: Buttons right now activate when button was RELEASED INSIDE THE BUTTON, might want to change later */
 bool TextButton::processEvent(const sf::Event& sfevent)
 {
 	bool res = false;
@@ -103,13 +114,13 @@ void TextButton::onMouseLeft()
 	m_Shape.setOutlineColor(m_OutlineColor);
 }
 
+/* TODO: For some reason the text is not centered vertically, its y=0 is in the middle of the button IDK why for now don't care - it's a feature*/
 void TextButton::updateTextPosition()
 {
 	sf::Vector2f position((m_Shape.getSize() - m_Label.getSize()) / 2.f);
 	position += m_Shape.getPosition();
 	m_Label.setPosition(position);
 }
-
 
 void TextButton::setPosition(const sf::Vector2f& pos)
 {
@@ -123,8 +134,6 @@ void TextButton::setPosition(float x, float y)
 	m_Position.x = x;
 	m_Position.y = y;
 	m_Shape.setPosition(m_Position);
-
-	updateTextPosition();
 }
 
 void TextButton::setOutlineColor(const sf::Color& color)
@@ -152,8 +161,10 @@ void TextButton::setOutlineThickness(float thickness)
 void TextButton::setSize(const sf::Vector2f& size)
 {
 	m_Shape.setSize(size);
+	updateTextPosition();
 }
 
+/* TODO: maybe add a flag if I want to actually adjust button size automatically */
 void TextButton::setLetterSpacing(float spacing)
 {
 	m_Label.setLetterSpacing(spacing);
@@ -162,7 +173,7 @@ void TextButton::setLetterSpacing(float spacing)
 
 void TextButton::adjustSize()
 {
-	sf::Vector2f size(0, 0);
+	sf::Vector2f size;
 	size.x = m_Label.getSize().x + 2 * m_Label.getCharacterSize();
 	size.y = m_Label.getSize().y + 1.5 * m_Label.getCharacterSize();
 

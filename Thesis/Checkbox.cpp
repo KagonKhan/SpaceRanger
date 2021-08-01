@@ -20,6 +20,12 @@ Checkbox::Checkbox(std::string_view text, Widget* parent)
 	adjustSize();
 }
 
+/* TODO: Finish the constructor */
+Checkbox::Checkbox(std::string_view text, const sf::Font& font, unsigned int charSize, unsigned int size, float outlineThicc, const sf::Color& outlinecolor, const sf::Color& fillColor, const sf::Color& textColor, Widget* parent)
+	: TextButton(text, parent)
+{
+}
+
 bool Checkbox::processEvent(const sf::Event& sfevent)
 {
 	bool res = false;

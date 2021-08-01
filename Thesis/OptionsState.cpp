@@ -8,7 +8,7 @@ void OptionsState::processEvents(const sf::Event& sfevent)
 }
 
 OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State*>& states, sf::Sprite& bgsprite)
-	: State(window, states), ui(window), m_BackgroundSprite(bgsprite),
+	: State(window, states), ui(window), m_NavUI(window), m_BackgroundSprite(bgsprite),
 	m_Title("OPTIONS")
 {
 	std::cout << "\nOptions State constructor\n";
@@ -40,6 +40,13 @@ void OptionsState::initGUI()
 	layout->setPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
 
 	ui.addLayout(layout);
+
+
+
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+
+	for (auto x : modes)
+		std::cout << x.width << " " << x.height << "\n";
 
 }
 

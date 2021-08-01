@@ -11,7 +11,7 @@ private:
 
 	sf::Event sfevent;
 
-	void initWindow(int frameRateLimit, bool verticalSync);
+	void initWindow();
 	void initStates();
 	
 	void processEvents();
@@ -22,7 +22,7 @@ public:
 	Game(const Game&) = delete;
 	Game& operator=(const Game&) = delete;
 
-	Game(sf::VideoMode size, std::string title, int frameRateLimit, bool verticalSync);
+	Game();
 	void run(int minFPS);
 };
 

@@ -6,6 +6,7 @@ class OptionsState : public State
 {
 
 	UI ui;
+	UI m_NavUI;
 	Label m_Title;
 
 	sf::Sprite& m_BackgroundSprite;

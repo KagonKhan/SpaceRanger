@@ -2,25 +2,56 @@
 #include "Game.h"
 #include "MainMenuState.h"
 
-Game::Game(sf::VideoMode size, std::string title, int frameRateLimit, bool verticalSync)
-	: m_Window(size,title)
+Game::Game()
+	: m_Window()
 {
-	initWindow(frameRateLimit, verticalSync);
-	
+	Configuration::initialize();
+	initWindow();
 	/* Custom Cursor*/
 
 
 	initStates();
 }
 
-void Game::initWindow(int frameRateLimit, bool verticalSync)
+void Game::initWindow()
 {
-	m_Window.setFramerateLimit(frameRateLimit);
-	m_Window.setVerticalSyncEnabled(verticalSync);
-	m_Window.setMouseCursorGrabbed(false);
+	std::ifstream settings("../media/config/screen.txt");
+	
+	std::string title;
+	std::getline(settings, title);
+	
+	int x, y;
+	settings >> x >> y;
+
+	int framerate;
+	settings >> framerate;
+	
+	bool fullscreen;
+	settings >> fullscreen;
+		
+	bool borderless;
+	settings >> borderless;
+
+	bool vsync;
+	settings >> vsync;
+
+	using namespace sf::Style;
+
+	if (fullscreen) {
+		if (borderless)
+			m_Window.create(sf::VideoMode::getDesktopMode(), title, None);
+		else
+			m_Window.create(sf::VideoMode::getDesktopMode(), title, Titlebar | Close | Fullscreen);
+	}
+	else
+		m_Window.create(sf::VideoMode(x, y), title, Titlebar | Close );
+
+
+	m_Window.setFramerateLimit(framerate);
+	m_Window.setVerticalSyncEnabled(vsync);
 }
 
-
+/* TODO: check if this doesn't cause any WHACKY behavior*/
 void Game::initStates()
 {
 	m_States.emplace(std::move(new MainMenuState(m_Window, m_States)));
@@ -30,7 +61,7 @@ void Game::processEvents()
 {
 	while (m_Window.pollEvent(sfevent))
 	{
-		if ((sfevent.type == sf::Event::Closed) or (sfevent.type == sf::Event::KeyPressed and sfevent.key.code == sf::Keyboard::Escape))
+		if (sfevent.type == sf::Event::Closed)
 			m_Window.close(); //close the window
 
 		m_States.top()->processEvents(sfevent);
@@ -38,6 +69,7 @@ void Game::processEvents()
 
 }
 
+/* TODO: maybe add safeguards for empty containers, altho does it matter? */
 void Game::update(sf::Time deltaTime)
 {
 	m_States.top()->update(deltaTime);
@@ -61,6 +93,7 @@ void Game::run(int minFPS)
 		timeSinceLastUpdate = clock.restart();
 
 		// If the game runs slower than it should
+		// Update if many times, before rendering
 		while (timeSinceLastUpdate > TimePerFrame) {
 			timeSinceLastUpdate -= TimePerFrame;
 

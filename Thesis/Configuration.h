@@ -100,6 +100,7 @@ public:
 	static int getScore();
 
 	static class Player* player;
+	/* TODO: Decide if I want to hold pointers here, or just have State* in each class */
 	static class OptionsState* m_Options;
 	static class MainMenuState* m_MainMenu;
 

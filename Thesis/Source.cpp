@@ -7,6 +7,7 @@
 
 
 /* 
+* SFML does not work well with scaling, resulting in either native fullscreen or windowed mode
 	TODO:
 		- DONE = Add precompiled headers
 		- Animate main menu buttons 
@@ -19,8 +20,8 @@
 */
 
 int main() {
-	Configuration::initialize();
+
 	
-	Game game(sf::VideoMode(1920, 1080), "thesis", 120, false);
-	game.run(30);
+	Game game;
+	game.run(60);
 }

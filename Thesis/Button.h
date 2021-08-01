@@ -7,6 +7,8 @@ class Button :
 {
 protected:
 	int m_Status;
+	/* ID used to easily differentiate between many buttons in a layout */
+	short int m_ID;
 	enum Status { Idle = 0, Hover = 1, Pressed = 2 };
 
 	float m_MinWidth, m_MinHeight, m_MaxWidth, m_MaxHeight;
@@ -19,8 +21,8 @@ public:
 	Button(const Button&) = delete;
 	Button& operator=(const Button&) = delete;
 
-	Button(Widget* parent = nullptr);
-	Button(float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent = nullptr);
+	Button(Widget* parent = nullptr, short int id =0);
+	Button(float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent = nullptr, short int id = 0);
 
 	using FuncType = std::function<void(const sf::Event& sfevent, Button& self)>;
 	static FuncType defaultFunc;
@@ -28,7 +30,8 @@ public:
 
 
 	virtual bool getStatus() const ;
-
+	short int getID() const;
+	void setID(short int id);
 };
 
 
@@ -73,4 +76,21 @@ public:
 
 	virtual sf::Vector2f getSize() const override;
 
+};
+
+/* TODO: Finish this class */
+class SpriteButton :
+	public Button
+{
+private:
+	sf::Sprite m_Sprite;
+	// maybe label
+public:
+	SpriteButton(const SpriteButton&) = delete;
+	SpriteButton& operator=(const SpriteButton&) = delete;
+	SpriteButton(const sf::Texture& texture, Widget* parent = nullptr);
+
+
+
+	virtual sf::Vector2f getSize() const override;
 };

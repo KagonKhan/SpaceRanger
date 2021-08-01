@@ -2,6 +2,13 @@
 #include "Button.h"
 #include "Label.h"
 
+
+/* 
+	TODO: 
+		- Cross class could be better, draw "thick" lines as in quads instead of lines?
+		- Positioning and pressable area could use some work
+	
+*/
 class Checkbox :
 	public TextButton
 {
