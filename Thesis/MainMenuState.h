@@ -6,6 +6,7 @@
 class MainMenuState: public State
 {
 	friend class OptionsState;
+
 	UI ui;
 	Label m_Title;
 	
@@ -29,7 +30,6 @@ class MainMenuState: public State
 	void recalculatePositions();
 
 public:
-	friend class OptionsState;
 	void processEvents(const sf::Event& sfevent);
 	MainMenuState(sf::RenderWindow& window, std::stack<State*>& states);
 	~MainMenuState();

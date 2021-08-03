@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MainMenuState.h"
+#include "HangarState.h"
 
 MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& states)
 	: State(window, states), ui(window),
@@ -29,7 +30,7 @@ void MainMenuState::initGUI()
 	TextButton* new_game = new TextButton("(N)ew Game");
 	new_game->setLetterSpacing(5);
 	new_game->on_click = [this](const sf::Event&, Button& button) {
-		std::cout << "New Game\n";
+		NewGame();
 	};
 
 	TextButton* options = new TextButton("(O)ptions");
@@ -220,7 +221,7 @@ void MainMenuState::Options()
 
 void MainMenuState::NewGame()
 {
-	m_States.emplace(std::move(new SpaceState(m_Window, m_States)));
+	m_States.push(new HangarState(m_Window, m_States));
 }
 
 void MainMenuState::recalculatePositions()

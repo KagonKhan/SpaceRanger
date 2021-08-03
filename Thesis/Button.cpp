@@ -4,7 +4,7 @@
 Button::FuncType Button::defaultFunc = [](const sf::Event&, Button&)->void {};
 
 Button::Button(Widget* parent, short int id)
-	: Widget(parent), m_MinWidth(0), m_MinHeight(0), m_MaxWidth(0), m_MaxHeight(0), m_ID(id), m_Status(Status::Idle)
+	: Widget(parent), m_MinWidth(0), m_MinHeight(0), m_MaxWidth(0), m_MaxHeight(0), m_ID(id), m_Status(Status::Idle), m_IsVisible(true)
 {
 
 }
@@ -28,6 +28,26 @@ short int Button::getID() const
 void Button::setID(short int id) 
 {
 	m_ID = id;
+}
+
+void Button::setIsVisible(bool visible)
+{
+	m_IsVisible = visible;
+}
+
+bool Button::getIsVisible() const
+{
+	return m_IsVisible;
+}
+
+void Button::setIsActive(bool active)
+{
+	m_IsActive = active;
+}
+
+bool Button::getIsActive() const
+{
+	return m_IsActive;
 }
 
 void Button::onMouseEntered()
@@ -131,9 +151,7 @@ void TextButton::setPosition(const sf::Vector2f& pos)
 
 void TextButton::setPosition(float x, float y)
 {
-	m_Position.x = x;
-	m_Position.y = y;
-	m_Shape.setPosition(m_Position);
+	setPosition(sf::Vector2f(x,y));
 }
 
 void TextButton::setOutlineColor(const sf::Color& color)
@@ -196,8 +214,11 @@ sf::Vector2f TextButton::getSize() const
 }
 
 
+
 void TextButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_Shape, states);
-	target.draw(m_Label, states);
+	if (m_IsVisible) {
+		target.draw(m_Shape, states);
+		target.draw(m_Label, states);
+	}
 }

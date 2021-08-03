@@ -1,8 +1,9 @@
 #pragma once
 #include "Widget.h"
+#include "Checkbox.h"
 
-
-class Layout : public Widget
+class Layout 
+	: public Widget
 {
 
 protected:
@@ -21,11 +22,21 @@ public:
 	sf::Vector2f getSize() const override final;
 
 	void setPosition(sf::Vector2f position);
+	void add(Widget* widget);
 
+	Widget* getAt(unsigned int index) const;
+
+	virtual void update(const sf::Time& deltaTime);
+
+	void hideAllButtons();
+	void showAllButtons();
+
+	virtual void setAllButtonsStatus(bool status);
 };
 
 
-class VerticalLayout : public Layout
+class VerticalLayout 
+	: public Layout
 {
 private:
 	void updateShape();
@@ -37,12 +48,42 @@ public:
 	VerticalLayout(Widget* parent = nullptr);
 	virtual ~VerticalLayout();
 
-	bool processEvent(const sf::Event& sfevent);
-	void add(Widget* widget);
-
+	virtual bool processEvent(const sf::Event& sfevent) override;
 };
 
-class HorizontalLayout : public Layout
+class VerticalScrollingLayout
+	: public VerticalLayout
+{
+private:
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	void draw();
+
+	sf::RenderTexture m_ViewableAreaTexture;
+	sf::Sprite m_ViewableAreaSprite;
+	sf::FloatRect m_ViewableArea;
+	float m_MaxScrollSpeed;
+	float m_CurrentSpeed;
+
+public:
+	VerticalScrollingLayout(VerticalScrollingLayout&) = delete;
+	VerticalScrollingLayout& operator=(VerticalScrollingLayout&) = delete;
+
+	VerticalScrollingLayout(Widget* parent = nullptr);
+	virtual ~VerticalScrollingLayout();
+
+	bool processEvent(const sf::Event& sfevent) override final;
+
+	void setViewableArea(const sf::Vector2f& area);
+	void setMaxScrollSpeed(float speed);
+
+	void update(const sf::Time& deltaTime) override final;
+};
+
+
+
+class HorizontalLayout 
+	: public Layout
 {
 private:
 	void updateShape();
@@ -55,6 +96,6 @@ public:
 	virtual ~HorizontalLayout();
 
 	bool processEvent(const sf::Event& sfevent);
-	void add(Widget* widget);
+
 
 };

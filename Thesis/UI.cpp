@@ -48,3 +48,23 @@ void UI::unbind(int key)
 {
 	ActionTarget::unbind(key);
 }
+
+void UI::update(const sf::Time& deltaTime)
+{
+	_layout->update(deltaTime);
+}
+
+void UI::hideAllButtons()
+{
+	_layout->hideAllButtons();
+}
+
+void UI::showAllButtons()
+{
+	_layout->showAllButtons();
+}
+
+void UI::setAllButtonsStatus(bool status)
+{
+	_layout->setAllButtonsStatus(status);
+}

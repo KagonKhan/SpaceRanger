@@ -8,14 +8,14 @@ protected:
 	friend class UI;
 	friend class VerticalLayout;
 	friend class HorizontalLayout;
-
+	friend class VerticalScrollingLayout;
 
 	sf::Vector2f m_Position;
 
 	virtual bool processEvent(const sf::Event& sfevent);
 
 public:
-	Widget(const Widget&) = delete;
+	Widget(const Widget&) = delete; 
 	Widget& operator=(const Widget&) = delete;
 
 	Widget(Widget* parent = nullptr);

@@ -1,6 +1,5 @@
 #pragma once
 #include "Collision.h"
-#include "World.h"
 #include "Configuration.h"
 
 class Entity : public sf::Drawable
@@ -10,12 +9,10 @@ private:
 
 protected:
 	sf::Sprite m_Sprite;
-	sf::RectangleShape m_Shape;
-	double hp;
+	sf::RectangleShape m_Shape; // Possibly for collision detectio
 
-	sf::Vector2f m_Velocity;
 
-	World& m_World; // world reference to manipulate entities
+	sf::Vector2f m_Position, m_Velocity, m_Direction;
 
 	bool m_Alive;
 
@@ -23,7 +20,7 @@ public:
 	Entity(const Entity&) = delete;
 	Entity& operator=(const Entity&) = delete;
 
-	Entity(Configuration::Textures tex_id, World& world);
+	Entity(Configuration::Textures tex_id);
 	virtual ~Entity();
 
 	virtual bool isAlive() const;
@@ -38,3 +35,26 @@ public:
 	virtual void onDestroy();
 };
 
+class Ship :
+	public Entity
+{
+	double hp;
+
+public:
+
+
+};
+
+
+class Weapon :
+	public Entity
+{
+
+
+};
+
+class Ammunition :
+	public Entity
+{
+
+};

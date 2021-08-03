@@ -28,4 +28,10 @@ public:
 	void bind(int key, const FuncType& callback);
 	void unbind(int key);
 
+	void update(const sf::Time& deltaTime);
+
+
+	void hideAllButtons();
+	void showAllButtons();
+	virtual void setAllButtonsStatus(bool status);
 };

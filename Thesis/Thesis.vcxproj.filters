@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Entity">
-      <UniqueIdentifier>{ae2c667f-ff62-4881-8832-0325a5f91c37}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{03875279-cd2d-4aff-a622-c26b279fd1a8}</UniqueIdentifier>
     </Filter>
@@ -46,22 +43,28 @@
     <Filter Include="Game\States\GameStates">
       <UniqueIdentifier>{96f48efb-f6ac-4574-a929-a02032fc3119}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entities">
+      <UniqueIdentifier>{ae2c667f-ff62-4881-8832-0325a5f91c37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\States\MenuStates">
+      <UniqueIdentifier>{6de7d0e4-98b4-482d-9d60-7d365c526fc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Meteor.cpp">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
@@ -96,12 +99,6 @@
     <ClCompile Include="Layout.cpp">
       <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuState.cpp">
-      <Filter>Game\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Hangar.cpp">
-      <Filter>Game\States\GameStates</Filter>
-    </ClCompile>
     <ClCompile Include="Planet.cpp">
       <Filter>Game\States\GameStates</Filter>
     </ClCompile>
@@ -111,31 +108,37 @@
     <ClCompile Include="World.cpp">
       <Filter>Game\States\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsState.cpp">
-      <Filter>Game\States</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Checkbox.cpp">
       <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
+    <ClCompile Include="OptionsState.cpp">
+      <Filter>Game\States\MenuStates</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Game\States\MenuStates</Filter>
+    </ClCompile>
+    <ClCompile Include="HangarState.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Game\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Meteor.h">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files\Entity</Filter>
+      <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
@@ -179,12 +182,6 @@
     <ClInclude Include="Layout.h">
       <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuState.h">
-      <Filter>Game\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Hangar.h">
-      <Filter>Game\States\GameStates</Filter>
-    </ClInclude>
     <ClInclude Include="Planet.h">
       <Filter>Game\States\GameStates</Filter>
     </ClInclude>
@@ -194,20 +191,23 @@
     <ClInclude Include="World.h">
       <Filter>Game\States\GameStates</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsState.h">
-      <Filter>Game\States</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Checkbox.h">
       <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="OptionsState.h">
+      <Filter>Game\States\MenuStates</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Game\States\MenuStates</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="HangarState.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

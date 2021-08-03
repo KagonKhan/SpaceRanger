@@ -85,7 +85,7 @@ void Configuration::draw(sf::RenderTarget& target)
 }
 void Configuration::initTextures()
 {
-
+	textures.load(Textures::Hangar, "../media/backgrounds/Hangar.png");
 	/*textures.load(Textures::Player, "../media/Player/Ship.png");
 	textures.load(Textures::PlayerLife, "../media/Player/life.png");
 	textures.load(Textures::BigSaucer, "../media/Saucer/Big.png");

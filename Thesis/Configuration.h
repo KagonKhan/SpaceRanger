@@ -40,6 +40,7 @@ public:
 
 	enum Textures : int {
 		Player,
+		Hangar,
 		
 	};
 	enum Backgrounds : int {

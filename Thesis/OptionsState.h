@@ -5,8 +5,7 @@
 class OptionsState : public State
 {
 
-	UI ui;
-	UI m_NavUI;
+	std::vector<UI*> uis;
 	Label m_Title;
 
 	sf::Sprite& m_BackgroundSprite;
@@ -19,7 +18,8 @@ class OptionsState : public State
 
 
 	void fullscreen(Button& button);
-	void recalculatePositions();
+	void changeResolution(const sf::VideoMode& mode);
+	void recalculatePositions(UI* ui, const sf::Vector2f &pos);
 public:
 
 	void processEvents(const sf::Event& sfevent);

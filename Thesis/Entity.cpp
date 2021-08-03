@@ -1,15 +1,8 @@
 #include "pch.h"
 #include "Entity.h"
 
-template<typename ... Args>
-inline void Entity::setPosition(Args&& ... args)
-{
-	m_Sprite.setPosition(std::forward<Args>(args)...);
-	m_Shape.setPosition(std::forward<Args>(args)...);
-}
-
-Entity::Entity(Configuration::Textures tex_id, World& world)
-	: m_World(world), m_Alive(true)
+Entity::Entity(Configuration::Textures tex_id)
+	: m_Alive(true)
 {
 	/** TO DO **/
 	/*
@@ -20,9 +13,18 @@ Entity::Entity(Configuration::Textures tex_id, World& world)
 	*/
 }
 
+
 Entity::~Entity()
 {
 
+}
+
+template<typename ... Args>
+inline void Entity::setPosition(Args&& ... args)
+{
+	m_Position(std::forward<Args>(args)...);
+	m_Sprite.setPosition(std::forward<Args>(args)...);
+	m_Shape.setPosition(std::forward<Args>(args)...);
 }
 
 void Entity::onDestroy()
@@ -37,5 +39,5 @@ bool Entity::isAlive() const
 
 const sf::Vector2f& Entity::getPosition() const
 {
-	return m_Sprite.getPosition();
+	return m_Position;
 }

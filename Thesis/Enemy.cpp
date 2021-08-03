@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Enemy.h"
 
-Enemy::Enemy(Configuration::Textures tex_id, World& world)
-	: Entity(tex_id,world)
+Enemy::Enemy(Configuration::Textures tex_id)
+	: Entity(tex_id)
 {
 }
 

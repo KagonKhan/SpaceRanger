@@ -7,6 +7,9 @@ class Button :
 {
 protected:
 	int m_Status;
+	bool m_IsVisible;
+	bool m_IsActive;
+
 	/* ID used to easily differentiate between many buttons in a layout */
 	short int m_ID;
 	enum Status { Idle = 0, Hover = 1, Pressed = 2 };
@@ -32,6 +35,11 @@ public:
 	virtual bool getStatus() const ;
 	short int getID() const;
 	void setID(short int id);
+
+	void setIsVisible(bool visible);
+	bool getIsVisible() const;
+	void setIsActive(bool active);
+	bool getIsActive() const;
 };
 
 
@@ -88,7 +96,7 @@ private:
 public:
 	SpriteButton(const SpriteButton&) = delete;
 	SpriteButton& operator=(const SpriteButton&) = delete;
-	SpriteButton(const sf::Texture& texture, Widget* parent = nullptr);
+	SpriteButton(Configuration::Textures tex_id, Widget* parent = nullptr);
 
 
 

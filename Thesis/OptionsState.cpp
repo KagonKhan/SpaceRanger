@@ -4,11 +4,12 @@
 
 void OptionsState::processEvents(const sf::Event& sfevent)
 {
-	ui.processEvent(sfevent);
+	for (UI* ui : uis)
+		ui->processEvent(sfevent);
 }
 
 OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State*>& states, sf::Sprite& bgsprite)
-	: State(window, states), ui(window), m_NavUI(window), m_BackgroundSprite(bgsprite),
+	: State(window, states), m_BackgroundSprite(bgsprite), 
 	m_Title("OPTIONS")
 {
 	std::cout << "\nOptions State constructor\n";
@@ -21,33 +22,102 @@ OptionsState::~OptionsState()
 	std::cout << "\nOptions State destructor\n";
 }
 
+
 void OptionsState::initGUI()
 {
+	uis.reserve(2);
+		uis.push_back(new UI(m_Window));
+		uis.push_back(new UI(m_Window));
+
+
+
+	HorizontalLayout* window_sizes = new HorizontalLayout();
+	/* TODO: possible out of bounds access */
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+	for (int i = 0; i <= 4; i+=2) {
+		std::string	button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
+		TextButton* button = new TextButton(button_text);
+		button->setSize(sf::Vector2f(250, 75));
+
+		/* THESE ARE CHECK BOXES, THEY SHOULD BE EXCLUSIVE*/
+		button->on_click = [i, modes,this](const sf::Event&, Button& button) {
+			uis[0]->setAllButtonsStatus(false);
+			changeResolution(modes[i]);
+		};
+
+		window_sizes->add(button);
+	}
+
+	VerticalLayout* other_options = new VerticalLayout;
 	Checkbox* fullscreen = new Checkbox("Fullscreen");
+	fullscreen->setSize(sf::Vector2f(250, 75));
 	fullscreen->on_click = [this](const sf::Event&, Button& button) {
 		OptionsState::fullscreen(button);
 	};
 
+	sf::Vector2u max_win_size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	fullscreen->setChecked(m_Window.getSize() == max_win_size);
+	window_sizes->add(fullscreen);
+
+	window_sizes->setPosition(sf::Vector2f(50, 300));
+	uis[0]->addLayout(window_sizes);
+
+
+	VerticalLayout* navigation = new VerticalLayout;
 	TextButton* back = new TextButton("BACK");
 	back->on_click = [this](const sf::Event&, Button& button) {
 		m_States.pop();
 	};
 
-	VerticalLayout* layout = new VerticalLayout;
-	layout->add(fullscreen);
-	layout->add(back);
 
-	layout->setPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
-
-	ui.addLayout(layout);
+	navigation->add(back);
+	navigation->setPosition(sf::Vector2f(0,0));
+	uis[1]->addLayout(navigation);
 
 
+	/*
+	/* TODO: Clean up the code
+	VerticalScrollingLayout* vert_layout = new VerticalScrollingLayout;
 
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+	int index;
+	for (int i = 0; i < modes.size(); ++i) {
 
-	for (auto x : modes)
-		std::cout << x.width << " " << x.height << "\n";
+		std::string	button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
+		TextButton* button = new TextButton(button_text);
+		button->setSize(sf::Vector2f(250, 75));
 
+		button->on_click = [this](const sf::Event&, Button& button) {
+			ui.showAllButtons();
+			std::cout << "test";
+			//activateButton(&button);
+		};
+
+		button->setID(i);
+
+		
+
+		/* Set only this as visible 
+		if (m_Window.getSize().x == modes[i].width && m_Window.getSize().y == modes[i].height) {
+			button->setIsVisible(true);
+			button->setIsActive(true);
+			index = i;
+		}
+		else {
+			button->setIsVisible(false);
+			button->setIsActive(false);
+		}
+		vert_layout->add(button);
+	}
+	sf::Vector2f pos(300, 200);
+	vert_layout->setPosition(pos);
+
+
+	pos.y -= index*75;
+	vert_layout->setPosition(pos);
+
+	scrollUI.addLayout(vert_layout);
+	*/
 }
 
 void OptionsState::initTitle()
@@ -66,29 +136,18 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_BackgroundSprite);
 	target.draw(m_Title);
-	target.draw(ui);
-}
-
-void OptionsState::fullscreen(Button& button)
-{
-
-	if (!button.getStatus())
-		m_Window.create(sf::VideoMode(2560, 1440), "test", sf::Style::Fullscreen);
-	else
-		m_Window.create(sf::VideoMode(1920, 1080), "test", sf::Style::Default);
-
-	m_Window.setFramerateLimit(120);
-	Configuration::m_MainMenu->recalculatePositions();
-	recalculatePositions();
+	target.draw(*uis[0]);
+	target.draw(*uis[1]);
 }
 
 void OptionsState::update(const sf::Time& deltaTime)
 {
+	
 }
 
+/* TODO: FIX THIS, it's so stupid, normalize the functionality */
 
-
-void OptionsState::recalculatePositions()
+void OptionsState::recalculatePositions(UI* ui, const sf::Vector2f &pos)
 {
 	Configuration::m_MainMenu->m_BackgroundTexture;
 
@@ -102,6 +161,28 @@ void OptionsState::recalculatePositions()
 
 	m_Title.setPosition(title_position);
 
+	uis[0]->setLayoutPosition(pos);
+	
+	uis[1]->setLayoutPosition(sf::Vector2f(0, 0));
+}
 
-	ui.setLayoutPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
+void OptionsState::changeResolution(const sf::VideoMode& mode)
+{
+	m_Window.create(mode, "test", sf::Style::Default);
+	m_Window.setFramerateLimit(120);
+	Configuration::m_MainMenu->recalculatePositions();
+	recalculatePositions(uis[0], sf::Vector2f(50,300));
+}
+
+void OptionsState::fullscreen(Button& button)
+{
+
+	if (!button.getStatus())
+		m_Window.create(sf::VideoMode(2560, 1440), "test", sf::Style::Fullscreen);
+	else
+		m_Window.create(sf::VideoMode(1920, 1080), "test", sf::Style::Default);
+
+	m_Window.setFramerateLimit(120);
+	Configuration::m_MainMenu->recalculatePositions();
+	recalculatePositions(uis[0], sf::Vector2f(50, 300));
 }

@@ -15,7 +15,7 @@ Checkbox::Checkbox(std::string_view text, Widget* parent)
 	m_BoxShape.setOutlineThickness(2);
 	m_BoxShape.setOutlineColor(sf::Color::Black);
 
-	checked = false;
+	m_IsChecked = false;
 
 	adjustSize();
 }
@@ -34,7 +34,7 @@ bool Checkbox::processEvent(const sf::Event& sfevent)
 		rect.width += m_BoxShape.getSize().x;
 		if (rect.contains(sfevent.mouseButton.x, sfevent.mouseButton.y)) {
 			on_click(sfevent, *this);
-			checked = !checked;
+			m_IsChecked = !m_IsChecked;
 			res = true;
 		}
 	}
@@ -78,7 +78,7 @@ void Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_BoxShape, states);
 	target.draw(m_Label, states);
 
-	if (checked)
+	if (m_IsChecked)
 		target.draw(cross, states);
 }
 
@@ -148,7 +148,7 @@ void Checkbox::adjustSize()
 
 sf::Vector2f Checkbox::getSize() const
 {
-	return m_Shape.getSize();
+	return m_Shape.getSize() + sf::Vector2f(m_BoxShape.getSize().x, 0);
 }
 
 void Checkbox::updateTextPosition()
@@ -160,6 +160,11 @@ void Checkbox::updateTextPosition()
 
 bool Checkbox::getStatus() const
 {
-	return checked;
+	return m_IsChecked;
+}
+
+void Checkbox::setChecked(bool checked)
+{
+	m_IsChecked = checked;
 }
 

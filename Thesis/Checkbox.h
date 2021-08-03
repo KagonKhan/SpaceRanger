@@ -18,7 +18,7 @@ private:
 
 	sf::Color m_OutlineColorBox, m_FillColorBox;
 
-	bool checked;
+	bool m_IsChecked;
 	struct Cross : sf::Drawable{
 	private:
 		sf::VertexArray shape;
@@ -76,7 +76,8 @@ public:
 
 	void updateTextPosition();
 
+	/* TODO: This might give wrong impressions - it operates on boolean checked, not on inherited status */
 	bool getStatus() const override;
-
+	void setChecked(bool checked);
 };
 
