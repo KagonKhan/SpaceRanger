@@ -3,27 +3,30 @@
 
 void UI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-		target.draw(*_layout, states);
+	target.draw(*_layout, states);
 }
 
 UI::UI(sf::RenderWindow& window, Widget* parent)
-	: window(window), ActionTarget(Configuration::gui_inputs)
+	: window(window), ActionTarget(Configuration::gui_inputs), _layout(nullptr)
 {
 
+}
+
+UI::~UI()
+{
 }
 
 sf::Vector2f UI::getSize() const
 {
-	return sf::Vector2f(0, 0);
+	return _layout->getSize();
 }
 
-bool UI::processEvent(const sf::Event& sfevent)
+void UI::processEvent(const sf::Event& sfevent)
 {
 	
 	_layout->processEvent(sfevent);
 
 	ActionTarget::processEvent(sfevent);
-	return true;
 }
 
 void UI::addLayout(Layout* layout)
@@ -32,7 +35,7 @@ void UI::addLayout(Layout* layout)
 	_layout->updateShape();
 }
 
-void UI::setLayoutPosition(sf::Vector2f position)
+void UI::setPosition(sf::Vector2f position)
 {
 	m_Position = position;
 	_layout->setPosition(position);
@@ -54,17 +57,7 @@ void UI::update(const sf::Time& deltaTime)
 	_layout->update(deltaTime);
 }
 
-void UI::hideAllButtons()
+const std::vector<Widget*>& UI::getWidgets() const
 {
-	_layout->hideAllButtons();
-}
-
-void UI::showAllButtons()
-{
-	_layout->showAllButtons();
-}
-
-void UI::setAllButtonsStatus(bool status)
-{
-	_layout->setAllButtonsStatus(status);
+	return _layout->getWidgets();
 }

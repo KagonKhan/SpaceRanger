@@ -12,7 +12,7 @@ protected:
 
 	sf::Vector2f m_Position;
 
-	virtual bool processEvent(const sf::Event& sfevent);
+	virtual void processEvent(const sf::Event& sfevent);
 
 public:
 	Widget(const Widget&) = delete; 
@@ -21,9 +21,15 @@ public:
 	Widget(Widget* parent = nullptr);
 	virtual ~Widget();
 
+
+
 	virtual void setPosition(const sf::Vector2f& pos);
 	virtual void setPosition(float x, float y);
 
 	virtual sf::Vector2f getSize() const = 0;
-	const sf::Vector2f& getPosition() const;
-};
+	virtual const sf::Vector2f& getPosition() const;
+
+
+
+	virtual void update(const sf::Time& deltaTime);
+}; 

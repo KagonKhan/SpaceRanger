@@ -47,39 +47,10 @@ void Layout::update(const sf::Time& deltaTime)
 {
 }
 
-void Layout::hideAllButtons()
+std::vector<Widget*>& Layout::getWidgets()
 {
-	/* TODO: clean up this */
-	for (Widget* widget : m_Widgets) {
-		dynamic_cast<Button*>(widget)->setIsVisible(false);
-		dynamic_cast<Button*>(widget)->setIsActive(false);
-
-	}
+	return m_Widgets;
 }
-
-void Layout::showAllButtons()
-{
-	/* TODO: clean up this */
-	for (Widget* widget : m_Widgets)
-		if(typeid(*widget).name() == typeid(TextButton).name())
-			dynamic_cast<TextButton*>(widget)->setIsVisible(true);
-}
-
-void Layout::setAllButtonsStatus(bool status)
-{
-	/* TODO: expand this, right now it does random stuff, and it's confusing*/
-	for (Widget* widget : m_Widgets) {
-		if (typeid(*widget).name() == typeid(Checkbox).name()) {
-			dynamic_cast<Checkbox*>(widget)->setChecked(status);
-		}
-		else if (typeid(*widget).name() == typeid(TextButton).name()) {
-			dynamic_cast<TextButton*>(widget)->setIsActive(false);
-
-		}
-
-	}
-}
-
 
 
 /* ===========================    VERTICAL LAYOUT    =========================== */
@@ -105,12 +76,11 @@ VerticalLayout::~VerticalLayout()
 {
 }
 
-bool VerticalLayout::processEvent(const sf::Event& sfevent)
+void VerticalLayout::processEvent(const sf::Event& sfevent)
 {
 	for (Widget* widget : m_Widgets)
 		widget->processEvent(sfevent);
 
-	return true;
 }
 
 
@@ -143,7 +113,7 @@ VerticalScrollingLayout::~VerticalScrollingLayout()
 {
 }
 
-bool VerticalScrollingLayout::processEvent(const sf::Event& sfevent)
+void VerticalScrollingLayout::processEvent(const sf::Event& sfevent)
 {
 	for (Widget* widget : m_Widgets)
 		widget->processEvent(sfevent);
@@ -155,7 +125,6 @@ bool VerticalScrollingLayout::processEvent(const sf::Event& sfevent)
 			m_CurrentSpeed -= 100;
 	}
 
-	return true;
 }
 
 void VerticalScrollingLayout::update(const sf::Time& deltaTime)
@@ -235,11 +204,11 @@ HorizontalLayout::~HorizontalLayout()
 {
 }
 
-bool HorizontalLayout::processEvent(const sf::Event& sfevent)
+void HorizontalLayout::processEvent(const sf::Event& sfevent)
 {
 	for (Widget* widget : m_Widgets)
 		widget->processEvent(sfevent);
 
-	return true;
+
 }
 

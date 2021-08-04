@@ -4,6 +4,7 @@
 #include "ActionTarget.h"
 #include "Button.h"
 #include "Checkbox.h"
+#include "ScrollBarButton.h"
 
 class UI : public Widget, protected ActionTarget<int>
 {
@@ -18,20 +19,24 @@ public:
 	UI& operator=(const UI&) = delete;
 
 	UI(sf::RenderWindow& window, Widget* parent = nullptr);
+	virtual ~UI();
+
+	void processEvent(const sf::Event& sfevent) override;
+
+
 	sf::Vector2f getSize() const override final;
 
-	bool processEvent(const sf::Event& sfevent);
 
 	void addLayout(Layout* layout);
-	void setLayoutPosition(sf::Vector2f position);
+	void setPosition(sf::Vector2f position);
+
 
 	void bind(int key, const FuncType& callback);
 	void unbind(int key);
 
-	void update(const sf::Time& deltaTime);
 
+	void update(const sf::Time& deltaTime) override;
 
-	void hideAllButtons();
-	void showAllButtons();
-	virtual void setAllButtonsStatus(bool status);
+	const std::vector<Widget*>& getWidgets() const;
+
 };

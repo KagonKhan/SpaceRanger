@@ -7,18 +7,25 @@ class Button :
 {
 protected:
 	int m_Status;
-	bool m_IsVisible;
-	bool m_IsActive;
+
 
 	/* ID used to easily differentiate between many buttons in a layout */
 	short int m_ID;
+
+
 	enum Status { Idle = 0, Hover = 1, Pressed = 2 };
+
 
 	float m_MinWidth, m_MinHeight, m_MaxWidth, m_MaxHeight;
 
-	virtual bool processEvent(const sf::Event& sfevent);
+
+	virtual void processEvent(const sf::Event& sfevent);
 	virtual void onMouseEntered();
 	virtual void onMouseLeft();
+
+
+	using FuncType = std::function<void(const sf::Event& sfevent, Button& self)>;
+
 
 public:
 	Button(const Button&) = delete;
@@ -27,19 +34,16 @@ public:
 	Button(Widget* parent = nullptr, short int id =0);
 	Button(float minwidth, float minheight, float maxwidth, float maxheigth, Widget* parent = nullptr, short int id = 0);
 
-	using FuncType = std::function<void(const sf::Event& sfevent, Button& self)>;
+
 	static FuncType defaultFunc;
 	FuncType on_click;
 
 
 	virtual bool getStatus() const ;
+
 	short int getID() const;
 	void setID(short int id);
 
-	void setIsVisible(bool visible);
-	bool getIsVisible() const;
-	void setIsActive(bool active);
-	bool getIsActive() const;
 };
 
 
@@ -48,9 +52,10 @@ class TextButton :
 	public Button
 {
 protected:
-	virtual bool processEvent(const sf::Event& sfevent) override;
+	virtual void processEvent(const sf::Event& sfevent) override;
 	virtual void onMouseEntered() override;
 	virtual void onMouseLeft() override;
+
 
 	sf::RectangleShape m_Shape;
 	Label m_Label;
@@ -73,12 +78,19 @@ public:
 
 	virtual void setPosition(const sf::Vector2f& pos) override;
 	virtual void setPosition(float x, float y) override;
+	virtual void setSize(const sf::Vector2f& size);
+
 	void setOutlineColor(const sf::Color& color);
+
 	void setFillColor(const sf::Color& color);
+
 	void setTextColor(const sf::Color& color);
+
 	void setOutlineThickness(float thickness);
-	void setSize(const sf::Vector2f& size);
+
+
 	void setLetterSpacing(float spacing);
+
 	// Automatically calculate size of the button, based on label
 	virtual	void adjustSize();
 

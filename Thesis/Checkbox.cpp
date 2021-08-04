@@ -3,19 +3,14 @@
 
 
 Checkbox::Checkbox(std::string_view text, Widget* parent)
-	: TextButton(text, parent)
+	: TextButton(text, parent), m_IsChecked(false)
 {
+	setFillBoxColor(sf::Color(200, 200, 200, 255));
+	setFillColor(sf::Color::Transparent);
+	setOutlineBoxColor(sf::Color::Black);
 
-	m_FillColorBox = sf::Color(200, 200, 200, 255);
-	m_OutlineColorBox = sf::Color::Black;
-
-	setFillColor(sf::Color(200, 200, 200, 150));
-
-	m_BoxShape.setSize(sf::Vector2f(25, 25));
-	m_BoxShape.setOutlineThickness(2);
-	m_BoxShape.setOutlineColor(sf::Color::Black);
-
-	m_IsChecked = false;
+	setOutlineBoxThickness(2);
+	setBoxSize(25);
 
 	adjustSize();
 }
@@ -26,7 +21,7 @@ Checkbox::Checkbox(std::string_view text, const sf::Font& font, unsigned int cha
 {
 }
 
-bool Checkbox::processEvent(const sf::Event& sfevent)
+void Checkbox::processEvent(const sf::Event& sfevent)
 {
 	bool res = false;
 	if (sfevent.type == sf::Event::MouseButtonReleased) {
@@ -55,15 +50,13 @@ bool Checkbox::processEvent(const sf::Event& sfevent)
 			onMouseEntered();
 	}
 
-	return res;
 }
 
 void Checkbox::onMouseEntered()
 {
-	const float light = 0.7f;
+	const float light = 0.9f;
 	m_BoxShape.setFillColor(sf::Color(m_FillColorBox.r * light, m_FillColorBox.g * light, m_FillColorBox.b * light));
-	m_Shape.setFillColor(sf::Color(m_FillColor.r * light, m_FillColor.g * light, m_FillColor.b * light));
-	
+	m_Shape.setFillColor(sf::Color(0,0,0,100));
 }
 
 void Checkbox::onMouseLeft()
@@ -86,14 +79,14 @@ void Checkbox::setPosition(const sf::Vector2f& pos)
 {
 	m_Position = pos;
 	m_Shape.setPosition(m_Position);
-	m_Label.setPosition(m_Position);
+	updateTextPosition();
+	//m_Label.setPosition(m_Position);
 
 	float y = m_Shape.getPosition().y + (m_Shape.getSize().y - m_BoxShape.getSize().y) / 2.f;
-	m_BoxShape.setPosition(m_Position.x + m_Shape.getSize().x, y);
+	m_BoxShape.setPosition(m_Position.x + m_Shape.getSize().x - m_BoxShape.getSize().x, y);
 	
 	cross.setPosition(m_BoxShape.getPosition(), m_BoxShape.getSize());
 
-	updateTextPosition();
 }
 
 void Checkbox::setPosition(float x, float y)
@@ -141,7 +134,7 @@ void Checkbox::adjustSize()
 	if (m_MaxHeight != 0 && size.y > m_MaxHeight)
 		size.y = m_MaxHeight;
 	
-	size.x += 2 * m_BoxShape.getSize().x;
+
 
 	m_Shape.setSize(size);
 }
@@ -158,13 +151,24 @@ void Checkbox::updateTextPosition()
 	m_Label.setPosition(position);
 }
 
-bool Checkbox::getStatus() const
+void Checkbox::setSize(const sf::Vector2f& size)
+{
+	m_Shape.setSize(size);
+	updateTextPosition();
+	sf::Vector2f box_pos(m_Shape.getPosition());
+	box_pos.x += m_Shape.getSize().x - m_BoxShape.getSize().x;
+	box_pos.y += float(m_Shape.getSize().y - m_BoxShape.getSize().y);
+	m_BoxShape.setPosition(box_pos);
+}
+
+bool Checkbox::getIsChecked() const
 {
 	return m_IsChecked;
 }
 
-void Checkbox::setChecked(bool checked)
+void Checkbox::setIsChecked(bool checked)
 {
 	m_IsChecked = checked;
 }
 
+ 

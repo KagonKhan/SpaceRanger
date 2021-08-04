@@ -179,6 +179,7 @@
     </ClCompile>
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ScrollBarButton.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SpaceState.cpp" />
     <ClCompile Include="State.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ScrollBarButton.h" />
     <ClInclude Include="SpaceState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="UI.h" />

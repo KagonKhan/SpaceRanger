@@ -41,7 +41,6 @@ void OptionsState::initGUI()
 
 		/* THESE ARE CHECK BOXES, THEY SHOULD BE EXCLUSIVE*/
 		button->on_click = [i, modes,this](const sf::Event&, Button& button) {
-			uis[0]->setAllButtonsStatus(false);
 			changeResolution(modes[i]);
 		};
 
@@ -49,6 +48,12 @@ void OptionsState::initGUI()
 	}
 
 	VerticalLayout* other_options = new VerticalLayout;
+
+
+
+
+
+
 	Checkbox* fullscreen = new Checkbox("Fullscreen");
 	fullscreen->setSize(sf::Vector2f(250, 75));
 	fullscreen->on_click = [this](const sf::Event&, Button& button) {
@@ -56,11 +61,17 @@ void OptionsState::initGUI()
 	};
 
 	sf::Vector2u max_win_size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
-	fullscreen->setChecked(m_Window.getSize() == max_win_size);
+	fullscreen->setIsChecked(m_Window.getSize() == max_win_size);
 	window_sizes->add(fullscreen);
 
 	window_sizes->setPosition(sf::Vector2f(50, 300));
 	uis[0]->addLayout(window_sizes);
+
+
+
+
+
+
 
 
 	VerticalLayout* navigation = new VerticalLayout;
@@ -159,11 +170,11 @@ void OptionsState::recalculatePositions(UI* ui, const sf::Vector2f &pos)
 
 	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
 
+	uis[0]->setPosition(pos);
+	
+	uis[1]->setPosition(sf::Vector2f(0, 0));
 	m_Title.setPosition(title_position);
 
-	uis[0]->setLayoutPosition(pos);
-	
-	uis[1]->setLayoutPosition(sf::Vector2f(0, 0));
 }
 
 void OptionsState::changeResolution(const sf::VideoMode& mode)
@@ -172,12 +183,20 @@ void OptionsState::changeResolution(const sf::VideoMode& mode)
 	m_Window.setFramerateLimit(120);
 	Configuration::m_MainMenu->recalculatePositions();
 	recalculatePositions(uis[0], sf::Vector2f(50,300));
+
+	std::vector<Widget*> widgets = uis[0]->getWidgets();
+	/* TURN OFF THE CHECK ON FULLSCREEN CHECKBOX BUTTON, KINGA GARBE - IDK HOW SLOW THIS IS FOR NOW */
+	for (Widget* widget : widgets) 
+		if (typeid(*widget).name() == typeid(Checkbox).name())
+			dynamic_cast<Checkbox*>(widget)->setIsChecked(false);
+	
 }
 
 void OptionsState::fullscreen(Button& button)
 {
 
-	if (!button.getStatus())
+	/* I dynamic cast here, but in theory it should not do weird stuff, since only checkbox uses it */
+	if (!dynamic_cast<Checkbox*>(&button)->getIsChecked())
 		m_Window.create(sf::VideoMode(2560, 1440), "test", sf::Style::Fullscreen);
 	else
 		m_Window.create(sf::VideoMode(1920, 1080), "test", sf::Style::Default);

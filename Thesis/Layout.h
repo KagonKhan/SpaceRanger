@@ -28,10 +28,8 @@ public:
 
 	virtual void update(const sf::Time& deltaTime);
 
-	void hideAllButtons();
-	void showAllButtons();
 
-	virtual void setAllButtonsStatus(bool status);
+	std::vector<Widget*>& getWidgets();
 };
 
 
@@ -48,7 +46,7 @@ public:
 	VerticalLayout(Widget* parent = nullptr);
 	virtual ~VerticalLayout();
 
-	virtual bool processEvent(const sf::Event& sfevent) override;
+	virtual void processEvent(const sf::Event& sfevent) override;
 };
 
 class VerticalScrollingLayout
@@ -72,7 +70,7 @@ public:
 	VerticalScrollingLayout(Widget* parent = nullptr);
 	virtual ~VerticalScrollingLayout();
 
-	bool processEvent(const sf::Event& sfevent) override final;
+	void processEvent(const sf::Event& sfevent) override final;
 
 	void setViewableArea(const sf::Vector2f& area);
 	void setMaxScrollSpeed(float speed);
@@ -95,7 +93,7 @@ public:
 	HorizontalLayout(Widget* parent = nullptr);
 	virtual ~HorizontalLayout();
 
-	bool processEvent(const sf::Event& sfevent);
+	void processEvent(const sf::Event& sfevent);
 
 
 };

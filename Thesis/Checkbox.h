@@ -45,7 +45,8 @@ private:
 		}
 	} cross;
 
-	bool processEvent(const sf::Event& sfevent) override final;
+
+	void processEvent(const sf::Event& sfevent) override final;
 	void onMouseEntered() override final;
 	void onMouseLeft() override final;
 
@@ -64,9 +65,13 @@ public:
 
 	void setPosition(const sf::Vector2f& pos) override final;
 	void setPosition(float x, float y) override final;
+	void setSize(const sf::Vector2f& size) override final;
+
 	void setOutlineBoxColor(const sf::Color& color);
 	void setFillBoxColor(const sf::Color& color);
+
 	void setOutlineBoxThickness(float thickness);
+
 	void setBoxSize(float size);
 
 	// Automatically calculate size of the button, based on label
@@ -76,8 +81,8 @@ public:
 
 	void updateTextPosition();
 
-	/* TODO: This might give wrong impressions - it operates on boolean checked, not on inherited status */
-	bool getStatus() const override;
-	void setChecked(bool checked);
+	bool getIsChecked() const;
+	void setIsChecked(bool checked);
+
 };
 

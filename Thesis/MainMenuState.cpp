@@ -56,6 +56,11 @@ void MainMenuState::initGUI()
 	layout->add(high_scores);
 	layout->add(quit);
 
+
+	/*ScrollBarButton* volume = new ScrollBarButton(sf::Vector2f(200, 30), "Volume");
+	layout->add(volume);*/
+
+
 	layout->setPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
 
 	ui.addLayout(layout);
@@ -202,6 +207,8 @@ void MainMenuState::processEvents(const sf::Event& sfevent)
 
 void MainMenuState::update(const sf::Time& deltaTime)
 {
+
+
 	updateBackground(deltaTime);
 	updateTitle(deltaTime);
 }
@@ -221,11 +228,14 @@ void MainMenuState::Options()
 
 void MainMenuState::NewGame()
 {
+	m_MainMenuMusic->stop();
 	m_States.push(new HangarState(m_Window, m_States));
+	m_MainMenuMusic->play();
 }
 
 void MainMenuState::recalculatePositions()
 {
+	
 
 	sf::Vector2u win_size = m_Window.getSize();
 	sf::Vector2u tex_size = m_BackgroundTexture.getSize();
@@ -238,6 +248,6 @@ void MainMenuState::recalculatePositions()
 	m_Title.setPosition(title_position);
 
 
-	ui.setLayoutPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
+	ui.setPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
 }
 

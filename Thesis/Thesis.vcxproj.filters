@@ -126,6 +126,9 @@
     <ClCompile Include="State.cpp">
       <Filter>Game\States</Filter>
     </ClCompile>
+    <ClCompile Include="ScrollBarButton.cpp">
+      <Filter>GUI\Widgets\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="HangarState.h">
       <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollBarButton.h">
+      <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

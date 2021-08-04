@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Widget.h"
 
-bool Widget::processEvent(const sf::Event& sfevent)
+void Widget::processEvent(const sf::Event& sfevent)
 {
-	return false;
+	
 }
 
 Widget::Widget(Widget* parent)
@@ -28,4 +28,8 @@ void Widget::setPosition(float x, float y)
 const sf::Vector2f& Widget::getPosition() const
 {
 	return m_Position;
+}
+
+void Widget::update(const sf::Time& deltaTime)
+{
 }
