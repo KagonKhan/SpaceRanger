@@ -5,15 +5,11 @@ void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderSt
 {
 
 	target.draw(m_AvatarFrame, states);
-	target.draw(arrow, states);
-
-	sf::Vector2f pos(m_AvatarFrame.getSize().x - arrow.getSize().x, 0);
-	states.transform.translate(pos);
-	target.draw(arrow, states);
 
 	target.draw(m_TextArea);
 	target.draw(doneButton);
 	target.draw(m_CharacterDescription);
+	target.draw(m_AvatarSprites[sprite_id]);
 
 	target.draw(m_UI);
 }
@@ -26,10 +22,6 @@ HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, Play
 	m_AvatarFrame.setPosition(sf::Vector2f(300, 300));
 	m_AvatarFrame.setFillColor(sf::Color::Cyan);
 
-	arrow.setSize(sf::Vector2f(50, 50));
-	arrow.setPosition(m_AvatarFrame.getPosition());
-	arrow.setFillColor(sf::Color::Red);
-
 	m_TextArea.setSize(sf::Vector2f(800, 400));
 	m_TextArea.setPosition(sf::Vector2f(700, 300));
 	m_TextArea.setFillColor(sf::Color::Green);
@@ -40,6 +32,35 @@ HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, Play
 
 
 
+	m_AvatarSprites[0].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar0));
+	m_AvatarSprites[1].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar1));
+	m_AvatarSprites[2].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar2));
+	m_AvatarSprites[3].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar3));
+
+	sf::Vector2f scale(m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[0].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[0].getGlobalBounds().height;
+	m_AvatarSprites[0].setScale(scale);
+
+	scale = (m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[1].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[1].getGlobalBounds().height;
+	m_AvatarSprites[1].setScale(scale);
+
+	scale = (m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[2].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[2].getGlobalBounds().height;
+	m_AvatarSprites[2].setScale(scale);
+
+	scale = (m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[3].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[3].getGlobalBounds().height;
+	m_AvatarSprites[3].setScale(scale);
+
+	m_AvatarSprites[0].setPosition(m_AvatarFrame.getPosition());
+	m_AvatarSprites[1].setPosition(m_AvatarFrame.getPosition());
+	m_AvatarSprites[2].setPosition(m_AvatarFrame.getPosition());
+	m_AvatarSprites[3].setPosition(m_AvatarFrame.getPosition());
 
 
 
@@ -81,28 +102,42 @@ void HangarState::CharacterCreation::initGUI()
 {
 	VerticalLayout* layout = new VerticalLayout;
 
-	TextButton* right_arrow = new TextButton("next");
-	TextButton* left_arrow  = new TextButton("prev");
+
+	SpriteButton* left_arrow = new SpriteButton(Configuration::Textures::LeftArrow);
+	SpriteButton* right_arrow = new SpriteButton(Configuration::Textures::LeftArrow);
+
+
+	sf::Vector2f scale(100, 50);
+	scale.x /= left_arrow->getSize().x;
+	scale.y /= left_arrow->getSize().y;
+
+	left_arrow->setScale(scale);
+	right_arrow->setScale(scale);
+
+	right_arrow->setRotation(180);
+
+	left_arrow->on_click = [this](const sf::Event&, Button& button) {
+		swapAvatarSprite(true);
+	};
+	right_arrow->on_click = [this](const sf::Event&, Button& button) {
+		swapAvatarSprite(false);
+	};
+
 	TextButton* confirm		= new TextButton("confirm");
 
 	layout->add(right_arrow);
 	layout->add(left_arrow);
 	layout->add(confirm);
 
-	right_arrow->on_click = [this](const sf::Event& sfevent, Button& button) {
-		m_AvatarFrame.setFillColor(sf::Color::Blue);
-	};
-	left_arrow->on_click = [this](const sf::Event& sfevent, Button& button) {
-		m_AvatarFrame.setFillColor(sf::Color::Magenta);
-	};
+	
 	confirm->on_click = [this](const sf::Event& sfevent, Button& button) {
 		finishedCreation();
 	};
 
 	m_UI.addLayout(layout);
 
-	right_arrow->setPosition(m_AvatarFrame.getPosition());
-	left_arrow->setPosition(m_AvatarFrame.getPosition() + sf::Vector2f(m_AvatarFrame.getSize().x - left_arrow->getSize().x, 0));
+	left_arrow->setPosition(m_AvatarFrame.getPosition());
+	right_arrow->setPosition(m_AvatarFrame.getPosition() + sf::Vector2f(m_AvatarFrame.getSize().x, right_arrow->getSize().y));
 	confirm->setPosition(m_TextArea.getPosition() + m_TextArea.getSize() - confirm->getSize());
 
 }
@@ -110,6 +145,21 @@ void HangarState::CharacterCreation::initGUI()
 void HangarState::CharacterCreation::finishedCreation()
 {
 	m_IsDone = true;
+}
+
+void HangarState::CharacterCreation::swapAvatarSprite(bool left)
+{
+	if (left) {
+		sprite_id--;
+		if (sprite_id < 0)
+			sprite_id = 3;
+	}
+	else {
+		sprite_id++;
+		if (sprite_id >= 4)
+			sprite_id = 0;
+	}
+
 }
 
 

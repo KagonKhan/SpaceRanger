@@ -51,6 +51,7 @@ void MainMenuState::initGUI()
 		m_Window.close();
 	};
 
+
 	layout->add(new_game);
 	layout->add(options);
 	layout->add(high_scores);
@@ -230,7 +231,6 @@ void MainMenuState::NewGame()
 {
 	m_MainMenuMusic->stop();
 	m_States.push(new HangarState(m_Window, m_States));
-	m_MainMenuMusic->play();
 }
 
 void MainMenuState::recalculatePositions()

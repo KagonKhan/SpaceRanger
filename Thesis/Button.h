@@ -98,19 +98,30 @@ public:
 
 };
 
-/* TODO: Finish this class */
+
 class SpriteButton :
 	public Button
 {
 private:
 	sf::Sprite m_Sprite;
 	// maybe label
+
+	virtual void processEvent(const sf::Event& sfevent) override final;
+	virtual void onMouseEntered() override final;
+	virtual void onMouseLeft() override final;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 public:
 	SpriteButton(const SpriteButton&) = delete;
 	SpriteButton& operator=(const SpriteButton&) = delete;
 	SpriteButton(Configuration::Textures tex_id, Widget* parent = nullptr);
 
-
+	void rotate(float angle);
+	void setRotation(float angle);
+	void setScale(float factorX, float factorY);
+	void setScale(const sf::Vector2f& factors);
+	void setPosition(const sf::Vector2f& pos) override;
+	void setPosition(float x, float y) override;
 
 	virtual sf::Vector2f getSize() const override;
 };

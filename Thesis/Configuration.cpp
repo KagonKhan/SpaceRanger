@@ -25,6 +25,7 @@ sf::Color Configuration::Colors::button_outline(146, 20, 19);
 sf::Color Configuration::Colors::label_text(180, 93, 23);
 float Configuration::Colors::lighting = 1.4;
 
+
 void Configuration::initialize()
 {
 	initTextures();
@@ -86,22 +87,14 @@ void Configuration::draw(sf::RenderTarget& target)
 void Configuration::initTextures()
 {
 	textures.load(Textures::Hangar, "../media/backgrounds/Hangar.png");
-	/*textures.load(Textures::Player, "../media/Player/Ship.png");
-	textures.load(Textures::PlayerLife, "../media/Player/life.png");
-	textures.load(Textures::BigSaucer, "../media/Saucer/Big.png");
-	textures.load(Textures::SmallSaucer, "../media/Saucer/Small.png");
-	textures.load(Textures::BigMeteor1, "../media/Meteor/Big1.png");
-	textures.load(Textures::BigMeteor2, "../media/Meteor/Big2.png");
-	textures.load(Textures::BigMeteor3, "../media/Meteor/Big3.png");
-	textures.load(Textures::BigMeteor4, "../media/Meteor/Big4.png");
-	textures.load(Textures::MediumMeteor1, "../media/Meteor/Medium1.png");
-	textures.load(Textures::MediumMeteor2, "../media/Meteor/Medium2.png");
-	textures.load(Textures::SmallMeteor1, "../media/Meteor/Small1.png");
-	textures.load(Textures::SmallMeteor2, "../media/Meteor/Small2.png");
-	textures.load(Textures::SmallMeteor3, "../media/Meteor/Small3.png");
-	textures.load(Textures::SmallMeteor4, "../media/Meteor/Small4.png");
-	textures.load(Textures::ShootPlayer, "../media/Shoot/Player.png");
-	textures.load(Textures::ShootSaucer, "../media/Shoot/Saucer.png");*/
+
+	textures.load(Textures::LeftArrow, "../media/textures/left_arrow.png");
+
+
+	textures.load(Textures::PlayerAvatar0, "../media/textures/avatars/avatar1.jpg");
+	textures.load(Textures::PlayerAvatar1, "../media/textures/avatars/avatar2.jpg");
+	textures.load(Textures::PlayerAvatar2, "../media/textures/avatars/avatar3.jpg");
+	textures.load(Textures::PlayerAvatar3, "../media/textures/avatars/avatar4.jpg");
 }
 
 void Configuration::initBackgrounds()

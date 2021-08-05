@@ -25,3 +25,16 @@ int main() {
 	Game game;
 	game.run(120);
 }
+
+/*
+		TODO:
+			- Some area to spend points,
+			- Possibly an area to add modules?
+			- Button to launch
+			- Some info on current level
+			- Ship sprite, enlarged i guess
+
+
+			- What about levels? A switch with an enum? All of them are classes
+
+	*/

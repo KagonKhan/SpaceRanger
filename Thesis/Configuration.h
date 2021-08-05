@@ -39,10 +39,31 @@ public:
 
 
 	enum Textures : int {
-		Player,
-		Hangar,
-		
+		TEST_MENU = 0x000,
+	
+
+		TEST_OPTIONS = 0x100,
+	
+
+		TEST_SCORES = 0x200,
+	
+
+		Hangar = 0x300,
+
+
+		PLAYER_AVATARS = 0x400,
+		PlayerAvatar0,
+		PlayerAvatar1,
+		PlayerAvatar2,
+		PlayerAvatar3,
+	
+
+		LeftArrow = 0x500,
+		RightArrow
 	};
+	
+
+
 	enum Backgrounds : int {
 		MainMenu,
 

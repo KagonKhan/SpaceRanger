@@ -13,12 +13,16 @@ private:
 
 		sf::Text m_CharacterDescription;
 		sf::String m_CharDescString;
-		sf::RectangleShape m_AvatarFrame, arrow, m_TextArea, doneButton;
+		sf::RectangleShape m_AvatarFrame, m_TextArea, doneButton;
 		UI m_UI;
-		sf::Sprite m_AvatarSprite;
+		sf::Sprite m_AvatarSprites[4];
+		short int sprite_id;
 		Player* m_Player;
+		
+		
 		void initGUI();
 		void finishedCreation();
+		void swapAvatarSprite(bool left);
 
 	public:
 		CharacterCreation(sf::RenderWindow& window, Player* player);

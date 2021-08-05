@@ -193,12 +193,100 @@ sf::Vector2f TextButton::getSize() const
 	return m_Shape.getSize();
 }
 
-
-
 void TextButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
 	target.draw(m_Shape, states);
 	target.draw(m_Label, states);
-	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void SpriteButton::processEvent(const sf::Event& sfevent)
+{
+	bool res = false;
+	if (sfevent.type == sf::Event::MouseButtonReleased) {
+		if (m_Sprite.getGlobalBounds().contains(sfevent.mouseButton.x, sfevent.mouseButton.y)) {
+			on_click(sfevent, *this);
+			res = true;
+		}
+	}
+	else if (sfevent.type == sf::Event::MouseMoved) {
+		const sf::Vector2f mouse_pos(sfevent.mouseMove.x, sfevent.mouseMove.y);
+
+		int old_status = m_Status;
+		m_Status = Status::Idle;
+
+		if (m_Sprite.getGlobalBounds().contains(mouse_pos))
+			m_Status |= Status::Hover;
+		if ((old_status & Status::Hover) && !(m_Status & Status::Hover))
+			onMouseLeft();
+		else if (!(old_status & Status::Hover) && (m_Status & Status::Hover))
+			onMouseEntered();
+	}
+}
+
+void SpriteButton::onMouseEntered()
+{
+}
+
+void SpriteButton::onMouseLeft()
+{
+}
+
+void SpriteButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(m_Sprite);
+}
+
+SpriteButton::SpriteButton(Configuration::Textures tex_id, Widget* parent)
+	: Button(parent)
+{
+	m_Sprite.setTexture(Configuration::textures.get(tex_id));
+}
+
+void SpriteButton::rotate(float angle)
+{
+	m_Sprite.rotate(angle);
+}
+
+void SpriteButton::setRotation(float angle)
+{
+	m_Sprite.setRotation(angle);
+}
+
+void SpriteButton::setScale(float factorX, float factorY)
+{
+	m_Sprite.setScale(factorX, factorY);
+}
+
+void SpriteButton::setScale(const sf::Vector2f& factors)
+{
+	m_Sprite.setScale(factors);
+}
+
+void SpriteButton::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+	m_Sprite.setPosition(m_Position);
+}
+
+void SpriteButton::setPosition(float x, float y)
+{
+	m_Sprite.setPosition(sf::Vector2f(x,y));
+}
+
+sf::Vector2f SpriteButton::getSize() const
+{
+	return sf::Vector2f	(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
 }
