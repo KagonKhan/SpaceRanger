@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="Ammunition.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -180,10 +181,12 @@
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScrollBarButton.cpp" />
+    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SpaceState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -191,6 +194,7 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="ActionMap.h" />
     <ClInclude Include="ActionTarget.h" />
+    <ClInclude Include="Ammunition.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Button.h" />
@@ -211,9 +215,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScrollBarButton.h" />
+    <ClInclude Include="Ship.h" />
     <ClInclude Include="SpaceState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Weapon.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

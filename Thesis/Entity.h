@@ -24,37 +24,14 @@ public:
 	virtual ~Entity();
 
 	virtual bool isAlive() const;
-	virtual bool isCollide(const Entity& other) const = 0;
+	//virtual bool isCollide(const Entity& other) const = 0;
 
 	const sf::Vector2f& getPosition() const;
 	
-	template<typename ... Args>
-	void setPosition(Args&& ... args);
 	
-	virtual void update(sf::Time deltaTime) = 0;
+	virtual void setPosition(const sf::Vector2f& pos);
+	virtual void setPosition(float x, float y);
+	virtual void update(const sf::Time& deltaTime) = 0;
 	virtual void onDestroy();
 };
 
-class Ship :
-	public Entity
-{
-	double hp;
-
-public:
-
-
-};
-
-
-class Weapon :
-	public Entity
-{
-
-
-};
-
-class Ammunition :
-	public Entity
-{
-
-};

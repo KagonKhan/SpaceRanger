@@ -4,6 +4,8 @@
 Entity::Entity(Configuration::Textures tex_id)
 	: m_Alive(true)
 {
+	m_Sprite.setTexture(Configuration::textures.get(tex_id));
+
 	/** TO DO **/
 	/*
 		Load texture from configuration
@@ -19,14 +21,6 @@ Entity::~Entity()
 
 }
 
-template<typename ... Args>
-inline void Entity::setPosition(Args&& ... args)
-{
-	m_Position(std::forward<Args>(args)...);
-	m_Sprite.setPosition(std::forward<Args>(args)...);
-	m_Shape.setPosition(std::forward<Args>(args)...);
-}
-
 void Entity::onDestroy()
 {
 	m_Alive = false;
@@ -40,4 +34,16 @@ bool Entity::isAlive() const
 const sf::Vector2f& Entity::getPosition() const
 {
 	return m_Position;
+}
+
+void Entity::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+	m_Shape.setPosition(pos);
+	m_Sprite.setPosition(pos);	
+}
+
+void Entity::setPosition(float x, float y)
+{
+	setPosition(sf::Vector2f(x, y));
 }

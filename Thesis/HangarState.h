@@ -18,9 +18,13 @@ private:
 		sf::Sprite m_AvatarSprites[4];
 		short int sprite_id;
 		Player* m_Player;
-		
+		sf::RenderWindow& m_Window;
 		
 		void initGUI();
+		void initAvatars();
+		void initShapes();
+		void initDescriptions();
+
 		void finishedCreation();
 		void swapAvatarSprite(bool left);
 
@@ -38,7 +42,7 @@ private:
 	sf::Sprite m_Background;
 
 	UI m_UI;
-	void initUI();
+	void initGUI();
 
 public:
 	/* 

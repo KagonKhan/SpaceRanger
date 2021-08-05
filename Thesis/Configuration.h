@@ -40,7 +40,7 @@ public:
 
 	enum Textures : int {
 		TEST_MENU = 0x000,
-	
+		Cursor,
 
 		TEST_OPTIONS = 0x100,
 	

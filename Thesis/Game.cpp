@@ -7,10 +7,8 @@ Game::Game()
 {
 	Configuration::initialize();
 	initWindow();
-	/* Custom Cursor*/
-
-
 	initStates();
+	initCursor();
 }
 
 void Game::initWindow()
@@ -49,12 +47,25 @@ void Game::initWindow()
 
 	m_Window.setFramerateLimit(framerate);
 	m_Window.setVerticalSyncEnabled(vsync);
+
+	m_Window.setMouseCursorVisible(false);
 }
 
 /* TODO: check if this doesn't cause any WHACKY behavior*/
 void Game::initStates()
 {
 	m_States.emplace(std::move(new MainMenuState(m_Window, m_States)));
+}
+
+void Game::initCursor()
+{
+	Animation *cursor_anim = new Animation(&Configuration::textures.get(Configuration::Textures::Cursor));
+	cursor_anim->addFramesLine(40, 10, 6);
+	
+	m_Cursor.setAnimation(cursor_anim);
+	m_Cursor.setFrameTime(sf::seconds(0.1));
+	m_Cursor.play();
+
 }
 
 void Game::processEvents()
@@ -70,16 +81,29 @@ void Game::processEvents()
 }
 
 /* TODO: maybe add safeguards for empty containers, altho does it matter? */
-void Game::update(sf::Time deltaTime)
+void Game::update(const sf::Time& deltaTime)
 {
 	m_States.top()->update(deltaTime);
+	updateMouse(deltaTime);
+}
+
+void Game::updateMouse(const sf::Time& deltaTime)
+{
+	m_Cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_Window)) - sf::Vector2f(8, 8.5));
+	m_Cursor.update(deltaTime);
 }
 
 void Game::render()
 {
 	m_Window.clear();
 	m_Window.draw(*m_States.top());
+	renderMouse();
 	m_Window.display();
+}
+
+void Game::renderMouse()
+{
+	m_Window.draw(m_Cursor);
 }
 
 void Game::run(int minFPS)

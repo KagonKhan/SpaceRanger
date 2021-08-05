@@ -55,7 +55,7 @@ void OptionsState::initGUI()
 
 
 	Checkbox* fullscreen = new Checkbox("Fullscreen");
-	fullscreen->setSize(sf::Vector2f(250, 75));
+	fullscreen->setSize(sf::Vector2f(300, 75));
 	fullscreen->on_click = [this](const sf::Event&, Button& button) {
 		OptionsState::fullscreen(button);
 	};

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "HangarState.h"
+#include "SpaceState.h"
+#include "Player.h"
 
 void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -16,75 +18,11 @@ void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderSt
 
 
 HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, Player* player)
-	: m_IsDone(false), m_UI(window), m_Player(player)
+	: m_IsDone(false), m_UI(window), m_Player(Configuration::player), m_Window(window)
 {
-	m_AvatarFrame.setSize(sf::Vector2f(400, 400));
-	m_AvatarFrame.setPosition(sf::Vector2f(300, 300));
-	m_AvatarFrame.setFillColor(sf::Color::Cyan);
-
-	m_TextArea.setSize(sf::Vector2f(800, 400));
-	m_TextArea.setPosition(sf::Vector2f(700, 300));
-	m_TextArea.setFillColor(sf::Color::Green);
-
-	doneButton.setSize(sf::Vector2f(75, 30));
-	doneButton.setFillColor(sf::Color::Magenta);
-	doneButton.setPosition(m_TextArea.getPosition() + m_TextArea.getSize() - sf::Vector2f(75, 30));
-
-
-
-	m_AvatarSprites[0].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar0));
-	m_AvatarSprites[1].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar1));
-	m_AvatarSprites[2].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar2));
-	m_AvatarSprites[3].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar3));
-
-	sf::Vector2f scale(m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[0].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[0].getGlobalBounds().height;
-	m_AvatarSprites[0].setScale(scale);
-
-	scale = (m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[1].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[1].getGlobalBounds().height;
-	m_AvatarSprites[1].setScale(scale);
-
-	scale = (m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[2].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[2].getGlobalBounds().height;
-	m_AvatarSprites[2].setScale(scale);
-
-	scale = (m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[3].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[3].getGlobalBounds().height;
-	m_AvatarSprites[3].setScale(scale);
-
-	m_AvatarSprites[0].setPosition(m_AvatarFrame.getPosition());
-	m_AvatarSprites[1].setPosition(m_AvatarFrame.getPosition());
-	m_AvatarSprites[2].setPosition(m_AvatarFrame.getPosition());
-	m_AvatarSprites[3].setPosition(m_AvatarFrame.getPosition());
-
-
-
-	m_CharacterDescription.setFont(Configuration::fonts.get(Configuration::Fonts::SpaceGui));
-	m_CharacterDescription.setCharacterSize(15);
-	m_CharacterDescription.setLineSpacing(2);
-	m_CharDescString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-	m_CharacterDescription.setString(m_CharDescString);
-	m_CharacterDescription.setPosition(m_TextArea.getPosition());
-
-	int string_size = m_CharDescString.getSize();
-	float text_pos = m_TextArea.getPosition().x, text_size = m_TextArea.getSize().x;
-	float limit = text_pos + text_size - 75;
-
-	for (int i = 0; i < string_size; ++i) {
-		float char_pos = m_CharacterDescription.findCharacterPos(i).x;
-		if (char_pos > limit) {
-			m_CharDescString.insert(i, "\n");
-			m_CharacterDescription.setString(m_CharDescString);
-		}
-	}
-	m_CharacterDescription.setString(m_CharDescString);
-
+	initShapes();
+	initAvatars();
+	initDescriptions();
 	initGUI();
 }
 
@@ -142,8 +80,85 @@ void HangarState::CharacterCreation::initGUI()
 
 }
 
+void HangarState::CharacterCreation::initAvatars()
+{
+	m_AvatarSprites[0].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar0));
+	m_AvatarSprites[1].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar1));
+	m_AvatarSprites[2].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar2));
+	m_AvatarSprites[3].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar3));
+
+	sprite_id = 0;
+
+	sf::Vector2f scale(m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[0].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[0].getGlobalBounds().height;
+	m_AvatarSprites[0].setScale(scale);
+
+	scale = (m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[1].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[1].getGlobalBounds().height;
+	m_AvatarSprites[1].setScale(scale);
+
+	scale = (m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[2].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[2].getGlobalBounds().height;
+	m_AvatarSprites[2].setScale(scale);
+
+	scale = (m_AvatarFrame.getSize());
+	scale.x /= m_AvatarSprites[3].getGlobalBounds().width;
+	scale.y /= m_AvatarSprites[3].getGlobalBounds().height;
+	m_AvatarSprites[3].setScale(scale);
+
+	m_AvatarSprites[0].setPosition(m_AvatarFrame.getPosition());
+	m_AvatarSprites[1].setPosition(m_AvatarFrame.getPosition());
+	m_AvatarSprites[2].setPosition(m_AvatarFrame.getPosition());
+	m_AvatarSprites[3].setPosition(m_AvatarFrame.getPosition());
+}
+
+void HangarState::CharacterCreation::initShapes()
+{
+	m_AvatarFrame.setSize(sf::Vector2f(400, 400));
+	m_AvatarFrame.setPosition(sf::Vector2f(300, 300));
+	m_AvatarFrame.setFillColor(sf::Color::Transparent);
+
+	m_TextArea.setSize(sf::Vector2f(800, 400));
+	m_TextArea.setPosition(sf::Vector2f(700, 300));
+	m_TextArea.setFillColor(sf::Color::Green);
+
+	doneButton.setSize(sf::Vector2f(75, 30));
+	doneButton.setFillColor(sf::Color::Transparent);
+	doneButton.setPosition(m_TextArea.getPosition() + m_TextArea.getSize() - sf::Vector2f(75, 30));
+}
+
+void HangarState::CharacterCreation::initDescriptions()
+{
+	m_CharacterDescription.setFont(Configuration::fonts.get(Configuration::Fonts::SpaceGui));
+	m_CharacterDescription.setCharacterSize(15);
+	m_CharacterDescription.setLineSpacing(2);
+	m_CharDescString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+	m_CharacterDescription.setString(m_CharDescString);
+	m_CharacterDescription.setPosition(m_TextArea.getPosition());
+
+	int string_size = m_CharDescString.getSize();
+	float text_pos = m_TextArea.getPosition().x, text_size = m_TextArea.getSize().x;
+	float limit = text_pos + text_size - 75;
+
+	for (int i = 0; i < string_size; ++i) {
+		float char_pos = m_CharacterDescription.findCharacterPos(i).x;
+		if (char_pos > limit) {
+			m_CharDescString.insert(i, "\n");
+			m_CharacterDescription.setString(m_CharDescString);
+		}
+	}
+	m_CharacterDescription.setString(m_CharDescString);
+}
+
 void HangarState::CharacterCreation::finishedCreation()
 {
+	int val = Configuration::Textures::PlayerAvatar0 + sprite_id;
+	m_Player = new Player((Configuration::Textures)val, sf::Vector2f(m_Window.getSize()));
+
 	m_IsDone = true;
 }
 
@@ -188,19 +203,25 @@ void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 }
 
-void HangarState::initUI()
+void HangarState::initGUI()
 {
 	VerticalLayout* navigation = new VerticalLayout;
 	TextButton* back = new TextButton("BACK");
 	back->on_click = [this](const sf::Event&, Button& button) {
 		m_States.pop();
 	};
+	TextButton* next = new TextButton("NEXT");
+	next->on_click = [this](const sf::Event&, Button& button) {
+		m_States.push(new SpaceState(m_Window, m_States));
+	};
 
 
 	navigation->add(back);
 	navigation->setPosition(sf::Vector2f(0, 0));
+	navigation->add(next);
 	m_UI.addLayout(navigation);
 
+	next->setPosition(m_Window.getSize().x -next->getSize().x, 0);
 	m_UI.bind(Configuration::GuiInputs::Escape,
 		[this](const sf::Event& sfevent)
 		{
@@ -210,9 +231,10 @@ void HangarState::initUI()
 }
 
 HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
-	: State(window, states), m_Creation(window, nullptr), m_UI(window), m_Background(Configuration::textures.get(Configuration::Textures::Hangar))
+	: State(window, states), m_Creation(window, nullptr), m_UI(window), m_Player(Configuration::player),
+	m_Background(Configuration::textures.get(Configuration::Textures::Hangar))
 {
-	initUI();
+	initGUI();
 }
 
 void HangarState::processEvents(const sf::Event& sfevent)

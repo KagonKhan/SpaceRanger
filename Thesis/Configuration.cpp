@@ -86,6 +86,9 @@ void Configuration::draw(sf::RenderTarget& target)
 }
 void Configuration::initTextures()
 {
+
+	textures.load(Textures::Cursor, "../media/textures/cursors/Cursor.png");	
+
 	textures.load(Textures::Hangar, "../media/backgrounds/Hangar.png");
 
 	textures.load(Textures::LeftArrow, "../media/textures/left_arrow.png");

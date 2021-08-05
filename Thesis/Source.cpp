@@ -3,7 +3,19 @@
 
 
 #include "Game.h"
-
+/*	TODO */
+/*	CODE CLEANUP
+*	 - Game - DONE
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+*/
 
 
 /* 

@@ -208,8 +208,6 @@ void MainMenuState::processEvents(const sf::Event& sfevent)
 
 void MainMenuState::update(const sf::Time& deltaTime)
 {
-
-
 	updateBackground(deltaTime);
 	updateTitle(deltaTime);
 }
