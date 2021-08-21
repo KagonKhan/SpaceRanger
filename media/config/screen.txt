@@ -1,8 +1,1 @@
-Space Ranger
-1920 1080
-120
-0
-0
-0
-
-
+title SpaceRangerresolution 1768 992framerate 120fullscreen 0borderless 0vsync 0

@@ -13,42 +13,7 @@ Game::Game()
 
 void Game::initWindow()
 {
-	std::ifstream settings("../media/config/screen.txt");
-	
-	std::string title;
-	std::getline(settings, title);
-	
-	int x, y;
-	settings >> x >> y;
-
-	int framerate;
-	settings >> framerate;
-	
-	bool fullscreen;
-	settings >> fullscreen;
-		
-	bool borderless;
-	settings >> borderless;
-
-	bool vsync;
-	settings >> vsync;
-
-	using namespace sf::Style;
-
-	if (fullscreen) {
-		if (borderless)
-			m_Window.create(sf::VideoMode::getDesktopMode(), title, None);
-		else
-			m_Window.create(sf::VideoMode::getDesktopMode(), title, Titlebar | Close | Fullscreen);
-	}
-	else
-		m_Window.create(sf::VideoMode(x, y), title, Titlebar | Close );
-
-
-	m_Window.setFramerateLimit(framerate);
-	m_Window.setVerticalSyncEnabled(vsync);
-
-	m_Window.setMouseCursorVisible(false);
+	Configuration::CreateWindow(m_Window);
 }
 
 /* TODO: check if this doesn't cause any WHACKY behavior*/

@@ -15,6 +15,7 @@ class MainMenuState: public State
 
 
 	void initGUI();
+
 	void initBackground();
 	void initTitle();
 	void initMusic();

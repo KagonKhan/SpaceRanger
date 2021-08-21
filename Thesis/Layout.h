@@ -19,7 +19,7 @@ public:
 	Layout(float padding, Widget* parent = nullptr);
 	virtual ~Layout();
 
-	sf::Vector2f getSize() const override final;
+	virtual sf::Vector2f getSize() const =0;
 
 	void setPosition(sf::Vector2f position);
 	void add(Widget* widget);
@@ -47,6 +47,8 @@ public:
 	virtual ~VerticalLayout();
 
 	virtual void processEvent(const sf::Event& sfevent) override;
+
+	virtual sf::Vector2f getSize() const override final;
 };
 
 class VerticalScrollingLayout
@@ -95,5 +97,5 @@ public:
 
 	void processEvent(const sf::Event& sfevent);
 
-
+	virtual sf::Vector2f getSize() const override final;
 };

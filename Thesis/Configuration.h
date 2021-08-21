@@ -114,6 +114,15 @@ public:
 
 
 	static void initialize();
+
+	static void CreateWindow(sf::RenderWindow& window);
+	static void LoadFileToString(const std::filesystem::path& path, std::string& loadTo);
+	static void ReplaceFirstOccurance(std::string& s, const std::string& toReplace, const std::string& replaceWith);
+
+
+
+
+
 	static void reset();
 
 	static bool isGameOver();

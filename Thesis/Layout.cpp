@@ -20,10 +20,6 @@ Layout::~Layout()
 {
 }
 
-sf::Vector2f Layout::getSize() const
-{
-	return sf::Vector2f(0, 0);
-}
 
 void Layout::setPosition(sf::Vector2f position)
 {
@@ -81,6 +77,24 @@ void VerticalLayout::processEvent(const sf::Event& sfevent)
 	for (Widget* widget : m_Widgets)
 		widget->processEvent(sfevent);
 
+}
+
+sf::Vector2f VerticalLayout::getSize() const
+{
+	float max_x = 0, curr_y = 0;
+
+	for (Widget* widget : m_Widgets) {
+		sf::Vector2f curr_elem_size = widget->getSize();
+
+		if (curr_elem_size.x > max_x)
+			max_x = curr_elem_size.x;
+
+		curr_y += curr_elem_size.y + padding;
+
+	}
+	return sf::Vector2f(max_x, curr_y);
+
+	
 }
 
 
@@ -209,6 +223,21 @@ void HorizontalLayout::processEvent(const sf::Event& sfevent)
 	for (Widget* widget : m_Widgets)
 		widget->processEvent(sfevent);
 
+}
 
+sf::Vector2f HorizontalLayout::getSize() const
+{
+	float curr_x = 0, max_y = 0;
+
+	for (Widget* widget : m_Widgets) {
+		sf::Vector2f curr_elem_size = widget->getSize();
+
+		if (curr_elem_size.y > max_y)
+			max_y = curr_elem_size.y;
+
+		curr_x += curr_elem_size.x + padding;
+
+	}
+	return sf::Vector2f(curr_x, max_y);
 }
 

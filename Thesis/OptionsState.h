@@ -12,13 +12,16 @@ class OptionsState : public State
 	sf::Sprite& m_BackgroundSprite;
 
 	void initGUI();
+		void initGUIResolutions();
+		void initGUIMusic();
+		void initGUINavigation();
 
 	void initTitle();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
 
-	void fullscreen(Button& button);
+	void goFullscreen(Button& button);
 	void flipMusicState();
 	void changeResolution(const sf::VideoMode& mode);
 	void recalculatePositions(UI* ui, const sf::Vector2f &pos);

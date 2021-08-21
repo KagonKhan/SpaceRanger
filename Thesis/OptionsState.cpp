@@ -25,75 +25,10 @@ OptionsState::~OptionsState()
 
 void OptionsState::initGUI()
 {
-	uis.reserve(2);
-		uis.push_back(new UI(m_Window));
-		uis.push_back(new UI(m_Window));
-
-
-
-	HorizontalLayout* window_sizes = new HorizontalLayout();
-	/* TODO: possible out of bounds access */
-	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
-	for (int i = 0; i <= 4; i+=2) {
-		std::string	button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
-		TextButton* button = new TextButton(button_text);
-		button->setSize(sf::Vector2f(250, 75));
-
-		/* THESE ARE CHECK BOXES, THEY SHOULD BE EXCLUSIVE */
-		button->on_click = [i, modes,this](const sf::Event&, Button& button) {
-			changeResolution(modes[i]);
-		};
-
-		window_sizes->add(button);
-	}
-
-	VerticalLayout* other_options = new VerticalLayout;
-
-
-
-
-
-
-	Checkbox* fullscreen = new Checkbox("Fullscreen");
-	fullscreen->setSize(sf::Vector2f(300, 75));
-	fullscreen->on_click = [this](const sf::Event&, Button& button) {
-		OptionsState::fullscreen(button);
-	};
-
-	sf::Vector2u max_win_size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
-	fullscreen->setIsChecked(m_Window.getSize() == max_win_size);
-	window_sizes->add(fullscreen);
-
-
-	Checkbox* music = new Checkbox("Music");
-	music->on_click = [this](const sf::Event&, Button& button) {
-		flipMusicState();
-	};
-	music->setIsChecked(true);
-	window_sizes->add(music);
-
-
-	window_sizes->setPosition(sf::Vector2f(50, 300));
-	uis[0]->addLayout(window_sizes);
-
-
-
-
-
-
-
-
-	VerticalLayout* navigation = new VerticalLayout;
-	TextButton* back = new TextButton("BACK");
-	back->on_click = [this](const sf::Event&, Button& button) {
-		m_States.pop();
-	};
-
-
-	navigation->add(back);
-	navigation->setPosition(sf::Vector2f(0,0));
-	uis[1]->addLayout(navigation);
-
+	uis.reserve(3);
+		initGUIResolutions();
+		initGUIMusic();
+		initGUINavigation();
 
 	/*
 	/* TODO: Clean up the code
@@ -140,6 +75,82 @@ void OptionsState::initGUI()
 	*/
 }
 
+void OptionsState::initGUIResolutions()
+{
+	uis.push_back(new UI(m_Window));
+		HorizontalLayout* window_sizes = new HorizontalLayout();
+
+
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+
+	for (int i = 0; (i <= modes.size()) && (i <= 4); i += 2) {
+		std::string	button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
+		TextButton* button = new TextButton(button_text);
+		button->setSize(sf::Vector2f(250, 75));
+
+		button->on_click = [i, modes, this](const sf::Event&, Button& button) {
+			changeResolution(modes[i]);
+		};
+
+		window_sizes->add(button);
+	}
+
+	Checkbox* fullscreen = new Checkbox("Fullscreen");
+	fullscreen->setSize(sf::Vector2f(300, 75));
+	fullscreen->on_click = [this](const sf::Event&, Button& button) {
+		goFullscreen(button);
+	};
+
+	sf::Vector2u max_win_size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	fullscreen->setIsChecked(m_Window.getSize() == max_win_size);
+
+
+
+	window_sizes->add(fullscreen);
+	window_sizes->setPosition(sf::Vector2f(50, 300));
+	uis.back()->addLayout(window_sizes);
+}
+
+void OptionsState::initGUIMusic()
+{
+	uis.push_back(new UI(m_Window));
+
+	HorizontalLayout* music_buttons = new HorizontalLayout();
+
+	Checkbox* music_checkbox = new Checkbox("Music");
+	music_checkbox->on_click = [this](const sf::Event&, Button& button) {
+		flipMusicState();
+	};
+	music_checkbox->setIsChecked(true);
+	music_checkbox->setPosition(sf::Vector2f(50, 400));
+	music_buttons->add(music_checkbox);
+
+	uis.back()->addLayout(music_buttons);
+	uis.back()->setPosition(sf::Vector2f(50, 400));
+}
+
+void OptionsState::initGUINavigation()
+{
+	uis.push_back(new UI(m_Window));
+
+	VerticalLayout* navigation = new VerticalLayout;
+	TextButton* back = new TextButton("BACK");
+	back->on_click = [this](const sf::Event&, Button& button) {
+		m_States.pop();
+	};
+
+
+	navigation->add(back);
+	navigation->setPosition(sf::Vector2f(0, 0));
+	uis.back()->addLayout(navigation);
+	uis.back()->setPosition(sf::Vector2f(0, 0));
+}
+
+
+
+
+
+
 void OptionsState::initTitle()
 {
 	m_Title.setCharacterSize(100);
@@ -156,8 +167,10 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_BackgroundSprite);
 	target.draw(m_Title);
-	target.draw(*uis[0]);
-	target.draw(*uis[1]);
+
+	for(UI* ui : uis)
+		target.draw(*ui);
+
 }
 
 void OptionsState::update(const sf::Time& deltaTime)
@@ -181,17 +194,53 @@ void OptionsState::recalculatePositions(UI* ui, const sf::Vector2f &pos)
 
 	uis[0]->setPosition(pos);
 	
-	uis[1]->setPosition(sf::Vector2f(0, 0));
+	uis[2]->setPosition(sf::Vector2f(0, 0));
 	m_Title.setPosition(title_position);
 
 }
 
+/* When creating a new window, which is how to resize the window, the settings like framerate limit get nuked */
 void OptionsState::changeResolution(const sf::VideoMode& mode)
 {
-	m_Window.create(mode, "test", sf::Style::Default);
-	m_Window.setFramerateLimit(120);
+	if (m_Window.getSize() == sf::Vector2u(mode.width, mode.height))
+		return;
+
+
+	/* READ CONTENTS OF SETTINGS FILE TO REPLACE RESOLUTION VALUES, THEN CREATE WINDOW WITH THESE SETTINGS*/
+	std::string file_contents;
+	Configuration::LoadFileToString(std::filesystem::path("../media/config/screen.txt"), file_contents);
+
+	std::string x = std::to_string(m_Window.getSize().x);
+	std::string y = std::to_string(m_Window.getSize().y);
+
+	Configuration::ReplaceFirstOccurance(file_contents, x, std::to_string(mode.width));
+	Configuration::ReplaceFirstOccurance(file_contents, y, std::to_string(mode.height));
+		
+
+
+	std::ofstream settings("../media/config/screen.txt", std::ofstream::out | std::ofstream::trunc);	
+	settings << file_contents;
+	settings.close();
+
+	Configuration::CreateWindow(m_Window);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	Configuration::m_MainMenu->recalculatePositions();
 	recalculatePositions(uis[0], sf::Vector2f(50,300));
+	uis[1]->setPosition(sf::Vector2f(uis[0]->getPosition().x, uis[0]->getPosition().y + uis[0]->getSize().y));
 
 	std::vector<Widget*> widgets = uis[0]->getWidgets();
 	/* TURN OFF THE CHECK ON FULLSCREEN CHECKBOX BUTTON, KINGA GARBE - IDK HOW SLOW THIS IS FOR NOW */
@@ -201,16 +250,26 @@ void OptionsState::changeResolution(const sf::VideoMode& mode)
 	
 }
 
-void OptionsState::fullscreen(Button& button)
+void OptionsState::goFullscreen(Button& button)
 {
+	std::string file_contents;
+	Configuration::LoadFileToString(std::filesystem::path("../media/config/screen.txt"), file_contents);
+
 
 	/* I dynamic cast here, but in theory it should not do weird stuff, since only checkbox uses it */
 	if (!dynamic_cast<Checkbox*>(&button)->getIsChecked())
-		m_Window.create(sf::VideoMode(2560, 1440), "test", sf::Style::Fullscreen);
+		Configuration::ReplaceFirstOccurance(file_contents, "fullscreen 0", "fullscreen 1");
 	else
-		m_Window.create(sf::VideoMode(1920, 1080), "test", sf::Style::Default);
+		Configuration::ReplaceFirstOccurance(file_contents, "fullscreen 1", "fullscreen 0");
 
-	m_Window.setFramerateLimit(120);
+
+	std::ofstream settings("../media/config/screen.txt", std::ofstream::out | std::ofstream::trunc);
+	settings << file_contents;
+	settings.close();
+
+
+	Configuration::CreateWindow(m_Window);
+
 	Configuration::m_MainMenu->recalculatePositions();
 	recalculatePositions(uis[0], sf::Vector2f(50, 300));
 }

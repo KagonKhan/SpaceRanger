@@ -1,0 +1,11 @@
+title SpaceRanger
+
+resolution 1920 1080
+
+framerate 120
+
+fullscreen 0
+
+borderless 0
+
+vsync 0
