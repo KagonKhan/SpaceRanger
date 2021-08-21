@@ -17,6 +17,16 @@
 * 
 */
 
+/*
+	Options Menu 
+	 - Add button to switch between native windows cursor and 
+
+
+
+
+
+
+*/
 
 /* 
 * SFML does not work well with scaling, resulting in either native fullscreen or windowed mode

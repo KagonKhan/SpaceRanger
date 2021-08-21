@@ -12,9 +12,16 @@ ActionMap<int> Configuration::gui_inputs;
 int Configuration::level;
 int Configuration::lives;
 
+
+
+
 Player* Configuration::player = nullptr;
 OptionsState* Configuration::m_Options = nullptr;
 MainMenuState* Configuration::m_MainMenu = nullptr;
+sf::Music* Configuration::m_MainMenuMusic = nullptr;
+
+
+
 
 int Configuration::m_Score;
 sf::Text	Configuration::m_Txt_Score;

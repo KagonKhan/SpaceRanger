@@ -125,11 +125,11 @@ void MainMenuState::initTitle()
 
 void MainMenuState::initMusic()
 {
-	m_MainMenuMusic = &Configuration::musics.get(Configuration::Musics::MainMenuTheme);
-	m_MainMenuMusic->setAttenuation(0);
-	m_MainMenuMusic->setLoop(true);
-	m_MainMenuMusic->setVolume(5);
-	m_MainMenuMusic->play();
+	Configuration::m_MainMenuMusic = &Configuration::musics.get(Configuration::Musics::MainMenuTheme);
+	Configuration::m_MainMenuMusic->setAttenuation(0);
+	Configuration::m_MainMenuMusic->setLoop(true);
+	Configuration::m_MainMenuMusic->setVolume(5);
+	Configuration::m_MainMenuMusic->play();
 }
 
 void MainMenuState::updateBackground(const sf::Time& deltaTime)
@@ -227,7 +227,7 @@ void MainMenuState::Options()
 
 void MainMenuState::NewGame()
 {
-	m_MainMenuMusic->stop();
+	Configuration::m_MainMenuMusic->stop();
 	m_States.push(new HangarState(m_Window, m_States));
 }
 

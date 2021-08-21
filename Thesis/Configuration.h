@@ -126,6 +126,8 @@ public:
 	static class OptionsState* m_Options;
 	static class MainMenuState* m_MainMenu;
 
+	static sf::Music* m_MainMenuMusic;
+
 	static int level;
 	static int lives;
 

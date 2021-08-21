@@ -39,7 +39,7 @@ void OptionsState::initGUI()
 		TextButton* button = new TextButton(button_text);
 		button->setSize(sf::Vector2f(250, 75));
 
-		/* THESE ARE CHECK BOXES, THEY SHOULD BE EXCLUSIVE*/
+		/* THESE ARE CHECK BOXES, THEY SHOULD BE EXCLUSIVE */
 		button->on_click = [i, modes,this](const sf::Event&, Button& button) {
 			changeResolution(modes[i]);
 		};
@@ -63,6 +63,15 @@ void OptionsState::initGUI()
 	sf::Vector2u max_win_size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
 	fullscreen->setIsChecked(m_Window.getSize() == max_win_size);
 	window_sizes->add(fullscreen);
+
+
+	Checkbox* music = new Checkbox("Music");
+	music->on_click = [this](const sf::Event&, Button& button) {
+		flipMusicState();
+	};
+	music->setIsChecked(true);
+	window_sizes->add(music);
+
 
 	window_sizes->setPosition(sf::Vector2f(50, 300));
 	uis[0]->addLayout(window_sizes);
@@ -204,4 +213,12 @@ void OptionsState::fullscreen(Button& button)
 	m_Window.setFramerateLimit(120);
 	Configuration::m_MainMenu->recalculatePositions();
 	recalculatePositions(uis[0], sf::Vector2f(50, 300));
+}
+
+void OptionsState::flipMusicState()
+{
+	if (Configuration::m_MainMenuMusic->getStatus() == sf::Sound::Status::Playing)
+		Configuration::m_MainMenuMusic->pause();
+	else
+		Configuration::m_MainMenuMusic->play();
 }

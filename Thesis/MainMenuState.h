@@ -12,7 +12,7 @@ class MainMenuState: public State
 	
 	sf::Texture& m_BackgroundTexture;
 	sf::Sprite m_BackgroundSprite;
-	sf::Music* m_MainMenuMusic;
+
 
 	void initGUI();
 	void initBackground();

@@ -19,6 +19,7 @@ class OptionsState : public State
 
 
 	void fullscreen(Button& button);
+	void flipMusicState();
 	void changeResolution(const sf::VideoMode& mode);
 	void recalculatePositions(UI* ui, const sf::Vector2f &pos);
 public:
