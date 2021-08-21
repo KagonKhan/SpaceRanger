@@ -5,8 +5,8 @@
 
 class OptionsState : public State
 {
-
-	std::vector<UI*> uis;
+	enum UITypes : int {Resolutions, Music, Navigation };
+	std::unordered_map<int, UI*> uis;
 	Label m_Title;
 
 	sf::Sprite& m_BackgroundSprite;
@@ -24,7 +24,7 @@ class OptionsState : public State
 	void goFullscreen(Button& button);
 	void flipMusicState();
 	void changeResolution(const sf::VideoMode& mode);
-	void recalculatePositions(UI* ui, const sf::Vector2f &pos);
+	void recalculatePositions();
 public:
 
 	void processEvents(const sf::Event& sfevent);

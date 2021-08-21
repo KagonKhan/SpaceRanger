@@ -4,8 +4,8 @@
 
 void OptionsState::processEvents(const sf::Event& sfevent)
 {
-	for (UI* ui : uis)
-		ui->processEvent(sfevent);
+	for (auto& ui : uis)
+		ui.second->processEvent(sfevent);
 }
 
 OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State*>& states, sf::Sprite& bgsprite)
@@ -77,7 +77,7 @@ void OptionsState::initGUI()
 
 void OptionsState::initGUIResolutions()
 {
-	uis.push_back(new UI(m_Window));
+	uis.insert(std::make_pair<int, UI*>(Resolutions,new UI(m_Window)));
 		HorizontalLayout* window_sizes = new HorizontalLayout();
 
 
@@ -108,12 +108,12 @@ void OptionsState::initGUIResolutions()
 
 	window_sizes->add(fullscreen);
 	window_sizes->setPosition(sf::Vector2f(50, 300));
-	uis.back()->addLayout(window_sizes);
+	uis.at(Resolutions)->addLayout(window_sizes);
 }
 
 void OptionsState::initGUIMusic()
 {
-	uis.push_back(new UI(m_Window));
+	uis.insert(std::make_pair<int, UI*>(Music, new UI(m_Window)));
 
 	HorizontalLayout* music_buttons = new HorizontalLayout();
 
@@ -121,29 +121,40 @@ void OptionsState::initGUIMusic()
 	music_checkbox->on_click = [this](const sf::Event&, Button& button) {
 		flipMusicState();
 	};
-	music_checkbox->setIsChecked(true);
-	music_checkbox->setPosition(sf::Vector2f(50, 400));
-	music_buttons->add(music_checkbox);
 
-	uis.back()->addLayout(music_buttons);
-	uis.back()->setPosition(sf::Vector2f(50, 400));
+	TextButton* music_slider = new TextButton("THIS WILL BE A MUSIC SLIDER");
+	music_slider->on_click = [this](const sf::Event&, Button& button) {
+		//TODO: slider implementation();
+	};
+	music_checkbox->setIsChecked(true);
+
+	music_buttons->add(music_checkbox);
+	music_buttons->add(music_slider);
+	music_buttons->setPosition(sf::Vector2f(50, 400));
+
+	uis.at(Music)->addLayout(music_buttons);
 }
 
 void OptionsState::initGUINavigation()
 {
-	uis.push_back(new UI(m_Window));
+	uis.insert(std::make_pair<int, UI*>(Navigation, new UI(m_Window)));
 
-	VerticalLayout* navigation = new VerticalLayout;
+	HorizontalLayout* navigation = new HorizontalLayout;
 	TextButton* back = new TextButton("BACK");
 	back->on_click = [this](const sf::Event&, Button& button) {
 		m_States.pop();
 	};
 
+	TextButton* save = new TextButton("SAVE");
+	save->on_click = [this](const sf::Event&, Button& button) {
+		std::cout << "tba\n";// TODO implement functionality;
+	};
 
 	navigation->add(back);
+	navigation->add(save);
 	navigation->setPosition(sf::Vector2f(0, 0));
-	uis.back()->addLayout(navigation);
-	uis.back()->setPosition(sf::Vector2f(0, 0));
+	save->setPosition(sf::Vector2f(m_Window.getSize()) - save->getSize());
+	uis.at(Navigation)->addLayout(navigation);
 }
 
 
@@ -168,8 +179,8 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_BackgroundSprite);
 	target.draw(m_Title);
 
-	for(UI* ui : uis)
-		target.draw(*ui);
+	for(auto& ui : uis)
+		target.draw(*ui.second);
 
 }
 
@@ -178,26 +189,7 @@ void OptionsState::update(const sf::Time& deltaTime)
 	
 }
 
-/* TODO: FIX THIS, it's so stupid, normalize the functionality */
 
-void OptionsState::recalculatePositions(UI* ui, const sf::Vector2f &pos)
-{
-	Configuration::m_MainMenu->m_BackgroundTexture;
-
-	sf::Vector2u win_size = m_Window.getSize();
-	sf::Vector2u tex_size = Configuration::m_MainMenu->m_BackgroundTexture.getSize();
-	sf::IntRect rect(unsigned(0), (tex_size - win_size).y / (unsigned)2, win_size.x, win_size.y);
-	m_BackgroundSprite.setTextureRect(rect);
-
-
-	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
-
-	uis[0]->setPosition(pos);
-	
-	uis[2]->setPosition(sf::Vector2f(0, 0));
-	m_Title.setPosition(title_position);
-
-}
 
 /* When creating a new window, which is how to resize the window, the settings like framerate limit get nuked */
 void OptionsState::changeResolution(const sf::VideoMode& mode)
@@ -224,23 +216,7 @@ void OptionsState::changeResolution(const sf::VideoMode& mode)
 
 	Configuration::CreateWindow(m_Window);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	Configuration::m_MainMenu->recalculatePositions();
-	recalculatePositions(uis[0], sf::Vector2f(50,300));
-	uis[1]->setPosition(sf::Vector2f(uis[0]->getPosition().x, uis[0]->getPosition().y + uis[0]->getSize().y));
+	recalculatePositions();
 
 	std::vector<Widget*> widgets = uis[0]->getWidgets();
 	/* TURN OFF THE CHECK ON FULLSCREEN CHECKBOX BUTTON, KINGA GARBE - IDK HOW SLOW THIS IS FOR NOW */
@@ -262,17 +238,33 @@ void OptionsState::goFullscreen(Button& button)
 	else
 		Configuration::ReplaceFirstOccurance(file_contents, "fullscreen 1", "fullscreen 0");
 
-
-	std::ofstream settings("../media/config/screen.txt", std::ofstream::out | std::ofstream::trunc);
+	
+	std::ofstream settings("../media/config/screen.txt", std::ofstream::out | std::ofstream::trunc);	
 	settings << file_contents;
 	settings.close();
 
 
 	Configuration::CreateWindow(m_Window);
 
-	Configuration::m_MainMenu->recalculatePositions();
-	recalculatePositions(uis[0], sf::Vector2f(50, 300));
+	recalculatePositions();
 }
+
+void OptionsState::recalculatePositions()
+{
+	Configuration::m_MainMenu->recalculatePositions();
+
+	/* Calculate Background */
+	sf::Vector2u win_size = m_Window.getSize();
+	sf::Vector2u tex_size = Configuration::m_MainMenu->m_BackgroundTexture.getSize();
+	sf::IntRect rect(unsigned(0), (tex_size - win_size).y / (unsigned)2, win_size.x, win_size.y);
+	m_BackgroundSprite.setTextureRect(rect);
+
+	/* Calculate Title */
+	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
+	m_Title.setPosition(title_position);
+
+}
+
 
 void OptionsState::flipMusicState()
 {
