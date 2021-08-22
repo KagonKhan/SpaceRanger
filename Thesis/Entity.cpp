@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Entity.h"
 
+// Entities have centered origins
 Entity::Entity(Configuration::Textures tex_id)
 	: m_Alive(true)
 {

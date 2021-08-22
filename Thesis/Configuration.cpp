@@ -186,6 +186,11 @@ void Configuration::initTextures()
 
 
 	textures.load(Textures::PlayerShip, "../media/textures/ships/player/13B.png");
+
+
+
+	textures.load(Textures::Ammo_Laser, "../media/textures/ammunition/lasers/laser_bullets.png");
+	textures.load(Textures::Turret_Laser, "../media/textures/weapons/turrettest.png");
 }
 
 void Configuration::initBackgrounds()

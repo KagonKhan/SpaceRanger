@@ -15,7 +15,7 @@ private:
 
 	void updateMovement(const sf::Time& deltaTime);
 	void updateSprites(const sf::Time& deltaTime);
-
+	void updateWeapons(const sf::Time& deltaTime);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 

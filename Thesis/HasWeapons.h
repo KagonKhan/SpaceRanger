@@ -4,7 +4,9 @@
 
 class HasWeapons
 {
-private:
+protected:
+	std::vector<Weapon*> m_Weapons;
+
 	//Some container for weapons
 	// Maybe some internal counter, for weapons that autofire
 	// some enum for differentiating weapons
@@ -14,5 +16,6 @@ public:
 	virtual ~HasWeapons();
 
 	void addWeapon(Weapon* weapon);
+
 	void shoot();
 };

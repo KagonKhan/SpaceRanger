@@ -4,6 +4,11 @@
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_Sprite);
+
+	for (Weapon* weapon : m_Weapons)
+		target.draw(*weapon);
+
+
 }
 
 
@@ -13,7 +18,10 @@ Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& bounda
 	m_AvatarSprite.setTexture(Configuration::textures.get(avatar_tex_id));
 	initVariables();
 	
-	
+	m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
+	m_Weapons.back()->setPosition(m_Position);
+	m_Weapons.back()->setFiringRate(2);
+	m_Weapons.back()->setSpriteRotation(180);
 }
 
 void Player::initVariables()
@@ -27,6 +35,7 @@ void Player::update(const sf::Time& deltaTime)
 {
 	updateMovement(deltaTime);
 	updateSprites(deltaTime);
+	updateWeapons(deltaTime);
 }
 
 void Player::updateMovement(const sf::Time& deltaTime)
@@ -85,4 +94,16 @@ void Player::updateMovement(const sf::Time& deltaTime)
 void Player::updateSprites(const sf::Time& deltaTime)
 {
 	m_Sprite.setPosition(m_Position);
+	
+	for (Weapon* weapon : m_Weapons)
+		weapon->setPosition(m_Position);
+}
+
+void Player::updateWeapons(const sf::Time& deltaTime)
+{
+	for (Weapon* weapon : m_Weapons)
+		weapon->update(deltaTime);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		shoot();
 }

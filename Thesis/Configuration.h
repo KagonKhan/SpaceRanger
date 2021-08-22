@@ -63,7 +63,14 @@ public:
 
 
 		Ships = 0x600,
-		PlayerShip = 0x601
+		PlayerShip = 0x601,
+
+
+		Turrets = 0x700,
+		Turret_Laser,
+
+		Ammunition = 0x800,
+		Ammo_Laser
 	};
 	
 

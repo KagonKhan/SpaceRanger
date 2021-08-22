@@ -16,6 +16,8 @@ void Ammunition::setRadAngle()
 Ammunition::Ammunition(Configuration::Textures tex_id, float deg_angle, float speed)
 	:Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed)
 {
+	std::cout << "Ammunition class\n";
+
 	setRadAngle();
 	/* CAREFUL, Sprite angle 0 might point upwards, but here assumed 0 is pointing right */
 	m_Direction.x = cosf(getRotationRad());
