@@ -12,7 +12,7 @@ Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& bounda
 {
 	m_AvatarSprite.setTexture(Configuration::textures.get(avatar_tex_id));
 	initVariables();
-
+	
 	
 }
 
