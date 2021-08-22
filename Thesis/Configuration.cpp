@@ -208,7 +208,7 @@ void Configuration::initFonts()
 void Configuration::initSounds()
 {
 	////laser
-	//sounds.load(Sounds::LaserPlayer, "../media/sounds/laser1.ogg");
+	sounds.load(Sounds::LaserPlayer, "../media/textures/ammunition/lasers/Laser_Bullets.wav");
 	//sounds.load(Sounds::LaserEnemy, "../media/sounds/laser2.ogg");
 	////saucers
 	//sounds.load(Sounds::SaucerSpawn1, "../media/sounds/spawn1.flac");

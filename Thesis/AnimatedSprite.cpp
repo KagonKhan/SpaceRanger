@@ -104,6 +104,12 @@ AnimatedSprite::Status AnimatedSprite::getStatus() const
 	return m_Status;
 }
 
+const sf::Vector2f& AnimatedSprite::getSize() const
+{
+	sf::IntRect rect = m_Animation->getRect(0);
+	return sf::Vector2f(rect.width, rect.height);
+}
+
 void AnimatedSprite::update(const sf::Time& dt)
 {
 	if (m_Status == Playing && m_Animation) {
@@ -123,6 +129,7 @@ void AnimatedSprite::update(const sf::Time& dt)
 					if (m_Repetitions <= 0) {
 						m_Status = Stopped;
 						onFinished();
+						return;
 					}
 				}
 			}

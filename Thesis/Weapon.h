@@ -40,6 +40,10 @@ class LaserTurret :
 	public Weapon
 {
 private:
+
+	// TODO better containers exists for this job, implement them
+	std::list<std::unique_ptr<sf::Sound>> m_Sounds;
+
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
 public:

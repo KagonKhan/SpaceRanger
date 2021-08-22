@@ -50,6 +50,7 @@ public:
 	bool getLoop() const;
 	int getRepeat() const;
 	Status getStatus() const;
+	const sf::Vector2f& getSize() const;
 
 	/* forward time, change frame, check if end etc*/
 	void update(const sf::Time& dt);

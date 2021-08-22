@@ -25,7 +25,6 @@ public:
 	
 	virtual void update(const sf::Time& deltatime) = 0;
 
-
 	float getRotation()const;
 	float getRotationRad()const;
 	void setRotation(float angle);
@@ -38,17 +37,25 @@ public:
 	
 };
 
+#include "AnimatedSprite.h"
+
 class Laser :
 	public Ammunition
 {
 private:
-
+	Animation laserAnimation;
+	AnimatedSprite laserSprite;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 public:
-	Laser(Laser&) = delete;
-	Laser& operator=(Laser&) = delete;
+	Laser(const Laser&) = delete;
+	Laser& operator=(const Laser&) = delete;
 
 
 	Laser(Configuration::Textures tex_id, float deg_angle, float speed = 400.f);
+	virtual ~Laser();
+
+
+	void setPosition(const sf::Vector2f& pos) override;
 
 	void update(const sf::Time& deltatime);
 };

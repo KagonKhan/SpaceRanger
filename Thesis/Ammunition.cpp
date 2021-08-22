@@ -16,7 +16,7 @@ void Ammunition::setRadAngle()
 Ammunition::Ammunition(Configuration::Textures tex_id, float deg_angle, float speed)
 	:Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed)
 {
-	std::cout << "Ammunition class\n";
+
 
 	setRadAngle();
 	/* CAREFUL, Sprite angle 0 might point upwards, but here assumed 0 is pointing right */
@@ -70,18 +70,56 @@ void Ammunition::rotateSprite(float angle)
 
 
 /* ==============================    LASER    ============================== */
-
+void Laser::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(laserSprite);
+}
 Laser::Laser(Configuration::Textures tex_id, float deg_angle, float speed)
-	: Ammunition(tex_id, deg_angle, speed)
+	: Ammunition(tex_id, deg_angle, speed),
+		laserAnimation(&Configuration::textures.get(tex_id))		
+{	
+	laserAnimation.addFramesColumn(1, 3, 0);
+
+	laserSprite.setAnimation(&laserAnimation);
+	laserSprite.setFrameTime(sf::seconds(0.2));
+	laserSprite.setLoop(false);
+	laserSprite.setOrigin(laserSprite.getSize() / 2.f);
+	laserSprite.setRepeat(0);
+
+	laserSprite.play();
+}
+
+Laser::~Laser()
 {
 
+}
+
+
+void Laser::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+	laserSprite.setPosition(pos);
 }
 
 void Laser::update(const sf::Time& deltatime)
 {
-	m_Sprite.move(m_Velocity * deltatime.asSeconds());
-	m_Position = m_Sprite.getPosition();
+	laserSprite.update(deltatime);
+	laserSprite.move(m_Velocity * deltatime.asSeconds());
+	m_Position = laserSprite.getPosition();
+
+
 }
+
+
+
+
+
+/* ==============================    ROCKET    ============================== */
+
+
+
+
+
 
 Rocket::Rocket(Configuration::Textures tex_id, float deg_angle, float speed)
 	: Ammunition(tex_id, deg_angle, speed), m_Target(nullptr)
@@ -96,6 +134,7 @@ void Rocket::lockOnTarget(Entity* target)
 
 void Rocket::update(const sf::Time& deltatime)
 {
+	
 	m_Sprite.move(m_Velocity * deltatime.asSeconds());
 	m_Position = m_Sprite.getPosition();
 }

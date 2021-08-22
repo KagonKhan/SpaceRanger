@@ -20,7 +20,7 @@ Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& bounda
 	
 	m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
 	m_Weapons.back()->setPosition(m_Position);
-	m_Weapons.back()->setFiringRate(2);
+	m_Weapons.back()->setFiringRate(5);
 	m_Weapons.back()->setSpriteRotation(180);
 }
 

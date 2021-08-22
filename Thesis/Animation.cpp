@@ -55,5 +55,6 @@ Animation& Animation::addFramesColumn(int number_x, int number_y, int column)
 
 	for (int i = 0; i < number_y; ++i)
 		addFrame(sf::IntRect(column * dx, i * dy, dx, dy));
+
 	return *this;
 }
