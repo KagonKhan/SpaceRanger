@@ -2,6 +2,7 @@
 #include "Collision.h"
 #include "Configuration.h"
 
+/* Maybe a class "isLiving" that will handle hp, damage, death etc */
 class Entity : public sf::Drawable
 {
 private:
@@ -9,7 +10,7 @@ private:
 
 protected:
 	sf::Sprite m_Sprite;
-	sf::RectangleShape m_Shape; // Possibly for collision detectio
+	sf::RectangleShape m_Shape; // Possibly for collision detection
 
 
 	sf::Vector2f m_Position, m_Velocity, m_Direction;
@@ -24,11 +25,13 @@ public:
 	virtual ~Entity();
 
 	virtual bool isAlive() const;
-	//virtual bool isCollide(const Entity& other) const = 0;
+
 
 	const sf::Vector2f& getPosition() const;
 	
-	
+	const sf::Vector2f& getSize() const;
+	const sf::Vector2f& getRectangleSize() const;
+
 	virtual void setPosition(const sf::Vector2f& pos);
 	virtual void setPosition(float x, float y);
 	virtual void update(const sf::Time& deltaTime) = 0;

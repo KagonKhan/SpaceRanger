@@ -3,13 +3,16 @@
 
 class SpaceState : public State
 {
+private:
 	UI ui;
+	Player* m_Player;
 	void initGUI();
+	void initPlayer();
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
-	void Options();
-	void NewGame();
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+
+
 public:
 
 	void processEvents(const sf::Event& sfevent);

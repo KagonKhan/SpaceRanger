@@ -59,7 +59,11 @@ public:
 	
 
 		LeftArrow = 0x500,
-		RightArrow
+		RightArrow,
+
+
+		Ships = 0x600,
+		PlayerShip = 0x601
 	};
 	
 
@@ -76,8 +80,8 @@ public:
 		Up,
 		Left,
 		Right,
-		Shoot,
-		Hyperspace
+		Down,
+		Shoot
 	};
 	enum Sounds : int {
 		LaserPlayer,

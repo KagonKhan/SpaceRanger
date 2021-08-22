@@ -4,13 +4,19 @@
 #include "Ship.h"
 
 class Player :
-	public Ship,
-	protected ActionTarget<int>
+	public Ship
 {
 private:
+	sf::Sprite m_AvatarSprite;
 	sf::Vector2f m_Boundaries;
 	/* Different types of weapons */
 	
+	void initVariables();
+
+	void updateMovement(const sf::Time& deltaTime);
+	void updateSprites(const sf::Time& deltaTime);
+
+
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
 public:

@@ -18,7 +18,7 @@ void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderSt
 
 
 HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, Player* player)
-	: m_IsDone(false), m_UI(window), m_Player(Configuration::player), m_Window(window)
+	: m_IsDone(false), m_UI(window), m_Window(window)
 {
 	initShapes();
 	initAvatars();
@@ -157,7 +157,7 @@ void HangarState::CharacterCreation::initDescriptions()
 void HangarState::CharacterCreation::finishedCreation()
 {
 	int val = Configuration::Textures::PlayerAvatar0 + sprite_id;
-	m_Player = new Player((Configuration::Textures)val, sf::Vector2f(m_Window.getSize()));
+	Configuration::player = new Player((Configuration::Textures)val, sf::Vector2f(m_Window.getSize()));
 
 	m_IsDone = true;
 }
@@ -231,7 +231,7 @@ void HangarState::initGUI()
 }
 
 HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
-	: State(window, states), m_Creation(window, nullptr), m_UI(window), m_Player(Configuration::player),
+	: State(window, states), m_Creation(window, nullptr), m_UI(window),
 	m_Background(Configuration::textures.get(Configuration::Textures::Hangar))
 {
 	initGUI();

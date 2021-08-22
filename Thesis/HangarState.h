@@ -17,7 +17,7 @@ private:
 		UI m_UI;
 		sf::Sprite m_AvatarSprites[4];
 		short int sprite_id;
-		Player* m_Player;
+
 		sf::RenderWindow& m_Window;
 		
 		void initGUI();
@@ -38,7 +38,6 @@ private:
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 	friend struct CharacterCreation;
-	Player* m_Player;
 	sf::Sprite m_Background;
 
 	UI m_UI;

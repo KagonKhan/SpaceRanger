@@ -19,7 +19,7 @@ void Game::initWindow()
 /* TODO: check if this doesn't cause any WHACKY behavior*/
 void Game::initStates()
 {
-	m_States.emplace(std::move(new MainMenuState(m_Window, m_States)));
+	m_States.emplace(std::move(new SpaceState(m_Window, m_States)));
 }
 
 void Game::initCursor()

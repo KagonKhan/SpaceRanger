@@ -182,6 +182,10 @@ void Configuration::initTextures()
 	textures.load(Textures::PlayerAvatar1, "../media/textures/avatars/avatar2.jpg");
 	textures.load(Textures::PlayerAvatar2, "../media/textures/avatars/avatar3.jpg");
 	textures.load(Textures::PlayerAvatar3, "../media/textures/avatars/avatar4.jpg");
+
+
+
+	textures.load(Textures::PlayerShip, "../media/textures/ships/player/13B.png");
 }
 
 void Configuration::initBackgrounds()
@@ -221,11 +225,18 @@ void Configuration::initMusics()
 
 void Configuration::initPlayerInputs()
 {
-	/*playerInputs.Map(PlayerInputs::Up, Action(sf::Keyboard::Up));
-	playerInputs.Map(PlayerInputs::Right, Action(sf::Keyboard::Right));
-	playerInputs.Map(PlayerInputs::Left, Action(sf::Keyboard::Left));
-	playerInputs.Map(PlayerInputs::Hyperspace, Action(sf::Keyboard::Down, Action::Type::Released));
-	playerInputs.Map(PlayerInputs::Shoot, Action(sf::Keyboard::Space));*/
+	playerInputs.map(PlayerInputs::Up,		Action(sf::Keyboard::Up));
+	playerInputs.map(PlayerInputs::Right,	Action(sf::Keyboard::Right));
+	playerInputs.map(PlayerInputs::Left,	Action(sf::Keyboard::Left));
+	playerInputs.map(PlayerInputs::Down,	Action(sf::Keyboard::Down));
+
+	playerInputs.map(PlayerInputs::Up,		Action(sf::Keyboard::W));
+	playerInputs.map(PlayerInputs::Right,	Action(sf::Keyboard::D));
+	playerInputs.map(PlayerInputs::Left,	Action(sf::Keyboard::A));
+	playerInputs.map(PlayerInputs::Down,	Action(sf::Keyboard::S));
+
+
+	playerInputs.map(PlayerInputs::Shoot,	Action(sf::Keyboard::Space));
 }
 
 

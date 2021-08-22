@@ -6,13 +6,14 @@ Entity::Entity(Configuration::Textures tex_id)
 {
 	m_Sprite.setTexture(Configuration::textures.get(tex_id));
 
-	/** TO DO **/
-	/*
-		Load texture from configuration
-		set origin
-		set position
-	
-	*/
+	sf::Vector2f sprite_size(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
+
+	m_Sprite.setOrigin(sprite_size / 2.f);
+
+	m_Shape.setOrigin(sprite_size / 2.f);
+	m_Shape.setSize(sprite_size);
+
+
 }
 
 
@@ -34,6 +35,16 @@ bool Entity::isAlive() const
 const sf::Vector2f& Entity::getPosition() const
 {
 	return m_Position;
+}
+
+const sf::Vector2f& Entity::getSize() const
+{
+	return sf::Vector2f(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
+}
+
+const sf::Vector2f& Entity::getRectangleSize() const
+{
+	return m_Shape.getSize();
 }
 
 void Entity::setPosition(const sf::Vector2f& pos)

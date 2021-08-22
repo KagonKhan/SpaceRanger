@@ -49,6 +49,18 @@
     <Filter Include="Game\States\MenuStates">
       <UniqueIdentifier>{6de7d0e4-98b4-482d-9d60-7d365c526fc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entities\Ship">
+      <UniqueIdentifier>{870c9fc2-dc50-4b03-ae93-91e5cc42c3c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities\Weapon">
+      <UniqueIdentifier>{aa6bb40b-9bc6-4510-b539-61a72b6f660f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities\Obstacles">
+      <UniqueIdentifier>{908eebe8-4210-4ff8-af8b-c4e9746c2067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities\Attributes">
+      <UniqueIdentifier>{1fa5d011-2fb9-4c3f-95d5-90b53b41f22e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -57,13 +69,7 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Game\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Game\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Meteor.cpp">
       <Filter>Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -129,14 +135,29 @@
     <ClCompile Include="ScrollBarButton.cpp">
       <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Entities\Ship</Filter>
+    </ClCompile>
     <ClCompile Include="Ship.cpp">
-      <Filter>Game\Entities</Filter>
+      <Filter>Game\Entities\Ship</Filter>
     </ClCompile>
     <ClCompile Include="Weapon.cpp">
-      <Filter>Game\Entities</Filter>
+      <Filter>Game\Entities\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="Ammunition.cpp">
-      <Filter>Game\Entities</Filter>
+      <Filter>Game\Entities\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Meteor.cpp">
+      <Filter>Game\Entities\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="IsLiving.cpp">
+      <Filter>Game\Entities\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="HasWeapons.cpp">
+      <Filter>Game\Entities\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="CanCollide.cpp">
+      <Filter>Game\Entities\Attributes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,12 +165,6 @@
       <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Game\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Meteor.h">
-      <Filter>Game\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
       <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -224,14 +239,29 @@
     <ClInclude Include="ScrollBarButton.h">
       <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Entities\Ship</Filter>
+    </ClInclude>
     <ClInclude Include="Ship.h">
-      <Filter>Game\Entities</Filter>
+      <Filter>Game\Entities\Ship</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
-      <Filter>Game\Entities</Filter>
+      <Filter>Game\Entities\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="Ammunition.h">
-      <Filter>Game\Entities</Filter>
+      <Filter>Game\Entities\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Meteor.h">
+      <Filter>Game\Entities\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="IsLiving.h">
+      <Filter>Game\Entities\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="HasWeapons.h">
+      <Filter>Game\Entities\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="CanCollide.h">
+      <Filter>Game\Entities\Attributes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
