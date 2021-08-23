@@ -78,6 +78,9 @@ private:
 
 	/* For Target-seeking missiles */
 	Entity* m_Target;
+	float m_RotationRadius;
+	float m_SeekingDistance;
+	float m_FuelDuration;
 
 public:
 	Missile(Missile&) = delete;

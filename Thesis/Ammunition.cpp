@@ -170,7 +170,7 @@ Laser::~Laser()
 
 
 Missile::Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	: Ammunition(tex_id, boundaries, deg_angle, speed), m_Target(nullptr)
+	: Ammunition(tex_id, boundaries, deg_angle, speed), m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f)
 {
 	initAnimation();
 	/*
@@ -194,21 +194,31 @@ void Missile::initAnimation()
 
 void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
 {
+	m_FuelDuration -= deltaTime.asSeconds();
 
-	sf::Vector2f A(m_Direction);
-	sf::Vector2f B(Configuration::tar.getPosition() - getPosition());
 
-	if (perpDot(A, B) < 0) {
-		rotate(-2.f);
-	}
-	else if (perpDot(A, B) > 0) {
-		rotate(2.f);
-	}
-	else {
-		if (dot(A, B) < 0)
-			;// missileVelocity.y *= -1;
-	}
+	if (m_Target || 1 && m_FuelDuration >= 0) {
+		sf::Vector2f tar_pos = Configuration::tar.getPosition();
+		sf::Vector2f mis_pos = getPosition();
 
+
+		if (std::fabsf(tar_pos.x - mis_pos.x) < m_SeekingDistance && std::fabsf(tar_pos.y - mis_pos.y) < m_SeekingDistance) {
+		
+			sf::Vector2f A(m_Direction);
+			sf::Vector2f B(tar_pos - mis_pos);
+
+			if (perpDot(A, B) < 0) {
+				rotate(-m_RotationRadius);
+			}
+			else if (perpDot(A, B) > 0) {
+				rotate(m_RotationRadius);
+			}
+			else {
+				if (dot(A, B) < 0)
+					;// missileVelocity.y *= -1;
+			}
+		}
+	}
 }
 
 void Missile::lockOnTarget(Entity* target)
