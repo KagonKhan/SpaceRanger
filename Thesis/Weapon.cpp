@@ -5,6 +5,7 @@
 
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	target.draw(tar);
 	for (auto&& shot : m_Shots)
 		target.draw(*shot);
 
@@ -14,6 +15,9 @@ void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 Weapon::Weapon(Configuration::Textures tex_id)
 	: Entity(tex_id), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
 {
+	tar.setSize(sf::Vector2f(50, 50));
+	tar.setFillColor(sf::Color::Red);
+	tar.setPosition(300, 300);
 }
 
 
@@ -82,9 +86,10 @@ void Weapon::shoot()
 void Weapon::update(const sf::Time& deltaTime)
 {
 	updateTimings(deltaTime);
+
+	updateTrackingTarget(deltaTime);
+
 	updateBulletsAndCheckForDeletion(deltaTime);
-
-
 
 	deleteFinishedSounds();
 }
@@ -103,6 +108,29 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 			m_Shots.erase(m_Shots.begin() + i);
 
 	}
+}
+
+void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
+{
+
+	sf::Vector2f target_pos = tar.getPosition();
+	sf::Vector2f weapon_pos = getPosition();
+	
+	float angle = atan2f(target_pos.y - weapon_pos.y, target_pos.x - weapon_pos.x);
+	angle *= 180.f / M_PIl;
+	angle -= 90.f;
+
+	m_Sprite.setRotation(angle);
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::I))
+		tar.move(0, -5);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
+		tar.move(5, 0);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
+		tar.move(0, 5);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::J))
+		tar.move(-5, 0);
 }
 
 void Weapon::deleteFinishedSounds()
@@ -124,7 +152,7 @@ void LaserTurret::createBullet()
 {
 	std::unique_ptr<Laser> shot(new Laser(Configuration::Textures::Ammo_Laser, Configuration::boundaries, -90, 1200));
 	shot->setPosition(m_Position);
-
+	shot->setRotation(m_Sprite.getRotation());
 
 
 	m_Shots.push_back(std::move(shot));
@@ -154,10 +182,8 @@ void MissileTurret::createBullet()
 {
 	std::unique_ptr<Missile> shot(new Missile(Configuration::Textures::Ammo_Rocket, Configuration::boundaries, -90, 400));
 	shot->setPosition(m_Position);
-	
-	
-	
-	
+	shot->setRotation(m_Sprite.getRotation());
+
 	m_Shots.push_back(std::move(shot));
 }
 

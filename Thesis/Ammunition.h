@@ -27,6 +27,7 @@ protected:
 	AnimatedSprite m_AnimatedSprite;
 
 	void updateAnimation(const sf::Time& deltaTime);
+	void updatePosition(const sf::Time& deltaTime);
 
 public:
 	Ammunition(Ammunition&) = delete;

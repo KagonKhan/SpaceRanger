@@ -12,7 +12,7 @@ OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State*>& states,
 	: State(window, states), m_BackgroundSprite(bgsprite), 
 	m_Title("OPTIONS")
 {
-	std::cout << "\nOptions State constructor\n";
+	std::cout<< "\nOptions State constructor\n";
 	initGUI();
 	initTitle();
 }

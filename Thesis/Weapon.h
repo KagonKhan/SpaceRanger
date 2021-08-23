@@ -24,12 +24,13 @@ protected:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 	
 
-
+	sf::RectangleShape tar;
 
 	/* Maybe call this function every X seconds? */
 	void deleteFinishedSounds();
 	void updateTimings(const sf::Time& deltaTime);
 	void updateBulletsAndCheckForDeletion(const sf::Time& deltaTime);
+	void updateTrackingTarget(const sf::Time& deltaTime);
 
 
 
@@ -49,7 +50,8 @@ public:
 	void setWeaponOffset(const sf::Vector2f& offset);
 	const sf::Vector2f& getWeaponOffset();
 
-	virtual void setPosition(const sf::Vector2f& pos)override;
+	/* Different behavior, becasue a weapon can have offset */
+	void setPosition(const sf::Vector2f& pos) override;
 
 
 

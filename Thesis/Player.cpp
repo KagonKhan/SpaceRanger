@@ -107,7 +107,7 @@ void Player::updateSprites(const sf::Time& deltaTime)
 	for (auto& weapon : m_Weapons) {
 		weapon->setPosition(m_Position);
 
-		std::cout << "Weapon at: " << weapon->getPosition().x << ", " << weapon->getPosition().y << "\n";
+	
 	}
 }
 

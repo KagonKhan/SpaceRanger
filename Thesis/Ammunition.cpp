@@ -22,14 +22,6 @@ Ammunition::Ammunition(Configuration::Textures tex_id, const sf::Vector2f& bound
 
 	setRadAngle();
 	/* CAREFUL, Sprite angle 0 might point upwards, but here assumed 0 is pointing right */
-	m_Direction.x = cosf(getRotationRad());
-	m_Direction.y = sinf(getRotationRad());
-
-	m_Velocity = m_Direction * m_Speed;
-
-
-
-
 }
 // rotation in degrees
 float Ammunition::getRotation() const
@@ -46,6 +38,9 @@ void Ammunition::setRotation(float angle)
 	m_DegAngle = angle;
 	m_DegAngle = fmod(m_DegAngle, 360.f);
 
+
+	/* CAREFUL, 180 deg shift because that's what works for sprites, but for different it might not */
+	m_AnimatedSprite.setRotation(m_DegAngle + 180.f);
 	setRadAngle();
 }
 // rotation in degrees, mods the value by 360
@@ -53,6 +48,10 @@ void Ammunition::rotate(float angle)
 {
 	m_DegAngle += angle;
 	m_DegAngle = fmod(m_DegAngle, 360.f);
+
+
+	/* CAREFUL, 180 deg shift because that's what works for sprites, but for different it might not */
+	m_AnimatedSprite.setRotation(m_DegAngle + 180.f);
 
 	setRadAngle();
 }
@@ -83,9 +82,19 @@ bool Ammunition::getShouldBeDeleted()
 void Ammunition::updateAnimation(const sf::Time& deltaTime)
 {
 	m_AnimatedSprite.update(deltaTime);
+
+
+}
+
+void Ammunition::updatePosition(const sf::Time& deltaTime)
+{
+	m_Direction.x = cosf(getRotationRad() + M_PIl / 2.f);
+	m_Direction.y = sinf(getRotationRad() + M_PIl / 2.f);
+	m_Velocity = m_Direction * m_Speed;
+
+
 	m_AnimatedSprite.move(m_Velocity * deltaTime.asSeconds());
 	m_Position = m_AnimatedSprite.getPosition();
-
 
 }
 
@@ -122,6 +131,7 @@ Laser::~Laser()
 void Laser::update(const sf::Time& deltaTime)
 {
 	updateAnimation(deltaTime);
+	updatePosition(deltaTime);
 
 	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
 		m_ShouldBeDeleted = true;
@@ -172,6 +182,7 @@ void Missile::update(const sf::Time& deltaTime)
 {
 
 	updateAnimation(deltaTime);
+	updatePosition(deltaTime);
 
 	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
 		m_ShouldBeDeleted = true;
