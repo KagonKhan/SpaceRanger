@@ -12,7 +12,7 @@ ActionMap<int> Configuration::gui_inputs;
 int Configuration::level;
 int Configuration::lives;
 
-
+sf::Vector2f Configuration::boundaries;
 
 
 Player* Configuration::player = nullptr;
@@ -111,6 +111,8 @@ void Configuration::CreateWindow(sf::RenderWindow& window)
 	window.setFramerateLimit(framerate);
 	window.setVerticalSyncEnabled(vsync);
 	window.setMouseCursorVisible(false);
+
+	boundaries = sf::Vector2f(window.getSize());
 }
 
 void Configuration::ReplaceFirstOccurance(std::string& string, const std::string& toReplace, const std::string& replaceWith)
@@ -120,6 +122,13 @@ void Configuration::ReplaceFirstOccurance(std::string& string, const std::string
 		return;
 
 	string.replace(pos, toReplace.length(), replaceWith);
+}
+
+bool Configuration::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& size)
+{
+	if (pos.x > size.x || pos.x < -size.x || pos.y > size.y || pos.y < -size.y)
+		return false;
+	return true;
 }
 
 void Configuration::LoadFileToString(const std::filesystem::path& path, std::string& loadTo)
@@ -190,6 +199,7 @@ void Configuration::initTextures()
 
 
 	textures.load(Textures::Ammo_Laser, "../media/textures/ammunition/lasers/laser_bullets.png");
+	textures.load(Textures::Ammo_Rocket, "../media/textures/ammunition/missiles/Missile.png");
 	textures.load(Textures::Turret_Laser, "../media/textures/weapons/turrettest.png");
 }
 
@@ -209,6 +219,7 @@ void Configuration::initSounds()
 {
 	////laser
 	sounds.load(Sounds::LaserPlayer, "../media/textures/ammunition/lasers/Laser_Bullets.wav");
+	sounds.load(Sounds::Missile, "../media/sounds/missile/missile.wav");
 	//sounds.load(Sounds::LaserEnemy, "../media/sounds/laser2.ogg");
 	////saucers
 	//sounds.load(Sounds::SaucerSpawn1, "../media/sounds/spawn1.flac");

@@ -68,9 +68,13 @@ public:
 
 		Turrets = 0x700,
 		Turret_Laser,
+		Turret_Rocket,
+		Turret_Beam,
 
 		Ammunition = 0x800,
-		Ammo_Laser
+		Ammo_Laser,
+		Ammo_Rocket,
+		Ammo_Beam
 	};
 	
 
@@ -92,15 +96,7 @@ public:
 	};
 	enum Sounds : int {
 		LaserPlayer,
-		LaserEnemy,
-		SaucerSpawn1,
-		SaucerSpawn2,
-		Boom1,
-		Boom2,
-		Explosion1,
-		Explosion2,
-		Explosion3,
-		Jump
+		Missile
 	};
 	enum Musics : int {
 		MainMenuTheme
@@ -123,13 +119,16 @@ public:
 	static ActionMap<int> gui_inputs;
 	static ActionMap<int> playerInputs;
 
+	static sf::Vector2f boundaries;
 
 	static void initialize();
 
 	static void CreateWindow(sf::RenderWindow& window);
 	static void LoadFileToString(const std::filesystem::path& path, std::string& loadTo);
 	static void ReplaceFirstOccurance(std::string& s, const std::string& toReplace, const std::string& replaceWith);
-
+	
+	// Receives position, and checks if contained in area
+	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
 
 
 

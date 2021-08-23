@@ -18,10 +18,19 @@ Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& bounda
 	m_AvatarSprite.setTexture(Configuration::textures.get(avatar_tex_id));
 	initVariables();
 	
-	m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
+	m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
 	m_Weapons.back()->setPosition(m_Position);
-	m_Weapons.back()->setFiringRate(5);
+	m_Weapons.back()->setWeaponOffset(sf::Vector2f(-50, 0));
+	m_Weapons.back()->setFiringRate(2.5);
 	m_Weapons.back()->setSpriteRotation(180);
+	m_Weapons.back()->setIsWeaponActive(true);
+
+	m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
+	m_Weapons.back()->setPosition(m_Position + sf::Vector2f(50, 0));
+	m_Weapons.back()->setWeaponOffset(sf::Vector2f(50, 0));
+	m_Weapons.back()->setFiringRate(7.5);
+	m_Weapons.back()->setSpriteRotation(180);
+	m_Weapons.back()->setIsWeaponActive(true);
 }
 
 void Player::initVariables()
@@ -95,8 +104,11 @@ void Player::updateSprites(const sf::Time& deltaTime)
 {
 	m_Sprite.setPosition(m_Position);
 	
-	for (Weapon* weapon : m_Weapons)
+	for (auto& weapon : m_Weapons) {
 		weapon->setPosition(m_Position);
+
+		std::cout << "Weapon at: " << weapon->getPosition().x << ", " << weapon->getPosition().y << "\n";
+	}
 }
 
 void Player::updateWeapons(const sf::Time& deltaTime)

@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "CanCollide.h"
 
+#include "AnimatedSprite.h"
+
 # define M_PIl          3.141592653589793238462643383279502884L /* pi */
 class Ammunition :
 	public Entity,
@@ -16,12 +18,21 @@ protected:
 	float m_Speed;
 	float m_DegAngle;
 	float m_RadAngle;
+	bool m_ShouldBeDeleted;
+
+
+	sf::Vector2f m_Boundaries;
+
+	Animation m_Animation;
+	AnimatedSprite m_AnimatedSprite;
+
+	void updateAnimation(const sf::Time& deltaTime);
 
 public:
 	Ammunition(Ammunition&) = delete;
 	Ammunition& operator=(Ammunition&) = delete;
 
-	Ammunition(Configuration::Textures tex_id, float deg_angle, float speed);
+	Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
 	
 	virtual void update(const sf::Time& deltatime) = 0;
 
@@ -29,53 +40,47 @@ public:
 	float getRotationRad()const;
 	void setRotation(float angle);
 	void rotate(float angle);
+	void setPosition(const sf::Vector2f& pos) override;
 	
 	float getSpriteRotation()const;
 	void setSpriteRotation(float angle);
 	void rotateSprite(float angle);
 
-	
+	bool getShouldBeDeleted();
 };
-
-#include "AnimatedSprite.h"
 
 class Laser :
 	public Ammunition
 {
 private:
-	Animation laserAnimation;
-	AnimatedSprite laserSprite;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 public:
 	Laser(const Laser&) = delete;
 	Laser& operator=(const Laser&) = delete;
 
 
-	Laser(Configuration::Textures tex_id, float deg_angle, float speed = 400.f);
+	Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
 	virtual ~Laser();
-
-
-	void setPosition(const sf::Vector2f& pos) override;
 
 	void update(const sf::Time& deltatime);
 };
 
-class Rocket :
+class Missile :
 	public Ammunition
 {
 private:
 	Entity* m_Target;
 
 public:
-	Rocket(Rocket&) = delete;
-	Rocket& operator=(Rocket&) = delete;
+	Missile(Missile&) = delete;
+	Missile& operator=(Missile&) = delete;
 
 
-	Rocket(Configuration::Textures tex_id, float deg_angle, float speed = 400.f);
+	Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
 
 	void lockOnTarget(Entity* target);
 
-	void update(const sf::Time& deltatime);
+	void update(const sf::Time& deltaTime);
 };
 
 class Beam :
@@ -88,7 +93,7 @@ public:
 	Beam& operator=(Beam&) = delete;
 
 
-	Beam(Configuration::Textures tex_id, float deg_angle, float speed = 400.f);
+	Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
 
-	void update(const sf::Time& deltatime);
+	void update(const sf::Time& deltaTime);
 };

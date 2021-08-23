@@ -5,7 +5,7 @@
 
 void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_Sprite);
+	target.draw(m_AnimatedSprite);
 }
 
 void Ammunition::setRadAngle()
@@ -13,8 +13,10 @@ void Ammunition::setRadAngle()
 	m_RadAngle = m_DegAngle / 180.f * M_PIl;
 }
 
-Ammunition::Ammunition(Configuration::Textures tex_id, float deg_angle, float speed)
-	:Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed)
+Ammunition::Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
+	:Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed),
+		m_Animation(&Configuration::textures.get(tex_id)),
+		m_Boundaries(boundaries), m_ShouldBeDeleted(false)
 {
 
 
@@ -24,6 +26,10 @@ Ammunition::Ammunition(Configuration::Textures tex_id, float deg_angle, float sp
 	m_Direction.y = sinf(getRotationRad());
 
 	m_Velocity = m_Direction * m_Speed;
+
+
+
+
 }
 // rotation in degrees
 float Ammunition::getRotation() const
@@ -66,27 +72,45 @@ void Ammunition::rotateSprite(float angle)
 	m_Sprite.rotate(angle);
 }
 
+bool Ammunition::getShouldBeDeleted()
+{
+	return m_ShouldBeDeleted;
+}
 
 
+
+
+void Ammunition::updateAnimation(const sf::Time& deltaTime)
+{
+	m_AnimatedSprite.update(deltaTime);
+	m_AnimatedSprite.move(m_Velocity * deltaTime.asSeconds());
+	m_Position = m_AnimatedSprite.getPosition();
+
+
+}
+
+void Ammunition::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+	m_AnimatedSprite.setPosition(pos);
+}
 
 /* ==============================    LASER    ============================== */
-void Laser::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	target.draw(laserSprite);
-}
-Laser::Laser(Configuration::Textures tex_id, float deg_angle, float speed)
-	: Ammunition(tex_id, deg_angle, speed),
-		laserAnimation(&Configuration::textures.get(tex_id))		
+
+Laser::Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
+	: Ammunition(tex_id, boundaries, deg_angle, speed)
+			
 {	
-	laserAnimation.addFramesColumn(1, 3, 0);
 
-	laserSprite.setAnimation(&laserAnimation);
-	laserSprite.setFrameTime(sf::seconds(0.2));
-	laserSprite.setLoop(false);
-	laserSprite.setOrigin(laserSprite.getSize() / 2.f);
-	laserSprite.setRepeat(0);
+	m_Animation.addFramesColumn(1, 3, 0);
 
-	laserSprite.play();
+	m_AnimatedSprite.setAnimation(&m_Animation);
+	m_AnimatedSprite.setFrameTime(sf::seconds(0.2f));
+	m_AnimatedSprite.setLoop(false);
+	m_AnimatedSprite.setOrigin(m_AnimatedSprite.getSize() / 2.f);
+	m_AnimatedSprite.play();
+
+
 }
 
 Laser::~Laser()
@@ -95,19 +119,12 @@ Laser::~Laser()
 }
 
 
-void Laser::setPosition(const sf::Vector2f& pos)
+void Laser::update(const sf::Time& deltaTime)
 {
-	m_Position = pos;
-	laserSprite.setPosition(pos);
-}
+	updateAnimation(deltaTime);
 
-void Laser::update(const sf::Time& deltatime)
-{
-	laserSprite.update(deltatime);
-	laserSprite.move(m_Velocity * deltatime.asSeconds());
-	m_Position = laserSprite.getPosition();
-
-
+	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
+		m_ShouldBeDeleted = true;
 }
 
 
@@ -121,30 +138,57 @@ void Laser::update(const sf::Time& deltatime)
 
 
 
-Rocket::Rocket(Configuration::Textures tex_id, float deg_angle, float speed)
-	: Ammunition(tex_id, deg_angle, speed), m_Target(nullptr)
+Missile::Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
+	: Ammunition(tex_id, boundaries, deg_angle, speed), m_Target(nullptr)
 {
 
+	m_Animation.addFramesColumn(1, 1, 0);
+
+	m_AnimatedSprite.setAnimation(&m_Animation);
+	m_AnimatedSprite.setOrigin(m_AnimatedSprite.getSize() / 2.f);
+	m_AnimatedSprite.setLoop(false);
+
+	m_AnimatedSprite.setScale(0.5f, 0.5f);
+	//m_AnimatedSprite.play();
+
+
+
+
+
+
+	/*
+		TO DO; 
+			- Animated rocket? exhaust?
+	
+	*/
 }
 
-void Rocket::lockOnTarget(Entity* target)
+void Missile::lockOnTarget(Entity* target)
 {
 	m_Target = target;
 }
 
-void Rocket::update(const sf::Time& deltatime)
+void Missile::update(const sf::Time& deltaTime)
 {
-	
-	m_Sprite.move(m_Velocity * deltatime.asSeconds());
-	m_Position = m_Sprite.getPosition();
+
+	updateAnimation(deltaTime);
+
+	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
+		m_ShouldBeDeleted = true;
 }
 
-Beam::Beam(Configuration::Textures tex_id, float deg_angle, float speed)
-	:Ammunition(tex_id, deg_angle, speed)
+
+
+/* ==============================    BEAM    ============================== */
+
+
+
+Beam::Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
+	:Ammunition(tex_id, boundaries, deg_angle, speed)
 {
 }
 
-void Beam::update(const sf::Time& deltatime)
+void Beam::update(const sf::Time& deltaTime)
 {
 	/* TODO animation update*/
 }

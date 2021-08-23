@@ -36,7 +36,7 @@ public:
 	AnimatedSprite& operator=(const AnimatedSprite&) = default;
 	AnimatedSprite(AnimatedSprite&&) = default;
 	AnimatedSprite& operator=(AnimatedSprite&&) = default;
-	AnimatedSprite(Animation* animation = nullptr, Status status = Playing, const sf::Time& dt = sf::seconds(0.15), bool loop = true, int repeat = 0);
+	AnimatedSprite(Animation* animation = nullptr, Status status = Playing, const sf::Time& dt = sf::seconds(0.15f), bool loop = true, int repeat = 0);
 
 
 	void setAnimation(Animation* animation);

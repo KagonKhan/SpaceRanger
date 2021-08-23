@@ -25,7 +25,7 @@ void AnimatedSprite::setFrame(size_t index, bool resetTime)
 		float bottom = top + rect.height;
 
 		m_Vertices[0].texCoords = sf::Vector2f(left, top);
-		m_Vertices[1].texCoords = sf::Vector2f(left, bottom);
+		m_Vertices[1].texCoords = sf::Vector2f(left, bottom); 
 		m_Vertices[2].texCoords = sf::Vector2f(right, bottom);
 		m_Vertices[3].texCoords = sf::Vector2f(right, top);
 

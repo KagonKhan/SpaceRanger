@@ -3,15 +3,25 @@
 #include "Weapon.h"
 #include "Entity.h"
 
+void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for (auto&& shot : m_Shots)
+		target.draw(*shot);
+
+	target.draw(m_Sprite);
+}
+
 Weapon::Weapon(Configuration::Textures tex_id)
-	: Entity(tex_id), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0)
+	: Entity(tex_id), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
 {
 }
 
+
+#pragma region SETTERS / GETTERS
 void Weapon::setFiringRate(float rate)
 {
 	m_FiringRate=rate;
-
+	m_FiringDelay = 1 / m_FiringRate;
 }
 
 void Weapon::setTarget(const Entity* target)
@@ -19,9 +29,9 @@ void Weapon::setTarget(const Entity* target)
 	m_Target = target;
 }
 
-void Weapon::shoot()
+void Weapon::setIsWeaponActive(bool isActive)
 {
-	
+	m_IsWeaponActive = isActive;
 }
 
 float Weapon::getSpriteRotation() const
@@ -39,15 +49,70 @@ void Weapon::rotateSprite(float angle)
 	m_Sprite.rotate(angle);
 }
 
-/* =============================    Laser Turret    ========================= */
-
-void LaserTurret::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Weapon::setWeaponOffset(const sf::Vector2f& offset)
 {
-	for (Ammunition* shot : m_Shots)
-		target.draw(*shot);
-
-	target.draw(m_Sprite);
+	m_WeaponOffset = offset;
 }
+
+const sf::Vector2f& Weapon::getWeaponOffset()
+{
+	return m_WeaponOffset;
+}
+
+void Weapon::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos + m_WeaponOffset;
+	m_Shape.setPosition(m_Position);
+	m_Sprite.setPosition(m_Position);
+}
+
+#pragma endregion
+
+
+void Weapon::shoot()
+{
+	if(m_IsWeaponActive)
+		if (m_TimeSinceLastShot > m_FiringDelay) {
+			createBullet();
+			createSound();
+			m_TimeSinceLastShot = 0;
+		}
+}
+
+void Weapon::update(const sf::Time& deltaTime)
+{
+	updateTimings(deltaTime);
+	updateBulletsAndCheckForDeletion(deltaTime);
+
+
+
+	deleteFinishedSounds();
+}
+
+void Weapon::updateTimings(const sf::Time& deltaTime)
+{
+	m_TimeSinceLastShot += deltaTime.asSeconds();
+}
+
+void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
+{
+	for (int i = 0; i < m_Shots.size(); ++i) {
+		m_Shots[i]->update(deltaTime);
+
+		if (m_Shots[i]->getShouldBeDeleted())
+			m_Shots.erase(m_Shots.begin() + i);
+
+	}
+}
+
+void Weapon::deleteFinishedSounds()
+{
+	m_Sounds.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {
+		return sound->getStatus() != sf::SoundSource::Status::Playing;
+		});
+}
+
+/* =============================    Laser Turret    ========================= */
 
 LaserTurret::LaserTurret(Configuration::Textures tex_id)
 	: Weapon(tex_id)
@@ -55,41 +120,56 @@ LaserTurret::LaserTurret(Configuration::Textures tex_id)
 
 }
 
-void LaserTurret::shoot()
+void LaserTurret::createBullet()
 {
-	/* TODO maybe hold shot delay, instead of calculating each time */
-	if (m_TimeSinceLastShot > 1 / m_FiringRate) {
-		m_Shots.push_back(new Laser(Configuration::Textures::Ammo_Laser, -90, 1200 ));
-		m_Shots.back()->setPosition(m_Position);
-
-		m_TimeSinceLastShot = 0;
+	std::unique_ptr<Laser> shot(new Laser(Configuration::Textures::Ammo_Laser, Configuration::boundaries, -90, 1200));
+	shot->setPosition(m_Position);
 
 
-		std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::LaserPlayer)));
-		sound->setAttenuation(0);
-		sound->play();
-		sound->setVolume(20);
-		m_Sounds.emplace_back(std::move(sound));
 
-	}
+	m_Shots.push_back(std::move(shot));
 }
 
-void LaserTurret::update(const sf::Time& deltatime)
+void LaserTurret::createSound()
 {
-	m_TimeSinceLastShot += deltatime.asSeconds();
+	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::LaserPlayer)));
+	sound->setAttenuation(0);
+	sound->setVolume(20);
+	sound->play();
 
 
-	for (Ammunition* shot : m_Shots)
-		shot->update(deltatime);
 
-	// if targeted, aim
-	if (m_Target) {
+	m_Sounds.emplace_back(std::move(sound));
+}
 
 
-	}
+/* =============================    Missile Turret    ========================= */
+
+MissileTurret::MissileTurret(Configuration::Textures tex_id)
+	: Weapon(tex_id)
+{
+}
+
+void MissileTurret::createBullet()
+{
+	std::unique_ptr<Missile> shot(new Missile(Configuration::Textures::Ammo_Rocket, Configuration::boundaries, -90, 400));
+	shot->setPosition(m_Position);
+	
+	
+	
+	
+	m_Shots.push_back(std::move(shot));
+}
+
+void MissileTurret::createSound()
+{
+	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Missile)));
+	sound->setAttenuation(0);
+	sound->setVolume(20);
+	sound->play();
 
 
-	m_Sounds.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {
-		return sound->getStatus() != sf::SoundSource::Status::Playing;
-		});
+
+
+	m_Sounds.emplace_back(std::move(sound));
 }
