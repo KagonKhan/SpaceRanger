@@ -15,9 +15,6 @@ private:
 	/* amount of repetitions */
 	int m_Repetitions;
 
-	enum Status : int;
-	Status m_Status;
-
 	size_t m_CurrentFrame;
 	sf::Vertex m_Vertices[4];
 
@@ -30,7 +27,7 @@ public:
 	using FuncType = std::function<void()>;
 	static FuncType defaultFunc;
 	FuncType onFinished;
-	enum Status { Stopped, Paused, Playing };
+	enum Status { Stopped, Paused, Playing } m_Status;
 
 	AnimatedSprite(const AnimatedSprite&) = default;
 	AnimatedSprite& operator=(const AnimatedSprite&) = default;

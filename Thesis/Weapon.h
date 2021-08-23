@@ -24,7 +24,7 @@ protected:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 	
 
-	sf::RectangleShape tar;
+
 
 	/* Maybe call this function every X seconds? */
 	void deleteFinishedSounds();

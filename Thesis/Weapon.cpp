@@ -5,7 +5,7 @@
 
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(tar);
+	target.draw(Configuration::tar);
 	for (auto&& shot : m_Shots)
 		target.draw(*shot);
 
@@ -15,9 +15,9 @@ void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 Weapon::Weapon(Configuration::Textures tex_id)
 	: Entity(tex_id), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
 {
-	tar.setSize(sf::Vector2f(50, 50));
-	tar.setFillColor(sf::Color::Red);
-	tar.setPosition(300, 300);
+	Configuration::tar.setSize(sf::Vector2f(50, 50));
+	Configuration::tar.setFillColor(sf::Color::Red);
+	Configuration::tar.setPosition(300, 300);
 }
 
 
@@ -113,7 +113,7 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 {
 
-	sf::Vector2f target_pos = tar.getPosition();
+	sf::Vector2f target_pos = Configuration::tar.getPosition();
 	sf::Vector2f weapon_pos = getPosition();
 	
 	float angle = atan2f(target_pos.y - weapon_pos.y, target_pos.x - weapon_pos.x);
@@ -124,13 +124,13 @@ void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::I))
-		tar.move(0, -5);
+		Configuration::tar.move(0, -5);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
-		tar.move(5, 0);
+		Configuration::tar.move(5, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
-		tar.move(0, 5);
+		Configuration::tar.move(0, 5);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::J))
-		tar.move(-5, 0);
+		Configuration::tar.move(-5, 0);
 }
 
 void Weapon::deleteFinishedSounds()

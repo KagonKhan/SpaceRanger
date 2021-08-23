@@ -14,6 +14,8 @@ int Configuration::lives;
 
 sf::Vector2f Configuration::boundaries;
 
+sf::RectangleShape Configuration::tar;
+
 
 Player* Configuration::player = nullptr;
 OptionsState* Configuration::m_Options = nullptr;
@@ -142,6 +144,7 @@ void Configuration::LoadFileToString(const std::filesystem::path& path, std::str
 	while (std::getline(file, line))
 		loadTo += line;
 }
+
 
 void Configuration::reset()
 {

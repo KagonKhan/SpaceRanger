@@ -3,26 +3,35 @@
 #include "Ammunition.h"
 
 
+float perpDot(const sf::Vector2f& A, const sf::Vector2f& B) {
+	return (A.x * B.y) - (A.y * B.x);
+}
+float dot(const sf::Vector2f& A, const sf::Vector2f& B) {
+	return (A.x * B.x) + (A.y * B.y);
+}
+
+
+
+
+
 void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_AnimatedSprite);
 }
 
-void Ammunition::setRadAngle()
-{
-	m_RadAngle = m_DegAngle / 180.f * M_PIl;
-}
-
 Ammunition::Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	:Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed),
+	: Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed),
 		m_Animation(&Configuration::textures.get(tex_id)),
 		m_Boundaries(boundaries), m_ShouldBeDeleted(false)
 {
-
-
 	setRadAngle();
-	/* CAREFUL, Sprite angle 0 might point upwards, but here assumed 0 is pointing right */
 }
+
+
+
+#pragma region SETTERS / GETTERS
+
+
 // rotation in degrees
 float Ammunition::getRotation() const
 {
@@ -32,6 +41,13 @@ float Ammunition::getRotationRad() const
 {
 	return m_RadAngle;
 }
+
+void Ammunition::setRadAngle()
+{
+	m_RadAngle = m_DegAngle / 180.f * M_PIl;
+}
+
+
 // rotation in degrees, mods the value by 360
 void Ammunition::setRotation(float angle)
 {
@@ -77,13 +93,24 @@ bool Ammunition::getShouldBeDeleted()
 }
 
 
+#pragma endregion
+
+
+
+void Ammunition::update(const sf::Time& deltaTime)
+{
+	updateAnimation(deltaTime);
+	updatePosition(deltaTime);
+	updateIndividualBehavior(deltaTime);
+
+	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
+		m_ShouldBeDeleted = true;
+}
 
 
 void Ammunition::updateAnimation(const sf::Time& deltaTime)
 {
 	m_AnimatedSprite.update(deltaTime);
-
-
 }
 
 void Ammunition::updatePosition(const sf::Time& deltaTime)
@@ -110,7 +137,13 @@ Laser::Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, flo
 	: Ammunition(tex_id, boundaries, deg_angle, speed)
 			
 {	
+	initAnimation();
 
+
+}
+
+void Laser::initAnimation()
+{
 	m_Animation.addFramesColumn(1, 3, 0);
 
 	m_AnimatedSprite.setAnimation(&m_Animation);
@@ -118,8 +151,10 @@ Laser::Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, flo
 	m_AnimatedSprite.setLoop(false);
 	m_AnimatedSprite.setOrigin(m_AnimatedSprite.getSize() / 2.f);
 	m_AnimatedSprite.play();
+}
 
-
+void Laser::updateIndividualBehavior(const sf::Time& deltaTime)
+{
 }
 
 Laser::~Laser()
@@ -128,22 +163,8 @@ Laser::~Laser()
 }
 
 
-void Laser::update(const sf::Time& deltaTime)
-{
-	updateAnimation(deltaTime);
-	updatePosition(deltaTime);
-
-	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
-		m_ShouldBeDeleted = true;
-}
-
-
-
-
 
 /* ==============================    ROCKET    ============================== */
-
-
 
 
 
@@ -151,7 +172,16 @@ void Laser::update(const sf::Time& deltaTime)
 Missile::Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
 	: Ammunition(tex_id, boundaries, deg_angle, speed), m_Target(nullptr)
 {
+	initAnimation();
+	/*
+		TO DO; 
+			- Animated rocket? exhaust?
+	
+	*/
+}
 
+void Missile::initAnimation()
+{
 	m_Animation.addFramesColumn(1, 1, 0);
 
 	m_AnimatedSprite.setAnimation(&m_Animation);
@@ -160,34 +190,31 @@ Missile::Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries,
 
 	m_AnimatedSprite.setScale(0.5f, 0.5f);
 	//m_AnimatedSprite.play();
+}
 
+void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
+{
 
+	sf::Vector2f A(m_Direction);
+	sf::Vector2f B(Configuration::tar.getPosition() - getPosition());
 
+	if (perpDot(A, B) < 0) {
+		rotate(-2.f);
+	}
+	else if (perpDot(A, B) > 0) {
+		rotate(2.f);
+	}
+	else {
+		if (dot(A, B) < 0)
+			;// missileVelocity.y *= -1;
+	}
 
-
-
-	/*
-		TO DO; 
-			- Animated rocket? exhaust?
-	
-	*/
 }
 
 void Missile::lockOnTarget(Entity* target)
 {
 	m_Target = target;
 }
-
-void Missile::update(const sf::Time& deltaTime)
-{
-
-	updateAnimation(deltaTime);
-	updatePosition(deltaTime);
-
-	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
-		m_ShouldBeDeleted = true;
-}
-
 
 
 /* ==============================    BEAM    ============================== */
@@ -197,9 +224,14 @@ void Missile::update(const sf::Time& deltaTime)
 Beam::Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
 	:Ammunition(tex_id, boundaries, deg_angle, speed)
 {
+	initAnimation();
 }
 
-void Beam::update(const sf::Time& deltaTime)
+
+void Beam::initAnimation()
 {
-	/* TODO animation update*/
+}
+
+void Beam::updateIndividualBehavior(const sf::Time& deltaTime)
+{
 }

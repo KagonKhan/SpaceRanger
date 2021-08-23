@@ -13,6 +13,10 @@ class Ammunition :
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void setRadAngle();
+	virtual void initAnimation() = 0;
+	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
+	void updateAnimation(const sf::Time& deltaTime);
+	void updatePosition(const sf::Time& deltaTime);
 
 protected:
 	float m_Speed;
@@ -26,8 +30,6 @@ protected:
 	Animation m_Animation;
 	AnimatedSprite m_AnimatedSprite;
 
-	void updateAnimation(const sf::Time& deltaTime);
-	void updatePosition(const sf::Time& deltaTime);
 
 public:
 	Ammunition(Ammunition&) = delete;
@@ -35,7 +37,7 @@ public:
 
 	Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
 	
-	virtual void update(const sf::Time& deltatime) = 0;
+	void update(const sf::Time& deltaTime) override;
 
 	float getRotation()const;
 	float getRotationRad()const;
@@ -54,6 +56,8 @@ class Laser :
 	public Ammunition
 {
 private:
+	void initAnimation() override;
+	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
 public:
 	Laser(const Laser&) = delete;
@@ -63,13 +67,16 @@ public:
 	Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
 	virtual ~Laser();
 
-	void update(const sf::Time& deltatime);
 };
 
 class Missile :
 	public Ammunition
 {
 private:
+	void initAnimation() override;
+	void updateIndividualBehavior(const sf::Time& deltaTime) override;
+
+	/* For Target-seeking missiles */
 	Entity* m_Target;
 
 public:
@@ -81,13 +88,14 @@ public:
 
 	void lockOnTarget(Entity* target);
 
-	void update(const sf::Time& deltaTime);
 };
 
 class Beam :
 	public Ammunition
 {
 private:
+	void initAnimation() override;
+	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
 public:
 	Beam(Beam&) = delete;
@@ -96,5 +104,4 @@ public:
 
 	Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
 
-	void update(const sf::Time& deltaTime);
 };

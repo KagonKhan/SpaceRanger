@@ -110,6 +110,8 @@ public:
 		Escape
 	};
 
+	static 	sf::RectangleShape tar;
+
 	static ResourceManager<sf::Texture, int> textures;
 	static ResourceManager<sf::Texture, int> background_textures;
 	static ResourceManager<sf::SoundBuffer, int> sounds;
@@ -129,9 +131,6 @@ public:
 	
 	// Receives position, and checks if contained in area
 	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
-
-
-
 
 	static void reset();
 
