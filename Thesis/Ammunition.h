@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Entity.h"
 #include "CanCollide.h"
 
@@ -78,9 +77,11 @@ class Missile :
 {
 private:
 	void initAnimation() override;
-	void updateIndividualBehavior(const sf::Time& deltaTime) override;
+	void updateIndividualBehavior(const sf::Time& deltaTime) override final;
 	void updateTrackingSystem(const sf::Time& deltaTime);
 
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	
 	/* For Target-seeking missiles */
 	Entity* m_Target;
 	float m_RotationRadius;
@@ -92,7 +93,7 @@ public:
 	Missile& operator=(Missile&) = delete;
 
 
-	Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
+	Missile(Configuration::Textures tex_id, Configuration::Textures thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 
 	void lockOnTarget(Entity* target);
 

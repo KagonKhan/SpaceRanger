@@ -99,7 +99,6 @@ void Weapon::update(const sf::Time& deltaTime)
 void Weapon::updateTimings(const sf::Time& deltaTime)
 {
 	m_TimeSinceLastShot += deltaTime.asSeconds();
-	std::cout << m_TimeSinceLastShot << " vs " << m_FiringDelay << "\n";
 }
 
 void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
@@ -173,7 +172,7 @@ MissileTurret::MissileTurret(Configuration::Textures tex_id)
 
 void MissileTurret::createBullet()
 {
-	std::unique_ptr<Missile> shot(new Missile(Configuration::Textures::Ammo_Rocket, Configuration::boundaries, -90, 400));
+	std::unique_ptr<Missile> shot(new Missile(Configuration::Textures::Ammo_Missile, Configuration::Textures::Ammo_Missile_Thrusters,Configuration::boundaries, -90, 400));
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 

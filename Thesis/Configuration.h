@@ -73,8 +73,11 @@ public:
 
 		Ammunition = 0x800,
 		Ammo_Laser,
-		Ammo_Rocket,
-		Ammo_Beam
+		Ammo_Missile,
+		Ammo_Beam,
+
+		Thrusters = 0x900,
+		Ammo_Missile_Thrusters
 	};
 	
 

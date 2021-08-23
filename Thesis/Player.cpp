@@ -32,10 +32,10 @@ Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& bounda
 	//m_Weapons.back()->setSpriteRotation(180);
 	//m_Weapons.back()->setIsWeaponActive(true);
 
-	m_Weapons.push_back(new BeamTurret(Configuration::Textures::Turret_Laser));
+	m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
 	m_Weapons.back()->setPosition(m_Position);
 	m_Weapons.back()->setWeaponOffset(sf::Vector2f(50, 0));
-	m_Weapons.back()->setFiringRate(1.f/20.f);
+	m_Weapons.back()->setFiringRate(20.f);
 	m_Weapons.back()->setSpriteRotation(180);
 	m_Weapons.back()->setIsWeaponActive(true);
 }

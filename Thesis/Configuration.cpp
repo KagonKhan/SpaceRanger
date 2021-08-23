@@ -202,7 +202,8 @@ void Configuration::initTextures()
 
 
 	textures.load(Textures::Ammo_Laser, "../media/textures/ammunition/lasers/laser_bullets.png");
-	textures.load(Textures::Ammo_Rocket, "../media/textures/ammunition/missiles/Missile.png");
+	textures.load(Textures::Ammo_Missile, "../media/textures/ammunition/missiles/Missile.png");
+	textures.load(Textures::Ammo_Missile_Thrusters, "../media/textures/thrusters/missile_thrusters.png");
 	textures.load(Textures::Ammo_Beam, "../media/textures/ammunition/beams/Red_Laser_Beam.png");
 
 
