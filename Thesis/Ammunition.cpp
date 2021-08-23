@@ -1,5 +1,5 @@
 #include "pch.h"
-
+#include "Player.h"
 #include "Ammunition.h"
 
 
@@ -19,10 +19,11 @@ void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_AnimatedSprite);
 }
 
-Ammunition::Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
+Ammunition::Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
 	: Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed),
 		m_Animation(&Configuration::textures.get(tex_id)),
-		m_Boundaries(boundaries), m_ShouldBeDeleted(false)
+		m_Boundaries(boundaries), m_ShouldBeDeleted(false),
+		m_ParentWeapon(parent)
 {
 	setRadAngle();
 }
@@ -133,8 +134,8 @@ void Ammunition::setPosition(const sf::Vector2f& pos)
 
 /* ==============================    LASER    ============================== */
 
-Laser::Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	: Ammunition(tex_id, boundaries, deg_angle, speed)
+Laser::Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+	: Ammunition(tex_id, boundaries, deg_angle, speed, parent)
 			
 {	
 	initAnimation();
@@ -169,8 +170,8 @@ Laser::~Laser()
 
 
 
-Missile::Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	: Ammunition(tex_id, boundaries, deg_angle, speed), m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f)
+Missile::Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+	: Ammunition(tex_id, boundaries, deg_angle, speed, parent), m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f)
 {
 	initAnimation();
 	/*
@@ -194,16 +195,24 @@ void Missile::initAnimation()
 
 void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
 {
+
+	if(m_Target)
+		updateTrackingSystem(deltaTime);
+	
+}
+
+void Missile::updateTrackingSystem(const sf::Time& deltaTime)
+{
+
 	m_FuelDuration -= deltaTime.asSeconds();
 
-
-	if (m_Target || 1 && m_FuelDuration >= 0) {
-		sf::Vector2f tar_pos = Configuration::tar.getPosition();
+	if (m_FuelDuration >= 0) {
+		sf::Vector2f tar_pos = m_Target->getPosition();
 		sf::Vector2f mis_pos = getPosition();
 
 
 		if (std::fabsf(tar_pos.x - mis_pos.x) < m_SeekingDistance && std::fabsf(tar_pos.y - mis_pos.y) < m_SeekingDistance) {
-		
+
 			sf::Vector2f A(m_Direction);
 			sf::Vector2f B(tar_pos - mis_pos);
 
@@ -231,17 +240,35 @@ void Missile::lockOnTarget(Entity* target)
 
 
 
-Beam::Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	:Ammunition(tex_id, boundaries, deg_angle, speed)
+Beam::Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+	:Ammunition(tex_id, boundaries, deg_angle, speed, parent)
 {
 	initAnimation();
+
+	m_Speed = 0;
 }
 
 
 void Beam::initAnimation()
 {
+	m_Animation.addFramesLine(11, 1, 0);
+
+	m_AnimatedSprite.setAnimation(&m_Animation);
+	m_AnimatedSprite.setOrigin(sf::Vector2f(m_AnimatedSprite.getSize().x / 2.f, m_AnimatedSprite.getSize().y - 35));
+	m_AnimatedSprite.setLoop(false);
+	m_AnimatedSprite.setFrameTime(sf::seconds(0.05));
+	m_AnimatedSprite.setRepeat(3);
+	m_AnimatedSprite.setScale(1.f, 3.f);
+	m_AnimatedSprite.setRotation(180);
+	m_AnimatedSprite.play();
 }
 
 void Beam::updateIndividualBehavior(const sf::Time& deltaTime)
 {
+	/* CAREFUL potential spaghetti*/
+	
+	if (m_AnimatedSprite.getStatus() != AnimatedSprite::Status::Playing) {
+		Configuration::player->setAreActionsBlocked(false);
+		m_ShouldBeDeleted = true;
+	}
 }

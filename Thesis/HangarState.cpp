@@ -158,7 +158,6 @@ void HangarState::CharacterCreation::finishedCreation()
 {
 	int val = Configuration::Textures::PlayerAvatar0 + sprite_id;
 	Configuration::player = new Player((Configuration::Textures)val, sf::Vector2f(m_Window.getSize()));
-
 	m_IsDone = true;
 }
 

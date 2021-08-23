@@ -2,6 +2,7 @@
 
 #include "Weapon.h"
 #include "Entity.h"
+#include "Player.h"
 
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -87,7 +88,8 @@ void Weapon::update(const sf::Time& deltaTime)
 {
 	updateTimings(deltaTime);
 
-	updateTrackingTarget(deltaTime);
+	if(m_Target)
+		updateTrackingTarget(deltaTime);
 
 	updateBulletsAndCheckForDeletion(deltaTime);
 
@@ -97,6 +99,7 @@ void Weapon::update(const sf::Time& deltaTime)
 void Weapon::updateTimings(const sf::Time& deltaTime)
 {
 	m_TimeSinceLastShot += deltaTime.asSeconds();
+	std::cout << m_TimeSinceLastShot << " vs " << m_FiringDelay << "\n";
 }
 
 void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
@@ -113,7 +116,7 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 {
 
-	sf::Vector2f target_pos = Configuration::tar.getPosition();
+	sf::Vector2f target_pos = m_Target->getPosition();
 	sf::Vector2f weapon_pos = getPosition();
 	
 	float angle = atan2f(target_pos.y - weapon_pos.y, target_pos.x - weapon_pos.x);
@@ -121,16 +124,6 @@ void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 	angle -= 90.f;
 
 	m_Sprite.setRotation(angle);
-
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::I))
-		Configuration::tar.move(0, -5);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
-		Configuration::tar.move(5, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
-		Configuration::tar.move(0, 5);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::J))
-		Configuration::tar.move(-5, 0);
 }
 
 void Weapon::deleteFinishedSounds()
@@ -190,6 +183,40 @@ void MissileTurret::createBullet()
 void MissileTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Missile)));
+	sound->setAttenuation(0);
+	sound->setVolume(20);
+	sound->play();
+
+
+
+
+	m_Sounds.emplace_back(std::move(sound));
+}
+
+
+/* =============================    Beam Turret    ========================= */
+
+BeamTurret::BeamTurret(Configuration::Textures tex_id)
+	: Weapon(tex_id)
+{
+
+}
+
+void BeamTurret::createBullet()
+{
+	std::unique_ptr<Beam> shot(new Beam(Configuration::Textures::Ammo_Beam, Configuration::boundaries, -90, 400));
+	shot->setPosition(m_Position);
+	shot->setRotation(m_Sprite.getRotation());
+
+	m_Shots.push_back(std::move(shot));
+
+	/* CAREFUL potential spaghetti, this gets called in Ammunition:Beam when beam is done with animation */
+	Configuration::player->setAreActionsBlocked(true);
+}
+
+void BeamTurret::createSound()
+{
+	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Beam)));
 	sound->setAttenuation(0);
 	sound->setVolume(20);
 	sound->play();

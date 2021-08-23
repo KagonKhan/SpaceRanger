@@ -96,7 +96,8 @@ public:
 	};
 	enum Sounds : int {
 		LaserPlayer,
-		Missile
+		Missile,
+		Beam
 	};
 	enum Musics : int {
 		MainMenuTheme
@@ -139,7 +140,7 @@ public:
 	static void addScore(int s);
 	static int getScore();
 
-	static class Player* player;
+	static Player* player;
 	/* TODO: Decide if I want to hold pointers here, or just have State* in each class */
 	static class OptionsState* m_Options;
 	static class MainMenuState* m_MainMenu;

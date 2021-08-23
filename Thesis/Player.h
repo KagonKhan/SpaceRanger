@@ -9,6 +9,9 @@ class Player :
 private:
 	sf::Sprite m_AvatarSprite;
 	sf::Vector2f m_Boundaries;
+	
+	bool m_AreActionsBlocked;
+	
 	/* Different types of weapons */
 	
 	void initVariables();
@@ -25,7 +28,7 @@ public:
 
 	Player(Configuration::Textures tex_id, const sf::Vector2f& boundaries);
 
-	
+	void setAreActionsBlocked(bool is_blocked);
 
 	void update(const sf::Time& deltaTime);
 };

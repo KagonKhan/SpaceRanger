@@ -13,24 +13,36 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 
 Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& boundaries)
-	: Ship(100, Configuration::Textures::PlayerShip), m_Boundaries(boundaries)
+	: Ship(100, Configuration::Textures::PlayerShip), m_Boundaries(boundaries), m_AreActionsBlocked(false)
 {
 	m_AvatarSprite.setTexture(Configuration::textures.get(avatar_tex_id));
 	initVariables();
 	
-	m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
-	m_Weapons.back()->setPosition(m_Position);
-	m_Weapons.back()->setWeaponOffset(sf::Vector2f(-50, 0));
-	m_Weapons.back()->setFiringRate(2.5);
-	m_Weapons.back()->setSpriteRotation(180);
-	m_Weapons.back()->setIsWeaponActive(true);
+	//m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
+	//m_Weapons.back()->setPosition(m_Position);
+	//m_Weapons.back()->setWeaponOffset(sf::Vector2f(-50, 0));
+	//m_Weapons.back()->setFiringRate(2.5);
+	//m_Weapons.back()->setSpriteRotation(180);
+	//m_Weapons.back()->setIsWeaponActive(true);
 
-	m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
-	m_Weapons.back()->setPosition(m_Position + sf::Vector2f(50, 0));
+	//m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
+	//m_Weapons.back()->setPosition(m_Position + sf::Vector2f(50, 0));
+	//m_Weapons.back()->setWeaponOffset(sf::Vector2f(50, 0));
+	//m_Weapons.back()->setFiringRate(7.5);
+	//m_Weapons.back()->setSpriteRotation(180);
+	//m_Weapons.back()->setIsWeaponActive(true);
+
+	m_Weapons.push_back(new BeamTurret(Configuration::Textures::Turret_Laser));
+	m_Weapons.back()->setPosition(m_Position);
 	m_Weapons.back()->setWeaponOffset(sf::Vector2f(50, 0));
-	m_Weapons.back()->setFiringRate(7.5);
+	m_Weapons.back()->setFiringRate(1.f/20.f);
 	m_Weapons.back()->setSpriteRotation(180);
 	m_Weapons.back()->setIsWeaponActive(true);
+}
+
+void Player::setAreActionsBlocked(bool is_blocked)
+{
+	m_AreActionsBlocked = is_blocked;
 }
 
 void Player::initVariables()
@@ -42,7 +54,8 @@ void Player::initVariables()
 
 void Player::update(const sf::Time& deltaTime)
 {
-	updateMovement(deltaTime);
+	if(!m_AreActionsBlocked)
+		updateMovement(deltaTime);
 	updateSprites(deltaTime);
 	updateWeapons(deltaTime);
 }
@@ -116,6 +129,7 @@ void Player::updateWeapons(const sf::Time& deltaTime)
 	for (Weapon* weapon : m_Weapons)
 		weapon->update(deltaTime);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		shoot();
+	if(!m_AreActionsBlocked)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			shoot();
 }

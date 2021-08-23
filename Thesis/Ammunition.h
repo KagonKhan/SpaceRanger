@@ -6,6 +6,9 @@
 #include "AnimatedSprite.h"
 
 # define M_PIl          3.141592653589793238462643383279502884L /* pi */
+
+
+class Weapon;
 class Ammunition :
 	public Entity,
 	public CanCollide
@@ -24,6 +27,7 @@ protected:
 	float m_RadAngle;
 	bool m_ShouldBeDeleted;
 
+	Weapon* m_ParentWeapon;
 
 	sf::Vector2f m_Boundaries;
 
@@ -35,7 +39,7 @@ public:
 	Ammunition(Ammunition&) = delete;
 	Ammunition& operator=(Ammunition&) = delete;
 
-	Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
+	Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent = nullptr);
 	
 	void update(const sf::Time& deltaTime) override;
 
@@ -64,7 +68,7 @@ public:
 	Laser& operator=(const Laser&) = delete;
 
 
-	Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
+	Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 	virtual ~Laser();
 
 };
@@ -75,6 +79,7 @@ class Missile :
 private:
 	void initAnimation() override;
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
+	void updateTrackingSystem(const sf::Time& deltaTime);
 
 	/* For Target-seeking missiles */
 	Entity* m_Target;
@@ -87,7 +92,7 @@ public:
 	Missile& operator=(Missile&) = delete;
 
 
-	Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
+	Missile(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 
 	void lockOnTarget(Entity* target);
 
@@ -105,6 +110,6 @@ public:
 	Beam& operator=(Beam&) = delete;
 
 
-	Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
+	Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 
 };

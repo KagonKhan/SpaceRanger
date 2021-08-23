@@ -86,6 +86,7 @@ public:
 
 };
 
+
 class MissileTurret :
 	public Weapon
 {
@@ -98,6 +99,23 @@ public:
 	MissileTurret& operator=(const MissileTurret&) = delete;
 
 	MissileTurret(Configuration::Textures tex_id);
+
+
+};
+
+
+class BeamTurret :
+	public Weapon
+{
+private:
+	virtual void createBullet() override;
+	virtual void createSound() override;
+
+public:
+	BeamTurret(const BeamTurret&) = delete;
+	BeamTurret& operator=(const BeamTurret&) = delete;
+
+	BeamTurret(Configuration::Textures tex_id);
 
 
 };
