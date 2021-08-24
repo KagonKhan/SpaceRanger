@@ -208,11 +208,7 @@ void Missile::initAnimation()
 void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 
-	//std::cout << "Missile, thruster, m_Position X: " << m_Sprite.getPosition().x << ", " << m_AnimatedSprite.getPosition().x << ", " << m_Position.x << ", " << Configuration::player->getPosition().x << "\n";
-	std::cout << m_Sprite.getGlobalBounds().width << ", " << m_Sprite.getGlobalBounds().height << "\n";
-
-
-	if (1)
+	if (m_Target)
 		updateTrackingSystem(deltaTime);
 }
 
@@ -222,7 +218,7 @@ void Missile::updateTrackingSystem(const sf::Time& deltaTime)
 	m_FuelDuration -= deltaTime.asSeconds();
 
 	if (m_FuelDuration >= 0) {
-		sf::Vector2f tar_pos = Configuration::tar.getPosition();
+		sf::Vector2f tar_pos = m_Target->getPosition();
 		sf::Vector2f mis_pos = getPosition();
 
 
@@ -248,11 +244,11 @@ void Missile::updateTrackingSystem(const sf::Time& deltaTime)
 void Missile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 
-	target.draw(m_Sprite);
 	target.draw(m_AnimatedSprite);
+	target.draw(m_Sprite);
 }
 
-void Missile::lockOnTarget(Entity* target)
+void Missile::lockOnTarget(const Entity* target)
 {
 	m_Target = target;
 }

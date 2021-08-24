@@ -12,9 +12,16 @@ private:
 	
 	bool m_AreActionsBlocked;
 	
+	Animation m_ExhaustAnimationForward, m_ExhaustAnimationBackward;
+	AnimatedSprite m_ExhaustAnimatedSpriteLeft, m_ExhaustAnimatedSpriteRight;
+
+	
+
 	/* Different types of weapons */
 	
 	void initVariables();
+	void initWeapons();
+	void initAnimations();
 
 	void updateMovement(const sf::Time& deltaTime);
 	void updateSprites(const sf::Time& deltaTime);

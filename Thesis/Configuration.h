@@ -28,6 +28,13 @@ public:
 	Configuration(const Configuration&) = delete;
 	Configuration& operator= (const Configuration&) = delete;
 
+
+	static short int m_MasterVolume;
+	static short int m_SoundEffectsVolume;
+	static short int m_SoundVolume;
+	static short int m_DialogueVolume;
+
+
 	struct Colors
 	{
 		static sf::Color button_fill;
@@ -38,18 +45,20 @@ public:
 	};
 
 
+
 	enum Textures : int {
-		TEST_MENU = 0x000,
+		MENU_STATE = 0x000,
 		Cursor,
 
-		TEST_OPTIONS = 0x100,
+		OPTIONS_STATE = 0x100,
 	
 
 		TEST_SCORES = 0x200,
 	
 
-		Hangar = 0x300,
-
+		HANGAR_STATE = 0x300,
+		LeftArrow,
+		RightArrow,
 
 		PLAYER_AVATARS = 0x400,
 		PlayerAvatar0,
@@ -58,26 +67,27 @@ public:
 		PlayerAvatar3,
 	
 
-		LeftArrow = 0x500,
-		RightArrow,
+		SHIPS = 0x600,
+		PlayerShip,
 
 
-		Ships = 0x600,
-		PlayerShip = 0x601,
+		PARTS,
+		PlayerExhaust,
+		Thrusters,
+		Ammo_Missile_Thrusters,
 
 
-		Turrets = 0x700,
+		TURRETS = 0x700,
 		Turret_Laser,
 		Turret_Rocket,
 		Turret_Beam,
 
-		Ammunition = 0x800,
+		AMMUNITION = 0x800,
 		Ammo_Laser,
 		Ammo_Missile,
-		Ammo_Beam,
+		Ammo_Beam
 
-		Thrusters = 0x900,
-		Ammo_Missile_Thrusters
+
 	};
 	
 
@@ -141,6 +151,8 @@ public:
 	static bool isGameOver();
 
 	static void addScore(int s);
+
+
 	static int getScore();
 
 	static Player* player;

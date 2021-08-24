@@ -154,7 +154,8 @@ void LaserTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::LaserPlayer)));
 	sound->setAttenuation(0);
-	sound->setVolume(20);
+	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
+	sound->setVolume(volume);
 	sound->play();
 
 
@@ -170,11 +171,15 @@ MissileTurret::MissileTurret(Configuration::Textures tex_id)
 {
 }
 
+
 void MissileTurret::createBullet()
 {
 	std::unique_ptr<Missile> shot(new Missile(Configuration::Textures::Ammo_Missile, Configuration::Textures::Ammo_Missile_Thrusters,Configuration::boundaries, -90, 400));
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
+
+	if (m_Target)
+		shot->lockOnTarget(m_Target);
 
 	m_Shots.push_back(std::move(shot));
 }
@@ -183,7 +188,8 @@ void MissileTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Missile)));
 	sound->setAttenuation(0);
-	sound->setVolume(20);
+	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
+	sound->setVolume(volume);
 	sound->play();
 
 
@@ -217,7 +223,8 @@ void BeamTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Beam)));
 	sound->setAttenuation(0);
-	sound->setVolume(20);
+	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
+	sound->setVolume(volume);
 	sound->play();
 
 

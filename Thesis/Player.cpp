@@ -4,20 +4,43 @@
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_Sprite);
+	target.draw(m_ExhaustAnimatedSpriteLeft);
+	target.draw(m_ExhaustAnimatedSpriteRight);
+	
+	
 
-	for (Weapon* weapon : m_Weapons)
+	for (auto&& weapon : m_Weapons)
 		target.draw(*weapon);
-
 
 }
 
 
 Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& boundaries)
-	: Ship(100, Configuration::Textures::PlayerShip), m_Boundaries(boundaries), m_AreActionsBlocked(false)
+	: Ship(100, Configuration::Textures::PlayerShip), m_Boundaries(boundaries), m_AreActionsBlocked(false),
+	m_ExhaustAnimationForward(&Configuration::textures.get(Configuration::Textures::PlayerExhaust)),
+	m_ExhaustAnimationBackward(&Configuration::textures.get(Configuration::Textures::PlayerExhaust))
 {
 	m_AvatarSprite.setTexture(Configuration::textures.get(avatar_tex_id));
 	initVariables();
+	initWeapons();
+	initAnimations();
 	
+}
+
+void Player::setAreActionsBlocked(bool is_blocked)
+{
+	m_AreActionsBlocked = is_blocked;
+}
+
+void Player::initVariables()
+{
+	float velocity = 50;
+	m_Velocity = sf::Vector2f(velocity * 0.9f, velocity * 0.75f);
+	m_Direction = sf::Vector2f(0, 0);
+}
+
+void Player::initWeapons()
+{
 	//m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
 	//m_Weapons.back()->setPosition(m_Position);
 	//m_Weapons.back()->setWeaponOffset(sf::Vector2f(-50, 0));
@@ -32,24 +55,34 @@ Player::Player(Configuration::Textures avatar_tex_id, const sf::Vector2f& bounda
 	//m_Weapons.back()->setSpriteRotation(180);
 	//m_Weapons.back()->setIsWeaponActive(true);
 
-	m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
-	m_Weapons.back()->setPosition(m_Position);
-	m_Weapons.back()->setWeaponOffset(sf::Vector2f(50, 0));
-	m_Weapons.back()->setFiringRate(20.f);
-	m_Weapons.back()->setSpriteRotation(180);
-	m_Weapons.back()->setIsWeaponActive(true);
+	std::unique_ptr<MissileTurret> weapon(new MissileTurret(Configuration::Textures::Turret_Laser));
+	weapon->setPosition(m_Position);
+	weapon->setWeaponOffset(sf::Vector2f(50, 0));
+	weapon->setFiringRate(2.f);
+	weapon->setSpriteRotation(180);
+	weapon->setIsWeaponActive(true);
+
+	addWeapon(std::move(weapon));
+
 }
 
-void Player::setAreActionsBlocked(bool is_blocked)
+void Player::initAnimations()
 {
-	m_AreActionsBlocked = is_blocked;
-}
+	m_ExhaustAnimationForward.addFramesLine(8, 1, 0, 0, 3);
+	m_ExhaustAnimationBackward.addFramesLine(8, 1, 0, 5, 0);
 
-void Player::initVariables()
-{
-	float velocity = 50;
-	m_Velocity = sf::Vector2f(velocity * 0.9f, velocity * 0.75f);
-	m_Direction = sf::Vector2f(0, 0);
+	m_ExhaustAnimatedSpriteLeft.setAnimation(&m_ExhaustAnimationForward);
+	m_ExhaustAnimatedSpriteLeft.setLoop(false);
+	m_ExhaustAnimatedSpriteLeft.setRepeat(0);
+	m_ExhaustAnimatedSpriteLeft.setOrigin(m_ExhaustAnimatedSpriteLeft.getSize().x / 2.f, 0);
+	m_ExhaustAnimatedSpriteLeft.setPosition(m_Position);
+	m_ExhaustAnimatedSpriteLeft.setOffset(sf::Vector2f(-23.f, 32.f));
+	m_ExhaustAnimatedSpriteLeft.setFrame(1);
+	m_ExhaustAnimatedSpriteLeft.setScale(1.f, 0.9f);
+
+
+	m_ExhaustAnimatedSpriteRight = m_ExhaustAnimatedSpriteLeft;
+	m_ExhaustAnimatedSpriteRight.setOffset(sf::Vector2f(23.f, 32.f));
 }
 
 void Player::update(const sf::Time& deltaTime)
@@ -117,16 +150,32 @@ void Player::updateSprites(const sf::Time& deltaTime)
 {
 	m_Sprite.setPosition(m_Position);
 	
-	for (auto& weapon : m_Weapons) {
+	for (auto&& weapon : m_Weapons) 
 		weapon->setPosition(m_Position);
 
-	
+
+	// if moving up
+	if (m_Direction.y < 0) {
+		m_ExhaustAnimatedSpriteLeft.setAnimation(&m_ExhaustAnimationForward);
+		m_ExhaustAnimatedSpriteRight.setAnimation(&m_ExhaustAnimationForward);
 	}
+	// if moving down
+	else if (m_Direction.y > 0) {
+		m_ExhaustAnimatedSpriteLeft.setAnimation(&m_ExhaustAnimationBackward);
+		m_ExhaustAnimatedSpriteRight.setAnimation(&m_ExhaustAnimationBackward);
+	}
+
+	m_ExhaustAnimatedSpriteLeft.setPosition(m_Position);
+	m_ExhaustAnimatedSpriteRight.setPosition(m_Position);
+
+	m_ExhaustAnimatedSpriteLeft.update(deltaTime);
+	m_ExhaustAnimatedSpriteRight.update(deltaTime);
+
 }
 
 void Player::updateWeapons(const sf::Time& deltaTime)
 {
-	for (Weapon* weapon : m_Weapons)
+	for (auto&& weapon : m_Weapons)
 		weapon->update(deltaTime);
 
 	if(!m_AreActionsBlocked)

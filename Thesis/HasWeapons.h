@@ -5,7 +5,7 @@
 class HasWeapons
 {
 protected:
-	std::vector<Weapon*> m_Weapons;
+	std::vector<std::unique_ptr<Weapon>> m_Weapons;
 
 	//Some container for weapons
 	// Maybe some internal counter, for weapons that autofire
@@ -15,7 +15,7 @@ public:
 	HasWeapons();
 	virtual ~HasWeapons();
 
-	void addWeapon(Weapon* weapon);
+	void addWeapon(std::unique_ptr<Weapon> weapon);
 
 	void shoot();
 };

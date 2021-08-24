@@ -21,9 +21,9 @@ public:
 	/* emplace back a frame */
 	Animation& addFrame(const sf::IntRect& rect);
 	/* add many horizontal frames */
-	Animation& addFramesLine(int number_x, int number_y, int line);
-	/* add many vertical frames */
-	Animation& addFramesColumn(int number_x, int number_y, int column);
+	Animation& addFramesLine(int number_x, int number_y, int line, int offset_x = 0, int limit_x = 0);
+		/* add many vertical frames */
+	Animation& addFramesColumn(int number_x, int number_y, int column, int offset_y = 0, int limit_y = 0);
 
 	/* get amount of frames */
 	size_t size() const;

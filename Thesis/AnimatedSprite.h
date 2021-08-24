@@ -18,6 +18,10 @@ private:
 	size_t m_CurrentFrame;
 	sf::Vertex m_Vertices[4];
 
+
+	sf::Vector2f m_OffsetPosition, m_Position;
+
+	
 	void setFrame(size_t index, bool resetTime);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -48,6 +52,11 @@ public:
 	int getRepeat() const;
 	Status getStatus() const;
 	const sf::Vector2f& getSize() const;
+
+
+	void setPosition(const sf::Vector2f& pos);
+	void setOffset(const sf::Vector2f& pos);
+
 
 	/* forward time, change frame, check if end etc*/
 	void update(const sf::Time& dt);

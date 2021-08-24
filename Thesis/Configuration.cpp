@@ -1,5 +1,14 @@
 #include "pch.h"
 #include "Configuration.h"
+
+
+short int Configuration::m_MasterVolume = 10;
+short int Configuration::m_SoundEffectsVolume = 10;
+short int Configuration::m_SoundVolume = 20;
+short int Configuration::m_DialogueVolume = 20;
+
+
+
 ResourceManager<sf::Texture, int> Configuration::textures;
 ResourceManager<sf::Texture, int> Configuration::background_textures;
 ResourceManager<sf::Font, int> Configuration::fonts;
@@ -185,7 +194,7 @@ void Configuration::initTextures()
 
 	textures.load(Textures::Cursor, "../media/textures/cursors/Cursor.png");	
 
-	textures.load(Textures::Hangar, "../media/backgrounds/Hangar.png");
+	textures.load(Textures::MENU_STATE, "../media/backgrounds/Hangar.png");
 
 	textures.load(Textures::LeftArrow, "../media/textures/left_arrow.png");
 
@@ -198,6 +207,7 @@ void Configuration::initTextures()
 
 
 	textures.load(Textures::PlayerShip, "../media/textures/ships/player/13B.png");
+	textures.load(Textures::PlayerExhaust, "../media/textures/thrusters/engine_exhaust.png");
 
 
 

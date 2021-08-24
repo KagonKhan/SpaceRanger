@@ -83,7 +83,7 @@ private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 	
 	/* For Target-seeking missiles */
-	Entity* m_Target;
+	const Entity* m_Target;
 	float m_RotationRadius;
 	float m_SeekingDistance;
 	float m_FuelDuration;
@@ -95,7 +95,7 @@ public:
 
 	Missile(Configuration::Textures tex_id, Configuration::Textures thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 
-	void lockOnTarget(Entity* target);
+	void lockOnTarget(const Entity* target);
 
 };
 

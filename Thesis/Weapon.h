@@ -58,7 +58,7 @@ public:
 	// shots/second
 	void setFiringRate(float rate);
 	
-	void setTarget(const Entity* target);
+	virtual void setTarget(const Entity* target);
 
 	void setIsWeaponActive(bool isActive);
 
@@ -99,7 +99,6 @@ public:
 	MissileTurret& operator=(const MissileTurret&) = delete;
 
 	MissileTurret(Configuration::Textures tex_id);
-
 
 };
 

@@ -231,7 +231,7 @@ void HangarState::initGUI()
 
 HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
 	: State(window, states), m_Creation(window, nullptr), m_UI(window),
-	m_Background(Configuration::textures.get(Configuration::Textures::Hangar))
+	m_Background(Configuration::textures.get(Configuration::Textures::HANGAR_STATE))
 {
 	initGUI();
 }

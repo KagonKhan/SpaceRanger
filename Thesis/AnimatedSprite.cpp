@@ -110,8 +110,20 @@ const sf::Vector2f& AnimatedSprite::getSize() const
 	return sf::Vector2f(rect.width, rect.height);
 }
 
-void AnimatedSprite::update(const sf::Time& dt)
+void AnimatedSprite::setPosition(const sf::Vector2f& pos)
 {
+	m_Position = pos;
+	Transformable::setPosition(m_Position + m_OffsetPosition);
+
+}
+
+void AnimatedSprite::setOffset(const sf::Vector2f& pos)
+{
+	m_OffsetPosition = pos;
+}
+
+void AnimatedSprite::update(const sf::Time& dt)
+{ 
 	if (m_Status == Playing && m_Animation) {
 		m_Elapsed += dt;
 
@@ -120,7 +132,7 @@ void AnimatedSprite::update(const sf::Time& dt)
 
 			if (m_CurrentFrame + 1 < m_Animation->size())
 				++m_CurrentFrame;
-			else {
+			else if(m_Loop || m_Repetitions > 0){
 				m_CurrentFrame = 0;
 
 				if (!m_Loop) {
