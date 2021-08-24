@@ -3,15 +3,15 @@
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+
+	for (auto&& weapon : m_Weapons)
+		target.draw(*weapon);
+
 	target.draw(m_Sprite);
 	target.draw(m_ExhaustAnimatedSpriteLeft);
 	target.draw(m_ExhaustAnimatedSpriteRight);
 	
 	
-
-	for (auto&& weapon : m_Weapons)
-		target.draw(*weapon);
-
 }
 
 
@@ -41,29 +41,46 @@ void Player::initVariables()
 
 void Player::initWeapons()
 {
-	//m_Weapons.push_back(new MissileTurret(Configuration::Textures::Turret_Laser));
-	//m_Weapons.back()->setPosition(m_Position);
-	//m_Weapons.back()->setWeaponOffset(sf::Vector2f(-50, 0));
-	//m_Weapons.back()->setFiringRate(2.5);
-	//m_Weapons.back()->setSpriteRotation(180);
-	//m_Weapons.back()->setIsWeaponActive(true);
+	initWeapon(sf::Vector2f( 60.f, 0.f), .5f, WeaponType::Missile);
+	initWeapon(sf::Vector2f(-60.f, 0.f), .5f, WeaponType::Missile);
 
-	//m_Weapons.push_back(new LaserTurret(Configuration::Textures::Turret_Laser));
-	//m_Weapons.back()->setPosition(m_Position + sf::Vector2f(50, 0));
-	//m_Weapons.back()->setWeaponOffset(sf::Vector2f(50, 0));
-	//m_Weapons.back()->setFiringRate(7.5);
-	//m_Weapons.back()->setSpriteRotation(180);
-	//m_Weapons.back()->setIsWeaponActive(true);
 
-	std::unique_ptr<MissileTurret> weapon(new MissileTurret(Configuration::Textures::Turret_Laser));
-	weapon->setPosition(m_Position);
-	weapon->setWeaponOffset(sf::Vector2f(50, 0));
-	weapon->setFiringRate(2.f);
-	weapon->setSpriteRotation(180);
-	weapon->setIsWeaponActive(true);
+	initWeapon(sf::Vector2f(-20.f, 0.f),  5.f, WeaponType::Laser);
+	initWeapon(sf::Vector2f( 20.f, 0.f),  5.f, WeaponType::Laser);
+	initWeapon(sf::Vector2f(-9.f ,-10.f), 5.f, WeaponType::Laser);
+	initWeapon(sf::Vector2f( 9.f ,-10.f), 5.f, WeaponType::Laser);
 
-	addWeapon(std::move(weapon));
 
+	initWeapon(sf::Vector2f( 0 ,-10.f),   0.1f, WeaponType::Beam);
+}
+
+void Player::initWeapon(const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type)
+{
+	switch (weapon_type) {
+		case WeaponType::Laser: {
+			std::unique_ptr<LaserTurret> weapon(new LaserTurret(Configuration::Textures::Turret_Laser));
+			addWeapon(std::move(weapon));
+
+			break;
+		}
+		case WeaponType::Missile: {
+			std::unique_ptr<MissileTurret> weapon(new MissileTurret(Configuration::Textures::Turret_Laser));
+			addWeapon(std::move(weapon));
+
+			break;
+		}
+		case WeaponType::Beam: {
+			std::unique_ptr<BeamTurret> weapon(new BeamTurret(Configuration::Textures::Turret_Laser));
+			addWeapon(std::move(weapon));
+
+			break;
+		}
+	}
+	m_Weapons.back()->setPosition(m_Position);
+	m_Weapons.back()->setWeaponOffset(offset);
+	m_Weapons.back()->setFiringRate(firing_rate);
+	m_Weapons.back()->setSpriteRotation(180);
+	m_Weapons.back()->setIsWeaponActive(true);
 }
 
 void Player::initAnimations()

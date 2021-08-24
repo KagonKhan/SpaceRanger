@@ -18,10 +18,14 @@ private:
 	
 
 	/* Different types of weapons */
-	
+	enum class WeaponType{Laser, Missile, Beam};
+
 	void initVariables();
 	void initWeapons();
+	void initWeapon(const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type);
 	void initAnimations();
+
+
 
 	void updateMovement(const sf::Time& deltaTime);
 	void updateSprites(const sf::Time& deltaTime);

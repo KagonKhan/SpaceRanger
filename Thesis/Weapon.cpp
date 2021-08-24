@@ -224,7 +224,7 @@ void BeamTurret::createSound()
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Beam)));
 	sound->setAttenuation(0);
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
-	sound->setVolume(volume);
+	sound->setVolume(volume * 10);
 	sound->play();
 
 
