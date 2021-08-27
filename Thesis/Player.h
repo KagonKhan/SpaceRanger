@@ -1,10 +1,13 @@
 #pragma once
 #include "PlayerShip.h"
 
+class HangarState;
 class Player : public sf::Drawable
 {
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	friend class HangarState;
 
 	sf::Sprite m_Avatar; // TODO some day maybe animated avatar, would be cute
 	sf::Vector2f m_Position;
@@ -18,7 +21,8 @@ private:
 		short int level;
 		short int current_experience;
 		short int luck;
-
+		short int level_up_points;
+			
 		short int piloting_proficiency;
 		short int damage_proficiency;
 		short int barter_proficiency;
@@ -29,8 +33,11 @@ private:
 		//...
 	} m_PlayerStats;
 
-
-
+	PlayerShip& getPlayerShip() const;
+	const sf::Sprite& getPlayerShipSprite() const;
+	const sf::Vector2f& getSpriteSize()const;
+	void setSpriteScale(const sf::Vector2f& scale);
+	Stats& getPlayerStats();
 
 
 public:
@@ -42,9 +49,5 @@ public:
 
 	void setPosition(const sf::Vector2f& pos);
 
-	PlayerShip& getPlayerShip() const;
-	const sf::Sprite& getPlayerShipSprite() const;
-	const sf::Vector2f& getSpriteSize()const;
-	void setSpriteScale(const sf::Vector2f& scale);
-	Stats& getPlayerStats();
+
 };

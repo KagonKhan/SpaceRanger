@@ -29,10 +29,11 @@ void UI::processEvent(const sf::Event& sfevent)
 	ActionTarget::processEvent(sfevent);
 }
 
-void UI::addLayout(Layout* layout)
+void UI::addLayout(Layout* layout, bool update)
 {
 	_layout = layout;
-	_layout->updateShape();
+	if(update)
+		_layout->updateShape();
 }
 
 void UI::setPosition(sf::Vector2f position)

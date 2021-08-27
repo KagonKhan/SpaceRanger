@@ -22,7 +22,7 @@ public:
 	virtual sf::Vector2f getSize() const =0;
 
 	void setPosition(sf::Vector2f position);
-	void add(Widget* widget);
+	void add(Widget* widget, bool update = true);
 
 	Widget* getAt(unsigned int index) const;
 

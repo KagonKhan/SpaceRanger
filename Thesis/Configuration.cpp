@@ -135,6 +135,7 @@ void Configuration::ReplaceFirstOccurance(std::string& string, const std::string
 	string.replace(pos, toReplace.length(), replaceWith);
 }
 
+
 bool Configuration::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& size)
 {
 	if (pos.x > size.x || pos.x < -size.x || pos.y > size.y || pos.y < -size.y)

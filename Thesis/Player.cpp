@@ -9,7 +9,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 Player::Player(Configuration::Textures avatar, const sf::Vector2f& boundaries)
 	: m_Avatar(Configuration::textures.get(avatar)),
 	m_Ship(Configuration::Textures::PlayerShip, boundaries, *this),
-	m_PlayerStats({ 0,0,0,0 })
+	m_PlayerStats({ 100, 1, 0, 0, 100,      0,0,0,0})
 {
 
 }
@@ -36,7 +36,7 @@ const sf::Sprite& Player::getPlayerShipSprite() const
 
 const sf::Vector2f& Player::getSpriteSize() const
 {
-	return{ m_Avatar.getGlobalBounds().width, m_Avatar.getGlobalBounds().height };
+	return { m_Avatar.getGlobalBounds().width, m_Avatar.getGlobalBounds().height };
 
 }
 

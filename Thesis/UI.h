@@ -27,7 +27,7 @@ public:
 	sf::Vector2f getSize() const override final;
 
 
-	void addLayout(Layout* layout);
+	void addLayout(Layout* layout, bool update = true);
 	void setPosition(sf::Vector2f position);
 
 

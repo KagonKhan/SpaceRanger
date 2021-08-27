@@ -223,38 +223,42 @@ void HangarState::PlayerInfoArea::draw(sf::RenderTarget& target, sf::RenderState
 
 	target.draw(m_Hangar.m_Player.value());
 
-
+	for (auto&& text : m_TextPlayerStats)
+		target.draw(text);
 	
-
+	target.draw(m_UI);
 
 	target.draw(m_ShipSprite);
 
 }
 
-void HangarState::PlayerInfoArea::initGUI()
-{
-}
-
 HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarState& hangar, std::optional<Player>& player)
 	: m_Window(window), m_Hangar(hangar), m_Player(player), m_UI(window)
 {
-	sf::Vector2f win_size(m_Window.getSize());
-	
+	initRectangles();
+	initPlayerStats();
+	initGUI();
+}
 
+void HangarState::PlayerInfoArea::initRectangles()
+{
+	sf::Vector2f win_size(m_Window.getSize());
+
+
+	
+	/* ==========================    PLAYER AREA    ========================== */
 	sf::RectangleShape& m_PlayerArea = m_RectangleShapes[RectangleShapesIDs::m_PlayerArea];
 		m_PlayerArea.setSize(sf::Vector2f(win_size.x / 3.f, win_size.y - 200));
-		m_PlayerArea.setOutlineThickness(2.f);
-		m_PlayerArea.setOutlineColor(sf::Color::Black);
 		m_PlayerArea.setFillColor(sf::Color(180, 200, 200, 200));
 		m_PlayerArea.setPosition(win_size - m_PlayerArea.getSize());
 
-
-
+	/* TOP PART */
 	sf::RectangleShape& m_PlayerAreaTop = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaTop];
-		m_PlayerAreaTop.setSize(sf::Vector2f(m_PlayerArea.getSize().x, m_PlayerArea.getSize().y/2.f));
+		m_PlayerAreaTop.setSize(sf::Vector2f(m_PlayerArea.getSize().x, m_PlayerArea.getSize().y / 2.f));
 		m_PlayerAreaTop.setPosition(m_PlayerArea.getPosition());
 		m_PlayerAreaTop.setFillColor(sf::Color::Red);
 
+	/* PLAYER AVATAR */
 	sf::RectangleShape& m_PlayerAvatar = m_RectangleShapes[RectangleShapesIDs::m_PlayerAvatar];
 		m_PlayerAvatar.setPosition(m_PlayerArea.getPosition());
 		m_PlayerAvatar.setSize(sf::Vector2f(200, 200));
@@ -264,12 +268,16 @@ HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarStat
 		m_Hangar.m_Player.value().setSpriteScale(scale);
 		m_Hangar.m_Player.value().setPosition(m_PlayerAvatar.getPosition());
 
-
-
+	/* BOTTOM AREA */
 	sf::RectangleShape& m_PlayerAreaBottom = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaBottom];
 		m_PlayerAreaBottom.setSize(m_PlayerAreaTop.getSize());
-		m_PlayerAreaBottom.setPosition(m_PlayerArea.getPosition()+ sf::Vector2f(0, m_PlayerAreaTop.getSize().y));
+		m_PlayerAreaBottom.setPosition(m_PlayerArea.getPosition() + sf::Vector2f(0, m_PlayerAreaTop.getSize().y));
 		m_PlayerAreaBottom.setFillColor(sf::Color::Yellow);
+
+
+
+
+	/* ==========================    SHIP AREA    ========================== */
 
 
 
@@ -290,6 +298,13 @@ HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarStat
 		m_ShipSprite.setPosition(m_ShipArea.getPosition() + sf::Vector2f(m_ShipArea.getSize() - ship_size_scaled) / 2.f);
 
 
+
+
+	/* ==========================    MISCELLANEOUS    ========================== */
+
+
+
+	/* EXP BAR */
 	sf::RectangleShape& m_ExpBarBackground = m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground];
 		m_ExpBarBackground.setSize(sf::Vector2f(m_PlayerArea.getSize().x * 0.9f, 20));
 		m_ExpBarBackground.setFillColor(sf::Color::Cyan);
@@ -299,16 +314,158 @@ HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarStat
 		m_ExpBar.setSize(sf::Vector2f(m_ExpBarBackground.getSize().x / 3, 20));
 		m_ExpBar.setPosition(m_ExpBarBackground.getPosition());
 		m_ExpBar.setFillColor(sf::Color::Green);
+}
+
+void HangarState::PlayerInfoArea::initPlayerStats()
+{
+	for (auto&& text : m_TextPlayerStats) {
+		text.setFont(Configuration::fonts.get(Configuration::Fonts::SpaceGui));
+		text.setCharacterSize(25);
+		text.setFillColor(sf::Color::Black);
+	}
+
+
+	sf::RectangleShape& area = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaTop];
+	const auto& stats = m_Player.value().getPlayerStats();
+	sf::Vector2f pos_top(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition() + sf::Vector2f(0, m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getSize().y + 10));
+	sf::Vector2f pos = pos_top;
+	
+	sf::Text& credits = m_TextPlayerStats[TextPlayerStatsIDs::credits];
+	credits.setString("Credits:\t" + std::to_string(stats.credits));
+	credits.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + credits.getGlobalBounds().height))
+		pos.y += credits.getGlobalBounds().height + credits.getCharacterSize()/2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + credits.getGlobalBounds().width, pos_top.y);
+
+
+	sf::Text& level = m_TextPlayerStats[TextPlayerStatsIDs::level];
+	level.setString("Level:\t" + std::to_string(stats.level));
+	level.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + level.getGlobalBounds().height))
+		pos.y += level.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + level.getGlobalBounds().width, pos_top.y);
+
+
+
+	sf::Text& current_experience = m_TextPlayerStats[TextPlayerStatsIDs::current_experience];
+	current_experience.setString("EXP:\t" + std::to_string(stats.current_experience));
+	current_experience.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + current_experience.getGlobalBounds().height))
+		pos.y += current_experience.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + current_experience.getGlobalBounds().width, pos_top.y);
 
 
 
 
+	sf::Text& level_up_points = m_TextPlayerStats[TextPlayerStatsIDs::level_up_points];
+	level_up_points.setString("Skill Points:\t" + std::to_string(stats.level_up_points));
+	level_up_points.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + level_up_points.getGlobalBounds().height))
+		pos.y += level_up_points.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + level_up_points.getGlobalBounds().width, pos_top.y);
 
-	auto& player_stats = m_Player.value().getPlayerStats();
-	std::cout << player_stats.barter_proficiency;
+
+	/* =================================    SECOND COLUMN    ================================= */
+
+	pos = sf::Vector2f(pos_top.x + level_up_points.getGlobalBounds().width + 50, pos_top.y);
 
 
+	sf::Text& piloting_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::piloting_proficiency];
+	piloting_proficiency.setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
+	piloting_proficiency.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + piloting_proficiency.getGlobalBounds().height))
+		pos.y += piloting_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + piloting_proficiency.getGlobalBounds().width, pos_top.y);
 
+
+	sf::Text& damage_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::damage_proficiency];
+	damage_proficiency.setString("Damage:\t" + std::to_string(stats.damage_proficiency));
+	damage_proficiency.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + damage_proficiency.getGlobalBounds().height))
+		pos.y += damage_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + damage_proficiency.getGlobalBounds().width, pos_top.y);
+
+
+	sf::Text& barter_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::barter_proficiency];
+	barter_proficiency.setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
+	barter_proficiency.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + barter_proficiency.getGlobalBounds().height))
+		pos.y += barter_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + barter_proficiency.getGlobalBounds().width, pos_top.y);
+
+
+	sf::Text& learning_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::learning_proficiency];
+	learning_proficiency.setString("Learning:\t" + std::to_string(stats.learning_proficiency));
+	learning_proficiency.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + learning_proficiency.getGlobalBounds().height))
+		pos.y += learning_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + learning_proficiency.getGlobalBounds().width, pos_top.y);
+
+
+}
+
+void HangarState::PlayerInfoArea::initGUI()
+{
+	VerticalLayout* layout = new VerticalLayout;
+	m_UI.addLayout(layout);
+
+	for (int i = 0; i < 4; i++) {
+		TextButton* button = new TextButton("+");
+		layout->add(button, false);
+		const auto& text = m_TextPlayerStats[piloting_proficiency + i];
+		sf::Vector2f pos(text.getPosition());
+		sf::Vector2f size(text.getGlobalBounds().width, text.getGlobalBounds().height);
+
+		button->setSize(sf::Vector2f(35, 35));
+		button->setPosition(pos.x + size.x, pos.y);
+		button->on_click = [this, i](const sf::Event&, Button& button) {
+			addPoint(piloting_proficiency+i);
+		};
+
+	}
+
+}
+
+void HangarState::PlayerInfoArea::addPoint(int index)
+{
+	std::cout << index << "\n";
+	auto& stats = m_Player.value().getPlayerStats();
+	if (stats.level_up_points > 0) {
+		switch (index) {
+			
+		case 5: //piloting_proficiency
+			stats.piloting_proficiency++;
+			m_TextPlayerStats[index].setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
+			stats.level_up_points--;
+			break;
+
+		case 6: //damage_proficiency
+			stats.damage_proficiency++;
+			m_TextPlayerStats[index].setString("Damage:\t" + std::to_string(stats.damage_proficiency));
+			stats.level_up_points--;
+			break;
+
+		case 7: //barter_proficiency
+			stats.barter_proficiency++;
+			m_TextPlayerStats[index].setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
+			stats.level_up_points--;
+			break;
+
+		case 8: //learning_proficiency
+			stats.learning_proficiency++;
+			m_TextPlayerStats[index].setString("Learning:\t" + std::to_string(stats.learning_proficiency));
+			stats.level_up_points--;
+			break;
+		}
+	}
 }
 
 
@@ -318,6 +475,7 @@ HangarState::PlayerInfoArea::~PlayerInfoArea()
 
 void HangarState::PlayerInfoArea::processEvents(const sf::Event& sfevent)
 {
+	m_UI.processEvent(sfevent);
 }
 
 
@@ -428,7 +586,7 @@ void HangarState::processEvents(const sf::Event& sfevent)
 		processEventsCharacterCreation(sfevent);
 		return;
 	}
-
+	m_PlayerInfoArea.value().processEvents(sfevent);
 	m_UI.processEvent(sfevent);
 }
 

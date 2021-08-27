@@ -27,11 +27,12 @@ void Layout::setPosition(sf::Vector2f position)
 	updateShape();
 }
 
-void Layout::add(Widget* widget)
+void Layout::add(Widget* widget, bool update)
 {
 	m_Widgets.push_back(widget);
 
-	updateShape();
+	if(update)
+		updateShape();
 }
 
 Widget* Layout::getAt(unsigned int index) const

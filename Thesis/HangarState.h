@@ -72,9 +72,12 @@ private:
 			Exp bar, level, points, level, maybe some time shop, weapon parts that you can drag?
 			different ships
 		*/
-		enum RectangleShapesIDs{ m_PlayerArea, m_PlayerAreaTop, m_PlayerAvatar, m_PlayerAreaBottom, m_ShipArea, m_ExpBarBackground, m_ExpBar, COUNT};
+		enum RectangleShapesIDs{ m_PlayerArea, m_PlayerAreaTop, m_PlayerAvatar, m_PlayerAreaBottom, m_ShipArea, m_ExpBarBackground, m_ExpBar, COUNT_RECTANGLES};
+		sf::RectangleShape m_RectangleShapes[static_cast<unsigned int>(RectangleShapesIDs::COUNT_RECTANGLES)];
+		
+		enum TextPlayerStatsIDs{credits,level, current_experience, luck, level_up_points, piloting_proficiency, damage_proficiency, barter_proficiency, learning_proficiency, COUNT_TEXTSTATS};
+		sf::Text m_TextPlayerStats[static_cast<unsigned int>(TextPlayerStatsIDs::COUNT_TEXTSTATS)];
 
-		sf::RectangleShape m_RectangleShapes[static_cast<unsigned int>(RectangleShapesIDs::COUNT)];
 
 		sf::RenderWindow& m_Window;
 		HangarState& m_Hangar;
@@ -85,7 +88,11 @@ private:
 
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+		void initRectangles();
+		void initPlayerStats();
 		void initGUI();
+
+		void addPoint(int index);
 
 	public:
 		PlayerInfoArea(sf::RenderWindow& window, HangarState& hangar, std::optional<Player>& player);
