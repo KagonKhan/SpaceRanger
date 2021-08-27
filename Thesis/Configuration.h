@@ -4,7 +4,7 @@
 #include "ActionMap.h"
 
 
-class Player;
+class PlayerShip;
 class OptionsState;
 class MainMenuState;
 class Configuration
@@ -34,7 +34,18 @@ public:
 	static short int m_SoundVolume;
 	static short int m_DialogueVolume;
 
+	static 	sf::RectangleShape tar;
 
+	static ResourceManager<sf::Texture, int> textures;
+	static ResourceManager<sf::Texture, int> background_textures;
+	static ResourceManager<sf::SoundBuffer, int> sounds;
+	static ResourceManager<sf::Music, int> musics;
+	static ResourceManager<sf::Font, int> fonts;
+
+	static ActionMap<int> gui_inputs;
+	static ActionMap<int> playerInputs;
+
+	static sf::Vector2f boundaries;
 	struct Colors
 	{
 		static sf::Color button_fill;
@@ -53,12 +64,12 @@ public:
 		OPTIONS_STATE = 0x100,
 	
 
-		TEST_SCORES = 0x200,
-	
-
-		HANGAR_STATE = 0x300,
+		HANGAR_STATE = 0x200,
 		LeftArrow,
 		RightArrow,
+
+		TEST_SCORES = 0x300,
+	
 
 		PLAYER_AVATARS = 0x400,
 		PlayerAvatar0,
@@ -94,18 +105,19 @@ public:
 
 	enum Backgrounds : int {
 		MainMenu,
+		Hangar,
 
 	};
 	enum Fonts : int {
 		Gui,
-		SpaceGui
+		SpaceGui,
 	};
 	enum PlayerInputs : int {
 		Up,
 		Left,
 		Right,
 		Down,
-		Shoot
+		Shoot,
 	};
 	enum Sounds : int {
 		LaserPlayer,
@@ -124,18 +136,7 @@ public:
 		Escape
 	};
 
-	static 	sf::RectangleShape tar;
-
-	static ResourceManager<sf::Texture, int> textures;
-	static ResourceManager<sf::Texture, int> background_textures;
-	static ResourceManager<sf::SoundBuffer, int> sounds;
-	static ResourceManager<sf::Music, int> musics;
-	static ResourceManager<sf::Font, int> fonts;
 	
-	static ActionMap<int> gui_inputs;
-	static ActionMap<int> playerInputs;
-
-	static sf::Vector2f boundaries;
 
 	static void initialize();
 
@@ -155,7 +156,7 @@ public:
 
 	static int getScore();
 
-	static Player* player;
+	static class PlayerShip* player;
 	/* TODO: Decide if I want to hold pointers here, or just have State* in each class */
 	static class OptionsState* m_Options;
 	static class MainMenuState* m_MainMenu;

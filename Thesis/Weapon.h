@@ -28,10 +28,11 @@ protected:
 
 	/* Maybe call this function every X seconds? */
 	void deleteFinishedSounds();
+
 	void updateTimings(const sf::Time& deltaTime);
 	void updateBulletsAndCheckForDeletion(const sf::Time& deltaTime);
 	void updateTrackingTarget(const sf::Time& deltaTime);
-
+	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
 
 
 	virtual void createBullet() = 0;
@@ -77,6 +78,7 @@ class LaserTurret :
 private:
 	virtual void createBullet() override;
 	virtual void createSound() override;
+	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
 public:
 	LaserTurret(const LaserTurret&) = delete;
@@ -93,7 +95,7 @@ class MissileTurret :
 private:
 	virtual void createBullet() override;
 	virtual void createSound() override;
-
+	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
 public:
 	MissileTurret(const MissileTurret&) = delete;
 	MissileTurret& operator=(const MissileTurret&) = delete;
@@ -102,19 +104,21 @@ public:
 
 };
 
-
+/* CAREFUL only beam turret holds parent reference, for now I only block player's ship's movement, might change some day */
 class BeamTurret :
 	public Weapon
 {
 private:
 	virtual void createBullet() override;
 	virtual void createSound() override;
+	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
+	Entity& m_Parent;
 public:
 	BeamTurret(const BeamTurret&) = delete;
 	BeamTurret& operator=(const BeamTurret&) = delete;
 
-	BeamTurret(Configuration::Textures tex_id);
+	BeamTurret(Configuration::Textures tex_id, Entity& parent);
 
 
 };

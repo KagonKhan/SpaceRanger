@@ -83,6 +83,7 @@ private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 	
 	/* For Target-seeking missiles */
+	/* MEME possibility std::optional<std::reference_wrapper<Entity>> */
 	const Entity* m_Target;
 	float m_RotationRadius;
 	float m_SeekingDistance;
@@ -99,6 +100,9 @@ public:
 
 };
 
+
+/* There's issue with this design. Others weapons are just launch the bullets are done.
+This particular weapon shoots constantly. Might want to figure out a different approach */
 class Beam :
 	public Ammunition
 {

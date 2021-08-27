@@ -1,46 +1,50 @@
 #pragma once
-#include "Entity.h"
-#include "ActionTarget.h"
-#include "Ship.h"
+#include "PlayerShip.h"
 
-class Player :
-	public Ship
+class Player : public sf::Drawable
 {
 private:
-	sf::Sprite m_AvatarSprite;
-	sf::Vector2f m_Boundaries;
-	
-	bool m_AreActionsBlocked;
-	
-	Animation m_ExhaustAnimationForward, m_ExhaustAnimationBackward;
-	AnimatedSprite m_ExhaustAnimatedSpriteLeft, m_ExhaustAnimatedSpriteRight;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	
+	sf::Sprite m_Avatar; // TODO some day maybe animated avatar, would be cute
+	sf::Vector2f m_Position;
 
-	/* Different types of weapons */
-	enum class WeaponType{Laser, Missile, Beam};
+	mutable PlayerShip m_Ship;
 
-	void initVariables();
-	void initWeapons();
-	void initWeapon(const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type);
-	void initAnimations();
+	struct Stats {
+
+	public:
+		int credits;
+		short int level;
+		short int current_experience;
+		short int luck;
+
+		short int piloting_proficiency;
+		short int damage_proficiency;
+		short int barter_proficiency;
+		short int learning_proficiency;
+		//...
+		//...
+		//...
+		//...
+	} m_PlayerStats;
 
 
 
-	void updateMovement(const sf::Time& deltaTime);
-	void updateSprites(const sf::Time& deltaTime);
-	void updateWeapons(const sf::Time& deltaTime);
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 
 public:
 	Player(const Player&) = delete;
-	Player operator=(const Player&) = delete;
+	Player& operator=(const Player&) = delete;
 
-	Player(Configuration::Textures tex_id, const sf::Vector2f& boundaries);
+	Player(Configuration::Textures avatar, const sf::Vector2f& boundaries);
+	~Player();
 
-	void setAreActionsBlocked(bool is_blocked);
+	void setPosition(const sf::Vector2f& pos);
 
-	void update(const sf::Time& deltaTime);
+	PlayerShip& getPlayerShip() const;
+	const sf::Sprite& getPlayerShipSprite() const;
+	const sf::Vector2f& getSpriteSize()const;
+	void setSpriteScale(const sf::Vector2f& scale);
+	Stats& getPlayerStats();
 };
-

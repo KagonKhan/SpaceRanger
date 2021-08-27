@@ -16,10 +16,9 @@ void Game::initWindow()
 	Configuration::CreateWindow(m_Window);
 }
 
-/* TODO: check if this doesn't cause any WHACKY behavior*/
 void Game::initStates()
 {
-	m_States.emplace(std::move(new SpaceState(m_Window, m_States)));
+	m_States.emplace(std::move(new MainMenuState(m_Window, m_States)));
 }
 
 void Game::initCursor()
@@ -48,14 +47,19 @@ void Game::processEvents()
 /* TODO: maybe add safeguards for empty containers, altho does it matter? */
 void Game::update(const sf::Time& deltaTime)
 {
-	m_States.top()->update(deltaTime);
 	updateMouse(deltaTime);
+	updateStates(deltaTime);
 }
 
 void Game::updateMouse(const sf::Time& deltaTime)
 {
 	m_Cursor.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_Window)) - sf::Vector2f(8, 8.5));
 	m_Cursor.update(deltaTime);
+}
+
+void Game::updateStates(const sf::Time& deltaTime)
+{
+	m_States.top()->update(deltaTime);
 }
 
 void Game::render()

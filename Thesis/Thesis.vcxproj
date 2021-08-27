@@ -183,6 +183,7 @@
     </ClCompile>
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="ScrollBarButton.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScrollBarButton.h" />
     <ClInclude Include="Ship.h" />

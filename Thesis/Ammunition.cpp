@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Player.h"
+#include "PlayerShip.h"
 #include "Ammunition.h"
 
 
@@ -259,7 +259,7 @@ void Missile::lockOnTarget(const Entity* target)
 
 
 Beam::Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
-	:Ammunition(tex_id, boundaries, deg_angle, speed, parent)
+	: Ammunition(tex_id, boundaries, deg_angle, speed, parent)
 {
 	initAnimation();
 
@@ -283,10 +283,6 @@ void Beam::initAnimation()
 
 void Beam::updateIndividualBehavior(const sf::Time& deltaTime)
 {
-	/* CAREFUL potential spaghetti*/
-	
-	if (m_AnimatedSprite.getStatus() != AnimatedSprite::Status::Playing) {
-		Configuration::player->setAreActionsBlocked(false);
+	if (m_AnimatedSprite.getStatus() != AnimatedSprite::Status::Playing)
 		m_ShouldBeDeleted = true;
-	}
 }

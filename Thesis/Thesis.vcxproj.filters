@@ -135,7 +135,7 @@
     <ClCompile Include="ScrollBarButton.cpp">
       <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="PlayerShip.cpp">
       <Filter>Game\Entities\Ship</Filter>
     </ClCompile>
     <ClCompile Include="Ship.cpp">
@@ -158,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="CanCollide.cpp">
       <Filter>Game\Entities\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,7 +242,7 @@
     <ClInclude Include="ScrollBarButton.h">
       <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="PlayerShip.h">
       <Filter>Game\Entities\Ship</Filter>
     </ClInclude>
     <ClInclude Include="Ship.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="CanCollide.h">
       <Filter>Game\Entities\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

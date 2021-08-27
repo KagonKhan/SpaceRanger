@@ -2,7 +2,7 @@
 
 #include "Weapon.h"
 #include "Entity.h"
-#include "Player.h"
+#include "PlayerShip.h"
 
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -93,6 +93,8 @@ void Weapon::update(const sf::Time& deltaTime)
 
 	updateBulletsAndCheckForDeletion(deltaTime);
 
+	updateIndividualBehavior(deltaTime);
+
 	deleteFinishedSounds();
 }
 
@@ -163,6 +165,10 @@ void LaserTurret::createSound()
 	m_Sounds.emplace_back(std::move(sound));
 }
 
+void LaserTurret::updateIndividualBehavior(const sf::Time& deltaTime)
+{
+}
+
 
 /* =============================    Missile Turret    ========================= */
 
@@ -198,11 +204,15 @@ void MissileTurret::createSound()
 	m_Sounds.emplace_back(std::move(sound));
 }
 
+void MissileTurret::updateIndividualBehavior(const sf::Time& deltaTime)
+{
+}
+
 
 /* =============================    Beam Turret    ========================= */
 
-BeamTurret::BeamTurret(Configuration::Textures tex_id)
-	: Weapon(tex_id)
+BeamTurret::BeamTurret(Configuration::Textures tex_id, Entity& parent)
+	: Weapon(tex_id), m_Parent(parent)
 {
 
 }
@@ -215,8 +225,10 @@ void BeamTurret::createBullet()
 
 	m_Shots.push_back(std::move(shot));
 
-	/* CAREFUL potential spaghetti, this gets called in Ammunition:Beam when beam is done with animation */
-	Configuration::player->setAreActionsBlocked(true);
+	if (typeid(m_Parent).name() == typeid(PlayerShip).name())
+		dynamic_cast<PlayerShip*>(&m_Parent)->setAreActionsBlocked(true);
+
+
 }
 
 void BeamTurret::createSound()
@@ -231,4 +243,14 @@ void BeamTurret::createSound()
 
 
 	m_Sounds.emplace_back(std::move(sound));
+}
+
+void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)
+{
+
+
+
+	if (m_Shots.empty())
+		if (typeid(m_Parent).name() == typeid(PlayerShip).name())
+			dynamic_cast<PlayerShip*>(&m_Parent)->setAreActionsBlocked(false);
 }

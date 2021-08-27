@@ -2,7 +2,6 @@
 #include "Collision.h"
 #include "Configuration.h"
 
-/* Maybe a class "isLiving" that will handle hp, damage, death etc */
 class Entity : public sf::Drawable
 {
 private:

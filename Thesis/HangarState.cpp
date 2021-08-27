@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "HangarState.h"
 #include "SpaceState.h"
-#include "Player.h"
+#include "PlayerShip.h"
+
+#pragma region Character Creation
 
 void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -17,13 +19,17 @@ void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderSt
 }
 
 
-HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, Player* player)
-	: m_IsDone(false), m_UI(window), m_Window(window)
+HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, HangarState& hangar)
+	: m_IsDone(false), m_UI(window), m_Window(window), m_Hangar(hangar)
 {
 	initShapes();
 	initAvatars();
 	initDescriptions();
 	initGUI();
+}
+
+HangarState::CharacterCreation::~CharacterCreation()
+{
 }
 
 bool HangarState::CharacterCreation::getIsDone() const
@@ -154,12 +160,6 @@ void HangarState::CharacterCreation::initDescriptions()
 	m_CharacterDescription.setString(m_CharDescString);
 }
 
-void HangarState::CharacterCreation::finishedCreation()
-{
-	int val = Configuration::Textures::PlayerAvatar0 + sprite_id;
-	Configuration::player = new Player((Configuration::Textures)val, sf::Vector2f(m_Window.getSize()));
-	m_IsDone = true;
-}
 
 void HangarState::CharacterCreation::swapAvatarSprite(bool left)
 {
@@ -176,31 +176,212 @@ void HangarState::CharacterCreation::swapAvatarSprite(bool left)
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void HangarState::CharacterCreation::finishedCreation()
 {
-	target.draw(m_Background);
+	int val = Configuration::Textures::PlayerAvatar0 + sprite_id;
 
-	if (!m_Creation.getIsDone()) {
-		target.draw(m_Creation);
+	m_Hangar.onCharacterCreationFinished(val);
+
+
+	m_IsDone = true;
+}
+
+void HangarState::drawCharacterCreation(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (!m_Creation->getIsDone()) {
+		target.draw(*m_Creation);
 		return;
 	}
+}
+
+void HangarState::processEventsCharacterCreation(const sf::Event& sfevent)
+{
+	if (!m_Creation->getIsDone()) {
+		m_Creation->processEvents(sfevent);
+		return;
+	}
+	// Free resources
+	else
+		m_Creation.reset();
+}
+
+
+#pragma endregion
+
+void HangarState::onCharacterCreationFinished(int sprite_id)
+{
+	m_Player.emplace(Configuration::Textures(sprite_id), static_cast<sf::Vector2f>(m_Window.getSize()));
+	m_PlayerInfoArea.emplace(m_Window, *this, m_Player);
+}
+
+#pragma region Player Info Area
+
+void HangarState::PlayerInfoArea::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for (auto&& rectangle : m_RectangleShapes)
+		target.draw(rectangle);
+
+	target.draw(m_Hangar.m_Player.value());
+
+
+	
+
+
+	target.draw(m_ShipSprite);
+
+}
+
+void HangarState::PlayerInfoArea::initGUI()
+{
+}
+
+HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarState& hangar, std::optional<Player>& player)
+	: m_Window(window), m_Hangar(hangar), m_Player(player), m_UI(window)
+{
+	sf::Vector2f win_size(m_Window.getSize());
+	
+
+	sf::RectangleShape& m_PlayerArea = m_RectangleShapes[RectangleShapesIDs::m_PlayerArea];
+		m_PlayerArea.setSize(sf::Vector2f(win_size.x / 3.f, win_size.y - 200));
+		m_PlayerArea.setOutlineThickness(2.f);
+		m_PlayerArea.setOutlineColor(sf::Color::Black);
+		m_PlayerArea.setFillColor(sf::Color(180, 200, 200, 200));
+		m_PlayerArea.setPosition(win_size - m_PlayerArea.getSize());
+
+
+
+	sf::RectangleShape& m_PlayerAreaTop = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaTop];
+		m_PlayerAreaTop.setSize(sf::Vector2f(m_PlayerArea.getSize().x, m_PlayerArea.getSize().y/2.f));
+		m_PlayerAreaTop.setPosition(m_PlayerArea.getPosition());
+		m_PlayerAreaTop.setFillColor(sf::Color::Red);
+
+	sf::RectangleShape& m_PlayerAvatar = m_RectangleShapes[RectangleShapesIDs::m_PlayerAvatar];
+		m_PlayerAvatar.setPosition(m_PlayerArea.getPosition());
+		m_PlayerAvatar.setSize(sf::Vector2f(200, 200));
+		sf::Vector2f scale(m_PlayerAvatar.getSize()), avatar_size = m_Hangar.m_Player.value().getSpriteSize();
+		scale.x /= avatar_size.x;
+		scale.y /= avatar_size.y;
+		m_Hangar.m_Player.value().setSpriteScale(scale);
+		m_Hangar.m_Player.value().setPosition(m_PlayerAvatar.getPosition());
+
+
+
+	sf::RectangleShape& m_PlayerAreaBottom = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaBottom];
+		m_PlayerAreaBottom.setSize(m_PlayerAreaTop.getSize());
+		m_PlayerAreaBottom.setPosition(m_PlayerArea.getPosition()+ sf::Vector2f(0, m_PlayerAreaTop.getSize().y));
+		m_PlayerAreaBottom.setFillColor(sf::Color::Yellow);
+
+
+
+	sf::RectangleShape& m_ShipArea = m_RectangleShapes[RectangleShapesIDs::m_ShipArea];
+		m_ShipArea.setSize(sf::Vector2f(m_Window.getSize().x - m_PlayerArea.getSize().x, m_PlayerArea.getSize().y));
+		m_ShipArea.setPosition(0, m_PlayerArea.getPosition().y);
+		m_ShipArea.setFillColor(sf::Color::Cyan);
+		m_ShipSprite = m_Hangar.m_Player.value().getPlayerShipSprite();
+		sf::Vector2f ship_size(m_ShipSprite.getGlobalBounds().width, m_ShipSprite.getGlobalBounds().height);
+		sf::Vector2i ship_scale;
+		ship_scale.x = m_ShipArea.getSize().x / ship_size.x;
+		ship_scale.y = m_ShipArea.getSize().y / ship_size.y;
+		ship_scale.x = ship_scale.x * 0.75f;
+		ship_scale.y = ship_scale.y * 0.75f;
+		m_ShipSprite.setScale(static_cast<sf::Vector2f>(ship_scale));
+		sf::Vector2f ship_size_scaled(m_ShipSprite.getGlobalBounds().width, m_ShipSprite.getGlobalBounds().height);
+		m_ShipSprite.setOrigin(0, 0);
+		m_ShipSprite.setPosition(m_ShipArea.getPosition() + sf::Vector2f(m_ShipArea.getSize() - ship_size_scaled) / 2.f);
+
+
+	sf::RectangleShape& m_ExpBarBackground = m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground];
+		m_ExpBarBackground.setSize(sf::Vector2f(m_PlayerArea.getSize().x * 0.9f, 20));
+		m_ExpBarBackground.setFillColor(sf::Color::Cyan);
+		m_ExpBarBackground.setPosition(m_PlayerArea.getPosition().x + m_PlayerArea.getSize().x * 0.056f, m_PlayerArea.getPosition().y + m_Hangar.m_Player.value().getSpriteSize().y + 10);
+
+	sf::RectangleShape& m_ExpBar = m_RectangleShapes[RectangleShapesIDs::m_ExpBar];
+		m_ExpBar.setSize(sf::Vector2f(m_ExpBarBackground.getSize().x / 3, 20));
+		m_ExpBar.setPosition(m_ExpBarBackground.getPosition());
+		m_ExpBar.setFillColor(sf::Color::Green);
+
+
+
+
+
+	auto& player_stats = m_Player.value().getPlayerStats();
+	std::cout << player_stats.barter_proficiency;
+
+
+
+}
+
+
+HangarState::PlayerInfoArea::~PlayerInfoArea()
+{
+}
+
+void HangarState::PlayerInfoArea::processEvents(const sf::Event& sfevent)
+{
+}
+
+
+#pragma endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CAREFUL updates and draw call order is important since some objects do not exists immediately */
+void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (m_Creation){
+		drawCharacterCreation(target, states);
+		return;
+	}
+
+
+	target.draw(m_Background);
+	
+	target.draw(m_PlayerInfoArea.value());
 
 	target.draw(m_UI);
 
 }
+
+
+HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
+	: State(window, states),
+	m_Background(Configuration::background_textures.get(Configuration::Backgrounds::Hangar)),
+	m_UI(window),
+	m_Player(std::nullopt),
+	m_PlayerInfoArea(std::nullopt)
+{
+	initBackground();
+	initGUI();
+
+	m_Creation = std::make_unique<CharacterCreation>(window, *this);
+	/* 
+		it's a pointer so I can free the memory after, there is no reason for this to exist.
+		Could've done differently, idk I might just make it stack allocated, and let it run out of scope
+	*/
+}
+
 
 void HangarState::initGUI()
 {
@@ -211,7 +392,7 @@ void HangarState::initGUI()
 	};
 	TextButton* next = new TextButton("NEXT");
 	next->on_click = [this](const sf::Event&, Button& button) {
-		m_States.push(new SpaceState(m_Window, m_States));
+		m_States.push(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
 	};
 
 
@@ -229,17 +410,22 @@ void HangarState::initGUI()
 	);
 }
 
-HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
-	: State(window, states), m_Creation(window, nullptr), m_UI(window),
-	m_Background(Configuration::textures.get(Configuration::Textures::HANGAR_STATE))
+void HangarState::initBackground()
 {
-	initGUI();
+	sf::Vector2f window_size(m_Window.getSize());
+	sf::Vector2f bg_size(m_Background.getGlobalBounds().width, m_Background.getGlobalBounds().height);
+
+	sf::Vector2f scale;
+	scale.x = window_size.x / bg_size.x;
+	scale.y = window_size.y / bg_size.y;
+	m_Background.setScale(scale);
+
 }
 
 void HangarState::processEvents(const sf::Event& sfevent)
 {
-	if (!m_Creation.getIsDone()) {
-		m_Creation.processEvents(sfevent);
+	if (m_Creation) {
+		processEventsCharacterCreation(sfevent);
 		return;
 	}
 
@@ -248,5 +434,6 @@ void HangarState::processEvents(const sf::Event& sfevent)
 
 void HangarState::update(const sf::Time& deltaTime)
 {
+
 
 }

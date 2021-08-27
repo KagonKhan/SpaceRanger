@@ -19,6 +19,7 @@ private:
 
 	void update(const sf::Time& deltaTime);
 	void updateMouse(const sf::Time& deltaTime);
+	void updateStates(const sf::Time& deltaTime);
 
 	void render();
 	void renderMouse();

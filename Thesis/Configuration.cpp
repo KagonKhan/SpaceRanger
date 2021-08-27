@@ -26,7 +26,7 @@ sf::Vector2f Configuration::boundaries;
 sf::RectangleShape Configuration::tar;
 
 
-Player* Configuration::player = nullptr;
+PlayerShip* Configuration::player = nullptr;
 OptionsState* Configuration::m_Options = nullptr;
 MainMenuState* Configuration::m_MainMenu = nullptr;
 sf::Music* Configuration::m_MainMenuMusic = nullptr;
@@ -194,8 +194,6 @@ void Configuration::initTextures()
 
 	textures.load(Textures::Cursor, "../media/textures/cursors/Cursor.png");	
 
-	textures.load(Textures::MENU_STATE, "../media/backgrounds/Hangar.png");
-
 	textures.load(Textures::LeftArrow, "../media/textures/left_arrow.png");
 
 
@@ -225,6 +223,7 @@ void Configuration::initTextures()
 void Configuration::initBackgrounds()
 {
 	background_textures.load(Backgrounds::MainMenu, "../media/backgrounds/MainMenuBG.jpg");
+	background_textures.load(Backgrounds::Hangar, "../media/backgrounds/hangar.jpg");
 }
 
 /* TODO: have a get function that tries to find existing, or loads from file */

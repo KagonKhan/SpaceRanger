@@ -5,7 +5,7 @@ class SpaceState : public State
 {
 private:
 	UI ui;
-	Player* m_Player;
+	PlayerShip& m_Player;
 	void initGUI();
 	void initPlayer();
 
@@ -16,7 +16,7 @@ private:
 public:
 
 	void processEvents(const sf::Event& sfevent);
-	SpaceState(sf::RenderWindow& window, std::stack<State*>& states);
+	SpaceState(sf::RenderWindow& window, std::stack<State*>& states, PlayerShip& player);
 	~SpaceState();
 
 

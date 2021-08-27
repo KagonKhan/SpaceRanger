@@ -18,6 +18,8 @@
 #include <cassert>
 #include <stdexcept>
 #include <memory>
+#include <optional>
+
 
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
