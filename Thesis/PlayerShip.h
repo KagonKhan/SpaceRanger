@@ -44,6 +44,7 @@ public:
 	PlayerShip(Configuration::Textures tex_id, const sf::Vector2f& boundaries, Player& player);
 
 	void setAreActionsBlocked(bool is_blocked);
+	bool getAreActionsBlocked() const;
 
 	void update(const sf::Time& deltaTime);
 

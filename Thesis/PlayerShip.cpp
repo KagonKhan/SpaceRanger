@@ -108,6 +108,13 @@ const sf::Sprite& PlayerShip::getSprite() const
 void PlayerShip::setAreActionsBlocked(bool is_blocked)
 {
 	m_AreActionsBlocked = is_blocked;
+
+	m_Direction = sf::Vector2f(0, 0);
+}
+
+bool PlayerShip::getAreActionsBlocked() const
+{
+	return m_AreActionsBlocked;
 }
 
 #pragma endregion

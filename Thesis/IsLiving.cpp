@@ -2,41 +2,44 @@
 #include "IsLiving.h"
 
 
-IsLiving::IsLiving(double max_hp, double armor, int plating)
-	: m_CurrentHp(max_hp), m_MaxHp(max_hp),
-		m_Armor(armor), m_Plating(plating),
-		m_IsAlive(true)
+IsLiving::ShipStats& IsLiving::getShipStats()
+{
+	return m_ShipStats;
+}
+
+IsLiving::IsLiving(double max_hp, int armor, int plating)
+	: m_ShipStats({max_hp, max_hp, armor, plating, true})
 {
 }
 
 IsLiving::~IsLiving()
 {
-	m_IsAlive = false;
+	m_ShipStats.m_IsAlive = false;
 }
 
 void IsLiving::receiveDamage(double amount)
 {
-	m_CurrentHp -= amount;
-	if (m_CurrentHp <= 0)
+	m_ShipStats.m_CurrentHp -= amount;
+	if (m_ShipStats.m_CurrentHp <= 0)
 		IsLiving::~IsLiving();
 }
 
 bool IsLiving::isAlive() const
 {
-	return m_IsAlive;
+	return m_ShipStats.m_IsAlive;
 }
 
 double IsLiving::getCurrentHP() const
 {
-	return m_CurrentHp;
+	return m_ShipStats.m_CurrentHp;
 }
 
 int IsLiving::getCurrentPlating() const
 {
-	return m_Plating;
+	return m_ShipStats.m_Plating;
 }
 
 double IsLiving::getCurrentArmor() const
 {
-	return m_Armor;
+	return m_ShipStats.m_Armor;
 }

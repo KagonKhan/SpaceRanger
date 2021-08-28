@@ -4,17 +4,21 @@
 class IsLiving
 {
 private:
-	double m_CurrentHp, m_MaxHp;
-	double m_Armor; // % lower received dmg
-	int m_Plating; // Completely negate x instances of damage
+	struct ShipStats {
+	public:
+		double m_CurrentHp, m_MaxHp;
+		int m_Armor; // % lower received dmg
+		int m_Plating; // Completely negate n instances of damage
 
-	bool m_IsAlive;
+		bool m_IsAlive;
+	} m_ShipStats;
+
 
 public:
 	IsLiving(IsLiving&) = delete;
 	IsLiving& operator=(IsLiving&) = delete;
 
-	IsLiving(double max_hp, double armor = 1, int plating = 0);
+	IsLiving(double max_hp, int armor = 1, int plating = 0);
 	virtual ~IsLiving();
 
 
@@ -26,4 +30,6 @@ public:
 	double getCurrentHP() const;
 	int getCurrentPlating() const;
 	double getCurrentArmor() const;
+
+	ShipStats& getShipStats();
 };

@@ -78,6 +78,9 @@ private:
 		enum TextPlayerStatsIDs{credits,level, current_experience, luck, level_up_points, piloting_proficiency, damage_proficiency, barter_proficiency, learning_proficiency, COUNT_TEXTSTATS};
 		sf::Text m_TextPlayerStats[static_cast<unsigned int>(TextPlayerStatsIDs::COUNT_TEXTSTATS)];
 
+		enum TextShipStatsIDs{ m_CurrentHp, m_MaxHp, m_Armor, m_Plating, COUNT_TEXTSTATS_SHIP};
+		sf::Text m_TextShipStats[static_cast<unsigned int>(TextShipStatsIDs::COUNT_TEXTSTATS_SHIP)];
+
 
 		sf::RenderWindow& m_Window;
 		HangarState& m_Hangar;
@@ -90,6 +93,7 @@ private:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
 		void initRectangles();
 		void initPlayerStats();
+		void initShipStats();
 		void initGUI();
 
 		void addPoint(int index);
@@ -127,11 +131,8 @@ private:
 public:
 	/* 
 		TODO:
-			- Some area to spend points,
 			- Possibly an area to add modules?
-			- Button to launch
 			- Some info on current level
-			- Ship sprite, enlarged i guess
 
 
 			- What about levels? A switch with an enum? All of them are classes 

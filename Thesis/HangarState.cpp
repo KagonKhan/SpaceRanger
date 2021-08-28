@@ -226,6 +226,10 @@ void HangarState::PlayerInfoArea::draw(sf::RenderTarget& target, sf::RenderState
 	for (auto&& text : m_TextPlayerStats)
 		target.draw(text);
 	
+	for (auto&& text : m_TextShipStats)
+		target.draw(text);
+	
+	if(m_Player.value().getPlayerStats().level_up_points >0 )
 	target.draw(m_UI);
 
 	target.draw(m_ShipSprite);
@@ -237,6 +241,7 @@ HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarStat
 {
 	initRectangles();
 	initPlayerStats();
+	initShipStats();
 	initGUI();
 }
 
@@ -412,6 +417,59 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 }
 
+
+void HangarState::PlayerInfoArea::initShipStats()
+{
+	for (auto&& text : m_TextShipStats) {
+		text.setFont(Configuration::fonts.get(Configuration::Fonts::SpaceGui));
+		text.setCharacterSize(25);
+		text.setFillColor(sf::Color::Black);
+	}
+
+	sf::RectangleShape& area = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaBottom];
+	const auto& stats = m_Player.value().m_Ship.getShipStats();
+	sf::Vector2f pos_top(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition() + sf::Vector2f(0, m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaTop].getSize().y + 10));
+	sf::Vector2f pos = pos_top;
+
+
+	sf::Text& current_hp = m_TextShipStats[TextShipStatsIDs::m_CurrentHp];
+	std::ostringstream oss_current_hp;
+	oss_current_hp << std::setprecision(4) << std::noshowpoint << stats.m_CurrentHp;
+	sf::Text& max_hp = m_TextShipStats[TextShipStatsIDs::m_MaxHp];
+	std::ostringstream oss_max_hp;
+	oss_max_hp << std::setprecision(4) << std::noshowpoint << stats.m_MaxHp;
+		current_hp.setString("HP:\t" + oss_current_hp.str());
+		max_hp.setString(" / " + oss_max_hp.str());
+		current_hp.setPosition(pos);
+		max_hp.setPosition(pos.x + current_hp.getGlobalBounds().width, pos.y);
+		if (area.getGlobalBounds().contains(pos.x, pos.y + current_hp.getGlobalBounds().height))
+			pos.y += current_hp.getGlobalBounds().height + current_hp.getCharacterSize() / 2.f;
+		else
+			pos = sf::Vector2f(pos_top.x + current_hp.getGlobalBounds().width + max_hp.getGlobalBounds().width, pos_top.y);
+
+
+
+
+
+
+	sf::Text& m_Armor = m_TextShipStats[TextShipStatsIDs::m_Armor];
+	std::ostringstream oss;
+	oss << std::setprecision(1) << std::noshowpoint << stats.m_Armor;
+	m_Armor.setString("Armor:\t" + oss.str());
+	m_Armor.setPosition(pos);
+	if (area.getGlobalBounds().contains(pos.x, pos.y + m_Armor.getGlobalBounds().height))
+		pos.y += m_Armor.getGlobalBounds().height + m_Armor.getCharacterSize() / 2.f;
+	else
+		pos = sf::Vector2f(pos_top.x + m_Armor.getGlobalBounds().width, pos_top.y);
+
+
+
+
+
+}
+
+
+
 void HangarState::PlayerInfoArea::initGUI()
 {
 	VerticalLayout* layout = new VerticalLayout;
@@ -425,7 +483,7 @@ void HangarState::PlayerInfoArea::initGUI()
 		sf::Vector2f size(text.getGlobalBounds().width, text.getGlobalBounds().height);
 
 		button->setSize(sf::Vector2f(35, 35));
-		button->setPosition(pos.x + size.x, pos.y);
+		button->setPosition(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition().x + m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getSize().x - 35, pos.y);
 		button->on_click = [this, i](const sf::Event&, Button& button) {
 			addPoint(piloting_proficiency+i);
 		};
@@ -436,35 +494,34 @@ void HangarState::PlayerInfoArea::initGUI()
 
 void HangarState::PlayerInfoArea::addPoint(int index)
 {
-	std::cout << index << "\n";
 	auto& stats = m_Player.value().getPlayerStats();
-	if (stats.level_up_points > 0) {
+	if (stats.level_up_points > 0 && index <=8 && index >=5) {
 		switch (index) {
 			
-		case 5: //piloting_proficiency
-			stats.piloting_proficiency++;
-			m_TextPlayerStats[index].setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
-			stats.level_up_points--;
+			case 5: //piloting_proficiency
+				++stats.piloting_proficiency;
+				m_TextPlayerStats[index].setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
 			break;
 
-		case 6: //damage_proficiency
-			stats.damage_proficiency++;
-			m_TextPlayerStats[index].setString("Damage:\t" + std::to_string(stats.damage_proficiency));
-			stats.level_up_points--;
+			case 6: //damage_proficiency
+				++stats.damage_proficiency;
+				m_TextPlayerStats[index].setString("Damage:\t" + std::to_string(stats.damage_proficiency));
 			break;
 
-		case 7: //barter_proficiency
-			stats.barter_proficiency++;
-			m_TextPlayerStats[index].setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
-			stats.level_up_points--;
+			case 7: //barter_proficiency
+				++stats.barter_proficiency;
+				m_TextPlayerStats[index].setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
 			break;
 
-		case 8: //learning_proficiency
-			stats.learning_proficiency++;
-			m_TextPlayerStats[index].setString("Learning:\t" + std::to_string(stats.learning_proficiency));
-			stats.level_up_points--;
+			case 8: //learning_proficiency
+				++stats.learning_proficiency;
+				m_TextPlayerStats[index].setString("Learning:\t" + std::to_string(stats.learning_proficiency));
 			break;
+
+
 		}
+		--stats.level_up_points;
+		m_TextPlayerStats[level_up_points].setString("Skill Points:\t" + std::to_string(stats.level_up_points));
 	}
 }
 

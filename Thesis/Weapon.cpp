@@ -247,10 +247,10 @@ void BeamTurret::createSound()
 
 void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 {
-
-
-
 	if (m_Shots.empty())
-		if (typeid(m_Parent).name() == typeid(PlayerShip).name())
-			dynamic_cast<PlayerShip*>(&m_Parent)->setAreActionsBlocked(false);
+		if (typeid(m_Parent).name() == typeid(PlayerShip).name()) {
+			PlayerShip* ship = dynamic_cast<PlayerShip*>(&m_Parent);
+			if (ship->getAreActionsBlocked())
+				ship->setAreActionsBlocked(false);
+		}
 }
