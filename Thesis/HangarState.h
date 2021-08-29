@@ -76,10 +76,10 @@ private:
 		sf::RectangleShape m_RectangleShapes[static_cast<unsigned int>(RectangleShapesIDs::COUNT_RECTANGLES)];
 		
 		enum TextPlayerStatsIDs{credits,level, current_experience, luck, level_up_points, piloting_proficiency, damage_proficiency, barter_proficiency, learning_proficiency, COUNT_TEXTSTATS};
-		sf::Text m_TextPlayerStats[static_cast<unsigned int>(TextPlayerStatsIDs::COUNT_TEXTSTATS)];
+		Label m_TextPlayerStats[static_cast<unsigned int>(TextPlayerStatsIDs::COUNT_TEXTSTATS)];
 
 		enum TextShipStatsIDs{ m_CurrentHp, m_MaxHp, m_Armor, m_Plating, COUNT_TEXTSTATS_SHIP};
-		sf::Text m_TextShipStats[static_cast<unsigned int>(TextShipStatsIDs::COUNT_TEXTSTATS_SHIP)];
+		Label m_TextShipStats[static_cast<unsigned int>(TextShipStatsIDs::COUNT_TEXTSTATS_SHIP)];
 
 
 		sf::RenderWindow& m_Window;

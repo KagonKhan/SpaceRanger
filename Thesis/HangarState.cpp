@@ -324,9 +324,8 @@ void HangarState::PlayerInfoArea::initRectangles()
 void HangarState::PlayerInfoArea::initPlayerStats()
 {
 	for (auto&& text : m_TextPlayerStats) {
-		text.setFont(Configuration::fonts.get(Configuration::Fonts::SpaceGui));
 		text.setCharacterSize(25);
-		text.setFillColor(sf::Color::Black);
+		text.setTextColor(sf::Color::Black);
 	}
 
 
@@ -335,84 +334,84 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 	sf::Vector2f pos_top(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition() + sf::Vector2f(0, m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getSize().y + 10));
 	sf::Vector2f pos = pos_top;
 	
-	sf::Text& credits = m_TextPlayerStats[TextPlayerStatsIDs::credits];
-	credits.setString("Credits:\t" + std::to_string(stats.credits));
+	Label& credits = m_TextPlayerStats[TextPlayerStatsIDs::credits];
+	credits.setText("Credits:\t" + std::to_string(stats.credits));
 	credits.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + credits.getGlobalBounds().height))
-		pos.y += credits.getGlobalBounds().height + credits.getCharacterSize()/2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + credits.getSize().y))
+		pos.y += credits.getSize().y + credits.getCharacterSize()/2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + credits.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + credits.getSize().x, pos_top.y);
 
 
-	sf::Text& level = m_TextPlayerStats[TextPlayerStatsIDs::level];
-	level.setString("Level:\t" + std::to_string(stats.level));
+	Label& level = m_TextPlayerStats[TextPlayerStatsIDs::level];
+	level.setText("Level:\t" + std::to_string(stats.level));
 	level.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + level.getGlobalBounds().height))
-		pos.y += level.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + level.getSize().y))
+		pos.y += level.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + level.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + level.getSize().x, pos_top.y);
 
 
 
-	sf::Text& current_experience = m_TextPlayerStats[TextPlayerStatsIDs::current_experience];
-	current_experience.setString("EXP:\t" + std::to_string(stats.current_experience));
+	Label& current_experience = m_TextPlayerStats[TextPlayerStatsIDs::current_experience];
+	current_experience.setText("EXP:\t" + std::to_string(stats.current_experience));
 	current_experience.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + current_experience.getGlobalBounds().height))
-		pos.y += current_experience.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + current_experience.getSize().y))
+		pos.y += current_experience.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + current_experience.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + current_experience.getSize().x, pos_top.y);
 
 
 
 
-	sf::Text& level_up_points = m_TextPlayerStats[TextPlayerStatsIDs::level_up_points];
-	level_up_points.setString("Skill Points:\t" + std::to_string(stats.level_up_points));
+	Label& level_up_points = m_TextPlayerStats[TextPlayerStatsIDs::level_up_points];
+	level_up_points.setText("Skill Points:\t" + std::to_string(stats.level_up_points));
 	level_up_points.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + level_up_points.getGlobalBounds().height))
-		pos.y += level_up_points.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + level_up_points.getSize().y))
+		pos.y += level_up_points.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + level_up_points.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + level_up_points.getSize().x, pos_top.y);
 
 
 	/* =================================    SECOND COLUMN    ================================= */
 
-	pos = sf::Vector2f(pos_top.x + level_up_points.getGlobalBounds().width + 50, pos_top.y);
+	pos = sf::Vector2f(pos_top.x + level_up_points.getSize().x + 50, pos_top.y);
 
 
-	sf::Text& piloting_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::piloting_proficiency];
-	piloting_proficiency.setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
+	Label& piloting_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::piloting_proficiency];
+	piloting_proficiency.setText("Piloting:\t" + std::to_string(stats.piloting_proficiency));
 	piloting_proficiency.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + piloting_proficiency.getGlobalBounds().height))
-		pos.y += piloting_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + piloting_proficiency.getSize().y))
+		pos.y += piloting_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + piloting_proficiency.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + piloting_proficiency.getSize().x, pos_top.y);
 
 
-	sf::Text& damage_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::damage_proficiency];
-	damage_proficiency.setString("Damage:\t" + std::to_string(stats.damage_proficiency));
+	Label& damage_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::damage_proficiency];
+	damage_proficiency.setText("Damage:\t" + std::to_string(stats.damage_proficiency));
 	damage_proficiency.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + damage_proficiency.getGlobalBounds().height))
-		pos.y += damage_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + damage_proficiency.getSize().y))
+		pos.y += damage_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + damage_proficiency.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + damage_proficiency.getSize().x, pos_top.y);
 
 
-	sf::Text& barter_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::barter_proficiency];
-	barter_proficiency.setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
+	Label& barter_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::barter_proficiency];
+	barter_proficiency.setText("Haggling:\t" + std::to_string(stats.barter_proficiency));
 	barter_proficiency.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + barter_proficiency.getGlobalBounds().height))
-		pos.y += barter_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + barter_proficiency.getSize().y))
+		pos.y += barter_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + barter_proficiency.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + barter_proficiency.getSize().x, pos_top.y);
 
 
-	sf::Text& learning_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::learning_proficiency];
-	learning_proficiency.setString("Learning:\t" + std::to_string(stats.learning_proficiency));
+	Label& learning_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::learning_proficiency];
+	learning_proficiency.setText("Learning:\t" + std::to_string(stats.learning_proficiency));
 	learning_proficiency.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + learning_proficiency.getGlobalBounds().height))
-		pos.y += learning_proficiency.getGlobalBounds().height + credits.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + learning_proficiency.getSize().y))
+		pos.y += learning_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + learning_proficiency.getGlobalBounds().width, pos_top.y);
+		pos = sf::Vector2f(pos_top.x + learning_proficiency.getSize().x, pos_top.y);
 
 
 }
@@ -421,9 +420,8 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 void HangarState::PlayerInfoArea::initShipStats()
 {
 	for (auto&& text : m_TextShipStats) {
-		text.setFont(Configuration::fonts.get(Configuration::Fonts::SpaceGui));
 		text.setCharacterSize(25);
-		text.setFillColor(sf::Color::Black);
+		text.setTextColor(sf::Color::Black);
 	}
 
 	sf::RectangleShape& area = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaBottom];
@@ -432,38 +430,31 @@ void HangarState::PlayerInfoArea::initShipStats()
 	sf::Vector2f pos = pos_top;
 
 
-	sf::Text& current_hp = m_TextShipStats[TextShipStatsIDs::m_CurrentHp];
+	Label& current_hp = m_TextShipStats[TextShipStatsIDs::m_CurrentHp];
 	std::ostringstream oss_current_hp;
 	oss_current_hp << std::setprecision(4) << std::noshowpoint << stats.m_CurrentHp;
-	sf::Text& max_hp = m_TextShipStats[TextShipStatsIDs::m_MaxHp];
+	Label& max_hp = m_TextShipStats[TextShipStatsIDs::m_MaxHp];
 	std::ostringstream oss_max_hp;
 	oss_max_hp << std::setprecision(4) << std::noshowpoint << stats.m_MaxHp;
-		current_hp.setString("HP:\t" + oss_current_hp.str());
-		max_hp.setString(" / " + oss_max_hp.str());
+		current_hp.setText("HP:\t" + oss_current_hp.str());
+		max_hp.setText(" / " + oss_max_hp.str());
 		current_hp.setPosition(pos);
-		max_hp.setPosition(pos.x + current_hp.getGlobalBounds().width, pos.y);
-		if (area.getGlobalBounds().contains(pos.x, pos.y + current_hp.getGlobalBounds().height))
-			pos.y += current_hp.getGlobalBounds().height + current_hp.getCharacterSize() / 2.f;
+		max_hp.setPosition(pos.x + current_hp.getSize().x, pos.y);
+		if (area.getGlobalBounds().contains(pos.x, pos.y + current_hp.getSize().y))
+			pos.y += current_hp.getSize().y + current_hp.getCharacterSize() / 2.f;
 		else
-			pos = sf::Vector2f(pos_top.x + current_hp.getGlobalBounds().width + max_hp.getGlobalBounds().width, pos_top.y);
+			pos = sf::Vector2f(pos_top.x + current_hp.getSize().x + max_hp.getSize().x, pos_top.y);
 
 
-
-
-
-
-	sf::Text& m_Armor = m_TextShipStats[TextShipStatsIDs::m_Armor];
+	Label& m_Armor = m_TextShipStats[TextShipStatsIDs::m_Armor];
 	std::ostringstream oss;
 	oss << std::setprecision(1) << std::noshowpoint << stats.m_Armor;
-	m_Armor.setString("Armor:\t" + oss.str());
+	m_Armor.setText("Armor:\t" + oss.str());
 	m_Armor.setPosition(pos);
-	if (area.getGlobalBounds().contains(pos.x, pos.y + m_Armor.getGlobalBounds().height))
-		pos.y += m_Armor.getGlobalBounds().height + m_Armor.getCharacterSize() / 2.f;
+	if (area.getGlobalBounds().contains(pos.x, pos.y + m_Armor.getSize().y))
+		pos.y += m_Armor.getSize().y + m_Armor.getCharacterSize() / 2.f;
 	else
-		pos = sf::Vector2f(pos_top.x + m_Armor.getGlobalBounds().width, pos_top.y);
-
-
-
+		pos = sf::Vector2f(pos_top.x + m_Armor.getSize().x, pos_top.y);
 
 
 }
@@ -480,7 +471,7 @@ void HangarState::PlayerInfoArea::initGUI()
 		layout->add(button, false);
 		const auto& text = m_TextPlayerStats[piloting_proficiency + i];
 		sf::Vector2f pos(text.getPosition());
-		sf::Vector2f size(text.getGlobalBounds().width, text.getGlobalBounds().height);
+		sf::Vector2f size(text.getSize());
 
 		button->setSize(sf::Vector2f(35, 35));
 		button->setPosition(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition().x + m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getSize().x - 35, pos.y);
@@ -500,28 +491,28 @@ void HangarState::PlayerInfoArea::addPoint(int index)
 			
 			case 5: //piloting_proficiency
 				++stats.piloting_proficiency;
-				m_TextPlayerStats[index].setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
+				m_TextPlayerStats[index].setText("Piloting:\t" + std::to_string(stats.piloting_proficiency));
 			break;
 
 			case 6: //damage_proficiency
 				++stats.damage_proficiency;
-				m_TextPlayerStats[index].setString("Damage:\t" + std::to_string(stats.damage_proficiency));
+				m_TextPlayerStats[index].setText("Damage:\t" + std::to_string(stats.damage_proficiency));
 			break;
 
 			case 7: //barter_proficiency
 				++stats.barter_proficiency;
-				m_TextPlayerStats[index].setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
+				m_TextPlayerStats[index].setText("Haggling:\t" + std::to_string(stats.barter_proficiency));
 			break;
 
 			case 8: //learning_proficiency
 				++stats.learning_proficiency;
-				m_TextPlayerStats[index].setString("Learning:\t" + std::to_string(stats.learning_proficiency));
+				m_TextPlayerStats[index].setText("Learning:\t" + std::to_string(stats.learning_proficiency));
 			break;
 
 
 		}
 		--stats.level_up_points;
-		m_TextPlayerStats[level_up_points].setString("Skill Points:\t" + std::to_string(stats.level_up_points));
+		m_TextPlayerStats[level_up_points].setText("Skill Points:\t" + std::to_string(stats.level_up_points));
 	}
 }
 

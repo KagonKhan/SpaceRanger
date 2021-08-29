@@ -6,6 +6,12 @@ void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_Text, states);
 }
 
+Label::Label()
+{
+	m_Font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
+	m_Text.setFont(m_Font);
+}
+
 Label::Label(std::string_view text, Widget* parent)
 	: Widget(parent)
 {

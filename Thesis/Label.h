@@ -14,6 +14,7 @@ public:
 	Label(const Label&) = delete;
 	Label& operator=(const Label&) = delete;
 
+	Label();
 	Label(std::string_view text, Widget* parent = nullptr);
 	Label(std::string_view text, const sf::Font& font, unsigned int charSize, Widget* parent = nullptr);
 
@@ -21,6 +22,7 @@ public:
 
 	sf::Vector2f getSize() const override final;
 
+	
 
 	void setPosition(const sf::Vector2f& pos) override final;
 	void setPosition(float x, float y) override final;
