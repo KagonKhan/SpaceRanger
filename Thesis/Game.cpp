@@ -13,12 +13,12 @@ Game::Game()
 
 void Game::initWindow()
 {
-	Configuration::CreateWindow(m_Window);
+	Helpers::CreateWindow(m_Window);
 }
 
 void Game::initStates()
 {
-	m_States.emplace(std::move(new MainMenuState(m_Window, m_States)));
+	m_States.emplace(new MainMenuState(m_Window, m_States));
 }
 
 void Game::initCursor()
@@ -59,13 +59,15 @@ void Game::updateMouse(const sf::Time& deltaTime)
 
 void Game::updateStates(const sf::Time& deltaTime)
 {
-	m_States.top()->update(deltaTime);
+	if(!m_States.empty())
+		m_States.top()->update(deltaTime);
 }
 
 void Game::render()
 {
 	m_Window.clear();
-	m_Window.draw(*m_States.top());
+	if (!m_States.empty())
+		m_Window.draw(*m_States.top());
 	renderMouse();
 	m_Window.display();
 }
@@ -82,6 +84,10 @@ void Game::run(int minFPS)
 	sf::Time TimePerFrame = sf::seconds(1.f / minFPS);
 
 	while (m_Window.isOpen()) {
+		if (m_States.empty())
+			m_Window.close();
+
+
 		processEvents();
 		timeSinceLastUpdate = clock.restart();
 

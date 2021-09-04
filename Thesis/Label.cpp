@@ -1,57 +1,52 @@
 #include "pch.h"
 #include "Label.h"
 
-void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Label::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	target.draw(m_Text, states);
+	target.draw(m_Text);
 }
 
 Label::Label()
+	:Widget(std::nullopt)
 {
-	m_Font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
-	m_Text.setFont(m_Font);
 }
 
-Label::Label(std::string_view text, Widget* parent)
-	: Widget(parent)
+Label::Label(opt_ref parent, std::string_view text, const sf::Font& font, unsigned int characterSize)
+	: Widget(parent), m_Text(text.data(), font, characterSize)
 {
-
-	m_Font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
-	m_Text.setFont(m_Font);
-	m_Text.setCharacterSize(25);
-	m_Text.setString(text.data());
+	puts("Label\t\tctor");
 }
 
-Label::Label(std::string_view text, const sf::Font& font, unsigned int charSize, Widget* parent)
-	: Widget(parent)
+Label::~Label()
 {
-	m_Text.setFont(font);
-	m_Text.setCharacterSize(charSize);
-	m_Text.setString(text.data());
+	puts("Label\t\tdtor");
+}
+
+
+#pragma region SETTERS / GETTERS
+
+void Label::setPosition(const sf::Vector2f& pos)
+{
+	
+	m_Position = pos;
+	m_Position.x -= m_Text.getLocalBounds().left;
+	m_Position.y -= m_Text.getLocalBounds().top;
+	m_Text.setPosition(m_Position);
 }
 
 sf::Vector2f Label::getSize() const
 {
-	sf::FloatRect rect = m_Text.getGlobalBounds();
-	return sf::Vector2f(rect.width, rect.height);
+	return sf::Vector2f(m_Text.getGlobalBounds().width, m_Text.getGlobalBounds().height);
 }
 
-void Label::setPosition(const sf::Vector2f& pos)
+void Label::setString(const sf::String& string)
 {
-	m_Position = pos;
-	m_Text.setPosition(m_Position);
+	m_Text.setString(string);
 }
 
-void Label::setPosition(float x, float y)
+void Label::setFont(const sf::Font& font)
 {
-	m_Position.x = x;
-	m_Position.y = y;
-	m_Text.setPosition(m_Position);
-}
-
-void Label::setTextColor(const sf::Color& color)
-{
-	m_Text.setFillColor(color);
+	m_Text.setFont(font);
 }
 
 void Label::setCharacterSize(unsigned int size)
@@ -59,19 +54,24 @@ void Label::setCharacterSize(unsigned int size)
 	m_Text.setCharacterSize(size);
 }
 
-void Label::setText(std::string_view text)
+void Label::setLineSpacing(float spacingFactor)
 {
-	m_Text.setString(text.data());
+	m_Text.setLineSpacing(spacingFactor);
 }
 
-void Label::setLetterSpacing(float spacing)
+void Label::setLetterSpacing(float spacingFactor)
 {
-	m_Text.setLetterSpacing(spacing);
+	m_Text.setLetterSpacing(spacingFactor);
 }
 
-void Label::setOutlineThickness(float thickness)
+void Label::setStyle(sf::Uint32 style)
 {
-	m_Text.setOutlineThickness(thickness);
+	m_Text.setStyle(style);
+}
+
+void Label::setFillColor(const sf::Color& color)
+{
+	m_Text.setFillColor(color);
 }
 
 void Label::setOutlineColor(const sf::Color& color)
@@ -79,19 +79,20 @@ void Label::setOutlineColor(const sf::Color& color)
 	m_Text.setOutlineColor(color);
 }
 
-
+void Label::setOutlineThickness(float thickness)
+{
+	m_Text.setOutlineThickness(thickness);
+}
 
 unsigned int Label::getCharacterSize() const
 {
 	return m_Text.getCharacterSize();
 }
 
-const sf::Color& Label::getFillColor() const
-{
-	return m_Text.getFillColor();
-}
-
-const sf::Color& Label::getOutlineColor() const
+sf::Color Label::getOutlineColor() const
 {
 	return m_Text.getOutlineColor();
 }
+
+
+#pragma endregion

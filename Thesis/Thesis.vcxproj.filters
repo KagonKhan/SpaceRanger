@@ -34,9 +34,6 @@
     <Filter Include="GUI\Widgets">
       <UniqueIdentifier>{07bd7ff1-a127-45bb-aa1b-00bd8557bc56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\Widgets\Component">
-      <UniqueIdentifier>{a49b4783-96ec-47e2-b145-36858817f7db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\States">
       <UniqueIdentifier>{0822afc7-b8ac-4604-8674-17f1a5d41108}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,18 @@
     </Filter>
     <Filter Include="Game\Entities\Attributes">
       <UniqueIdentifier>{1fa5d011-2fb9-4c3f-95d5-90b53b41f22e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Widgets\Buttons">
+      <UniqueIdentifier>{a49b4783-96ec-47e2-b145-36858817f7db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Widgets\Layouts">
+      <UniqueIdentifier>{9153b4bb-1c90-487a-97d5-44957e4c5fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Widgets\Components">
+      <UniqueIdentifier>{1f2c1eca-2c95-46d8-aefd-7d109ad10878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Widgets\Layouts\Types">
+      <UniqueIdentifier>{3d97ec75-a9da-4b92-b536-bfc4c921973b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -97,13 +106,7 @@
       <Filter>GUI\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>GUI\Widgets\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Label.cpp">
-      <Filter>GUI\Widgets\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Layout.cpp">
-      <Filter>GUI\Widgets\Component</Filter>
+      <Filter>GUI\Widgets\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="Planet.cpp">
       <Filter>Game\States\GameStates</Filter>
@@ -117,9 +120,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Checkbox.cpp">
-      <Filter>GUI\Widgets\Component</Filter>
-    </ClCompile>
     <ClCompile Include="OptionsState.cpp">
       <Filter>Game\States\MenuStates</Filter>
     </ClCompile>
@@ -131,9 +131,6 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Game\States</Filter>
-    </ClCompile>
-    <ClCompile Include="ScrollBarButton.cpp">
-      <Filter>GUI\Widgets\Component</Filter>
     </ClCompile>
     <ClCompile Include="PlayerShip.cpp">
       <Filter>Game\Entities\Ship</Filter>
@@ -161,6 +158,45 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowSwitchTextButton.cpp">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="Layout.cpp">
+      <Filter>GUI\Widgets\Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteButton.cpp">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckboxButton.cpp">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="Checkbox.cpp">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowSwitch.cpp">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalLayout.cpp">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalLayout.cpp">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="UnorderedLayout.cpp">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="TableLayout.cpp">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers.cpp">
+      <Filter>Utilities\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,13 +240,7 @@
       <Filter>GUI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>GUI\Widgets\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Label.h">
-      <Filter>GUI\Widgets\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Layout.h">
-      <Filter>GUI\Widgets\Component</Filter>
+      <Filter>GUI\Widgets\Buttons</Filter>
     </ClInclude>
     <ClInclude Include="Planet.h">
       <Filter>Game\States\GameStates</Filter>
@@ -224,9 +254,6 @@
     <ClInclude Include="pch.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Checkbox.h">
-      <Filter>GUI\Widgets\Component</Filter>
-    </ClInclude>
     <ClInclude Include="OptionsState.h">
       <Filter>Game\States\MenuStates</Filter>
     </ClInclude>
@@ -238,9 +265,6 @@
     </ClInclude>
     <ClInclude Include="HangarState.h">
       <Filter>Game\States\GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="ScrollBarButton.h">
-      <Filter>GUI\Widgets\Component</Filter>
     </ClInclude>
     <ClInclude Include="PlayerShip.h">
       <Filter>Game\Entities\Ship</Filter>
@@ -268,6 +292,48 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowSwitchTextButton.h">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout.h">
+      <Filter>GUI\Widgets\Layouts</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteButton.h">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.h">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckboxButton.h">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkbox.h">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularArray.h">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowSwitch.h">
+      <Filter>GUI\Widgets\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalLayout.h">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalLayout.h">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="UnorderedLayout.h">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="TableLayout.h">
+      <Filter>GUI\Widgets\Layouts\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Utilities\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

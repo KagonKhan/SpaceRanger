@@ -1,13 +1,13 @@
 #pragma once
-#include "State.h"
 #include "SpaceState.h"
-#include "OptionsState.h"
 
-class MainMenuState: public State
+
+class MainMenuState :
+	public State
 {
 	friend class OptionsState;
 
-	UI ui;
+	UserInterface m_UI;
 	Label m_Title;
 	
 	sf::Texture& m_BackgroundTexture;
@@ -15,7 +15,6 @@ class MainMenuState: public State
 
 
 	void initGUI();
-
 	void initBackground();
 	void initTitle();
 	void initMusic();
@@ -28,13 +27,13 @@ class MainMenuState: public State
 	void Options();
 	void NewGame();
 
-	void recalculatePositions();
+	void reposition();
 
 public:
-	void processEvents(const sf::Event& sfevent);
 	MainMenuState(sf::RenderWindow& window, std::stack<State*>& states);
-	~MainMenuState();
+	virtual ~MainMenuState();
 
+	void processEvents(const sf::Event& sfevent);
 
 	void update(const sf::Time& deltaTime)  override final;
 };

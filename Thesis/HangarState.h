@@ -28,7 +28,7 @@ private:
 		sf::String m_CharDescString;
 		sf::RectangleShape m_AvatarFrame, m_TextArea, doneButton;
 
-		UI m_UI;
+		UserInterface m_UI;
 		sf::Sprite m_AvatarSprites[4];
 		short int sprite_id;
 
@@ -86,7 +86,7 @@ private:
 		HangarState& m_Hangar;
 		std::optional<Player>& m_Player;
 		
-		UI m_UI;
+		UserInterface m_UI;
 		sf::Sprite m_ShipSprite;
 
 
@@ -118,7 +118,7 @@ private:
 	
 	sf::Sprite m_Background;
 
-	UI m_UI;
+	UserInterface m_UI;
 
 	std::optional<Player> m_Player;
 

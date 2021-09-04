@@ -2,11 +2,19 @@
 #include "MainMenuState.h"
 #include "HangarState.h"
 
+#include "OptionsState.h"
+void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(m_BackgroundSprite);
+	target.draw(m_Title);
+	target.draw(m_UI);
+}
+
+
 MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& states)
-	: State(window, states), ui(window),
+	: State(window, states),
 	m_BackgroundTexture(Configuration::background_textures.get(Configuration::Backgrounds::MainMenu)),
-	m_Title("SPACE RANGER")
-	
+	m_Title(std::nullopt,"SPACE RANGER", Configuration::fonts.get(Configuration::Fonts::SpaceGui))
 {
 	initGUI();
 	initBackground();
@@ -19,82 +27,78 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& state
 
 MainMenuState::~MainMenuState()
 {
-
+	m_States.pop();
 }
 
 
 void MainMenuState::initGUI()
 {
-	VerticalLayout* layout = new VerticalLayout;
+	std::unique_ptr<VerticalLayout> layout(new VerticalLayout(opt_ref(m_UI), 2.f));
 
-	TextButton* new_game = new TextButton("(N)ew Game");
+	std::unique_ptr<TextButton> new_game(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(N)ew Game"));
 	new_game->setLetterSpacing(5);
-	new_game->on_click = [this](const sf::Event&, Button& button) {
+	new_game->on_click = [this](const sf::Event&, Button&) {
 		NewGame();
 	};
 
-	TextButton* options = new TextButton("(O)ptions");
+	std::unique_ptr<TextButton> options(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(O)ptions"));
 	options->setLetterSpacing(5);
-	options->on_click = [this](const sf::Event&, Button& button) {
+	options->on_click = [this](const sf::Event&, Button&) {
 		Options();
 	};
 	
-	TextButton* high_scores = new TextButton("(H)igh Scores");
+	std::unique_ptr<TextButton> high_scores(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)ight Scores"));
 	high_scores->setLetterSpacing(5);
-	high_scores->on_click = [this](const sf::Event&, Button& button) {
+	high_scores->on_click = [this](const sf::Event&, Button&) {
 		std::cout << "High Scores\n";
 	};	
 
-	TextButton* quit = new TextButton("(Q)uit");
+	std::unique_ptr<TextButton> quit(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(Q)uit"));
 	quit->setLetterSpacing(5);
-	quit->on_click = [this](const sf::Event&, Button& button) {
-		m_Window.close();
+	quit->on_click = [this](const sf::Event&, Button&) {
+		delete this;
 	};
 
 
-	layout->add(new_game);
-	layout->add(options);
-	layout->add(high_scores);
-	layout->add(quit);
-
-
-	/*ScrollBarButton* volume = new ScrollBarButton(sf::Vector2f(200, 30), "Volume");
-	layout->add(volume);*/
+	layout->add(std::move(new_game));
+	layout->add(std::move(options));
+	layout->add(std::move(high_scores));
+	layout->add(std::move(quit));
 
 
 	layout->setPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
 
-	ui.addLayout(layout);
+	m_UI.addLayout(std::move(layout));
 
-	ui.bind( Configuration::GuiInputs::N,
+	m_UI.bind( Configuration::GuiInputs::N,
 		[this](const sf::Event& sfevent)
 		{
 			std::cout << "New Game\n";
 		}
 	);
 
-	ui.bind( Configuration::GuiInputs::O,
+	m_UI.bind( Configuration::GuiInputs::O,
 		[this](const sf::Event& sfevent)
 		{
 			std::cout << "Options\n";
 		}
 	);
 
-	ui.bind( Configuration::GuiInputs::H,
+	m_UI.bind( Configuration::GuiInputs::H,
 		[this](const sf::Event& sfevent)
 		{
 			std::cout << "High Scores\n";
 		}
 	);
 
-	ui.bind( Configuration::GuiInputs::Escape,
+	m_UI.bind( Configuration::GuiInputs::Escape,
 		[this](const sf::Event& sfevent)
 		{
 			this->m_Window.close();
 		}
 	);
 
-	ui.bind( Configuration::GuiInputs::Q,
+	m_UI.bind( Configuration::GuiInputs::Q,
 		[this](const sf::Event& sfevent)
 		{
 			this->m_Window.close();
@@ -174,8 +178,7 @@ void MainMenuState::updateTitle(const sf::Time& deltaTime)
 	static bool move_up = true;
 	static const sf::Color tit_col = m_Title.getOutlineColor(); 
 
-	static auto is_in_range = [](int val, int lower, int upper)
-	{
+	static auto is_in_range = [](int val, int lower, int upper)	{
 		return lower <= val && val <= upper;
 	};
 
@@ -188,8 +191,7 @@ void MainMenuState::updateTitle(const sf::Time& deltaTime)
 		else
 			move_up = !move_up;
 	}
-	else
-	{
+	else {
 		if (is_in_range(ctc.r, 1, 254)) {
 			ctc.r -= 1;
 		}
@@ -202,7 +204,7 @@ void MainMenuState::updateTitle(const sf::Time& deltaTime)
 
 void MainMenuState::processEvents(const sf::Event& sfevent)
 {
-	ui.processEvent(sfevent);
+	m_UI.processEvent(sfevent);
 }
 
 
@@ -212,13 +214,6 @@ void MainMenuState::update(const sf::Time& deltaTime)
 	updateTitle(deltaTime);
 }
 
-
-void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	target.draw(m_BackgroundSprite);
-	target.draw(m_Title);
-	target.draw(ui);
-}
 
 void MainMenuState::Options()
 {
@@ -231,7 +226,7 @@ void MainMenuState::NewGame()
 	m_States.push(new HangarState(m_Window, m_States));
 }
 
-void MainMenuState::recalculatePositions()
+void MainMenuState::reposition()
 {
 	
 
@@ -246,6 +241,6 @@ void MainMenuState::recalculatePositions()
 	m_Title.setPosition(title_position);
 
 
-	ui.setPosition(sf::Vector2f(m_Window.getSize()) / 2.f);
+	m_UI.setPositionAtIndex(sf::Vector2f(m_Window.getSize()) / 2.f, 0);
 }
 

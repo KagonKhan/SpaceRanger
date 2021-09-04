@@ -1,42 +1,40 @@
 #pragma once
-
-#include "Layout.h"
 #include "ActionTarget.h"
-#include "Button.h"
-#include "Checkbox.h"
-#include "ScrollBarButton.h"
 
-class UI : public Widget, protected ActionTarget<int>
+
+
+class UserInterface : public Widget, protected ActionTarget<int>
 {
 private:
-	sf::RenderWindow& window;
-	Layout* _layout;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+
+	std::vector<std::unique_ptr<Layout>> m_Layouts;
+	void recalculatePositionVariable();
 
 	using ActionTarget<int>::FuncType;
 public:
-	UI(const UI&) = delete;
-	UI& operator=(const UI&) = delete;
+    UserInterface();
+    virtual ~UserInterface();
 
-	UI(sf::RenderWindow& window, Widget* parent = nullptr);
-	virtual ~UI();
+    __declspec(deprecated("** use 'setPositionAtIndex version **")) void setPosition(const sf::Vector2f&) override {};
+    __declspec(deprecated("** use 'setPositionAtIndex version **")) void setPosition(float, float) override {};
 
-	void processEvent(const sf::Event& sfevent) override;
+    void setPositionAtIndex(const sf::Vector2f& pos, unsigned int index);
+    void setPositionAtIndex(float x, float y, unsigned int index);
 
+    void processEvent(const sf::Event& sfevent);
 
-	sf::Vector2f getSize() const override final;
+    sf::Vector2f getSize() const;
 
+    /* std::move into this*/
+    void addLayout(std::unique_ptr<Layout> layout);
 
-	void addLayout(Layout* layout, bool update = true);
-	void setPosition(sf::Vector2f position);
-
+    void update(const sf::Time& deltaTime);
 
 	void bind(int key, const FuncType& callback);
 	void unbind(int key);
 
 
-	void update(const sf::Time& deltaTime) override;
 
-	const std::vector<Widget*>& getWidgets() const;
 
 };

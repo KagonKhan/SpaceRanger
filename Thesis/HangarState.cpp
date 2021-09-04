@@ -20,7 +20,7 @@ void HangarState::CharacterCreation::draw(sf::RenderTarget& target, sf::RenderSt
 
 
 HangarState::CharacterCreation::CharacterCreation(sf::RenderWindow& window, HangarState& hangar)
-	: m_IsDone(false), m_UI(window), m_Window(window), m_Hangar(hangar)
+	: m_IsDone(false), m_Window(window), m_Hangar(hangar)
 {
 	initShapes();
 	initAvatars();
@@ -44,21 +44,11 @@ void HangarState::CharacterCreation::processEvents(const sf::Event& sfevent)
 
 void HangarState::CharacterCreation::initGUI()
 {
-	VerticalLayout* layout = new VerticalLayout;
+	std::unique_ptr<VerticalLayout> layout( new VerticalLayout(opt_ref(m_UI), 2.f));
 
+	std::unique_ptr<SpriteButton> left_arrow(new SpriteButton(opt_ref(*layout), sf::Vector2f(100, 50), Configuration::textures.get(Configuration::Textures::LeftArrow)));
+	std::unique_ptr<SpriteButton> right_arrow(new SpriteButton(opt_ref(*layout), sf::Vector2f(100, 50), Configuration::textures.get(Configuration::Textures::LeftArrow)));
 
-	SpriteButton* left_arrow = new SpriteButton(Configuration::Textures::LeftArrow);
-	SpriteButton* right_arrow = new SpriteButton(Configuration::Textures::LeftArrow);
-
-
-	sf::Vector2f scale(100, 50);
-	scale.x /= left_arrow->getSize().x;
-	scale.y /= left_arrow->getSize().y;
-
-	left_arrow->setScale(scale);
-	right_arrow->setScale(scale);
-
-	right_arrow->setRotation(180);
 
 	left_arrow->on_click = [this](const sf::Event&, Button& button) {
 		swapAvatarSprite(true);
@@ -67,22 +57,22 @@ void HangarState::CharacterCreation::initGUI()
 		swapAvatarSprite(false);
 	};
 
-	TextButton* confirm		= new TextButton("confirm");
-
-	layout->add(right_arrow);
-	layout->add(left_arrow);
-	layout->add(confirm);
-
-	
+	std::unique_ptr<TextButton> confirm(new TextButton(opt_ref(*layout), sf::Vector2f( 250,50), sf::Color::Red, "confirm"));
 	confirm->on_click = [this](const sf::Event& sfevent, Button& button) {
 		finishedCreation();
 	};
-
-	m_UI.addLayout(layout);
-
 	left_arrow->setPosition(m_AvatarFrame.getPosition());
 	right_arrow->setPosition(m_AvatarFrame.getPosition() + sf::Vector2f(m_AvatarFrame.getSize().x, right_arrow->getSize().y));
 	confirm->setPosition(m_TextArea.getPosition() + m_TextArea.getSize() - confirm->getSize());
+
+	layout->add(std::move(right_arrow));
+	layout->add(std::move(left_arrow));
+	layout->add(std::move(confirm));
+
+	
+
+	m_UI.addLayout(std::move(layout));
+
 
 }
 
@@ -237,7 +227,7 @@ void HangarState::PlayerInfoArea::draw(sf::RenderTarget& target, sf::RenderState
 }
 
 HangarState::PlayerInfoArea::PlayerInfoArea(sf::RenderWindow& window, HangarState& hangar, std::optional<Player>& player)
-	: m_Window(window), m_Hangar(hangar), m_Player(player), m_UI(window)
+	: m_Window(window), m_Hangar(hangar), m_Player(player)
 {
 	initRectangles();
 	initPlayerStats();
@@ -325,7 +315,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 {
 	for (auto&& text : m_TextPlayerStats) {
 		text.setCharacterSize(25);
-		text.setTextColor(sf::Color::Black);
+		text.setFillColor(sf::Color::Black);
 	}
 
 
@@ -335,7 +325,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 	sf::Vector2f pos = pos_top;
 	
 	Label& credits = m_TextPlayerStats[TextPlayerStatsIDs::credits];
-	credits.setText("Credits:\t" + std::to_string(stats.credits));
+	credits.setString("Credits:\t" + std::to_string(stats.credits));
 	credits.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + credits.getSize().y))
 		pos.y += credits.getSize().y + credits.getCharacterSize()/2.f;
@@ -344,7 +334,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& level = m_TextPlayerStats[TextPlayerStatsIDs::level];
-	level.setText("Level:\t" + std::to_string(stats.level));
+	level.setString("Level:\t" + std::to_string(stats.level));
 	level.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + level.getSize().y))
 		pos.y += level.getSize().y + credits.getCharacterSize() / 2.f;
@@ -354,7 +344,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& current_experience = m_TextPlayerStats[TextPlayerStatsIDs::current_experience];
-	current_experience.setText("EXP:\t" + std::to_string(stats.current_experience));
+	current_experience.setString("EXP:\t" + std::to_string(stats.current_experience));
 	current_experience.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + current_experience.getSize().y))
 		pos.y += current_experience.getSize().y + credits.getCharacterSize() / 2.f;
@@ -365,7 +355,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& level_up_points = m_TextPlayerStats[TextPlayerStatsIDs::level_up_points];
-	level_up_points.setText("Skill Points:\t" + std::to_string(stats.level_up_points));
+	level_up_points.setString("Skill Points:\t" + std::to_string(stats.level_up_points));
 	level_up_points.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + level_up_points.getSize().y))
 		pos.y += level_up_points.getSize().y + credits.getCharacterSize() / 2.f;
@@ -379,7 +369,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& piloting_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::piloting_proficiency];
-	piloting_proficiency.setText("Piloting:\t" + std::to_string(stats.piloting_proficiency));
+	piloting_proficiency.setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
 	piloting_proficiency.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + piloting_proficiency.getSize().y))
 		pos.y += piloting_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
@@ -388,7 +378,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& damage_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::damage_proficiency];
-	damage_proficiency.setText("Damage:\t" + std::to_string(stats.damage_proficiency));
+	damage_proficiency.setString("Damage:\t" + std::to_string(stats.damage_proficiency));
 	damage_proficiency.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + damage_proficiency.getSize().y))
 		pos.y += damage_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
@@ -397,7 +387,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& barter_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::barter_proficiency];
-	barter_proficiency.setText("Haggling:\t" + std::to_string(stats.barter_proficiency));
+	barter_proficiency.setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
 	barter_proficiency.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + barter_proficiency.getSize().y))
 		pos.y += barter_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
@@ -406,7 +396,7 @@ void HangarState::PlayerInfoArea::initPlayerStats()
 
 
 	Label& learning_proficiency = m_TextPlayerStats[TextPlayerStatsIDs::learning_proficiency];
-	learning_proficiency.setText("Learning:\t" + std::to_string(stats.learning_proficiency));
+	learning_proficiency.setString("Learning:\t" + std::to_string(stats.learning_proficiency));
 	learning_proficiency.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + learning_proficiency.getSize().y))
 		pos.y += learning_proficiency.getSize().y + credits.getCharacterSize() / 2.f;
@@ -421,7 +411,7 @@ void HangarState::PlayerInfoArea::initShipStats()
 {
 	for (auto&& text : m_TextShipStats) {
 		text.setCharacterSize(25);
-		text.setTextColor(sf::Color::Black);
+		text.setFillColor(sf::Color::Black);
 	}
 
 	sf::RectangleShape& area = m_RectangleShapes[RectangleShapesIDs::m_PlayerAreaBottom];
@@ -436,8 +426,8 @@ void HangarState::PlayerInfoArea::initShipStats()
 	Label& max_hp = m_TextShipStats[TextShipStatsIDs::m_MaxHp];
 	std::ostringstream oss_max_hp;
 	oss_max_hp << std::setprecision(4) << std::noshowpoint << stats.m_MaxHp;
-		current_hp.setText("HP:\t" + oss_current_hp.str());
-		max_hp.setText(" / " + oss_max_hp.str());
+		current_hp.setString("HP:\t" + oss_current_hp.str());
+		max_hp.setString(" / " + oss_max_hp.str());
 		current_hp.setPosition(pos);
 		max_hp.setPosition(pos.x + current_hp.getSize().x, pos.y);
 		if (area.getGlobalBounds().contains(pos.x, pos.y + current_hp.getSize().y))
@@ -445,11 +435,11 @@ void HangarState::PlayerInfoArea::initShipStats()
 		else
 			pos = sf::Vector2f(pos_top.x + current_hp.getSize().x + max_hp.getSize().x, pos_top.y);
 
-
+		
 	Label& m_Armor = m_TextShipStats[TextShipStatsIDs::m_Armor];
 	std::ostringstream oss;
 	oss << std::setprecision(1) << std::noshowpoint << stats.m_Armor;
-	m_Armor.setText("Armor:\t" + oss.str());
+	m_Armor.setString("Armor:\t" + oss.str());
 	m_Armor.setPosition(pos);
 	if (area.getGlobalBounds().contains(pos.x, pos.y + m_Armor.getSize().y))
 		pos.y += m_Armor.getSize().y + m_Armor.getCharacterSize() / 2.f;
@@ -463,23 +453,25 @@ void HangarState::PlayerInfoArea::initShipStats()
 
 void HangarState::PlayerInfoArea::initGUI()
 {
-	VerticalLayout* layout = new VerticalLayout;
-	m_UI.addLayout(layout);
+	std::unique_ptr<VerticalLayout> layout( new VerticalLayout(opt_ref(m_UI), 2.f));
 
 	for (int i = 0; i < 4; i++) {
-		TextButton* button = new TextButton("+");
-		layout->add(button, false);
+		std::unique_ptr<TextButton> button(new TextButton(opt_ref(*layout), sf::Vector2f(25,25), sf::Color::Red,"+"));
 		const auto& text = m_TextPlayerStats[piloting_proficiency + i];
 		sf::Vector2f pos(text.getPosition());
 		sf::Vector2f size(text.getSize());
 
 		button->setSize(sf::Vector2f(35, 35));
-		button->setPosition(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition().x + m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getSize().x - 35, pos.y);
+		sf::Vector2f posi(m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getPosition().x + m_RectangleShapes[RectangleShapesIDs::m_ExpBarBackground].getSize().x - 35, pos.y);
+		button->setPosition(posi);
 		button->on_click = [this, i](const sf::Event&, Button& button) {
 			addPoint(piloting_proficiency+i);
 		};
 
+		layout->add(std::move(button));
 	}
+
+	m_UI.addLayout(std::move(layout));
 
 }
 
@@ -491,28 +483,28 @@ void HangarState::PlayerInfoArea::addPoint(int index)
 			
 			case 5: //piloting_proficiency
 				++stats.piloting_proficiency;
-				m_TextPlayerStats[index].setText("Piloting:\t" + std::to_string(stats.piloting_proficiency));
+				m_TextPlayerStats[index].setString("Piloting:\t" + std::to_string(stats.piloting_proficiency));
 			break;
 
 			case 6: //damage_proficiency
 				++stats.damage_proficiency;
-				m_TextPlayerStats[index].setText("Damage:\t" + std::to_string(stats.damage_proficiency));
+				m_TextPlayerStats[index].setString("Damage:\t" + std::to_string(stats.damage_proficiency));
 			break;
 
 			case 7: //barter_proficiency
 				++stats.barter_proficiency;
-				m_TextPlayerStats[index].setText("Haggling:\t" + std::to_string(stats.barter_proficiency));
+				m_TextPlayerStats[index].setString("Haggling:\t" + std::to_string(stats.barter_proficiency));
 			break;
 
 			case 8: //learning_proficiency
 				++stats.learning_proficiency;
-				m_TextPlayerStats[index].setText("Learning:\t" + std::to_string(stats.learning_proficiency));
+				m_TextPlayerStats[index].setString("Learning:\t" + std::to_string(stats.learning_proficiency));
 			break;
 
 
 		}
 		--stats.level_up_points;
-		m_TextPlayerStats[level_up_points].setText("Skill Points:\t" + std::to_string(stats.level_up_points));
+		m_TextPlayerStats[level_up_points].setString("Skill Points:\t" + std::to_string(stats.level_up_points));
 	}
 }
 
@@ -574,7 +566,6 @@ void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
 	: State(window, states),
 	m_Background(Configuration::background_textures.get(Configuration::Backgrounds::Hangar)),
-	m_UI(window),
 	m_Player(std::nullopt),
 	m_PlayerInfoArea(std::nullopt)
 {
@@ -591,23 +582,22 @@ HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
 
 void HangarState::initGUI()
 {
-	VerticalLayout* navigation = new VerticalLayout;
-	TextButton* back = new TextButton("BACK");
+	std::unique_ptr<VerticalLayout> navigation (new VerticalLayout(opt_ref(m_UI),2.f));
+	std::unique_ptr<TextButton> back (new TextButton(opt_ref(*navigation), std::nullopt, sf::Color::Red, "BACK"));
 	back->on_click = [this](const sf::Event&, Button& button) {
 		m_States.pop();
 	};
-	TextButton* next = new TextButton("NEXT");
+	std::unique_ptr<TextButton> next(new TextButton(opt_ref(*navigation), std::nullopt, sf::Color::Red, "NEXT"));
 	next->on_click = [this](const sf::Event&, Button& button) {
 		m_States.push(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
 	};
 
 
-	navigation->add(back);
-	navigation->setPosition(sf::Vector2f(0, 0));
-	navigation->add(next);
-	m_UI.addLayout(navigation);
-
-	next->setPosition(m_Window.getSize().x -next->getSize().x, 0);
+	navigation->add(std::move(back));
+	navigation->add(std::move(next));
+	m_UI.addLayout(std::move(navigation));
+	sf::Vector2f pos(m_Window.getSize().x - next->getSize().x, 0);
+	next->setPosition(pos);
 	m_UI.bind(Configuration::GuiInputs::Escape,
 		[this](const sf::Event& sfevent)
 		{

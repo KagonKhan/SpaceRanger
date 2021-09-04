@@ -105,7 +105,7 @@ void Ammunition::update(const sf::Time& deltaTime)
 	updatePosition(deltaTime);
 	updateIndividualBehavior(deltaTime);
 
-	if (!Configuration::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
+	if (!Helpers::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
 		m_ShouldBeDeleted = true;
 }
 

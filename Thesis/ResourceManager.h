@@ -1,9 +1,6 @@
 #pragma once
 
 
-
-
-
 template <typename RESOURCE, typename IDENTIFIER = int>
 class ResourceManager
 {

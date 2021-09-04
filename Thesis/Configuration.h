@@ -60,6 +60,8 @@ public:
 	enum Textures : int {
 		MENU_STATE = 0x000,
 		Cursor,
+		LeftArrowMenu,
+		RightArrowMenu,
 
 		OPTIONS_STATE = 0x100,
 	
@@ -140,14 +142,6 @@ public:
 
 	static void initialize();
 
-	static void CreateWindow(sf::RenderWindow& window);
-	static void LoadFileToString(const std::filesystem::path& path, std::string& loadTo);
-	static void ReplaceFirstOccurance(std::string& s, const std::string& toReplace, const std::string& replaceWith);
-	
-	// return vec2f from global bounds 
-
-	// Receives position, and checks if contained in area
-	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
 
 	static void reset();
 

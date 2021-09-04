@@ -1,64 +1,97 @@
 #include "pch.h"
 #include "UI.h"
 
-void UI::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void UserInterface::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	target.draw(*_layout, states);
+	for (auto&& layout : m_Layouts) {
+		target.draw(*layout);
+	}
 }
 
-UI::UI(sf::RenderWindow& window, Widget* parent)
-	: window(window), ActionTarget(Configuration::gui_inputs), _layout(nullptr)
+void UserInterface::recalculatePositionVariable()
+{
+	float min_x{ std::numeric_limits<float>::max() };
+	float min_y{ std::numeric_limits<float>::max() };
+
+	for (auto&& layout : m_Layouts) {
+		const sf::Vector2f curr_layout_pos(layout->getPosition());
+
+		if (min_x > curr_layout_pos.x)	min_x = curr_layout_pos.x;
+		if (min_y > curr_layout_pos.y)	min_y = curr_layout_pos.y;
+	}
+
+	m_Position = sf::Vector2f(min_x, min_y);
+}
+
+UserInterface::UserInterface()
+	: Widget(std::nullopt), ActionTarget(Configuration::gui_inputs)
 {
 
 }
 
-UI::~UI()
+UserInterface::~UserInterface()
 {
 }
 
-sf::Vector2f UI::getSize() const
+void UserInterface::setPositionAtIndex(const sf::Vector2f& pos, unsigned int index)
 {
-	return _layout->getSize();
+	m_Layouts.at(index)->setPosition(pos);
+	recalculatePositionVariable();
 }
 
-void UI::processEvent(const sf::Event& sfevent)
+void UserInterface::setPositionAtIndex(float x, float y, unsigned int index)
 {
-	
-	_layout->processEvent(sfevent);
-
-	ActionTarget::processEvent(sfevent);
+	setPositionAtIndex(sf::Vector2f(x, y), index);
 }
 
-void UI::addLayout(Layout* layout, bool update)
+void UserInterface::processEvent(const sf::Event& sfevent)
 {
-	_layout = layout;
-	if(update)
-		_layout->updateShape();
+	for (auto&& layout : m_Layouts) {
+		layout->processEvent(sfevent);
+	}
 }
 
-void UI::setPosition(sf::Vector2f position)
+sf::Vector2f UserInterface::getSize() const
 {
-	m_Position = position;
-	_layout->setPosition(position);
-	_layout->updateShape();
+	float max_x{}, min_x{ std::numeric_limits<float>::max() };
+	float max_y{}, min_y{ std::numeric_limits<float>::max() };
+
+	for (auto&& layout : m_Layouts) {
+		const sf::Vector2f curr_layout_size(layout->getSize());
+		const sf::Vector2f curr_layout_pos(layout->getPosition());
+
+		if (max_x < curr_layout_pos.x + curr_layout_size.x) max_x = curr_layout_pos.x + curr_layout_size.x;
+		if (max_y < curr_layout_pos.y + curr_layout_size.y)	max_y = curr_layout_pos.y + curr_layout_size.y;
+
+		if (min_x > curr_layout_pos.x)	min_x = curr_layout_pos.x;
+		if (min_y > curr_layout_pos.y)	min_y = curr_layout_pos.y;
+	}
+
+	return sf::Vector2f(max_x - min_x, max_y - min_y);
 }
 
-void UI::bind(int key, const FuncType& callback)
+void UserInterface::addLayout(std::unique_ptr<Layout> layout)
+{
+	m_Layouts.push_back(std::move(layout));
+
+	recalculatePositionVariable();
+}
+
+void UserInterface::update(const sf::Time& deltaTime)
+{
+	for (auto&& layout : m_Layouts) {
+		layout->update(deltaTime);
+	}
+}
+
+
+void UserInterface::bind(int key, const FuncType& callback)
 {
 	ActionTarget::bind(key, callback);
 }
 
-void UI::unbind(int key)
+void UserInterface::unbind(int key)
 {
 	ActionTarget::unbind(key);
 }
 
-void UI::update(const sf::Time& deltaTime)
-{
-	_layout->update(deltaTime);
-}
-
-const std::vector<Widget*>& UI::getWidgets() const
-{
-	return _layout->getWidgets();
-}

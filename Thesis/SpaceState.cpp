@@ -8,8 +8,7 @@ void SpaceState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State*>& states, PlayerShip& player)
-	: State(window, states), ui(window),
-	m_Player(player)
+	: State(window, states),	m_Player(player)
 {
 	initPlayer();
 }

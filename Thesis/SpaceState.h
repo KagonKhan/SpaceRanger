@@ -4,7 +4,7 @@
 class SpaceState : public State
 {
 private:
-	UI ui;
+	UserInterface m_UI;
 	PlayerShip& m_Player;
 	void initGUI();
 	void initPlayer();

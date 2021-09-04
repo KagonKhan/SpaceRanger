@@ -11,7 +11,7 @@ protected:
 	sf::Vector2f m_MousePosition;
 
 	void updateMousePos();
-
+	typedef std::optional<std::reference_wrapper<Widget>> opt_ref;
 
 public:
 	State(sf::RenderWindow& window,std::stack<State*>& states);
