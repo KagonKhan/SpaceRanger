@@ -2,10 +2,10 @@
 #include "Entity.h"
 
 // Entities have centered origins
-Entity::Entity(Configuration::Textures tex_id)
-	: m_Alive(true)
+Entity::Entity(const sf::Texture& texture)
+	: m_Alive(true), m_Sprite(texture)
 {
-	m_Sprite.setTexture(Configuration::textures.get(tex_id));
+
 
 	sf::Vector2f sprite_size(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
 
@@ -33,17 +33,17 @@ bool Entity::isAlive() const
 	return m_Alive;
 }
 
-const sf::Vector2f& Entity::getPosition() const
+sf::Vector2f Entity::getPosition() const
 {
 	return m_Position;
 }
 
-const sf::Vector2f& Entity::getSize() const
+sf::Vector2f Entity::getSize() const
 {
 	return sf::Vector2f(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
 }
 
-const sf::Vector2f& Entity::getRectangleSize() const
+sf::Vector2f Entity::getRectangleSize() const
 {
 	return m_Shape.getSize();
 }

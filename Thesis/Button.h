@@ -17,5 +17,7 @@ public:
 	Button(opt_ref parent);
 	virtual ~Button();
 
+	virtual std::string readValue();
+
 	FuncType on_click;
 };

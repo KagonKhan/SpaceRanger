@@ -12,5 +12,7 @@ public:
     sf::Vector2f getSize() const override;
 
     void update(const sf::Time& deltaTime) override;
+
+
 };
 

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "OptionsState.h"
-
+#include "MainMenuState.h"
 
 void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
@@ -11,7 +11,7 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State*>& states, sf::Sprite& bgsprite)
 	: State(window, states), m_BackgroundSprite(bgsprite), 
-	m_Title(std::nullopt,"OPTIONS", Configuration::fonts.get(Configuration::Fonts::SpaceGui))
+	m_Title(std::nullopt,"OPTIONS", Configuration::fonts.get(Configuration::Fonts::SpaceGui), 100)
 {
 	puts("OptionsState\tctor");
 	initTitle();
@@ -24,61 +24,95 @@ OptionsState::~OptionsState()
 }
 
 
-void OptionsState::initGUI()
+/* ==================================      INITIALIZERS      ================================== */
+
+
+void OptionsState::initTitle()
 {
-	initGUIResolutions();
-	initGUIMusic();
-	initGUINavigation();
+	m_Title.setLetterSpacing(8);
+	m_Title.setOutlineThickness(9);
+	m_Title.setOutlineColor(sf::Color::Blue);
+	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
+
+	m_Title.setPosition(title_position);
 
 }
 
-void OptionsState::initGUIResolutions()
+void OptionsState::initGUI()
 {
-	std::unique_ptr<VerticalLayout> vert_layout(new VerticalLayout(opt_ref(m_UI), 5.f));
+	addGUIGraphics();
 
+	initGUIMusic();
+
+	addGUINavigation();
+}
+
+#pragma region GUI/Graphics
+
+void OptionsState::addGUIGraphics()
+{
+	VerLayPtr vert_layout(new VerticalLayout(opt_ref(m_UI), 5.f));
+		addGUIResolutions(vert_layout);
+		addGUIFullscreen(vert_layout);
+		addGUIVSync(vert_layout);
+	m_UI.addLayout(std::move(vert_layout));
+}
+void OptionsState::addGUIResolutions(VerLayPtr& vert_layout)
+{
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 
-
 	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
-	std::string	button_text = "Screen Resolution";
+	std::string	button_text = "Screen   Resolution";
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
 	sf::Vector2f area_size(500.f, 75.f);
 
-
 	std::unique_ptr<ArrowSwitchTextButton> window_sizes(new ArrowSwitchTextButton(
-		opt_ref(m_UI), size, button_text, font, 25u, modes.size(), area_size, sf::Vector2f(100,50)));
+		opt_ref(m_UI), size, button_text, font, 25u, modes.size(), area_size, sf::Vector2f(100, 50)));
 
-
-	for (int i = 0; i < modes.size(); ++i) {
+	for (unsigned int i = 0; i < modes.size(); ++i) {
 		std::string	button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
 		window_sizes->addOption(button_text, font, 25u);
 	}
 
 	vert_layout->add(std::move(window_sizes));
 
+
 	sf::Vector2f layout_pos;
 	layout_pos.x = (static_cast<float>(m_Window.getSize().x) - vert_layout->getSize().x) / 2.f;
 	layout_pos.y = m_Title.getPosition().y + m_Title.getSize().y + 50.f;
 	vert_layout->setPosition(layout_pos);
 
-	m_UI.addLayout(std::move(vert_layout));
 
-
-	//Checkbox* fullscreen = new Checkbox("Fullscreen");
-	//fullscreen->setSize(sf::Vector2f(300, 75));
-	//fullscreen->on_click = [this](const sf::Event&, Button& button) {
-	//	goFullscreen(button);
-	//};
-
-	//sf::Vector2u max_win_size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
-	//fullscreen->setIsChecked(m_Window.getSize() == max_win_size);
-
-
-
-	//window_sizes->add(fullscreen);
-	//window_sizes->setPosition(sf::Vector2f(50, 300));
-	//uis.at(Resolutions)->addLayout(window_sizes);
 }
+void OptionsState::addGUIFullscreen(VerLayPtr& vert_layout)
+{
+	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
+	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
+	sf::Vector2f area_size(500.f, 75.f);
+
+	std::unique_ptr<ArrowSwitchTextButton> fullscreen(new ArrowSwitchTextButton(
+		opt_ref(m_UI), size, "Fullscreen", font, 25u, 2, area_size, sf::Vector2f(100, 50)));
+	fullscreen->addOption("On", font, 25u);
+	fullscreen->addOption("Off", font, 25u);
+
+	vert_layout->add(std::move(fullscreen));
+}
+void OptionsState::addGUIVSync(VerLayPtr& vert_layout)
+{
+	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
+	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
+	sf::Vector2f area_size(500.f, 75.f);
+
+	std::unique_ptr<ArrowSwitchTextButton> vsync(new ArrowSwitchTextButton(
+		opt_ref(m_UI), size, "Vertical   Synchronization", font, 25u, 2, area_size, sf::Vector2f(100, 50)));
+	vsync->addOption("On", font, 25u);
+	vsync->addOption("Off", font, 25u);
+
+
+	vert_layout->add(std::move(vsync));
+}
+
+#pragma endregion
 
 void OptionsState::initGUIMusic()
 {
@@ -104,44 +138,57 @@ void OptionsState::initGUIMusic()
 	//uis.at(Music)->addLayout(music_buttons);
 }
 
-void OptionsState::initGUINavigation()
+#pragma region GUI/navigation
+
+void OptionsState::addGUINavigation()
 {
-	//uis.insert(std::make_pair<int, UI*>(Navigation, new UI(m_Window)));
+	UnoLayPtr unordered_layout(new UnorderedLayout(opt_ref(m_UI), 5.f));
+		addGUIBack(unordered_layout);
+	m_UI.addLayout(std::move(unordered_layout));
 
-	//HorizontalLayout* navigation = new HorizontalLayout;
-	//TextButton* back = new TextButton("BACK");
-	//back->on_click = [this](const sf::Event&, Button& button) {
-	//	m_States.pop();
-	//};
-
-	//TextButton* save = new TextButton("SAVE");
-	//save->on_click = [this](const sf::Event&, Button& button) {
-	//	std::cout << "tba\n";// TODO implement functionality;
-	//};
-
-	//navigation->add(back);
-	//navigation->add(save);
-	//navigation->setPosition(sf::Vector2f(0, 0));
-	//save->setPosition(sf::Vector2f(m_Window.getSize()) - save->getSize());
-	//uis.at(Navigation)->addLayout(navigation);
+	HorLayPtr horizontal_layout(new HorizontalLayout(opt_ref(m_UI), 5.f));
+		addGUIApply(horizontal_layout);
+		addGUISave(horizontal_layout);
+	horizontal_layout->setPosition(static_cast<sf::Vector2f>(m_Window.getSize()) - horizontal_layout->getSize());
+	m_UI.addLayout(std::move(horizontal_layout));
 }
 
-
-
-
-
-
-void OptionsState::initTitle()
+void OptionsState::addGUIBack(UnoLayPtr& unordered_layout)
 {
-	m_Title.setCharacterSize(100);
-	m_Title.setLetterSpacing(8);
-	m_Title.setOutlineThickness(9);
-	m_Title.setOutlineColor(sf::Color::Blue);
-	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
+	std::unique_ptr<TextButton> back(new TextButton(
+		opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK"));
+	back->on_click = [this](const sf::Event&, Button&) {
+		m_States.pop();
+	};
+	back->setPosition(sf::Vector2f(0, 0));
 
-	m_Title.setPosition(title_position);
-
+	unordered_layout->add(std::move(back));
 }
+
+void OptionsState::addGUIApply(HorLayPtr& horizontal_layout)
+{
+	std::unique_ptr<TextButton> save(new TextButton(
+		opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "APPLY"));
+	save->on_click = [this](const sf::Event&, Button& button) {
+		readAndApplyButtonData();
+	};
+	horizontal_layout->add(std::move(save));
+}
+
+void OptionsState::addGUISave(HorLayPtr& horizontal_layout)
+{
+	std::unique_ptr<TextButton> save(new TextButton(
+		opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "SAVE"));
+	save->on_click = [this](const sf::Event&, Button& button) {
+		std::cout << "tba\n";// TODO implement functionality;
+	};
+	horizontal_layout->add(std::move(save));
+}
+
+#pragma endregion
+
+
+/* ==================================      UPDATES      ================================== */
 
 
 void OptionsState::processEvents(const sf::Event& sfevent)
@@ -149,14 +196,45 @@ void OptionsState::processEvents(const sf::Event& sfevent)
 	m_UI.processEvent(sfevent);
 }
 
+
 void OptionsState::update(const sf::Time& deltaTime)
 {
 	
 }
 
 
+/* ==================================      FUNCTIONS      ================================== */
 
-/* When creating a new window, which is how to resize the window, the settings like framerate limit get nuked */
+
+void OptionsState::readAndApplyButtonData()
+{
+
+	std::string results;
+	auto widgets = m_UI.getAllWidgets();
+	for (auto&& widget : widgets) {
+		if (typeid(*widget).name() == typeid(ArrowSwitchTextButton).name()) {
+			auto ptr = dynamic_cast<ArrowSwitchTextButton*>(widget);
+
+			if (ptr->getString() == "Fullscreen") {
+				results += "\nfullscreen ";
+				results+=(ptr->readValue() == "On" ? "1" : "0");
+			}
+			else if (ptr->getString() == "Vertical   Synchronization") {
+				results += "\nvsync ";
+				results += (ptr->readValue() == "On" ? "1" : "0");
+			}
+			else if (ptr->getString() == "Screen   Resolution") {
+				results += "\nresolution " + ptr->readValue();
+			}
+		}
+	}
+	system("CLS");
+	std::cout << results;
+	Helpers::CreateWindow(m_Window, results);
+	reposition();
+}
+
+
 void OptionsState::changeResolution(const sf::VideoMode& mode)
 {
 	if (m_Window.getSize() == sf::Vector2u(mode.width, mode.height))

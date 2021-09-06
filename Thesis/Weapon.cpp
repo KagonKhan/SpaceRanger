@@ -13,8 +13,8 @@ void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_Sprite);
 }
 
-Weapon::Weapon(Configuration::Textures tex_id)
-	: Entity(tex_id), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
+Weapon::Weapon(Configuration::TexturesWeaponry tex_id)
+	: Entity(Configuration::textures_weaponry.get(tex_id)), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
 {
 	Configuration::tar.setSize(sf::Vector2f(50, 50));
 	Configuration::tar.setFillColor(sf::Color::Red);
@@ -105,7 +105,7 @@ void Weapon::updateTimings(const sf::Time& deltaTime)
 
 void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 {
-	for (int i = 0; i < m_Shots.size(); ++i) {
+	for (unsigned int i = 0; i < m_Shots.size(); ++i) {
 		m_Shots[i]->update(deltaTime);
 
 		if (m_Shots[i]->getShouldBeDeleted())
@@ -121,7 +121,7 @@ void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 	sf::Vector2f weapon_pos = getPosition();
 	
 	float angle = atan2f(target_pos.y - weapon_pos.y, target_pos.x - weapon_pos.x);
-	angle *= 180.f / M_PIl;
+	angle *= 180.f / static_cast<float>(M_PIl);
 	angle -= 90.f;
 
 	m_Sprite.setRotation(angle);
@@ -136,7 +136,7 @@ void Weapon::deleteFinishedSounds()
 
 /* =============================    Laser Turret    ========================= */
 
-LaserTurret::LaserTurret(Configuration::Textures tex_id)
+LaserTurret::LaserTurret(Configuration::TexturesWeaponry tex_id)
 	: Weapon(tex_id)
 {
 
@@ -144,7 +144,7 @@ LaserTurret::LaserTurret(Configuration::Textures tex_id)
 
 void LaserTurret::createBullet()
 {
-	std::unique_ptr<Laser> shot(new Laser(Configuration::Textures::Ammo_Laser, Configuration::boundaries, -90, 1200));
+	std::unique_ptr<Laser> shot(new Laser(Configuration::TexturesWeaponry::ammo_laser, Configuration::boundaries, -90, 1200));
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 
@@ -172,7 +172,7 @@ void LaserTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 
 /* =============================    Missile Turret    ========================= */
 
-MissileTurret::MissileTurret(Configuration::Textures tex_id)
+MissileTurret::MissileTurret(Configuration::TexturesWeaponry tex_id)
 	: Weapon(tex_id)
 {
 }
@@ -180,7 +180,7 @@ MissileTurret::MissileTurret(Configuration::Textures tex_id)
 
 void MissileTurret::createBullet()
 {
-	std::unique_ptr<Missile> shot(new Missile(Configuration::Textures::Ammo_Missile, Configuration::Textures::Ammo_Missile_Thrusters,Configuration::boundaries, -90, 400));
+	std::unique_ptr<Missile> shot(new Missile(Configuration::TexturesWeaponry::ammo_missile, Configuration::TexturesWeaponry::ammo_missile_thrusters, Configuration::boundaries, -90, 400));
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 
@@ -211,7 +211,7 @@ void MissileTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 
 /* =============================    Beam Turret    ========================= */
 
-BeamTurret::BeamTurret(Configuration::Textures tex_id, Entity& parent)
+BeamTurret::BeamTurret(Configuration::TexturesWeaponry tex_id, Entity& parent)
 	: Weapon(tex_id), m_Parent(parent)
 {
 
@@ -219,7 +219,7 @@ BeamTurret::BeamTurret(Configuration::Textures tex_id, Entity& parent)
 
 void BeamTurret::createBullet()
 {
-	std::unique_ptr<Beam> shot(new Beam(Configuration::Textures::Ammo_Beam, Configuration::boundaries, -90, 400));
+	std::unique_ptr<Beam> shot(new Beam(Configuration::TexturesWeaponry::ammo_beam, Configuration::boundaries, -90, 400));
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 

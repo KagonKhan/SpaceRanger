@@ -12,6 +12,11 @@ Button::~Button()
 	puts("Button\t\tdtor");
 }
 
+std::string Button::readValue()
+{
+	return std::string();
+}
+
 void Button::processEvent(const sf::Event&)
 {
 }

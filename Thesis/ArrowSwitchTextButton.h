@@ -25,19 +25,22 @@ private:
     void reposition();
     void repositionLabel();
     void repositionSwitchArea();
-
+     
 public:
     ArrowSwitchTextButton(opt_ref parent, const sf::Vector2f& size,
         std::string_view text, sf::Font& font, unsigned int charSize,
         unsigned int numberOfOptions, const sf::Vector2f& switchAreaSize,
         std::optional<sf::Vector2f> arrow_size = std::nullopt,
-        const sf::Texture& left = Configuration::textures.get(Configuration::Textures::LeftArrowMenu),
-        const sf::Texture& right = Configuration::textures.get(Configuration::Textures::RightArrowMenu)
+        const sf::Texture& left = Configuration::textures_options.get(Configuration::TexturesOptionsState::left_arrow),
+        const sf::Texture& right = Configuration::textures_options.get(Configuration::TexturesOptionsState::right_arrow)
     );
 
     virtual ~ArrowSwitchTextButton();
 
     void addOption(std::string_view option, sf::Font& font, unsigned int charSize);
+    std::string readValue()override;
+
+
 
 #pragma region SETTERS / GETTERS
 
@@ -62,6 +65,7 @@ public:
     void setTextOutlineThickness(float thickness);
     unsigned int getCharacterSize() const;
 
+    std::string getString()const;
 #pragma endregion
 
 };

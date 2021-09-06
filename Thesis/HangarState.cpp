@@ -46,8 +46,8 @@ void HangarState::CharacterCreation::initGUI()
 {
 	std::unique_ptr<VerticalLayout> layout( new VerticalLayout(opt_ref(m_UI), 2.f));
 
-	std::unique_ptr<SpriteButton> left_arrow(new SpriteButton(opt_ref(*layout), sf::Vector2f(100, 50), Configuration::textures.get(Configuration::Textures::LeftArrow)));
-	std::unique_ptr<SpriteButton> right_arrow(new SpriteButton(opt_ref(*layout), sf::Vector2f(100, 50), Configuration::textures.get(Configuration::Textures::LeftArrow)));
+	std::unique_ptr<SpriteButton> left_arrow(new SpriteButton(opt_ref(*layout), sf::Vector2f(100, 50), Configuration::textures_hangar.get(Configuration::TexturesHangarState::left_arrow)));
+	std::unique_ptr<SpriteButton> right_arrow(new SpriteButton(opt_ref(*layout), sf::Vector2f(100, 50), Configuration::textures_hangar.get(Configuration::TexturesHangarState::right_arrow)));
 
 
 	left_arrow->on_click = [this](const sf::Event&, Button& button) {
@@ -78,10 +78,10 @@ void HangarState::CharacterCreation::initGUI()
 
 void HangarState::CharacterCreation::initAvatars()
 {
-	m_AvatarSprites[0].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar0));
-	m_AvatarSprites[1].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar1));
-	m_AvatarSprites[2].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar2));
-	m_AvatarSprites[3].setTexture(Configuration::textures.get(Configuration::Textures::PlayerAvatar3));
+	m_AvatarSprites[0].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_0));
+	m_AvatarSprites[1].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_1));
+	m_AvatarSprites[2].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_2));
+	m_AvatarSprites[3].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_3));
 
 	sprite_id = 0;
 
@@ -168,7 +168,7 @@ void HangarState::CharacterCreation::swapAvatarSprite(bool left)
 
 void HangarState::CharacterCreation::finishedCreation()
 {
-	int val = Configuration::Textures::PlayerAvatar0 + sprite_id;
+	int val = static_cast<int>(Configuration::TexturesPlayer::player_avatar_0) + sprite_id;
 
 	m_Hangar.onCharacterCreationFinished(val);
 
@@ -200,7 +200,8 @@ void HangarState::processEventsCharacterCreation(const sf::Event& sfevent)
 
 void HangarState::onCharacterCreationFinished(int sprite_id)
 {
-	m_Player.emplace(Configuration::Textures(sprite_id), static_cast<sf::Vector2f>(m_Window.getSize()));
+	// TODO 
+	//m_Player.emplace(Configuration::player(static_cast<Configuration::TexturesPlayer>(sprite_id), static_cast<sf::Vector2f>(m_Window.getSize())));
 	m_PlayerInfoArea.emplace(m_Window, *this, m_Player);
 }
 
@@ -565,7 +566,7 @@ void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
 	: State(window, states),
-	m_Background(Configuration::background_textures.get(Configuration::Backgrounds::Hangar)),
+	m_Background(Configuration::textures_hangar.get(Configuration::TexturesHangarState::background)),
 	m_Player(std::nullopt),
 	m_PlayerInfoArea(std::nullopt)
 {

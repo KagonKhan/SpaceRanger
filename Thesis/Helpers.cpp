@@ -3,8 +3,9 @@
 
 
 
-void Helpers::CreateWindow(sf::RenderWindow& window)
+void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> fileContents)
 {
+
 
 	std::string title;
 	int x = 400, y = 400;
@@ -41,6 +42,31 @@ void Helpers::CreateWindow(sf::RenderWindow& window)
 			buffer >> vsync;
 		}
 	}
+
+
+
+	if (fileContents.has_value()) {
+		std::stringstream buffer;
+		buffer << fileContents.value();
+
+		std::string name;
+		while (buffer >> name) {
+			if (name == "fullscreen") {
+				buffer >> fullscreen;
+			}
+			if (name == "vsync") {
+				buffer >> vsync;
+			}
+			if (name == "resolution") {
+				std::string skip;
+				buffer >> x >> skip >> y;
+				std::cout << "\n" << x << ", " << y << "\n";
+			}
+		}
+	}
+
+
+
 
 	using namespace sf::Style;
 

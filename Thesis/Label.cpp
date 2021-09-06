@@ -94,5 +94,10 @@ sf::Color Label::getOutlineColor() const
 	return m_Text.getOutlineColor();
 }
 
+std::string Label::getString() const
+{
+	return m_Text.getString();	
+}
+
 
 #pragma endregion

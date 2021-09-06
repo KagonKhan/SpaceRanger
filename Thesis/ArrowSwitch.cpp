@@ -129,3 +129,8 @@ sf::Vector2f ArrowSwitch::getSize() const
 	return m_AreaShape.getSize();
 }
 
+std::string ArrowSwitch::getString() const
+{
+	return m_Options.get().getString();
+}
+

@@ -25,5 +25,7 @@ public:
 	// move into this
 	void add(std::unique_ptr<Widget> widget);
 	Widget& getAt(unsigned int index) const;
+
+	const std::vector<std::unique_ptr<Widget>>& getWidgets() const;
 };
 

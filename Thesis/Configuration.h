@@ -10,12 +10,19 @@ class MainMenuState;
 class Configuration
 {
 private:
-	static int m_Score;
-	static sf::Text m_Txt_Score;
-	static sf::Sprite m_Spr_Life;
+
 
 	static void initTextures();
-	static void initBackgrounds();
+		static void initTexturesGameState();
+		static void initTexturesMenuState();
+		static void initTexturesHangarState();
+		static void initTexturesOptionsState();
+		static void initTexturesPlayer();
+		static void initTexturesWeaponParts();
+		static void initTexturesShips();
+
+
+
 	static void initFonts();
 	static void initSounds();
 	static void initMusics();
@@ -36,8 +43,7 @@ public:
 
 	static 	sf::RectangleShape tar;
 
-	static ResourceManager<sf::Texture, int> textures;
-	static ResourceManager<sf::Texture, int> background_textures;
+
 	static ResourceManager<sf::SoundBuffer, int> sounds;
 	static ResourceManager<sf::Music, int> musics;
 	static ResourceManager<sf::Font, int> fonts;
@@ -56,60 +62,43 @@ public:
 	};
 
 
-
-	enum Textures : int {
-		MENU_STATE = 0x000,
-		Cursor,
-		LeftArrowMenu,
-		RightArrowMenu,
-
-		OPTIONS_STATE = 0x100,
-	
-
-		HANGAR_STATE = 0x200,
-		LeftArrow,
-		RightArrow,
-
-		TEST_SCORES = 0x300,
-	
-
-		PLAYER_AVATARS = 0x400,
-		PlayerAvatar0,
-		PlayerAvatar1,
-		PlayerAvatar2,
-		PlayerAvatar3,
-	
-
-		SHIPS = 0x600,
-		PlayerShip,
-
-
-		PARTS,
-		PlayerExhaust,
-		Thrusters,
-		Ammo_Missile_Thrusters,
-
-
-		TURRETS = 0x700,
-		Turret_Laser,
-		Turret_Rocket,
-		Turret_Beam,
-
-		AMMUNITION = 0x800,
-		Ammo_Laser,
-		Ammo_Missile,
-		Ammo_Beam
-
+	enum class TexturesGameState {
+		cursor,
+	};
+	enum class TexturesMenuState {
+		background,
+	};
+	enum class TexturesHangarState {
+		background, left_arrow, right_arrow,
+	};
+	enum class TexturesOptionsState {
+		left_arrow,
+		right_arrow,
+	};
+	enum class TexturesPlayer {
+		player_avatar_0, player_avatar_1, player_avatar_2, player_avatar_3,
 
 	};
-	
+	enum class TexturesWeaponry {
+		turret_laser, turret_rocket, turret_beam,
 
-
-	enum Backgrounds : int {
-		MainMenu,
-		Hangar,
-
+		ammo_laser, ammo_missile, ammo_missile_thrusters, ammo_beam,
 	};
+	enum class TexturesShips
+	{
+		player_ship, player_exhaust,
+	};
+
+
+	static ResourceManager<sf::Texture, TexturesGameState>		textures_game;
+	static ResourceManager<sf::Texture, TexturesMenuState>		textures_menu;
+	static ResourceManager<sf::Texture, TexturesHangarState>	textures_hangar;
+	static ResourceManager<sf::Texture, TexturesOptionsState>	textures_options;
+	static ResourceManager<sf::Texture, TexturesPlayer>			textures_player;
+	static ResourceManager<sf::Texture, TexturesWeaponry>		textures_weaponry;
+	static ResourceManager<sf::Texture, TexturesShips>			textures_ships;
+
+
 	enum Fonts : int {
 		Gui,
 		SpaceGui,
@@ -143,14 +132,6 @@ public:
 	static void initialize();
 
 
-	static void reset();
-
-	static bool isGameOver();
-
-	static void addScore(int s);
-
-
-	static int getScore();
 
 	static class PlayerShip* player;
 	/* TODO: Decide if I want to hold pointers here, or just have State* in each class */
@@ -159,9 +140,7 @@ public:
 
 	static sf::Music* m_MainMenuMusic;
 
-	static int level;
-	static int lives;
 
-	static void draw(sf::RenderTarget& target);
+
 };
 

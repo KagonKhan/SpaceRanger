@@ -35,6 +35,6 @@ public:
 	void unbind(int key);
 
 
-
+    const std::vector<Widget*> getAllWidgets() const;
 
 };

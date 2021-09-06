@@ -5,8 +5,8 @@
 class MainMenuState :
 	public State
 {
-	friend class OptionsState;
-
+friend class OptionsState;
+private:
 	UserInterface m_UI;
 	Label m_Title;
 	
@@ -14,9 +14,9 @@ class MainMenuState :
 	sf::Sprite m_BackgroundSprite;
 
 
+	void initTitle();
 	void initGUI();
 	void initBackground();
-	void initTitle();
 	void initMusic();
 
 	void updateBackground(const sf::Time& deltaTime);

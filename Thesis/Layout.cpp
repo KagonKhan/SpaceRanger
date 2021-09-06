@@ -35,6 +35,11 @@ Widget& Layout::getAt(unsigned int index) const
 	return *m_Widgets.at(index).get();
 }
 
+const std::vector<std::unique_ptr<Widget>>& Layout::getWidgets() const
+{
+	return m_Widgets;
+}
+
 
 
 

@@ -15,7 +15,7 @@ private:
 
 
 public:
-	Ship(double max_hp, Configuration::Textures tex_id);
+	Ship(double max_hp, Configuration::TexturesShips tex_id);
 	virtual ~Ship();
 
 	virtual void update(const sf::Time& deltaTime) = 0;

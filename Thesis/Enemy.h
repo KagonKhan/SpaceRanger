@@ -7,7 +7,7 @@ public:
 	Enemy(const Enemy&) = delete;
 	Enemy operator=(const Enemy&) = delete;
 
-	Enemy(Configuration::Textures tex_id);
+	Enemy(const sf::Texture& texture);
 
 	virtual int getPoints() const = 0;
 	virtual void onDestroy();

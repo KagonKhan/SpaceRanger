@@ -35,7 +35,7 @@ private:
 
 	PlayerShip& getPlayerShip() const;
 	const sf::Sprite& getPlayerShipSprite() const;
-	const sf::Vector2f& getSpriteSize()const;
+	sf::Vector2f getSpriteSize()const;
 	void setSpriteScale(const sf::Vector2f& scale);
 	Stats& getPlayerStats();
 
@@ -44,7 +44,7 @@ public:
 	Player(const Player&) = delete;
 	Player& operator=(const Player&) = delete;
 
-	Player(Configuration::Textures avatar, const sf::Vector2f& boundaries);
+	Player(Configuration::TexturesPlayer avatar, const sf::Vector2f& boundaries);
 	~Player();
 
 	void setPosition(const sf::Vector2f& pos);

@@ -43,7 +43,7 @@ public:
 	Weapon(const Weapon&) = delete;
 	Weapon& operator=(const Weapon&) = delete;
 
-	Weapon(Configuration::Textures tex_id);
+	Weapon(Configuration::TexturesWeaponry tex_id);
 
 	float getSpriteRotation()const;
 	void setSpriteRotation(float angle);
@@ -84,7 +84,7 @@ public:
 	LaserTurret(const LaserTurret&) = delete;
 	LaserTurret& operator=(const LaserTurret&) = delete;
 
-	LaserTurret(Configuration::Textures tex_id);
+	LaserTurret(Configuration::TexturesWeaponry tex_id);
 
 };
 
@@ -100,7 +100,7 @@ public:
 	MissileTurret(const MissileTurret&) = delete;
 	MissileTurret& operator=(const MissileTurret&) = delete;
 
-	MissileTurret(Configuration::Textures tex_id);
+	MissileTurret(Configuration::TexturesWeaponry tex_id);
 
 };
 
@@ -118,7 +118,7 @@ public:
 	BeamTurret(const BeamTurret&) = delete;
 	BeamTurret& operator=(const BeamTurret&) = delete;
 
-	BeamTurret(Configuration::Textures tex_id, Entity& parent);
+	BeamTurret(Configuration::TexturesWeaponry tex_id, Entity& parent);
 
 
 };

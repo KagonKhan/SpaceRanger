@@ -38,7 +38,7 @@ public:
 	Ammunition(Ammunition&) = delete;
 	Ammunition& operator=(Ammunition&) = delete;
 
-	Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent = nullptr);
+	Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent = nullptr);
 	
 	void update(const sf::Time& deltaTime) override;
 
@@ -67,7 +67,7 @@ public:
 	Laser& operator=(const Laser&) = delete;
 
 
-	Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
+	Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 	virtual ~Laser();
 
 };
@@ -94,7 +94,7 @@ public:
 	Missile& operator=(Missile&) = delete;
 
 
-	Missile(Configuration::Textures tex_id, Configuration::Textures thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
+	Missile(Configuration::TexturesWeaponry tex_id, Configuration::TexturesWeaponry thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 
 	void lockOnTarget(const Entity* target);
 
@@ -115,6 +115,6 @@ public:
 	Beam& operator=(Beam&) = delete;
 
 
-	Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
+	Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Weapon* parent = nullptr);
 
 };

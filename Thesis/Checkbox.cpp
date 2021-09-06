@@ -19,7 +19,7 @@ Checkbox::Cross::Cross(float size, float thickness, float padding, sf::Color col
 void Checkbox::Cross::calculateCrossQuads()
 {
 	float padding = m_Size * m_Padding;
-	int a = std::roundf(std::sqrtf(m_Thickness) / 2.f);
+	float a = (std::roundf(std::sqrtf(m_Thickness) / 2.f));
 
 	m_Shape[0].position = m_Position + sf::Vector2f(padding, padding) + sf::Vector2f(-a, a);
 	m_Shape[1].position = m_Position + sf::Vector2f(m_Size - padding, m_Size - padding) + sf::Vector2f(-a, a);
@@ -71,10 +71,10 @@ void Checkbox::Cross::setColor(const sf::Color& color)
 
 void Checkbox::Cross::setPadding(float padding)
 {
-	if (padding < 0.1)
-		padding = 0.1;
-	if (padding > 0.9)
-		padding = 0.9;
+	if (padding < 0.1f)
+		padding = 0.1f;
+	if (padding > 0.9f)
+		padding = 0.9f;
 	m_Padding = padding;
 	calculateCrossQuads();
 }

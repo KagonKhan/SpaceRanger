@@ -73,6 +73,11 @@ void ArrowSwitchTextButton::addOption(std::string_view option, sf::Font& font, u
 	m_SwitchArea.addOption(option, font, charSize);
 }
 
+std::string ArrowSwitchTextButton::readValue()
+{
+	return m_SwitchArea.getString();
+}
+
 
 void ArrowSwitchTextButton::reposition()
 {
@@ -187,6 +192,11 @@ void ArrowSwitchTextButton::setTextOutlineThickness(float thickness)
 unsigned int ArrowSwitchTextButton::getCharacterSize() const
 {
 	return m_Label.getCharacterSize();
+}
+
+std::string ArrowSwitchTextButton::getString() const
+{
+	return m_Label.getString();
 }
 
 #pragma endregion

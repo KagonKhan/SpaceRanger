@@ -95,3 +95,14 @@ void UserInterface::unbind(int key)
 	ActionTarget::unbind(key);
 }
 
+const std::vector<Widget*> UserInterface::getAllWidgets() const
+{
+	std::vector <Widget*> widgets;
+	for (auto&& layout : m_Layouts) {
+		for (auto&& widget : layout->getWidgets())
+			widgets.push_back(widget.get());
+
+	}
+	return widgets;
+}
+

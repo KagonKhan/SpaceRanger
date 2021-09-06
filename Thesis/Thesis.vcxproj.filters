@@ -70,6 +70,9 @@
     <Filter Include="GUI\Widgets\Layouts\Types">
       <UniqueIdentifier>{3d97ec75-a9da-4b92-b536-bfc4c921973b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\Widgets\Buttons\Types">
+      <UniqueIdentifier>{b1a3ee83-5657-4e83-88d3-c3076edd7efe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -104,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="Widget.cpp">
       <Filter>GUI\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>GUI\Widgets\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="Planet.cpp">
       <Filter>Game\States\GameStates</Filter>
@@ -159,20 +159,8 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="ArrowSwitchTextButton.cpp">
-      <Filter>GUI\Widgets\Buttons</Filter>
-    </ClCompile>
     <ClCompile Include="Layout.cpp">
       <Filter>GUI\Widgets\Layouts</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteButton.cpp">
-      <Filter>GUI\Widgets\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="TextButton.cpp">
-      <Filter>GUI\Widgets\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="CheckboxButton.cpp">
-      <Filter>GUI\Widgets\Buttons</Filter>
     </ClCompile>
     <ClCompile Include="Checkbox.cpp">
       <Filter>GUI\Widgets\Components</Filter>
@@ -197,6 +185,21 @@
     </ClCompile>
     <ClCompile Include="Helpers.cpp">
       <Filter>Utilities\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowSwitchTextButton.cpp">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckboxButton.cpp">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteButton.cpp">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,9 +241,6 @@
     </ClInclude>
     <ClInclude Include="Widget.h">
       <Filter>GUI\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>GUI\Widgets\Buttons</Filter>
     </ClInclude>
     <ClInclude Include="Planet.h">
       <Filter>Game\States\GameStates</Filter>
@@ -293,20 +293,8 @@
     <ClInclude Include="Player.h">
       <Filter>Game\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="ArrowSwitchTextButton.h">
-      <Filter>GUI\Widgets\Buttons</Filter>
-    </ClInclude>
     <ClInclude Include="Layout.h">
       <Filter>GUI\Widgets\Layouts</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteButton.h">
-      <Filter>GUI\Widgets\Buttons</Filter>
-    </ClInclude>
-    <ClInclude Include="TextButton.h">
-      <Filter>GUI\Widgets\Buttons</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckboxButton.h">
-      <Filter>GUI\Widgets\Buttons</Filter>
     </ClInclude>
     <ClInclude Include="Checkbox.h">
       <Filter>GUI\Widgets\Components</Filter>
@@ -334,6 +322,21 @@
     </ClInclude>
     <ClInclude Include="Helpers.h">
       <Filter>Utilities\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GUI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowSwitchTextButton.h">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckboxButton.h">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteButton.h">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.h">
+      <Filter>GUI\Widgets\Buttons\Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,11 +23,11 @@ void Game::initStates()
 
 void Game::initCursor()
 {
-	Animation *cursor_anim = new Animation(&Configuration::textures.get(Configuration::Textures::Cursor));
+	Animation *cursor_anim = new Animation(&Configuration::textures_game.get(Configuration::TexturesGameState::cursor));
 	cursor_anim->addFramesLine(40, 10, 6);
 	
 	m_Cursor.setAnimation(cursor_anim);
-	m_Cursor.setFrameTime(sf::seconds(0.1));
+	m_Cursor.setFrameTime(sf::seconds(0.1f));
 	m_Cursor.play();
 
 }

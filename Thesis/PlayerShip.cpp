@@ -15,12 +15,12 @@ void PlayerShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 
-PlayerShip::PlayerShip(Configuration::Textures avatar_tex_id, const sf::Vector2f& boundaries, Player& player)
-	: Ship(100, Configuration::Textures::PlayerShip), m_Boundaries(boundaries), m_AreActionsBlocked(false),
+PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player)
+	: Ship(100, tex_id), m_Boundaries(boundaries), m_AreActionsBlocked(false),
 	m_SpeedLimit(1200,900),
 	m_Player(player),
-	m_ExhaustAnimationForward(&Configuration::textures.get(Configuration::Textures::PlayerExhaust)),
-	m_ExhaustAnimationBackward(&Configuration::textures.get(Configuration::Textures::PlayerExhaust))
+	m_ExhaustAnimationForward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust)),
+	m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust))
 {
 	initVariables();
 	initWeapons();
@@ -56,19 +56,19 @@ void PlayerShip::initWeapon(const sf::Vector2f& offset, float firing_rate, Weapo
 {
 	switch (weapon_type) {
 		case WeaponType::Laser: {
-			std::unique_ptr<LaserTurret> weapon(new LaserTurret(Configuration::Textures::Turret_Laser));
+			std::unique_ptr<LaserTurret> weapon(new LaserTurret(Configuration::TexturesWeaponry::turret_laser));
 			addWeapon(std::move(weapon));
 
 			break;
 		}
 		case WeaponType::Missile: {
-			std::unique_ptr<MissileTurret> weapon(new MissileTurret(Configuration::Textures::Turret_Laser));
+			std::unique_ptr<MissileTurret> weapon(new MissileTurret(Configuration::TexturesWeaponry::turret_laser));
 			addWeapon(std::move(weapon));
 
 			break;
 		}
 		case WeaponType::Beam: {
-			std::unique_ptr<BeamTurret> weapon(new BeamTurret(Configuration::Textures::Turret_Laser, *this));
+			std::unique_ptr<BeamTurret> weapon(new BeamTurret(Configuration::TexturesWeaponry::turret_laser, *this));
 			addWeapon(std::move(weapon));
 
 			break;

@@ -9,8 +9,16 @@ short int Configuration::m_DialogueVolume = 20;
 
 
 
-ResourceManager<sf::Texture, int> Configuration::textures;
-ResourceManager<sf::Texture, int> Configuration::background_textures;
+ResourceManager<sf::Texture, Configuration::TexturesGameState>		Configuration::textures_game;
+ResourceManager<sf::Texture, Configuration::TexturesMenuState>		Configuration::textures_menu;
+ResourceManager<sf::Texture, Configuration::TexturesHangarState>	Configuration::textures_hangar;
+ResourceManager<sf::Texture, Configuration::TexturesOptionsState>	Configuration::textures_options;
+ResourceManager<sf::Texture, Configuration::TexturesPlayer>			Configuration::textures_player;
+ResourceManager<sf::Texture, Configuration::TexturesWeaponry>		Configuration::textures_weaponry;
+ResourceManager<sf::Texture, Configuration::TexturesShips>			Configuration::textures_ships;
+
+
+
 ResourceManager<sf::Font, int> Configuration::fonts;
 ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
 ResourceManager<sf::Music, int> Configuration::musics;
@@ -18,8 +26,7 @@ ResourceManager<sf::Music, int> Configuration::musics;
 ActionMap<int> Configuration::playerInputs;
 ActionMap<int> Configuration::gui_inputs;
 
-int Configuration::level;
-int Configuration::lives;
+
 
 sf::Vector2f Configuration::boundaries;
 
@@ -32,22 +39,15 @@ MainMenuState* Configuration::m_MainMenu = nullptr;
 sf::Music* Configuration::m_MainMenuMusic = nullptr;
 
 
-
-
-int Configuration::m_Score;
-sf::Text	Configuration::m_Txt_Score;
-sf::Sprite	Configuration::m_Spr_Life;
-
 sf::Color Configuration::Colors::button_fill(86, 20, 19);
 sf::Color Configuration::Colors::button_outline(146, 20, 19);
 sf::Color Configuration::Colors::label_text(180, 93, 23);
-float Configuration::Colors::lighting = 1.4;
+float Configuration::Colors::lighting = 1.4f;
 
 
 void Configuration::initialize()
 {
 	initTextures();
-	initBackgrounds();
 	initFonts();
 	initSounds();
 	initMusics();
@@ -65,85 +65,89 @@ void Configuration::initialize()
 	musics.get(Musics::Theme).setLoop(true);
 	musics.get(Musics::Theme).play();*/
 
-	lives = level = m_Score = -1;
 }
 
 
-
-void Configuration::reset()
-{
-	level = 1;
-	lives = 3;
-	m_Score = 3;
-	m_Txt_Score.setString("0");
-}
-
-bool Configuration::isGameOver()
-{
-	return lives < 0;
-}
-
-void Configuration::addScore(int s)
-{
-	int old_score = m_Score;
-	m_Score += s * level;
-	lives += m_Score / 10000 - old_score / 10000;
-	m_Txt_Score.setString(std::to_string(m_Score));
-}
-
-int Configuration::getScore()
-{
-	return m_Score;
-}
-
-void Configuration::draw(sf::RenderTarget& target)
-{
-	target.draw(m_Txt_Score);
-	for (int i = 0; i < lives; ++i) {
-		m_Spr_Life.setPosition(40 * i, 40);
-		target.draw(m_Spr_Life);
-	}
-}
 void Configuration::initTextures()
 {
-
-	textures.load(Textures::LeftArrowMenu,  "../media/textures/GUI/left_arrow.png");
-	textures.load(Textures::RightArrowMenu, "../media/textures/GUI/right_arrow.png");
-
-
-	textures.load(Textures::Cursor, "../media/textures/cursors/Cursor.png");	
-
-	textures.load(Textures::LeftArrow, "../media/textures/left_arrow.png");
-
-
-	textures.load(Textures::PlayerAvatar0, "../media/textures/avatars/avatar1.jpg");
-	textures.load(Textures::PlayerAvatar1, "../media/textures/avatars/avatar2.jpg");
-	textures.load(Textures::PlayerAvatar2, "../media/textures/avatars/avatar3.jpg");
-	textures.load(Textures::PlayerAvatar3, "../media/textures/avatars/avatar4.jpg");
-
-
-
-	textures.load(Textures::PlayerShip, "../media/textures/ships/player/13B.png");
-	textures.load(Textures::PlayerExhaust, "../media/textures/thrusters/engine_exhaust.png");
-
-
-
-	textures.load(Textures::Ammo_Laser, "../media/textures/ammunition/lasers/laser_bullets.png");
-	textures.load(Textures::Ammo_Missile, "../media/textures/ammunition/missiles/Missile.png");
-	textures.load(Textures::Ammo_Missile_Thrusters, "../media/textures/thrusters/missile_thrusters.png");
-	textures.load(Textures::Ammo_Beam, "../media/textures/ammunition/beams/Red_Laser_Beam.png");
+	initTexturesGameState();
+	initTexturesMenuState();
+	initTexturesHangarState();
+	initTexturesOptionsState();
+	initTexturesPlayer();
+	initTexturesWeaponParts();
 
 
 
 
-	textures.load(Textures::Turret_Laser, "../media/textures/weapons/turrettest.png");
+
+
+
+
+
+
 }
 
-void Configuration::initBackgrounds()
+void Configuration::initTexturesGameState()
 {
-	background_textures.load(Backgrounds::MainMenu, "../media/backgrounds/MainMenuBG.jpg");
-	background_textures.load(Backgrounds::Hangar, "../media/backgrounds/hangar.jpg");
+	textures_game.load(TexturesGameState::cursor, "../media/textures/cursors/Cursor.png");
 }
+
+void Configuration::initTexturesMenuState()
+{
+	textures_menu.load(TexturesMenuState::background	, "../media/backgrounds/MainMenuBG.jpg");
+}
+
+void Configuration::initTexturesHangarState()
+{
+	textures_hangar.load(TexturesHangarState::background	, "../media/backgrounds/hangar.jpg");
+
+	textures_hangar.load(TexturesHangarState::left_arrow	, "../media/textures/left_arrow.png");
+	textures_hangar.load(TexturesHangarState::right_arrow	, "../media/textures/right_arrow.png");
+}
+
+void Configuration::initTexturesOptionsState()
+{
+	textures_options.load(TexturesOptionsState::left_arrow	, "../media/textures/GUI/left_arrow.png");
+	textures_options.load(TexturesOptionsState::right_arrow	, "../media/textures/GUI/right_arrow.png");
+
+}
+
+void Configuration::initTexturesPlayer()
+{
+	textures_player.load(TexturesPlayer::player_avatar_0, "../media/textures/avatars/avatar1.jpg");
+	textures_player.load(TexturesPlayer::player_avatar_1, "../media/textures/avatars/avatar3.jpg");
+	textures_player.load(TexturesPlayer::player_avatar_2, "../media/textures/avatars/avatar4.jpg");
+	textures_player.load(TexturesPlayer::player_avatar_3, "../media/textures/avatars/avatar2.jpg");
+
+
+}
+
+void Configuration::initTexturesWeaponParts()
+{
+
+	textures_weaponry.load(TexturesWeaponry::ammo_laser				, "../media/textures/ammunition/lasers/laser_bullets.png");
+	textures_weaponry.load(TexturesWeaponry::ammo_missile			, "../media/textures/ammunition/missiles/Missile.png");
+	textures_weaponry.load(TexturesWeaponry::ammo_missile_thrusters	, "../media/textures/thrusters/missile_thrusters.png");
+	textures_weaponry.load(TexturesWeaponry::ammo_beam				, "../media/textures/ammunition/beams/Red_Laser_Beam.png");
+
+	textures_weaponry.load(TexturesWeaponry::turret_laser			, "../media/textures/weapons/turrettest.png");
+}
+
+void Configuration::initTexturesShips()
+{
+	textures_ships.load(TexturesShips::player_ship		, "../media/textures/ships/player/13B.png");
+	textures_ships.load(TexturesShips::player_exhaust	, "../media/textures/thrusters/engine_exhaust.png");
+}
+
+
+
+
+
+
+
+
+
 
 /* TODO: have a get function that tries to find existing, or loads from file */
 void Configuration::initFonts()
@@ -158,19 +162,7 @@ void Configuration::initSounds()
 	sounds.load(Sounds::LaserPlayer, "../media/textures/ammunition/lasers/Laser_Bullets.wav");
 	sounds.load(Sounds::Missile, "../media/sounds/missile/missile.wav");
 	sounds.load(Sounds::Beam, "../media/textures/ammunition/beams/Red_Laser_Beam.wav");
-	//sounds.load(Sounds::LaserEnemy, "../media/sounds/laser2.ogg");
-	////saucers
-	//sounds.load(Sounds::SaucerSpawn1, "../media/sounds/spawn1.flac");
-	//sounds.load(Sounds::SaucerSpawn2, "../media/sounds/spawn2.flac");
-	//// Boom
-	//sounds.load(Sounds::Boom1, "../media/sounds/boom.flac");
-	//sounds.load(Sounds::Boom2, "../media/sounds/boom2.flac");
-	//// Explosion
-	//sounds.load(Sounds::Explosion1, "../media/sounds/explosion1.flac");
-	//sounds.load(Sounds::Explosion2, "../media/sounds/explosion2.flac");
-	//sounds.load(Sounds::Explosion3, "../media/sounds/explosion3.flac");
-	////others
-	//sounds.load(Sounds::Jump, "../media/sounds/hyperspace.flac");
+
 }
 void Configuration::initMusics()
 {

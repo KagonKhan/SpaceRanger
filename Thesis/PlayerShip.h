@@ -41,7 +41,7 @@ public:
 	PlayerShip(const PlayerShip&) = delete;
 	PlayerShip operator=(const PlayerShip&) = delete;
 
-	PlayerShip(Configuration::Textures tex_id, const sf::Vector2f& boundaries, Player& player);
+	PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player);
 
 	void setAreActionsBlocked(bool is_blocked);
 	bool getAreActionsBlocked() const;

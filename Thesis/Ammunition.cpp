@@ -19,9 +19,9 @@ void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_AnimatedSprite);
 }
 
-Ammunition::Ammunition(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
-	: Entity(tex_id), m_DegAngle(deg_angle),m_Speed(speed),
-		m_Animation(&Configuration::textures.get(tex_id)),
+Ammunition::Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+	: Entity(Configuration::textures_weaponry.get(tex_id)), m_DegAngle(deg_angle),m_Speed(speed),
+		m_Animation(&Configuration::textures_weaponry.get(tex_id)),
 		m_Boundaries(boundaries), m_ShouldBeDeleted(false),
 		m_ParentWeapon(parent)
 {
@@ -137,7 +137,7 @@ void Ammunition::setPosition(const sf::Vector2f& pos)
 
 /* ==============================    LASER    ============================== */
 
-Laser::Laser(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
 	: Ammunition(tex_id, boundaries, deg_angle, speed, parent)
 			
 {	
@@ -173,23 +173,18 @@ Laser::~Laser()
 
 
 
-Missile::Missile(Configuration::Textures tex_id, Configuration::Textures thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::TexturesWeaponry thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
 	: Ammunition(thrusters, boundaries, deg_angle, speed, parent),
 	m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f)
 {
 	initAnimation();
 
 
-	m_Sprite.setTexture(Configuration::textures.get(tex_id), true);
+	m_Sprite.setTexture(Configuration::textures_weaponry.get(tex_id), true);
 	m_Sprite.setOrigin(m_Sprite.getGlobalBounds().width / 2.f, m_Sprite.getGlobalBounds().height / 2.f);
 	m_Sprite.setScale(0.5f,0.5f);
 	m_Sprite.setPosition(m_Position);
 
-	/*
-		TO DO; 
-			- Animated rocket? exhaust?
-	
-	*/
 }
 
 void Missile::initAnimation()
@@ -200,7 +195,7 @@ void Missile::initAnimation()
 	m_AnimatedSprite.setAnimation(&m_Animation);
 	m_AnimatedSprite.setOrigin(m_AnimatedSprite.getSize().x / 2.f, 0);
 	m_AnimatedSprite.setScale(0.25f, 0.25f);
-	m_AnimatedSprite.setFrameTime(sf::seconds(0.1));
+	m_AnimatedSprite.setFrameTime(sf::seconds(0.1f));
 	m_AnimatedSprite.setColor(sf::Color::Yellow);
 	m_AnimatedSprite.play();
 }
@@ -258,7 +253,7 @@ void Missile::lockOnTarget(const Entity* target)
 
 
 
-Beam::Beam(Configuration::Textures tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
+Beam::Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Weapon* parent)
 	: Ammunition(tex_id, boundaries, deg_angle, speed, parent)
 {
 	initAnimation();
@@ -274,7 +269,7 @@ void Beam::initAnimation()
 	m_AnimatedSprite.setAnimation(&m_Animation);
 	m_AnimatedSprite.setOrigin(sf::Vector2f(m_AnimatedSprite.getSize().x / 2.f, m_AnimatedSprite.getSize().y - 35));
 	m_AnimatedSprite.setLoop(false);
-	m_AnimatedSprite.setFrameTime(sf::seconds(0.05));
+	m_AnimatedSprite.setFrameTime(sf::seconds(0.05f));
 	m_AnimatedSprite.setRepeat(3);
 	m_AnimatedSprite.setScale(1.5f, 4.f);
 	m_AnimatedSprite.setRotation(180);

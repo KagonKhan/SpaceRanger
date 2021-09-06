@@ -42,7 +42,7 @@ public:
     unsigned int getCharacterSize() const;
 
     sf::Color getOutlineColor() const;
-
+    std::string getString()const;
 #pragma endregion
 
 

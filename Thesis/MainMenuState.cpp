@@ -13,7 +13,7 @@ void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& states)
 	: State(window, states),
-	m_BackgroundTexture(Configuration::background_textures.get(Configuration::Backgrounds::MainMenu)),
+	m_BackgroundTexture(Configuration::textures_menu.get(Configuration::TexturesMenuState::background)),
 	m_Title(std::nullopt,"SPACE RANGER", Configuration::fonts.get(Configuration::Fonts::SpaceGui))
 {
 	initGUI();

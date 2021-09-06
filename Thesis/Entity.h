@@ -20,16 +20,15 @@ public:
 	Entity(const Entity&) = delete;
 	Entity& operator=(const Entity&) = delete;
 
-	Entity(Configuration::Textures tex_id);
+	Entity(const sf::Texture& texture);
 	virtual ~Entity();
 
 	virtual bool isAlive() const;
 
 
-	const sf::Vector2f& getPosition() const;
-	
-	const sf::Vector2f& getSize() const;
-	const sf::Vector2f& getRectangleSize() const;
+	sf::Vector2f getPosition() const;
+	sf::Vector2f getSize() const;
+	sf::Vector2f getRectangleSize() const;
 
 	virtual void setPosition(const sf::Vector2f& pos);
 	virtual void setPosition(float x, float y);
