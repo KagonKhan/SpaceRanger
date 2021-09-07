@@ -55,3 +55,19 @@
 
 #include "Configuration.h"
 #include "Helpers.h"
+
+
+typedef std::optional<std::reference_wrapper<Widget>> opt_ref;
+
+
+
+
+typedef std::unique_ptr<HorizontalLayout>	HorLayPtr;
+typedef std::unique_ptr<TableLayout>		TabLayPtr;
+typedef std::unique_ptr<UnorderedLayout>	UnoLayPtr;
+typedef std::unique_ptr<VerticalLayout>		VerLayPtr;
+
+typedef std::unique_ptr<ArrowSwitchTextButton>	ArrButPtr;
+typedef std::unique_ptr<CheckboxButton>			CheLayPtr;
+typedef std::unique_ptr<SpriteButton>			SprLayPtr;
+typedef std::unique_ptr<TextButton>				TexLayPtr;

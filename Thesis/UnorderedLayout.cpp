@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "UnorderedLayout.h"
 
-UnorderedLayout::UnorderedLayout(opt_ref parent, float padding)
-	: Layout(parent, padding)
+UnorderedLayout::UnorderedLayout(opt_ref parent)
+	: Layout(parent, 0.f)
 {
 	puts("UnorderedLayout\tctor");
 }

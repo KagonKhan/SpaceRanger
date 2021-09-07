@@ -15,14 +15,14 @@ class OptionsState :
 #pragma region GUI
 	void initGUI();
 		void addGUIGraphics();
-			void addGUIResolutions(VerLayPtr& vert_layout);
-			void addGUIFullscreen(VerLayPtr& vert_layout);
-			void addGUIVSync(VerLayPtr& vert_layout);
+			void addButtonResolutions(VerLayPtr& vert_layout);
+			void addButtonFullscreen(VerLayPtr& vert_layout);
+			void addButtonVSync(VerLayPtr& vert_layout);
 		void initGUIMusic();
 		void addGUINavigation();
-			void addGUIBack(UnoLayPtr& unordered_layout);
-			void addGUIApply(HorLayPtr& horizontal_layout);
-			void addGUISave(HorLayPtr& horizontal_layout);
+			void addButtonBack(UnoLayPtr& unordered_layout);
+			void addButtonApply(HorLayPtr& horizontal_layout);
+			void addButtonSave(HorLayPtr& horizontal_layout);
 #pragma endregion
 	
 	void readAndApplyButtonData();

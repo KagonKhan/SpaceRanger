@@ -12,6 +12,7 @@ class Configuration
 private:
 
 
+#pragma region INIT/TEXTURES
 	static void initTextures();
 		static void initTexturesGameState();
 		static void initTexturesMenuState();
@@ -20,7 +21,7 @@ private:
 		static void initTexturesPlayer();
 		static void initTexturesWeaponParts();
 		static void initTexturesShips();
-
+#pragma endregion
 
 
 	static void initFonts();
@@ -61,6 +62,7 @@ public:
 		static float lighting;
 	};
 
+#pragma region TEXTURES
 
 	enum class TexturesGameState {
 		cursor,
@@ -98,6 +100,8 @@ public:
 	static ResourceManager<sf::Texture, TexturesWeaponry>		textures_weaponry;
 	static ResourceManager<sf::Texture, TexturesShips>			textures_ships;
 
+#pragma endregion
+
 
 	enum Fonts : int {
 		Gui,
@@ -133,7 +137,7 @@ public:
 
 
 
-	static class PlayerShip* player;
+	//static class Player* player;
 	/* TODO: Decide if I want to hold pointers here, or just have State* in each class */
 	static class OptionsState* m_Options;
 	static class MainMenuState* m_MainMenu;

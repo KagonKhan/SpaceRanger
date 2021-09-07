@@ -8,7 +8,7 @@ short int Configuration::m_SoundVolume = 20;
 short int Configuration::m_DialogueVolume = 20;
 
 
-
+#pragma region TEXTURES
 ResourceManager<sf::Texture, Configuration::TexturesGameState>		Configuration::textures_game;
 ResourceManager<sf::Texture, Configuration::TexturesMenuState>		Configuration::textures_menu;
 ResourceManager<sf::Texture, Configuration::TexturesHangarState>	Configuration::textures_hangar;
@@ -16,7 +16,7 @@ ResourceManager<sf::Texture, Configuration::TexturesOptionsState>	Configuration:
 ResourceManager<sf::Texture, Configuration::TexturesPlayer>			Configuration::textures_player;
 ResourceManager<sf::Texture, Configuration::TexturesWeaponry>		Configuration::textures_weaponry;
 ResourceManager<sf::Texture, Configuration::TexturesShips>			Configuration::textures_ships;
-
+#pragma endregion
 
 
 ResourceManager<sf::Font, int> Configuration::fonts;
@@ -33,7 +33,7 @@ sf::Vector2f Configuration::boundaries;
 sf::RectangleShape Configuration::tar;
 
 
-PlayerShip* Configuration::player = nullptr;
+//Player* Configuration::player = nullptr;
 OptionsState* Configuration::m_Options = nullptr;
 MainMenuState* Configuration::m_MainMenu = nullptr;
 sf::Music* Configuration::m_MainMenuMusic = nullptr;
@@ -67,7 +67,7 @@ void Configuration::initialize()
 
 }
 
-
+#pragma region INIT/TEXTURES
 void Configuration::initTextures()
 {
 	initTexturesGameState();
@@ -76,16 +76,7 @@ void Configuration::initTextures()
 	initTexturesOptionsState();
 	initTexturesPlayer();
 	initTexturesWeaponParts();
-
-
-
-
-
-
-
-
-
-
+	initTexturesShips();
 }
 
 void Configuration::initTexturesGameState()
@@ -140,7 +131,7 @@ void Configuration::initTexturesShips()
 	textures_ships.load(TexturesShips::player_exhaust	, "../media/textures/thrusters/engine_exhaust.png");
 }
 
-
+#pragma endregion
 
 
 

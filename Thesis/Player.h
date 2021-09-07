@@ -1,13 +1,13 @@
 #pragma once
 #include "PlayerShip.h"
 
-class HangarState;
 class Player : public sf::Drawable
 {
+friend class PlayerInfoSheet;
+friend class HangarState;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	friend class HangarState;
 
 	sf::Sprite m_Avatar; // TODO some day maybe animated avatar, would be cute
 	sf::Vector2f m_Position;

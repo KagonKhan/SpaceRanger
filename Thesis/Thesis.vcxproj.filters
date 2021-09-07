@@ -201,6 +201,12 @@
     <ClCompile Include="TextButton.cpp">
       <Filter>GUI\Widgets\Buttons\Types</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterCreation.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInfoSheet.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -337,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="TextButton.h">
       <Filter>GUI\Widgets\Buttons\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterCreation.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInfoSheet.h">
+      <Filter>Game\States\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

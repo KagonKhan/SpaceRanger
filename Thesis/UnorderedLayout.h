@@ -6,7 +6,7 @@ class UnorderedLayout :
 private:
     void updateShape() override;
 public:
-    UnorderedLayout(opt_ref parent, float padding);
+    UnorderedLayout(opt_ref parent);
     virtual ~UnorderedLayout();
 
     sf::Vector2f getSize() const override;

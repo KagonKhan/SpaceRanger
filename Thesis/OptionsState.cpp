@@ -52,12 +52,12 @@ void OptionsState::initGUI()
 void OptionsState::addGUIGraphics()
 {
 	VerLayPtr vert_layout(new VerticalLayout(opt_ref(m_UI), 5.f));
-		addGUIResolutions(vert_layout);
-		addGUIFullscreen(vert_layout);
-		addGUIVSync(vert_layout);
+		addButtonResolutions(vert_layout);
+		addButtonFullscreen(vert_layout);
+		addButtonVSync(vert_layout);
 	m_UI.addLayout(std::move(vert_layout));
 }
-void OptionsState::addGUIResolutions(VerLayPtr& vert_layout)
+void OptionsState::addButtonResolutions(VerLayPtr& vert_layout)
 {
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 
@@ -84,7 +84,7 @@ void OptionsState::addGUIResolutions(VerLayPtr& vert_layout)
 
 
 }
-void OptionsState::addGUIFullscreen(VerLayPtr& vert_layout)
+void OptionsState::addButtonFullscreen(VerLayPtr& vert_layout)
 {
 	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
@@ -97,7 +97,7 @@ void OptionsState::addGUIFullscreen(VerLayPtr& vert_layout)
 
 	vert_layout->add(std::move(fullscreen));
 }
-void OptionsState::addGUIVSync(VerLayPtr& vert_layout)
+void OptionsState::addButtonVSync(VerLayPtr& vert_layout)
 {
 	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
@@ -142,18 +142,18 @@ void OptionsState::initGUIMusic()
 
 void OptionsState::addGUINavigation()
 {
-	UnoLayPtr unordered_layout(new UnorderedLayout(opt_ref(m_UI), 5.f));
-		addGUIBack(unordered_layout);
+	UnoLayPtr unordered_layout(new UnorderedLayout(opt_ref(m_UI)));
+		addButtonBack(unordered_layout);
 	m_UI.addLayout(std::move(unordered_layout));
 
 	HorLayPtr horizontal_layout(new HorizontalLayout(opt_ref(m_UI), 5.f));
-		addGUIApply(horizontal_layout);
-		addGUISave(horizontal_layout);
+		addButtonApply(horizontal_layout);
+		addButtonSave(horizontal_layout);
 	horizontal_layout->setPosition(static_cast<sf::Vector2f>(m_Window.getSize()) - horizontal_layout->getSize());
 	m_UI.addLayout(std::move(horizontal_layout));
 }
 
-void OptionsState::addGUIBack(UnoLayPtr& unordered_layout)
+void OptionsState::addButtonBack(UnoLayPtr& unordered_layout)
 {
 	std::unique_ptr<TextButton> back(new TextButton(
 		opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK"));
@@ -165,7 +165,7 @@ void OptionsState::addGUIBack(UnoLayPtr& unordered_layout)
 	unordered_layout->add(std::move(back));
 }
 
-void OptionsState::addGUIApply(HorLayPtr& horizontal_layout)
+void OptionsState::addButtonApply(HorLayPtr& horizontal_layout)
 {
 	std::unique_ptr<TextButton> save(new TextButton(
 		opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "APPLY"));
@@ -175,7 +175,7 @@ void OptionsState::addGUIApply(HorLayPtr& horizontal_layout)
 	horizontal_layout->add(std::move(save));
 }
 
-void OptionsState::addGUISave(HorLayPtr& horizontal_layout)
+void OptionsState::addButtonSave(HorLayPtr& horizontal_layout)
 {
 	std::unique_ptr<TextButton> save(new TextButton(
 		opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "SAVE"));

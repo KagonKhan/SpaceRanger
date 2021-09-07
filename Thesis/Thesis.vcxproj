@@ -163,6 +163,7 @@
     <ClCompile Include="ArrowSwitchTextButton.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CanCollide.cpp" />
+    <ClCompile Include="CharacterCreation.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="CheckboxButton.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -188,6 +189,7 @@
     </ClCompile>
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerInfoSheet.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -214,6 +216,7 @@
     <ClInclude Include="ArrowSwitchTextButton.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CanCollide.h" />
+    <ClInclude Include="CharacterCreation.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="CheckboxButton.h" />
     <ClInclude Include="CircularArray.h" />
@@ -235,6 +238,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerInfoSheet.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Ship.h" />
