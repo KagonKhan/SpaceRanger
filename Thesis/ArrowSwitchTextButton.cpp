@@ -13,14 +13,14 @@ void ArrowSwitchTextButton::draw(sf::RenderTarget& target, sf::RenderStates) con
 ArrowSwitchTextButton::ArrowSwitchTextButton(opt_ref parent, const sf::Vector2f& size, std::string_view text, sf::Font& font, unsigned int charSize, unsigned int numberOfOptions, const sf::Vector2f& switchAreaSize, std::optional<sf::Vector2f> arrow_size, const sf::Texture& left, const sf::Texture& right)
 	: Button(parent), m_Padding(10.f), m_Shape(size), m_Label(opt_ref(*this), text, font, charSize), m_SwitchArea(opt_ref(*this), numberOfOptions, switchAreaSize, left, right, arrow_size)
 {
-	puts("ArrowSwitchButton\tctor");
+
 	initColors();
 	setPosition({ 0, 0 });
 }
 
 ArrowSwitchTextButton::~ArrowSwitchTextButton()
 {
-	puts("ArrowSwitchButton\tdtor");
+
 }
 
 void ArrowSwitchTextButton::initColors()

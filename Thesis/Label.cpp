@@ -14,12 +14,12 @@ Label::Label()
 Label::Label(opt_ref parent, std::string_view text, const sf::Font& font, unsigned int characterSize)
 	: Widget(parent), m_Text(text.data(), font, characterSize)
 {
-	puts("Label\t\tctor");
+
 }
 
 Label::~Label()
 {
-	puts("Label\t\tdtor");
+
 }
 
 

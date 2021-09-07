@@ -5,10 +5,16 @@
 Game::Game()
 	: m_Window()
 {
+	puts("Game\t\tctor");
 	Configuration::initialize();
 	initWindow();
 	initStates();
 	initCursor();
+}
+
+Game::~Game()
+{
+	puts("Game\t\tdtor");
 }
 
 void Game::initWindow()

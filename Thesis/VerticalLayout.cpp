@@ -4,12 +4,12 @@
 VerticalLayout::VerticalLayout(opt_ref parent, float padding)
 	: Layout(parent, padding)
 {
-	puts("Vertical layout\tctor");
+
 }
 
 VerticalLayout::~VerticalLayout()
 {
-	puts("Vertical layout\tdtor");
+
 }
 
 

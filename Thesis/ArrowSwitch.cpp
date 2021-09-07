@@ -44,7 +44,7 @@ void ArrowSwitch::processArrowButtonsEvent(const sf::Event& sfevent)
 ArrowSwitch::ArrowSwitch(opt_ref parent, unsigned int numberOfOptions, const sf::Vector2f& size, const sf::Texture& left, const sf::Texture& right, std::optional<sf::Vector2f> arrow_size)
 	: Widget(parent), m_Padding(5.f), m_Options(numberOfOptions), m_AreaShape(size), m_Arrows{ {opt_ref(*this), arrow_size, left}, {opt_ref(*this), arrow_size, right} }
 {
-	puts("ArrowSwitch\tctor");
+
 
 	initColors();
 
@@ -55,7 +55,7 @@ ArrowSwitch::ArrowSwitch(opt_ref parent, unsigned int numberOfOptions, const sf:
 
 ArrowSwitch::~ArrowSwitch()
 {
-	puts("ArrowSwitch\tdtor");
+
 }
 
 void ArrowSwitch::initColors()

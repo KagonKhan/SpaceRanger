@@ -51,7 +51,7 @@ public:
 	HangarState(const HangarState&) = delete;
 	HangarState operator=(const HangarState&) = delete;
 
-	HangarState(sf::RenderWindow& window, std::stack<State*>& states);
+	HangarState(sf::RenderWindow& window, std::stack<State::ptr>& states);
 	virtual ~HangarState();
 
 	void processEvents(const sf::Event& sfevent) override final;

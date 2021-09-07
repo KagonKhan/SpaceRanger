@@ -14,12 +14,12 @@ private:
 
 
 public:
+	SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player);
+	virtual ~SpaceState();
+
+
 
 	void processEvents(const sf::Event& sfevent);
-	SpaceState(sf::RenderWindow& window, std::stack<State*>& states, PlayerShip& player);
-	~SpaceState();
-
-
 	void update(const sf::Time& deltaTime)  override final;
 };
 

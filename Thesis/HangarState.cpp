@@ -23,7 +23,7 @@ void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(m_UI);
 }
 
-HangarState::HangarState(sf::RenderWindow& window, std::stack<State*>& states)
+HangarState::HangarState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	: State(window, states),
 	m_Background(Configuration::textures_hangar.get(Configuration::TexturesHangarState::background)),
 	m_Creation(m_Window, *this),
@@ -59,7 +59,7 @@ void HangarState::addButtonBack(UnoLayPtr& unordered_layout)
 {
 	std::unique_ptr<TextButton> back(new TextButton(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK"));
 	back->on_click = [this](const sf::Event&, Button& button) {
-		m_States.pop();
+		m_ShouldQuit = true;
 	};
 	unordered_layout->add(std::move(back));
 }
@@ -67,7 +67,7 @@ void HangarState::addButtonNext(UnoLayPtr& unordered_layout)
 {
 	std::unique_ptr<TextButton> next(new TextButton(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "NEXT"));
 	next->on_click = [this](const sf::Event&, Button& button) {
-		m_States.push(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
+		m_States.emplace(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
 	};
 	next->setPosition(sf::Vector2f(m_Window.getSize().x - next->getSize().x, 0.f));
 	unordered_layout->add(std::move(next));
@@ -75,7 +75,7 @@ void HangarState::addButtonNext(UnoLayPtr& unordered_layout)
 void HangarState::initGUIKeybinds()
 {
 	m_UI.bind(Configuration::GuiInputs::Escape, [this](const sf::Event& sfevent) {
-		m_States.pop();
+		m_ShouldQuit = true;
 		});
 
 }
@@ -94,6 +94,10 @@ void HangarState::initBackground()
 /* ==================================      UPDATES      ================================== */
 void HangarState::processEvents(const sf::Event& sfevent)
 {
+	if (sfevent.type == sf::Event::KeyPressed)
+		if (sfevent.key.code == sf::Keyboard::Key::Escape)
+			m_ShouldQuit = true;
+
 	if (!m_Creation.isDone()) {
 		m_Creation.processEvents(sfevent);
 		return;
@@ -104,7 +108,8 @@ void HangarState::processEvents(const sf::Event& sfevent)
 }
 void HangarState::update(const sf::Time& deltaTime)
 {
-
+	if (m_ShouldQuit)
+		m_States.pop();
 
 }
 

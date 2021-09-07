@@ -19,10 +19,11 @@ private:
 	void initBackground();
 	void initMusic();
 
+
 	void updateBackground(const sf::Time& deltaTime);
 	void updateTitle(const sf::Time& deltaTime);
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
 
 	void Options();
 	void NewGame();
@@ -30,7 +31,7 @@ private:
 	void reposition();
 
 public:
-	MainMenuState(sf::RenderWindow& window, std::stack<State*>& states);
+	MainMenuState(sf::RenderWindow& window, std::stack<State::ptr>& states);
 	virtual ~MainMenuState();
 
 	void processEvents(const sf::Event& sfevent);

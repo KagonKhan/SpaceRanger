@@ -4,12 +4,12 @@
 HorizontalLayout::HorizontalLayout(opt_ref parent, float padding)
 	: Layout(parent, padding)
 {
-	puts("HorizontalLayout\tctor");
+
 }
 
 HorizontalLayout::~HorizontalLayout()
 {
-	puts("HorizontalLayout\tdtor");
+
 }
 
 

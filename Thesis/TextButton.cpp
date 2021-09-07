@@ -11,7 +11,7 @@ void TextButton::draw(sf::RenderTarget& target, sf::RenderStates) const
 TextButton::TextButton(opt_ref parent, std::optional<sf::Vector2f> size, const sf::Color& fillColor, std::string_view text, sf::Font& font, unsigned int charSize)
 	: Button(parent), m_Label(opt_ref(*this), text, font, charSize), m_IsAutoAdjustable(false), m_Style(Style::Middle)
 {
-	puts("TextButton\tctor");
+
 	setFillColor(fillColor);
 
 	if (size.has_value())
@@ -22,7 +22,7 @@ TextButton::TextButton(opt_ref parent, std::optional<sf::Vector2f> size, const s
 
 TextButton::~TextButton()
 {
-	puts("Text Button\tdtor");
+
 }
 
 

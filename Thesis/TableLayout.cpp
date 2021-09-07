@@ -4,13 +4,13 @@
 TableLayout::TableLayout(opt_ref parent, float padding, const sf::FloatRect& boundaries)
 	: Layout(parent, padding), m_Boundaries(boundaries)
 {
-	puts("TableLayout\tctor");
+
 	m_Position = sf::Vector2f(boundaries.left, boundaries.top);
 }
 
 TableLayout::~TableLayout()
 {
-	puts("TableLayout\tdtor");
+
 }
 
 

@@ -6,7 +6,7 @@ class Game
 {
 private:
 	sf::RenderWindow m_Window;
-	std::stack<State*> m_States;
+	std::stack<State::ptr> m_States;
 	sf::Event sfevent;
 
 	AnimatedSprite m_Cursor;
@@ -29,6 +29,7 @@ public:
 	Game& operator=(const Game&) = delete;
 
 	Game();
+	~Game();
 	void run(int minFPS);
 };
 

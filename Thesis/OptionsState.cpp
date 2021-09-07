@@ -9,7 +9,7 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates) const
 	target.draw(m_UI);
 }
 
-OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State*>& states, sf::Sprite& bgsprite)
+OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State::ptr>& states, sf::Sprite& bgsprite)
 	: State(window, states), m_BackgroundSprite(bgsprite), 
 	m_Title(std::nullopt,"OPTIONS", Configuration::fonts.get(Configuration::Fonts::SpaceGui), 100)
 {
@@ -157,7 +157,7 @@ void OptionsState::addButtonBack(UnoLayPtr& unordered_layout)
 	std::unique_ptr<TextButton> back(new TextButton(
 		opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK"));
 	back->on_click = [this](const sf::Event&, Button&) {
-		m_States.pop();
+		m_ShouldQuit = true;
 	};
 	back->setPosition(sf::Vector2f(0, 0));
 
@@ -193,12 +193,17 @@ void OptionsState::addButtonSave(HorLayPtr& horizontal_layout)
 void OptionsState::processEvents(const sf::Event& sfevent)
 {
 	m_UI.processEvent(sfevent);
+
+	if (sfevent.type == sf::Event::KeyPressed)
+		if (sfevent.key.code == sf::Keyboard::Key::Escape)
+			m_ShouldQuit = true;
 }
 
 
 void OptionsState::update(const sf::Time& deltaTime)
 {
-	
+	if (m_ShouldQuit)
+		m_States.pop();
 }
 
 

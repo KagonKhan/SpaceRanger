@@ -10,12 +10,13 @@ void Layout::draw(sf::RenderTarget& target, sf::RenderStates) const
 Layout::Layout(opt_ref parent,float padding)
 	: Widget(parent), m_Padding(padding)
 {
-	puts("Layout\t\tctor");
+
+
 }
 
 Layout::~Layout()
 {
-	puts("Layout\t\tdtor");
+
 }
 
 void Layout::processEvent(const sf::Event& sfevent)

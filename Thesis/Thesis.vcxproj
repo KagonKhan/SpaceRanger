@@ -187,7 +187,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInfoSheet.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
@@ -203,7 +202,6 @@
     <ClCompile Include="VerticalLayout.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Widget.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
@@ -236,7 +234,6 @@
     <ClInclude Include="Meteor.h" />
     <ClInclude Include="OptionsState.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInfoSheet.h" />
     <ClInclude Include="PlayerShip.h" />
@@ -252,7 +249,6 @@
     <ClInclude Include="VerticalLayout.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Widget.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

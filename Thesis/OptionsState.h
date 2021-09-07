@@ -34,7 +34,7 @@ class OptionsState :
 
 
 public:
-	OptionsState(sf::RenderWindow& window, std::stack<State*>& states, sf::Sprite& bgsprite);
+	OptionsState(sf::RenderWindow& window, std::stack<State::ptr>& states, sf::Sprite& bgsprite);
 	virtual ~OptionsState();
 
 	void processEvents(const sf::Event& sfevent);

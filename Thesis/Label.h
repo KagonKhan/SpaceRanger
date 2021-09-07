@@ -11,7 +11,7 @@ private:
 
 public:
     Label();
-    Label(opt_ref parent, std::string_view text, const sf::Font& font, unsigned int characterSize = 25U);
+    Label(opt_ref parent, std::string_view text, const sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui), unsigned int characterSize = 25U);
     virtual ~Label();
 
 #pragma region SETTERS / GETTERS

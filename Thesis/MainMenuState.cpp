@@ -11,23 +11,23 @@ void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 }
 
 
-MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State*>& states)
+MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	: State(window, states),
 	m_BackgroundTexture(Configuration::textures_menu.get(Configuration::TexturesMenuState::background)),
-	m_Title(std::nullopt,"SPACE RANGER", Configuration::fonts.get(Configuration::Fonts::SpaceGui))
+	m_Title(std::nullopt,"SPACE RANGER")
 {
+	puts("MainMenu\tctor");
 	initGUI();
 	initBackground();
 	initTitle();
 	initMusic();
 
-	Configuration::m_Options = new OptionsState(m_Window, m_States, m_BackgroundSprite);
 	Configuration::m_MainMenu = this;
 }
 
 MainMenuState::~MainMenuState()
 {
-	m_States.pop();
+	puts("MainMenu\tdtor");
 }
 
 
@@ -56,7 +56,7 @@ void MainMenuState::initGUI()
 	std::unique_ptr<TextButton> quit(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(Q)uit"));
 	quit->setLetterSpacing(5);
 	quit->on_click = [this](const sf::Event&, Button&) {
-		delete this;
+		m_ShouldQuit = true;
 	};
 
 
@@ -101,7 +101,7 @@ void MainMenuState::initGUI()
 	m_UI.bind( Configuration::GuiInputs::Q,
 		[this](const sf::Event& sfevent)
 		{
-			this->m_Window.close();
+			m_ShouldQuit = true;
 		}
 	);
 }
@@ -204,12 +204,17 @@ void MainMenuState::updateTitle(const sf::Time& deltaTime)
 
 void MainMenuState::processEvents(const sf::Event& sfevent)
 {
+	if (sfevent.type == sf::Event::KeyPressed)
+		if (sfevent.key.code == sf::Keyboard::Key::Escape)
+			m_ShouldQuit = true;
 	m_UI.processEvent(sfevent);
 }
 
 
 void MainMenuState::update(const sf::Time& deltaTime)
 {
+	if (m_ShouldQuit)
+		m_States.pop();
 	updateBackground(deltaTime);
 	updateTitle(deltaTime);
 }
@@ -217,13 +222,13 @@ void MainMenuState::update(const sf::Time& deltaTime)
 
 void MainMenuState::Options()
 {
-	m_States.push(Configuration::m_Options);
+	m_States.emplace(new OptionsState(m_Window, m_States, m_BackgroundSprite));
 }
 
 void MainMenuState::NewGame()
 {
 	Configuration::m_MainMenuMusic->stop();
-	m_States.push(new HangarState(m_Window, m_States));
+	m_States.emplace(new HangarState(m_Window, m_States));
 }
 
 void MainMenuState::reposition()

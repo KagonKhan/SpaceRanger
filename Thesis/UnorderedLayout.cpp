@@ -4,12 +4,12 @@
 UnorderedLayout::UnorderedLayout(opt_ref parent)
 	: Layout(parent, 0.f)
 {
-	puts("UnorderedLayout\tctor");
+
 }
 
 UnorderedLayout::~UnorderedLayout()
 {
-	puts("UnorderedLayout\tdtor");
+
 }
 
 

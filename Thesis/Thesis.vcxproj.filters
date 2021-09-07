@@ -73,6 +73,9 @@
     <Filter Include="GUI\Widgets\Buttons\Types">
       <UniqueIdentifier>{b1a3ee83-5657-4e83-88d3-c3076edd7efe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\States\GameStates\SubModules">
+      <UniqueIdentifier>{d8b2044d-25e7-4250-91a6-0b8da9e3e403}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -108,13 +111,7 @@
     <ClCompile Include="Widget.cpp">
       <Filter>GUI\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="Planet.cpp">
-      <Filter>Game\States\GameStates</Filter>
-    </ClCompile>
     <ClCompile Include="SpaceState.cpp">
-      <Filter>Game\States\GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
       <Filter>Game\States\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -202,10 +199,10 @@
       <Filter>GUI\Widgets\Buttons\Types</Filter>
     </ClCompile>
     <ClCompile Include="CharacterCreation.cpp">
-      <Filter>Game\States\GameStates</Filter>
+      <Filter>Game\States\GameStates\SubModules</Filter>
     </ClCompile>
     <ClCompile Include="PlayerInfoSheet.cpp">
-      <Filter>Game\States\GameStates</Filter>
+      <Filter>Game\States\GameStates\SubModules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,13 +245,7 @@
     <ClInclude Include="Widget.h">
       <Filter>GUI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="Planet.h">
-      <Filter>Game\States\GameStates</Filter>
-    </ClInclude>
     <ClInclude Include="SpaceState.h">
-      <Filter>Game\States\GameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
       <Filter>Game\States\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
@@ -345,10 +336,10 @@
       <Filter>GUI\Widgets\Buttons\Types</Filter>
     </ClInclude>
     <ClInclude Include="CharacterCreation.h">
-      <Filter>Game\States\GameStates</Filter>
+      <Filter>Game\States\GameStates\SubModules</Filter>
     </ClInclude>
     <ClInclude Include="PlayerInfoSheet.h">
-      <Filter>Game\States\GameStates</Filter>
+      <Filter>Game\States\GameStates\SubModules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
