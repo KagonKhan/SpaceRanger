@@ -46,9 +46,6 @@ void OptionsState::initGUI()
 
 	addGUINavigation();
 }
-
-#pragma region GUI/Graphics
-
 void OptionsState::addGUIGraphics()
 {
 	VerLayPtr vert_layout(new VerticalLayout(opt_ref(m_UI), 5.f));
@@ -57,6 +54,9 @@ void OptionsState::addGUIGraphics()
 		addButtonVSync(vert_layout);
 	m_UI.addLayout(std::move(vert_layout));
 }
+
+#pragma region GUI/Graphics
+
 void OptionsState::addButtonResolutions(VerLayPtr& vert_layout)
 {
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
@@ -138,8 +138,6 @@ void OptionsState::initGUIMusic()
 	//uis.at(Music)->addLayout(music_buttons);
 }
 
-#pragma region GUI/navigation
-
 void OptionsState::addGUINavigation()
 {
 	UnoLayPtr unordered_layout(new UnorderedLayout(opt_ref(m_UI)));
@@ -152,6 +150,7 @@ void OptionsState::addGUINavigation()
 	horizontal_layout->setPosition(static_cast<sf::Vector2f>(m_Window.getSize()) - horizontal_layout->getSize());
 	m_UI.addLayout(std::move(horizontal_layout));
 }
+#pragma region GUI/navigation
 
 void OptionsState::addButtonBack(UnoLayPtr& unordered_layout)
 {
@@ -298,6 +297,19 @@ void OptionsState::reposition()
 	/* Calculate Title */
 	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
 	m_Title.setPosition(title_position);
+
+
+
+	/* UI/OPTIONS */
+	sf::Vector2f options_layout_pos;
+	options_layout_pos.x = (static_cast<float>(m_Window.getSize().x) - m_UI.getLayoutAtIndex((int)LayoutIndexes::graphics)->getSize().x) / 2.f;
+	options_layout_pos.y = m_Title.getPosition().y + m_Title.getSize().y + 50.f;
+	m_UI.setPositionAtIndex(options_layout_pos, (int)LayoutIndexes::graphics);
+
+
+	/* UI/NAVIGATION*/
+	sf::Vector2f navi_layout_pos(static_cast<sf::Vector2f>(m_Window.getSize()) - m_UI.getLayoutAtIndex((int)LayoutIndexes::navigation)->getSize());
+	m_UI.setPositionAtIndex(navi_layout_pos, (int)LayoutIndexes::navigation);
 
 }
 

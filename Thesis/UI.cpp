@@ -106,3 +106,8 @@ const std::vector<Widget*> UserInterface::getAllWidgets() const
 	return widgets;
 }
 
+const Layout* UserInterface::getLayoutAtIndex(unsigned int index)const
+{
+	return m_Layouts.at(index).get();
+}
+

@@ -5,7 +5,7 @@ class OptionsState :
 	public State
 {
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
-
+	enum class LayoutIndexes { graphics, back_button, navigation };
 	UserInterface m_UI;
 	Label m_Title;
 
