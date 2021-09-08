@@ -12,7 +12,7 @@ Layout::Layout(opt_ref parent,float padding)
 {
 
 
-}
+} 
 
 Layout::~Layout()
 {

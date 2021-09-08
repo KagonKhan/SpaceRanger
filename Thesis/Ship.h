@@ -11,12 +11,19 @@ class Ship :
 	public CanCollide
 {
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
+protected:
+	enum class WeaponType { Laser, Missile, Beam };
+
+	void initWeapon(const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation = 180.f);
 
 public:
 	Ship(double max_hp, Configuration::TexturesShips tex_id);
 	virtual ~Ship();
 
-	virtual void update(const sf::Time& deltaTime) = 0;
+
+	void setPosition(const sf::Vector2f& pos) override;
+	void setPosition(float x, float y) override;
+
 };

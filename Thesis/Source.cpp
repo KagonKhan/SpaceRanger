@@ -31,6 +31,7 @@
 	TODO
 		- parallax background on separate thread?
 		- enum for justifying text inside buttons?
+		- Consider texture atlases
 */
 /* 
 * SFML does not work well with scaling, resulting in either native fullscreen or windowed mode

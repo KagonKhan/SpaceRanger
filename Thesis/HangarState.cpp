@@ -6,7 +6,7 @@
 
 void HangarState::onCharacterCreationFinished(int sprite_id)
 {
-	m_Player.emplace(static_cast<Configuration::TexturesPlayer>(sprite_id), static_cast<sf::Vector2f>(m_Window.getSize()));
+	m_Player.emplace(static_cast<Configuration::TexturesPlayer>(sprite_id), static_cast<sf::Vector2f>(m_Window.getSize())); 
 	m_PlayerInfoArea.emplace(m_Window, *this, m_Player.value());
 }
 
@@ -67,7 +67,7 @@ void HangarState::addButtonNext(UnoLayPtr& unordered_layout)
 {
 	std::unique_ptr<TextButton> next(new TextButton(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "NEXT"));
 	next->on_click = [this](const sf::Event&, Button& button) {
-		m_States.emplace(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
+		//m_States.emplace(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
 	};
 	next->setPosition(sf::Vector2f(m_Window.getSize().x - next->getSize().x, 0.f));
 	unordered_layout->add(std::move(next));

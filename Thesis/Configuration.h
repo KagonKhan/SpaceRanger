@@ -18,6 +18,7 @@ private:
 		static void initTexturesMenuState();
 		static void initTexturesHangarState();
 		static void initTexturesOptionsState();
+		static void initTexturesSpaceState();
 		static void initTexturesPlayer();
 		static void initTexturesWeaponParts();
 		static void initTexturesShips();
@@ -77,6 +78,11 @@ public:
 		left_arrow,
 		right_arrow,
 	};
+	enum class TexturesSpaceState {
+		background,
+		nebula_0, nebula_1, nebula_2,
+		planet_0, planet_1, planet_2, planet_3, planet_4,
+	};
 	enum class TexturesPlayer {
 		player_avatar_0, player_avatar_1, player_avatar_2, player_avatar_3,
 
@@ -89,6 +95,9 @@ public:
 	enum class TexturesShips
 	{
 		player_ship, player_exhaust,
+		enemy_ship_minigun, enemy_ship_support, enemy_ship_beam, enemy_ship_rocket, enemy_ship_scout, enemy_ship_tank, enemy_ship_scout_v2, enemy_ship_stealth,
+		enemy_ship_boss,
+
 	};
 
 
@@ -96,6 +105,7 @@ public:
 	static ResourceManager<sf::Texture, TexturesMenuState>		textures_menu;
 	static ResourceManager<sf::Texture, TexturesHangarState>	textures_hangar;
 	static ResourceManager<sf::Texture, TexturesOptionsState>	textures_options;
+	static ResourceManager<sf::Texture, TexturesSpaceState>		textures_space;
 	static ResourceManager<sf::Texture, TexturesPlayer>			textures_player;
 	static ResourceManager<sf::Texture, TexturesWeaponry>		textures_weaponry;
 	static ResourceManager<sf::Texture, TexturesShips>			textures_ships;

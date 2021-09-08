@@ -1,20 +1,29 @@
 #pragma once
 #include "State.h"
+#include "PlayerShip.h"
+#include <stack>
+#include "SpaceBackground.h"
+#include "Level.h"
 
-class SpaceState : public State
+class SpaceState : 
+	public State
 {
 private:
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	
 	UserInterface m_UI;
-	PlayerShip& m_Player;
+	//PlayerShip& m_Player;
+	PlayerShip m_Player;
+	SpaceBackground m_Background;
+	Level m_Level;
+
 	void initGUI();
 	void initPlayer();
 
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
-
-
 public:
-	SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player);
+	//SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player);
+	SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states);
 	virtual ~SpaceState();
 
 

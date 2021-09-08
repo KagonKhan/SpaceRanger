@@ -6,11 +6,12 @@
 
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(Configuration::tar);
+
 	for (auto&& shot : m_Shots)
 		target.draw(*shot);
 
-	target.draw(m_Sprite);
+	if(m_IsVisible)
+		target.draw(m_Sprite);
 }
 
 Weapon::Weapon(Configuration::TexturesWeaponry tex_id)
@@ -155,9 +156,13 @@ void LaserTurret::createBullet()
 void LaserTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::LaserPlayer)));
-	sound->setAttenuation(0);
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 	sound->setVolume(volume);
+	
+	sound->setAttenuation(8.f);
+	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
+	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
+
 	sound->play();
 
 
@@ -193,14 +198,15 @@ void MissileTurret::createBullet()
 void MissileTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Missile)));
-	sound->setAttenuation(0);
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 	sound->setVolume(volume);
+	
+	
+	sound->setAttenuation(8.f);
+	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
+	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
+	
 	sound->play();
-
-
-
-
 	m_Sounds.emplace_back(std::move(sound));
 }
 
@@ -236,12 +242,15 @@ void BeamTurret::createSound()
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Beam)));
 	sound->setAttenuation(0);
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
+	
+
+	sound->setAttenuation(8.f);
+	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
+	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
 	sound->setVolume(volume * 10);
+
+
 	sound->play();
-
-
-
-
 	m_Sounds.emplace_back(std::move(sound));
 }
 

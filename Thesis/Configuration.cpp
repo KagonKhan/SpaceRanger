@@ -3,7 +3,7 @@
 
 
 short int Configuration::m_MasterVolume = 10;
-short int Configuration::m_SoundEffectsVolume = 10;
+short int Configuration::m_SoundEffectsVolume = 10; 
 short int Configuration::m_SoundVolume = 20;
 short int Configuration::m_DialogueVolume = 20;
 
@@ -13,6 +13,7 @@ ResourceManager<sf::Texture, Configuration::TexturesGameState>		Configuration::t
 ResourceManager<sf::Texture, Configuration::TexturesMenuState>		Configuration::textures_menu;
 ResourceManager<sf::Texture, Configuration::TexturesHangarState>	Configuration::textures_hangar;
 ResourceManager<sf::Texture, Configuration::TexturesOptionsState>	Configuration::textures_options;
+ResourceManager<sf::Texture, Configuration::TexturesSpaceState>		Configuration::textures_space;
 ResourceManager<sf::Texture, Configuration::TexturesPlayer>			Configuration::textures_player;
 ResourceManager<sf::Texture, Configuration::TexturesWeaponry>		Configuration::textures_weaponry;
 ResourceManager<sf::Texture, Configuration::TexturesShips>			Configuration::textures_ships;
@@ -68,27 +69,26 @@ void Configuration::initialize()
 }
 
 #pragma region INIT/TEXTURES
+
 void Configuration::initTextures()
 {
 	initTexturesGameState();
 	initTexturesMenuState();
 	initTexturesHangarState();
 	initTexturesOptionsState();
+	initTexturesSpaceState();
 	initTexturesPlayer();
 	initTexturesWeaponParts();
 	initTexturesShips();
 }
-
 void Configuration::initTexturesGameState()
 {
 	textures_game.load(TexturesGameState::cursor, "../media/textures/cursors/Cursor.png");
 }
-
 void Configuration::initTexturesMenuState()
 {
 	textures_menu.load(TexturesMenuState::background	, "../media/backgrounds/MainMenuBG.jpg");
 }
-
 void Configuration::initTexturesHangarState()
 {
 	textures_hangar.load(TexturesHangarState::background	, "../media/backgrounds/hangar.jpg");
@@ -96,14 +96,26 @@ void Configuration::initTexturesHangarState()
 	textures_hangar.load(TexturesHangarState::left_arrow	, "../media/textures/left_arrow.png");
 	textures_hangar.load(TexturesHangarState::right_arrow	, "../media/textures/right_arrow.png");
 }
-
 void Configuration::initTexturesOptionsState()
 {
 	textures_options.load(TexturesOptionsState::left_arrow	, "../media/textures/GUI/left_arrow.png");
 	textures_options.load(TexturesOptionsState::right_arrow	, "../media/textures/GUI/right_arrow.png");
 
 }
+void Configuration::initTexturesSpaceState()
+{
+	textures_space.load(TexturesSpaceState::background	, "../media/textures/space/stars.png").setRepeated(true);
 
+	textures_space.load(TexturesSpaceState::nebula_0	, "../media/textures/space/nebula1.png");
+	textures_space.load(TexturesSpaceState::nebula_1	, "../media/textures/space/nebula2.png");
+	textures_space.load(TexturesSpaceState::nebula_2	, "../media/textures/space/nebula3.png");
+	textures_space.load(TexturesSpaceState::planet_0	, "../media/textures/space/planet1.png");
+	textures_space.load(TexturesSpaceState::planet_1	, "../media/textures/space/planet2.png");
+	textures_space.load(TexturesSpaceState::planet_2	, "../media/textures/space/planet3.png");
+	textures_space.load(TexturesSpaceState::planet_3	, "../media/textures/space/planet4.png");
+	textures_space.load(TexturesSpaceState::planet_4	, "../media/textures/space/planet5.png");
+
+}
 void Configuration::initTexturesPlayer()
 {
 	textures_player.load(TexturesPlayer::player_avatar_0, "../media/textures/avatars/avatar1.jpg");
@@ -113,7 +125,6 @@ void Configuration::initTexturesPlayer()
 
 
 }
-
 void Configuration::initTexturesWeaponParts()
 {
 
@@ -124,11 +135,21 @@ void Configuration::initTexturesWeaponParts()
 
 	textures_weaponry.load(TexturesWeaponry::turret_laser			, "../media/textures/weapons/turrettest.png");
 }
-
 void Configuration::initTexturesShips()
 {
 	textures_ships.load(TexturesShips::player_ship		, "../media/textures/ships/player/13B.png");
 	textures_ships.load(TexturesShips::player_exhaust	, "../media/textures/thrusters/engine_exhaust.png");
+
+	textures_ships.load(TexturesShips::enemy_ship_minigun	, "../media/textures/ships/enemy/minigun.png");
+	textures_ships.load(TexturesShips::enemy_ship_support	, "../media/textures/ships/enemy/support.png");
+	textures_ships.load(TexturesShips::enemy_ship_beam		, "../media/textures/ships/enemy/beam.png");
+	textures_ships.load(TexturesShips::enemy_ship_rocket	, "../media/textures/ships/enemy/rocket.png");
+	textures_ships.load(TexturesShips::enemy_ship_scout		, "../media/textures/ships/enemy/scout.png");
+	textures_ships.load(TexturesShips::enemy_ship_tank		, "../media/textures/ships/enemy/tank.png");
+	textures_ships.load(TexturesShips::enemy_ship_scout_v2	, "../media/textures/ships/enemy/scout_v2.png");
+	textures_ships.load(TexturesShips::enemy_ship_stealth	, "../media/textures/ships/enemy/stealth.png");
+	textures_ships.load(TexturesShips::enemy_ship_boss		, "../media/textures/ships/enemy/boss.png");
+
 }
 
 #pragma endregion

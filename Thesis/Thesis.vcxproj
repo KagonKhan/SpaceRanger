@@ -161,6 +161,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="ArrowSwitch.cpp" />
     <ClCompile Include="ArrowSwitchTextButton.cpp" />
+    <ClCompile Include="BossEnemyShip.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CanCollide.cpp" />
     <ClCompile Include="CharacterCreation.cpp" />
@@ -168,7 +169,7 @@
     <ClCompile Include="CheckboxButton.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Configuration.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HangarState.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="IsLiving.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layout.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Meteor.cpp" />
     <ClCompile Include="OptionsState.cpp" />
@@ -190,8 +192,10 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInfoSheet.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
+    <ClCompile Include="ScoutEnemyShip.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SpaceBackground.cpp" />
     <ClCompile Include="SpaceState.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="State.cpp" />
@@ -212,6 +216,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="ArrowSwitch.h" />
     <ClInclude Include="ArrowSwitchTextButton.h" />
+    <ClInclude Include="BossEnemyShip.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CanCollide.h" />
     <ClInclude Include="CharacterCreation.h" />
@@ -220,7 +225,7 @@
     <ClInclude Include="CircularArray.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Configuration.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HangarState.h" />
@@ -230,6 +235,7 @@
     <ClInclude Include="IsLiving.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Layout.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Meteor.h" />
     <ClInclude Include="OptionsState.h" />
@@ -238,7 +244,9 @@
     <ClInclude Include="PlayerInfoSheet.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ScoutEnemyShip.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="SpaceBackground.h" />
     <ClInclude Include="SpaceState.h" />
     <ClInclude Include="SpriteButton.h" />
     <ClInclude Include="State.h" />

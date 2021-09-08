@@ -76,15 +76,18 @@
     <Filter Include="Game\States\GameStates\SubModules">
       <UniqueIdentifier>{d8b2044d-25e7-4250-91a6-0b8da9e3e403}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entities\Ship\EnemyShips">
+      <UniqueIdentifier>{cc17ef62-d107-4b37-9ba6-17291ef308e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Levels">
+      <UniqueIdentifier>{d3dfa419-6596-4696-93d2-cd54a8718769}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Game\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Game\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -204,11 +207,23 @@
     <ClCompile Include="PlayerInfoSheet.cpp">
       <Filter>Game\States\GameStates\SubModules</Filter>
     </ClCompile>
+    <ClCompile Include="ScoutEnemyShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnemyShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceBackground.cpp">
+      <Filter>Game\States\GameStates\SubModules</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enemy.h">
-      <Filter>Game\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Game\Entities</Filter>
     </ClInclude>
@@ -340,6 +355,21 @@
     </ClInclude>
     <ClInclude Include="PlayerInfoSheet.h">
       <Filter>Game\States\GameStates\SubModules</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemyShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoutEnemyShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceBackground.h">
+      <Filter>Game\States\GameStates\SubModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

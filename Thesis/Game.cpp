@@ -21,10 +21,10 @@ void Game::initWindow()
 {
 	Helpers::CreateWindow(m_Window);
 }
-
+#include "PlayerShip.h"
 void Game::initStates()
 {
-	m_States.emplace(new MainMenuState(m_Window, m_States));
+	m_States.emplace(new SpaceState(m_Window, m_States));
 }
 
 void Game::initCursor()
@@ -47,7 +47,6 @@ void Game::processEvents()
 
 		m_States.top()->processEvents(sfevent);
 	}
-
 }
 
 /* TODO: maybe add safeguards for empty containers, altho does it matter? */
