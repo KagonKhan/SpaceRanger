@@ -11,7 +11,7 @@ private:
 
 	sf::IntRect m_TextRect;
 	sf::Sprite m_Background;
-	std::vector<sf::Sprite> m_BackgroundObjects;
+	std::vector<std::pair<sf::Sprite,sf::Vector2f>> m_BackgroundObjects;
 
 	int m_MinDelay, m_MaxDelay;
 

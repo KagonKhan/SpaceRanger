@@ -5,7 +5,7 @@ void SpaceBackground::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	target.draw(m_Background);
 	for (auto&& obj : m_BackgroundObjects)
-		target.draw(obj);
+		target.draw(obj.first);
 
 }
 
@@ -44,15 +44,15 @@ void SpaceBackground::update(const sf::Time& deltaTime)
 	}
 
 	for (auto&& bg : m_BackgroundObjects)
-		bg.move(0, 50 * deltaTime.asSeconds());
+		bg.first.move(bg.second * deltaTime.asSeconds());
 }
 
 
 void SpaceBackground::spawnNebulis()
 {
 	int id = 1 + rand() % 3;
-	m_BackgroundObjects.emplace_back(Configuration::textures_space.get(Configuration::TexturesSpaceState(id)));
-	sf::Sprite& sprite = m_BackgroundObjects.back();
+	m_BackgroundObjects.emplace_back(Configuration::textures_space.get(Configuration::TexturesSpaceState(id)), sf::Vector2f(0, rand() % 30 + 50));
+	sf::Sprite& sprite = m_BackgroundObjects.back().first;
 
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
 
@@ -66,7 +66,7 @@ void SpaceBackground::spawnNebulis()
 	else
 		sprite.setColor(sf::Color(60, 60, 60, 255));
 
-	sprite.setPosition(rand() % m_Window.getSize().x, -1000.f);
+	sprite.setPosition(rand() % m_Window.getSize().x, -2000.f);
 
 }
 
@@ -74,8 +74,9 @@ void SpaceBackground::spawnPlanet()
 {
 	int id = 4 + rand() % 5;
 
-	m_BackgroundObjects.emplace_back(Configuration::textures_space.get(Configuration::TexturesSpaceState(id)));
-	sf::Sprite& sprite = m_BackgroundObjects.back();
+	// Wouldn't the compiler already auto move it?
+	m_BackgroundObjects.emplace_back(Configuration::textures_space.get(Configuration::TexturesSpaceState(id)), sf::Vector2f(0, rand() % 15 + 5));
+	sf::Sprite& sprite = m_BackgroundObjects.back().first;
 
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
 
@@ -83,7 +84,7 @@ void SpaceBackground::spawnPlanet()
 
 	sprite.setColor(sf::Color(25, 25, 25, 255));
 
-	sprite.setPosition(rand() % m_Window.getSize().x, -1000.f);
+	sprite.setPosition(rand() % m_Window.getSize().x, -2000.f);
 }
 
 void SpaceBackground::cullObjects()
@@ -91,6 +92,6 @@ void SpaceBackground::cullObjects()
 	static float size = static_cast<float>(m_Window.getSize().y);
 
 	for (int i = 0; i < m_BackgroundObjects.size(); ++i) 
-		if (m_BackgroundObjects[i].getGlobalBounds().top > size)
+		if (m_BackgroundObjects[i].first.getGlobalBounds().top > size)
 			m_BackgroundObjects.erase(std::begin(m_BackgroundObjects) + i);
 }

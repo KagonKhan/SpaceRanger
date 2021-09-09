@@ -32,7 +32,10 @@ void Level::update(const sf::Time& deltaTime)
 	for (auto&& entity : m_Enemies) {
 		entity->update(deltaTime);
 	}
-
+	if (m_Enemies.empty()) {
+		sf::FloatRect rect(0, 0, m_Window.getSize().x, m_Window.getSize().y / 3.f);
+		populateAreaWithEnemies(m_Enemies, EnemyShips::scout, rect, sf::Vector2f(20.f, 10.f));
+	}
 }
 
 

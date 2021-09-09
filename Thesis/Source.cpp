@@ -25,14 +25,11 @@
 	BUGS:
 		- Sprite collision detection does not work. I suppose the issue is in the animator. 
 			non animated sprite like missile works as expected
+		- Enemy shoot sounds are too quiet compared to player. I'm guessing the issue is either listener position,
+			attenuation (or both)	
+		- Weapons probably should spawn bullets inside world class? instead of holding them inside?
 
 */
-
-
-
-
-
-
 
 
 
@@ -40,18 +37,15 @@
 	Options Menu 
 	 - Add button to switch between native windows cursor and 
 
-
-
-
-
-
 */
+
 /* 
 	TODO
 		- parallax background on separate thread?
 		- enum for justifying text inside buttons?
 		- Consider texture atlases
 */
+
 /* 
 * SFML does not work well with scaling, resulting in either native fullscreen or windowed mode
 	TODO:
@@ -68,8 +62,13 @@
 */
 
 int main() {
-	Game game;
-	game.run(120);
+	try {
+		Game game;
+		game.run(120);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what();
+	}
 }
 
 /*

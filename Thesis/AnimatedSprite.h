@@ -53,7 +53,7 @@ public:
 	bool getLoop() const;
 	int getRepeat() const;
 	Status getStatus() const;
-	const sf::Vector2f& getSize() const;
+	sf::Vector2f getSize() const;
 
 
 	void setPosition(const sf::Vector2f& pos);
