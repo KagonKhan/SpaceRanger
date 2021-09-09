@@ -1,31 +1,27 @@
 #include "pch.h"
 #include "Entity.h"
 
-void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Entity::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	//target.draw(m_Shape);
-	target.draw(m_Sprite);
+	if(m_IsVisible)
+		target.draw(m_Sprite);
 }
 
 // Entities have centered origins
 Entity::Entity(const sf::Texture& texture)
 	: m_Sprite(texture), m_IsVisible(true)
 {
-
 	sf::Vector2f sprite_size(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
 	m_Sprite.setOrigin(sprite_size / 2.f);
 	m_Shape.setOrigin(sprite_size / 2.f);
 	m_Shape.setSize(sprite_size);
 }
+Entity::~Entity(){}
+
+#pragma region SETTERS / GETTERS
 
 
-Entity::~Entity()
-{
-
-}
-
-
-sf::Vector2f Entity::getPosition() const
+sf::Vector2f Entity::getPosition() const 
 {
 	return m_Position;
 }
@@ -56,6 +52,8 @@ void Entity::setPosition(float x, float y)
 {
 	setPosition(sf::Vector2f(x, y));
 }
+
+#pragma endregion
 
 bool Entity::isVisible()
 {

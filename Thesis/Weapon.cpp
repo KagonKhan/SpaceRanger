@@ -1,12 +1,9 @@
 #include "pch.h"
-
 #include "Weapon.h"
-#include "Entity.h"
-#include "PlayerShip.h"
+
 
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
 	for (auto&& shot : m_Shots)
 		target.draw(*shot);
 
@@ -15,11 +12,14 @@ void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 Weapon::Weapon(Configuration::TexturesWeaponry tex_id)
-	: Entity(Configuration::textures_weaponry.get(tex_id)), m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
+	: Entity(Configuration::textures_weaponry.get(tex_id)),
+	m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
 {
-	Configuration::tar.setSize(sf::Vector2f(50, 50));
-	Configuration::tar.setFillColor(sf::Color::Red);
-	Configuration::tar.setPosition(300, 300);
+
+}
+
+Weapon::~Weapon()
+{
 }
 
 
@@ -38,6 +38,11 @@ void Weapon::setTarget(const Entity* target)
 void Weapon::setIsWeaponActive(bool isActive)
 {
 	m_IsWeaponActive = isActive;
+}
+
+bool Weapon::isActive()
+{
+	return m_IsWeaponActive;
 }
 
 float Weapon::getSpriteRotation() const
@@ -72,6 +77,11 @@ void Weapon::setPosition(const sf::Vector2f& pos)
 	m_Sprite.setPosition(m_Position);
 }
 
+void Weapon::setPosition(float x, float y)
+{
+	setPosition(sf::Vector2f(x, y));
+}
+
 #pragma endregion
 
 
@@ -88,7 +98,7 @@ void Weapon::shoot()
 void Weapon::update(const sf::Time& deltaTime)
 {
 	updateTimings(deltaTime);
-
+	
 	if(m_Target)
 		updateTrackingTarget(deltaTime);
 
@@ -98,6 +108,7 @@ void Weapon::update(const sf::Time& deltaTime)
 
 	deleteFinishedSounds();
 }
+
 
 void Weapon::updateTimings(const sf::Time& deltaTime)
 {
@@ -109,7 +120,7 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 	for (unsigned int i = 0; i < m_Shots.size(); ++i) {
 		m_Shots[i]->update(deltaTime);
 
-		if (m_Shots[i]->getShouldBeDeleted())
+		if (m_Shots[i]->canBeDeleted())
 			m_Shots.erase(m_Shots.begin() + i);
 
 	}
@@ -117,7 +128,6 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 
 void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 {
-
 	sf::Vector2f target_pos = m_Target->getPosition();
 	sf::Vector2f weapon_pos = getPosition();
 	
@@ -135,131 +145,12 @@ void Weapon::deleteFinishedSounds()
 		});
 }
 
-/* =============================    Laser Turret    ========================= */
-
-LaserTurret::LaserTurret(Configuration::TexturesWeaponry tex_id)
-	: Weapon(tex_id)
+std::vector<Ammunition*>& Weapon::getShots()
 {
+	ghostPTR.clear();
 
-}
+	for (auto&& ammo : m_Shots)
+		ghostPTR.push_back(ammo.get());
 
-void LaserTurret::createBullet()
-{
-	std::unique_ptr<Laser> shot(new Laser(Configuration::TexturesWeaponry::ammo_laser, Configuration::boundaries, -90, 1200));
-	shot->setPosition(m_Position);
-	shot->setRotation(m_Sprite.getRotation());
-
-
-	m_Shots.push_back(std::move(shot));
-}
-
-void LaserTurret::createSound()
-{
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::LaserPlayer)));
-	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
-	sound->setVolume(volume);
-	
-	sound->setAttenuation(8.f);
-	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
-	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
-
-	sound->play();
-
-
-
-	m_Sounds.emplace_back(std::move(sound));
-}
-
-void LaserTurret::updateIndividualBehavior(const sf::Time& deltaTime)
-{
-}
-
-
-/* =============================    Missile Turret    ========================= */
-
-MissileTurret::MissileTurret(Configuration::TexturesWeaponry tex_id)
-	: Weapon(tex_id)
-{
-}
-
-
-void MissileTurret::createBullet()
-{
-	std::unique_ptr<Missile> shot(new Missile(Configuration::TexturesWeaponry::ammo_missile, Configuration::TexturesWeaponry::ammo_missile_thrusters, Configuration::boundaries, -90, 400));
-	shot->setPosition(m_Position);
-	shot->setRotation(m_Sprite.getRotation());
-
-	if (m_Target)
-		shot->lockOnTarget(m_Target);
-
-	m_Shots.push_back(std::move(shot));
-}
-
-void MissileTurret::createSound()
-{
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Missile)));
-	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
-	sound->setVolume(volume);
-	
-	
-	sound->setAttenuation(8.f);
-	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
-	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
-	
-	sound->play();
-	m_Sounds.emplace_back(std::move(sound));
-}
-
-void MissileTurret::updateIndividualBehavior(const sf::Time& deltaTime)
-{
-}
-
-
-/* =============================    Beam Turret    ========================= */
-
-BeamTurret::BeamTurret(Configuration::TexturesWeaponry tex_id, Entity& parent)
-	: Weapon(tex_id), m_Parent(parent)
-{
-
-}
-
-void BeamTurret::createBullet()
-{
-	std::unique_ptr<Beam> shot(new Beam(Configuration::TexturesWeaponry::ammo_beam, Configuration::boundaries, -90, 400));
-	shot->setPosition(m_Position);
-	shot->setRotation(m_Sprite.getRotation());
-
-	m_Shots.push_back(std::move(shot));
-
-	if (typeid(m_Parent).name() == typeid(PlayerShip).name())
-		dynamic_cast<PlayerShip*>(&m_Parent)->setAreActionsBlocked(true);
-
-
-}
-
-void BeamTurret::createSound()
-{
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Beam)));
-	sound->setAttenuation(0);
-	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
-	
-
-	sound->setAttenuation(8.f);
-	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
-	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
-	sound->setVolume(volume * 10);
-
-
-	sound->play();
-	m_Sounds.emplace_back(std::move(sound));
-}
-
-void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)
-{
-	if (m_Shots.empty())
-		if (typeid(m_Parent).name() == typeid(PlayerShip).name()) {
-			PlayerShip* ship = dynamic_cast<PlayerShip*>(&m_Parent);
-			if (ship->getAreActionsBlocked())
-				ship->setAreActionsBlocked(false);
-		}
+	return ghostPTR;
 }

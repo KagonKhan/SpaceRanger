@@ -34,9 +34,9 @@ void SpaceBackground::update(const sf::Time& deltaTime)
 	if (currTime > spawnTime) {
 		cullObjects();
 
-		if (rand() % 10 == 1)
+		if (rand() % 100 == 56)
 			spawnPlanet();
-		else
+		else if (rand() %50 >= 45)
 			spawnNebulis();//spawnNebulis();
 
 		currTime = 0;

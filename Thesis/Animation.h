@@ -6,7 +6,6 @@ private:
 	friend class AnimatedSprite;
 	/* frames */
 	std::vector<sf::IntRect> m_Frames;
-	/* reference to the texture */
 	sf::Texture* m_Texture;
 
 public:

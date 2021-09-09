@@ -16,7 +16,7 @@ void PlayerShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 
 PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player)
-	: Ship(100, tex_id), m_Boundaries(boundaries), m_AreActionsBlocked(false),
+	: Ship(100, tex_id), m_Boundaries(boundaries), 
 	m_SpeedLimit(1200, 900),
 	//m_Player(player),
 	m_ExhaustAnimationForward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust)),
@@ -29,7 +29,7 @@ PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& 
 }
 
 PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries)
-	: Ship(100, tex_id), m_Boundaries(boundaries), m_AreActionsBlocked(false),
+	: Ship(100, tex_id), m_Boundaries(boundaries), 
 m_SpeedLimit(1200, 900),
 m_ExhaustAnimationForward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust)),
 m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust))
@@ -37,6 +37,10 @@ m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::Tex
 	initVariables();
 	initWeapons();
 	initAnimations();
+}
+
+PlayerShip::~PlayerShip()
+{
 }
 
 #pragma region Initializers / Setters / Getters
@@ -50,17 +54,11 @@ void PlayerShip::initVariables()
 
 void PlayerShip::initWeapons()
 {
-	initWeapon(sf::Vector2f( 60.f, 0.f), .5f, WeaponType::Missile);
-	initWeapon(sf::Vector2f(-60.f, 0.f), .5f, WeaponType::Missile);
-
-
-	initWeapon(sf::Vector2f(-20.f, 0.f),  5.f, WeaponType::Laser);
-	initWeapon(sf::Vector2f( 20.f, 0.f),  5.f, WeaponType::Laser);
-	initWeapon(sf::Vector2f(-9.f ,-10.f), 5.f, WeaponType::Laser);
-	initWeapon(sf::Vector2f( 9.f ,-10.f), 5.f, WeaponType::Laser);
-
-
-	initWeapon(sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam);
+	initWeapon(m_Position, sf::Vector2f( 60.f, 0.f), .5f, WeaponType::Missile);
+	initWeapon(m_Position, sf::Vector2f(-60.f, 0.f), .5f, WeaponType::Missile);
+	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  5.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  5.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
 }
 
 
@@ -88,28 +86,9 @@ const sf::Sprite& PlayerShip::getSprite() const
 	return m_Sprite;
 }
 
-void PlayerShip::setAreActionsBlocked(bool is_blocked)
-{
-	m_AreActionsBlocked = is_blocked;
-
-	m_Direction = sf::Vector2f(0, 0);
-}
-
-bool PlayerShip::getAreActionsBlocked() const
-{
-	return m_AreActionsBlocked;
-}
-
 #pragma endregion
 
-void PlayerShip::update(const sf::Time& deltaTime)
-{
-	if(!m_AreActionsBlocked)
-		updateMovement(deltaTime);
-	updatePosition(deltaTime);
-	updateSprites(deltaTime);
-	updateWeapons(deltaTime);
-}
+
 
 void PlayerShip::updateMovement(const sf::Time& deltaTime)
 {
@@ -183,18 +162,6 @@ void PlayerShip::updateMovement(const sf::Time& deltaTime)
 
 }
 
-void PlayerShip::updatePosition(const sf::Time& deltaTime)
-{
-	m_Sprite.setPosition(m_Position);
-
-	for (auto&& weapon : m_Weapons)
-		weapon->setPosition(m_Position);
-
-	sf::Listener::setPosition(m_Position.x, -m_Position.y, 300.f);
-
-	m_ExhaustAnimatedSpriteLeft.setPosition(m_Position);
-	m_ExhaustAnimatedSpriteRight.setPosition(m_Position);
-}
 
 void PlayerShip::updateSprites(const sf::Time& deltaTime)
 {
@@ -212,14 +179,15 @@ void PlayerShip::updateSprites(const sf::Time& deltaTime)
 	m_ExhaustAnimatedSpriteLeft.update(deltaTime);
 	m_ExhaustAnimatedSpriteRight.update(deltaTime);
 
+	m_ExhaustAnimatedSpriteLeft.setPosition(m_Position);
+	m_ExhaustAnimatedSpriteRight.setPosition(m_Position);
 }
 
-void PlayerShip::updateWeapons(const sf::Time& deltaTime)
+void PlayerShip::updateIndividualBehavior(const sf::Time& deltaTime)
 {
-	for (auto&& weapon : m_Weapons)
-		weapon->update(deltaTime);
+	sf::Listener::setPosition(m_Position.x, -m_Position.y, 300.f);
 
-	if(!m_AreActionsBlocked)
+	if (!m_AreActionsBlocked)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			shoot();
 }

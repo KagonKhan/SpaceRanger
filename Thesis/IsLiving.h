@@ -14,7 +14,7 @@ private:
 	} m_ShipStats;
 
 
-public:
+public: 
 	IsLiving(IsLiving&) = delete;
 	IsLiving& operator=(IsLiving&) = delete;
 

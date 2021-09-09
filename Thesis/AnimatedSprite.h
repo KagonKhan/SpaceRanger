@@ -4,7 +4,9 @@
 
 
 
-class AnimatedSprite : public sf::Drawable, public sf::Transformable
+class AnimatedSprite :
+	public sf::Drawable, 
+	public sf::Transformable
 {
 private:
 	/* reference to the animation container*/
@@ -33,8 +35,8 @@ public:
 	FuncType onFinished;
 	enum Status { Stopped, Paused, Playing } m_Status;
 
-	AnimatedSprite(const AnimatedSprite&) = default;
-	AnimatedSprite& operator=(const AnimatedSprite&) = default;
+	AnimatedSprite(AnimatedSprite&) = default;
+	AnimatedSprite& operator=(AnimatedSprite&) = default;
 	AnimatedSprite(AnimatedSprite&&) = default;
 	AnimatedSprite& operator=(AnimatedSprite&&) = default;
 	AnimatedSprite(Animation* animation = nullptr, Status status = Playing, const sf::Time& dt = sf::seconds(0.15f), bool loop = true, int repeat = 0);

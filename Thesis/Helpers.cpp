@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Helpers.h"
 
-
-
 void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> fileContents)
 {
 
@@ -103,6 +101,17 @@ bool Helpers::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vec
 		return false;
 	return true;
 }
+
+float Helpers::perpDot(const sf::Vector2f& A, const sf::Vector2f& B)
+{
+	return (A.x * B.y) - (A.y * B.x);
+}
+
+float Helpers::dot(const sf::Vector2f& A, const sf::Vector2f& B)
+{
+	return (A.x * B.x) + (A.y * B.y);
+}
+
 
 void Helpers::LoadFileToString(const std::filesystem::path& path, std::string& loadTo)
 {

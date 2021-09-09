@@ -2,30 +2,25 @@
 #include "Ammunition.h"
 
 class Weapon :
-	public Entity
+	public Entity,
+	private sf::NonCopyable
 {
 protected:
-	float m_FiringRate;
-	float m_TimeSinceLastShot;
-	float m_FiringDelay;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+
+	float m_FiringRate, m_TimeSinceLastShot, m_FiringDelay;
 
 	bool m_IsWeaponActive;
 
-
 	sf::Vector2f m_WeaponOffset;
-
 	// Constant deletion on random indexes
 	// If testing results in slow processing, I might think of custom containers
 	std::vector<std::unique_ptr<Ammunition>> m_Shots;
-
 	// TODO better containers exists for this job, implement them
 	std::list<std::unique_ptr<sf::Sound>> m_Sounds;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	const Entity* m_Target;
 	
-
-
-
 	/* Maybe call this function every X seconds? */
 	void deleteFinishedSounds();
 
@@ -38,13 +33,23 @@ protected:
 	virtual void createBullet() = 0;
 	virtual void createSound() = 0;
 
-	const Entity* m_Target;
+
+	std::vector<Ammunition*> ghostPTR;
+
+
 public:
-	Weapon(const Weapon&) = delete;
-	Weapon& operator=(const Weapon&) = delete;
-
 	Weapon(Configuration::TexturesWeaponry tex_id);
+	virtual ~Weapon();
 
+	void setIsWeaponActive(bool isActive);
+	bool isActive();
+	void shoot();
+	void update(const sf::Time& deltaTime) override final;
+
+	std::vector<Ammunition*>& getShots();
+
+
+#pragma region SETTERS / GETTERS
 	float getSpriteRotation()const;
 	void setSpriteRotation(float angle);
 	void rotateSprite(float angle);
@@ -53,72 +58,12 @@ public:
 
 	/* Different behavior, becasue a weapon can have offset */
 	void setPosition(const sf::Vector2f& pos) override;
-
-
-
+	void setPosition(float x, float y) override;
 	// shots/second
 	void setFiringRate(float rate);
-	
 	virtual void setTarget(const Entity* target);
-
-	void setIsWeaponActive(bool isActive);
-
-	void shoot();
-
-
-	void update(const sf::Time& deltaTime);
-
-
+#pragma endregion
 };
 
 
-class LaserTurret :
-	public Weapon
-{
-private:
-	virtual void createBullet() override;
-	virtual void createSound() override;
-	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
-public:
-	LaserTurret(const LaserTurret&) = delete;
-	LaserTurret& operator=(const LaserTurret&) = delete;
-
-	LaserTurret(Configuration::TexturesWeaponry tex_id);
-
-};
-
-
-class MissileTurret :
-	public Weapon
-{
-private:
-	virtual void createBullet() override;
-	virtual void createSound() override;
-	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
-public:
-	MissileTurret(const MissileTurret&) = delete;
-	MissileTurret& operator=(const MissileTurret&) = delete;
-
-	MissileTurret(Configuration::TexturesWeaponry tex_id);
-
-};
-
-/* CAREFUL only beam turret holds parent reference, for now I only block player's ship's movement, might change some day */
-class BeamTurret :
-	public Weapon
-{
-private:
-	virtual void createBullet() override;
-	virtual void createSound() override;
-	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
-
-	Entity& m_Parent;
-public:
-	BeamTurret(const BeamTurret&) = delete;
-	BeamTurret& operator=(const BeamTurret&) = delete;
-
-	BeamTurret(Configuration::TexturesWeaponry tex_id, Entity& parent);
-
-
-};

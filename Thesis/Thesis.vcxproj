@@ -161,6 +161,8 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="ArrowSwitch.cpp" />
     <ClCompile Include="ArrowSwitchTextButton.cpp" />
+    <ClCompile Include="Beam.cpp" />
+    <ClCompile Include="BeamTurret.cpp" />
     <ClCompile Include="BossEnemyShip.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CanCollide.cpp" />
@@ -178,10 +180,14 @@
     <ClCompile Include="HorizontalLayout.cpp" />
     <ClCompile Include="IsLiving.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="Layout.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Meteor.cpp" />
+    <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="MissileTurret.cpp" />
     <ClCompile Include="OptionsState.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -216,6 +222,8 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="ArrowSwitch.h" />
     <ClInclude Include="ArrowSwitchTextButton.h" />
+    <ClInclude Include="Beam.h" />
+    <ClInclude Include="BeamTurret.h" />
     <ClInclude Include="BossEnemyShip.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CanCollide.h" />
@@ -234,10 +242,14 @@
     <ClInclude Include="HorizontalLayout.h" />
     <ClInclude Include="IsLiving.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="LaserTurret.h" />
     <ClInclude Include="Layout.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Meteor.h" />
+    <ClInclude Include="Missile.h" />
+    <ClInclude Include="MissileTurret.h" />
     <ClInclude Include="OptionsState.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -256,6 +268,7 @@
     <ClInclude Include="UnorderedLayout.h" />
     <ClInclude Include="VerticalLayout.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="Weaponry.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

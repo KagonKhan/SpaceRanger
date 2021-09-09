@@ -2,20 +2,23 @@
 #include "Level.h"
 #include "ScoutEnemyShip.h"
 
+
+#include "Ammunition.h"
+#include "PlayerShip.h"
 void Level::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	for (auto&& entity : m_Entities) {
+	for (auto&& entity : m_Enemies) {
 		target.draw(*entity);
 
 	}
 }
 
-Level::Level(sf::RenderWindow& window)
-	:m_Window(window)
+Level::Level(sf::RenderWindow& window, PlayerShip& player)
+	:m_Window(window), m_Player(player)
 {
 	sf::FloatRect rect(0, 0, m_Window.getSize().x, m_Window.getSize().y / 3.f);
 
-	populateAreaWithEnemies(m_Entities, EnemyShips::scout, rect, sf::Vector2f(20.f,10.f));
+	populateAreaWithEnemies(m_Enemies, EnemyShips::scout, rect, sf::Vector2f(20.f,10.f));
 }
 
 Level::~Level()
@@ -24,13 +27,17 @@ Level::~Level()
 
 void Level::update(const sf::Time& deltaTime)
 {
-	for (auto&& entity : m_Entities)
+	checkCollisions();
+	
+	for (auto&& entity : m_Enemies) {
 		entity->update(deltaTime);
-
+	}
 
 }
 
-void Level::populateAreaWithEnemies(std::vector<Entity::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding)
+
+#pragma region INIT/ENEMY
+void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding)
 {
 	sf::Vector2f size;
 	switch (enemyShip) {
@@ -86,15 +93,16 @@ void Level::populateAreaWithEnemies(std::vector<Entity::ptr>& container, EnemySh
 
 			enemy->setPosition(pos);
 
-			m_Entities.push_back(std::move(enemy));
+			m_Enemies.push_back(std::move(enemy));
 		}
 
 	puts(std::to_string(container.size()).c_str());
 }
 
-Entity::ptr Level::createEnemy(EnemyShips ship)
+EnemyShip::ptr Level::createEnemy(EnemyShips ship)
 {
-	Entity::ptr enemy;
+	EnemyShip::ptr enemy;
+
 	switch (ship) {
 	case EnemyShips::minigun:
 		enemy = createEnemyMinigun();
@@ -128,51 +136,97 @@ Entity::ptr Level::createEnemy(EnemyShips ship)
 	return std::move(enemy);
 }
 
-Entity::ptr Level::createEnemyMinigun()
+EnemyShip::ptr Level::createEnemyMinigun()
 {
-	return Entity::ptr();
+	return EnemyShip::ptr();
 }
-
-Entity::ptr Level::createEnemySupport()
+EnemyShip::ptr Level::createEnemySupport()
 {
-	return Entity::ptr();
+	return EnemyShip::ptr();
 }
-
-Entity::ptr Level::createEnemyBeam()
+EnemyShip::ptr Level::createEnemyBeam()
 {
-	return Entity::ptr();
+	return EnemyShip::ptr();
 }
-
-Entity::ptr Level::createEnemyRocket()
+EnemyShip::ptr Level::createEnemyRocket()
 {
-	return Entity::ptr();
+	return EnemyShip::ptr();
 }
-
-Entity::ptr Level::createEnemyScout()
+EnemyShip::ptr Level::createEnemyScout()
 {
 	std::unique_ptr<ScoutEnemyShip> enemy(new ScoutEnemyShip(Configuration::TexturesShips::enemy_ship_scout));
 	
 
 	return std::move(enemy);
 }
-
-Entity::ptr Level::createEnemyTank()
+EnemyShip::ptr Level::createEnemyTank()
 {
-	return Entity::ptr();
+	return EnemyShip::ptr();
+}
+EnemyShip::ptr Level::createEnemyScoutV2()
+{
+	return EnemyShip::ptr();
+}
+EnemyShip::ptr Level::createEnemyStealth()
+{
+	return EnemyShip::ptr();
+}
+EnemyShip::ptr Level::createEnemyBoss()
+{
+	return EnemyShip::ptr();
 }
 
-Entity::ptr Level::createEnemyScoutV2()
+#pragma endregion
+
+
+void Level::checkCollisions()
 {
-	return Entity::ptr();
+	checkEnemyCollisions();
+	checkPlayerCollisions();
+	checkForDeletion();
+}
+// Enemy hit player
+void Level::checkPlayerCollisions()
+{
+	std::vector<Ammunition*> ammunition;
+	for (auto&& entity : m_Enemies) 
+		if (Ship* ptr = dynamic_cast<Ship*>(entity.get()); ptr)
+			ammunition.insert(ammunition.begin(), ptr->getShots().begin(), ptr->getShots().end());
+	
+	
+	for (auto&& ammo : ammunition)
+		if (Collision::PixelPerfectTest(m_Player.getSprite(), ammo->getSprite(), 253U)) {
+			ammo->setCanDelete(true);
+			puts("Player Hit");
+		}
+}
+// Player hit enemy
+void Level::checkEnemyCollisions()
+{
+	std::vector<Ammunition*> ammunition;
+	ammunition.insert(ammunition.begin(), m_Player.getShots().begin(), m_Player.getShots().end());
+
+	for(auto&& ammo : ammunition)
+		for (auto&& enemy : m_Enemies)
+			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
+				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) {
+					ammo->setCanDelete(true);
+					enemy->receiveDamage(ammo->dealDamage());
+					if (enemy->getCurrentHP() <= 0) {
+						enemy->setPosition(-99999, -99999);
+						enemy->markForDeletion();
+					}
+
+				}
 }
 
-Entity::ptr Level::createEnemyStealth()
+void Level::checkForDeletion()
 {
-	return Entity::ptr();
-}
+	puts(std::to_string(m_Enemies.size()).c_str());
+	for (unsigned int i = 0; i < m_Enemies.size(); ++i) {
+		if (m_Enemies[i]->shouldBeDeleted() && m_Enemies[i]->canBeDeleted())
+			m_Enemies.erase(m_Enemies.begin() + i);
 
-Entity::ptr Level::createEnemyBoss()
-{
-	return Entity::ptr();
+	}
 }
 

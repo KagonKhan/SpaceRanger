@@ -18,5 +18,6 @@ public:
 	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
 
 
-
+	static float perpDot(const sf::Vector2f& A, const sf::Vector2f& B);
+	static float dot(const sf::Vector2f& A, const sf::Vector2f& B);
 };

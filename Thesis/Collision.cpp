@@ -19,7 +19,7 @@ bool Collision::CircleTestM(const sf::Sprite& first, const sf::Sprite& second)
 
     return std::sqrt(xd * xd + yd * yd) <= radius1 + radius2;
 }
- 
+
 /*
  * File:   collision.cpp
  * Author: Nick (original version), ahnonay (SFML2 compatibility)
@@ -74,7 +74,7 @@ private:
 
 BitmaskManager Bitmasks;
 
-bool PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit) {
+bool Collision::PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit) {
 	sf::FloatRect Intersection;
 	if (Object1.getGlobalBounds().intersects(Object2.getGlobalBounds(), Intersection)) {
 		sf::IntRect O1SubRect = Object1.getTextureRect();
@@ -106,7 +106,7 @@ bool PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::
 	return false;
 }
 
-bool CreateTextureAndBitmask(sf::Texture& LoadInto, const std::string& Filename)
+bool Collision::CreateTextureAndBitmask(sf::Texture& LoadInto, const std::string& Filename)
 {
 	sf::Image img;
 	if (!img.loadFromFile(Filename))
@@ -131,7 +131,7 @@ sf::Vector2f GetSpriteSize(const sf::Sprite& Object)
 	return sf::Vector2f(OriginalSize.width * Scale.x, OriginalSize.height * Scale.y);
 }
 
-bool CircleTest(const sf::Sprite& Object1, const sf::Sprite& Object2) {
+bool Collision::CircleTest(const sf::Sprite& Object1, const sf::Sprite& Object2) {
 	sf::Vector2f Obj1Size = GetSpriteSize(Object1);
 	sf::Vector2f Obj2Size = GetSpriteSize(Object2);
 	float Radius1 = (Obj1Size.x + Obj1Size.y) / 4;
@@ -173,7 +173,7 @@ public:
 	}
 };
 
-bool BoundingBoxTest(const sf::Sprite& Object1, const sf::Sprite& Object2) {
+bool Collision::BoundingBoxTest(const sf::Sprite& Object1, const sf::Sprite& Object2) {
 	OrientedBoundingBox OBB1(Object1);
 	OrientedBoundingBox OBB2(Object2);
 

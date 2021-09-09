@@ -18,7 +18,7 @@ void SpaceState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 //}
 SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	: State(window, states), m_Player((Configuration::TexturesShips)0, (sf::Vector2f)m_Window.getSize()),
-	m_Background(window, 1, 2), m_Level(m_Window)
+	m_Background(window, 1, 2), m_Level(m_Window, m_Player)
 {
 	puts("SpaceState\tctor");
 

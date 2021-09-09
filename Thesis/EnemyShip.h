@@ -7,6 +7,9 @@ private:
 
 
 public:
-	EnemyShip(float maxHp,Configuration::TexturesShips tex_id);
+	EnemyShip(float maxHp, Configuration::TexturesShips tex_id);
 	virtual ~EnemyShip();
+
+
+	typedef std::unique_ptr<EnemyShip> ptr;
 };

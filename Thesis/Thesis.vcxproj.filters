@@ -82,6 +82,12 @@
     <Filter Include="Game\Levels">
       <UniqueIdentifier>{d3dfa419-6596-4696-93d2-cd54a8718769}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entities\Weapon\Ammunition">
+      <UniqueIdentifier>{61eda801-bbbf-4783-9a6d-8a274c60c7b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities\Weapon\Weapon">
+      <UniqueIdentifier>{1980f874-e1e2-4589-8aee-a3867b4bdbd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -137,12 +143,6 @@
     </ClCompile>
     <ClCompile Include="Ship.cpp">
       <Filter>Game\Entities\Ship</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Game\Entities\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="Ammunition.cpp">
-      <Filter>Game\Entities\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="Meteor.cpp">
       <Filter>Game\Entities\Obstacles</Filter>
@@ -222,6 +222,30 @@
     <ClCompile Include="EnemyShip.cpp">
       <Filter>Game\Entities\Ship\EnemyShips</Filter>
     </ClCompile>
+    <ClCompile Include="Ammunition.cpp">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClCompile>
+    <ClCompile Include="Beam.cpp">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserTurret.cpp">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileTurret.cpp">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BeamTurret.cpp">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -283,12 +307,6 @@
     </ClInclude>
     <ClInclude Include="Ship.h">
       <Filter>Game\Entities\Ship</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Game\Entities\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="Ammunition.h">
-      <Filter>Game\Entities\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="Meteor.h">
       <Filter>Game\Entities\Obstacles</Filter>
@@ -370,6 +388,33 @@
     </ClInclude>
     <ClInclude Include="EnemyShip.h">
       <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="Ammunition.h">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClInclude>
+    <ClInclude Include="Beam.h">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Game\Entities\Weapon\Ammunition</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTurret.h">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileTurret.h">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="BeamTurret.h">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Game\Entities\Weapon\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Weaponry.h">
+      <Filter>Game\Entities\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

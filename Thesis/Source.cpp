@@ -5,7 +5,7 @@
 #include "Game.h"
 /*	TODO */
 /*	CODE CLEANUP
-*	 - Game - DONE
+*
 * 
 * 
 * 
@@ -16,6 +16,25 @@
 * 
 * 
 */
+
+
+
+
+
+/*
+	BUGS:
+		- Sprite collision detection does not work. I suppose the issue is in the animator. 
+			non animated sprite like missile works as expected
+
+*/
+
+
+
+
+
+
+
+
 
 /*
 	Options Menu 

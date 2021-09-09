@@ -6,6 +6,9 @@ class HasWeapons
 {
 protected:
 	std::vector<std::unique_ptr<Weapon>> m_Weapons;
+	enum class WeaponType { Laser, Missile, Beam };
+
+	void initWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation = 180.f, Entity::opt_ref parent = std::nullopt);
 
 	//Some container for weapons
 	// Maybe some internal counter, for weapons that autofire
