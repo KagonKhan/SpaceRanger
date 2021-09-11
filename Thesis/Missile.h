@@ -5,20 +5,20 @@ class Missile :
 	public Ammunition
 {
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
 
 	const Entity* m_Target;
-	float m_RotationRadius;
-	float m_SeekingDistance;
-	float m_FuelDuration;
+	float m_RotationRadius, m_SeekingDistance, m_FuelDuration;
 
 	Animation m_DeathAnimation;
 	AnimatedSprite m_DeathAnimationSprite;
 	sf::Sound m_DeathSound;
 
+
 	void initAnimation() override;
 	void updateIndividualBehavior(const sf::Time& deltaTime) override final;
 	void updateTrackingSystem(const sf::Time& deltaTime);
+	void updateDeathEvents(const sf::Time& deltaTime);
 
 	void onDeletion(bool playAnimation = false) override;
 public:

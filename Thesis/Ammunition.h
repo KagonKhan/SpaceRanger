@@ -33,6 +33,8 @@ protected:
 	AnimatedSprite m_AnimatedSprite;
 
 
+
+
 public:
 	Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
 	virtual ~Ammunition();

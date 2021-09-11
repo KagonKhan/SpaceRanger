@@ -90,7 +90,9 @@ public:
 	enum class TexturesWeaponry {
 		turret_laser, turret_rocket, turret_beam,
 
-		ammo_laser, ammo_missile, ammo_missile_thrusters, ammo_missile_death_anim,ammo_beam,
+		ammo_laser, ammo_laser_hit,
+		ammo_missile, ammo_missile_thrusters, ammo_missile_death_anim,
+		ammo_beam,
 	};
 	enum class TexturesShips
 	{
@@ -125,7 +127,7 @@ public:
 		Shoot,
 	};
 	enum class Sounds {
-		laser,
+		laser, laser_hit,
 		missile, missile_explosion,
 		beam,
 	};

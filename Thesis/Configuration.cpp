@@ -129,6 +129,7 @@ void Configuration::initTexturesWeaponParts()
 {
 
 	textures_weaponry.load(TexturesWeaponry::ammo_laser				, "../media/textures/ammunition/lasers/laser_bullets.png");
+	textures_weaponry.load(TexturesWeaponry::ammo_laser_hit			, "../media/textures/ammunition/lasers/laser_hit.png");
 	
 	textures_weaponry.load(TexturesWeaponry::ammo_missile			, "../media/textures/ammunition/missiles/Missile.png");
 	textures_weaponry.load(TexturesWeaponry::ammo_missile_thrusters	, "../media/textures/thrusters/missile_thrusters.png");
@@ -174,9 +175,13 @@ void Configuration::initFonts()
 void Configuration::initSounds()
 {
 	////laser
-	sounds.load(Sounds::laser, "../media/textures/ammunition/lasers/Laser_Bullets.wav");
+	sounds.load(Sounds::laser, "../media/sounds/laser/laser.wav");
+	sounds.load(Sounds::laser_hit, "../media/sounds/laser/laser_hit.wav");
+
 	sounds.load(Sounds::missile, "../media/sounds/missile/missile.wav");
 	sounds.load(Sounds::missile_explosion, "../media/sounds/missile/explosion_4.wav");
+	
+	
 	sounds.load(Sounds::beam, "../media/textures/ammunition/beams/Red_Laser_Beam.wav");
 
 }

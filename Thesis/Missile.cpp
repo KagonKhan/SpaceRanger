@@ -65,13 +65,9 @@ void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
 	if (m_Target)
 		updateTrackingSystem(deltaTime);
 
+	if(m_MarkedForDeletion)
+		updateDeathEvents(deltaTime);
 
-	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Playing) 
-		m_DeathAnimationSprite.update(deltaTime);
-	
-		
-	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Stopped) 
-		m_CanBeDeleted = true;
 
 }
 
@@ -103,6 +99,16 @@ void Missile::updateTrackingSystem(const sf::Time& deltaTime)
 	}
 }
 
+void Missile::updateDeathEvents(const sf::Time& deltaTime)
+{
+	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Playing)
+		m_DeathAnimationSprite.update(deltaTime);
+
+
+	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Stopped && m_DeathSound.getStatus() == sf::Sound::Status::Stopped)
+		m_CanBeDeleted = true;
+}
+
 void Missile::onDeletion(bool playAnimation)
 {
 	if (playAnimation) {
@@ -112,6 +118,7 @@ void Missile::onDeletion(bool playAnimation)
 
 		m_DeathSound.setPosition(m_Position.x, -m_Position.y, 0.f);
 		m_DeathSound.setVolume(50);
+		m_DeathSound.setAttenuation(1);
 		m_DeathSound.setMinDistance(std::sqrt(200 * 200 + 300 * 300));
 		m_DeathSound.play();
 	}

@@ -197,8 +197,7 @@ void Level::checkPlayerCollisions()
 	
 	for (auto&& ammo : ammunition)
 		if (Collision::PixelPerfectTest(m_Player.getSprite(), ammo->getSprite(), 253U)) {
-			ammo->markForDeletion(true);
-			puts("Player Hit");
+			m_Player.receiveDamage(ammo->dealDamage() * 0.f);
 		}
 }
 // Player hit enemy
