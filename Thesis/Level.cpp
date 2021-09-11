@@ -98,8 +98,6 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 
 			m_Enemies.push_back(std::move(enemy));
 		}
-
-	puts(std::to_string(container.size()).c_str());
 }
 
 EnemyShip::ptr Level::createEnemy(EnemyShips ship)
@@ -199,7 +197,7 @@ void Level::checkPlayerCollisions()
 	
 	for (auto&& ammo : ammunition)
 		if (Collision::PixelPerfectTest(m_Player.getSprite(), ammo->getSprite(), 253U)) {
-			ammo->setCanDelete(true);
+			ammo->markForDeletion(true);
 			puts("Player Hit");
 		}
 }
@@ -213,7 +211,6 @@ void Level::checkEnemyCollisions()
 		for (auto&& enemy : m_Enemies)
 			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
 				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) {
-					ammo->setCanDelete(true);
 					enemy->receiveDamage(ammo->dealDamage());
 					if (enemy->getCurrentHP() <= 0) {
 						enemy->setPosition(-99999, -99999);
@@ -225,7 +222,6 @@ void Level::checkEnemyCollisions()
 
 void Level::checkForDeletion()
 {
-	puts(std::to_string(m_Enemies.size()).c_str());
 	for (unsigned int i = 0; i < m_Enemies.size(); ++i) {
 		if (m_Enemies[i]->shouldBeDeleted() && m_Enemies[i]->canBeDeleted())
 			m_Enemies.erase(m_Enemies.begin() + i);

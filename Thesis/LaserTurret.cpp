@@ -24,11 +24,11 @@ void LaserTurret::createBullet()
 
 void LaserTurret::createSound()
 {
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::LaserPlayer)));
+	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::laser)));
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 	sound->setVolume(volume);
 
-	sound->setAttenuation(8.f);
+	sound->setAttenuation(1.f);
 	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
 	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
 

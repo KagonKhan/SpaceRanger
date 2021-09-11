@@ -12,6 +12,8 @@ private:
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 	void shoot(const sf::Time& deltaTime);
 
+	void onDestroy() override;
+
 public:
 	ScoutEnemyShip(Configuration::TexturesShips tex_id);
 	virtual ~ScoutEnemyShip();

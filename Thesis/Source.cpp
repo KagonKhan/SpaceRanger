@@ -1,8 +1,21 @@
 #include "pch.h"
 #pragma warning(disable : 26812)
-
-
 #include "Game.h"
+
+/* NEAREST ENDEAVOURS 
+*	- Fill out other ship type classes
+*	- Have on death animation
+*	- Rocket explode animation
+* 
+* 
+* 
+* 
+* 
+*/
+
+
+
+
 /*	TODO */
 /*	CODE CLEANUP
 *
@@ -25,9 +38,19 @@
 	BUGS:
 		- Sprite collision detection does not work. I suppose the issue is in the animator. 
 			non animated sprite like missile works as expected
-		- Enemy shoot sounds are too quiet compared to player. I'm guessing the issue is either listener position,
-			attenuation (or both)	
 		- Weapons probably should spawn bullets inside world class? instead of holding them inside?
+
+
+
+
+
+
+
+
+
+
+
+
 
 */
 

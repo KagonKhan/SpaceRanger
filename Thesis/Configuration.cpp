@@ -21,7 +21,7 @@ ResourceManager<sf::Texture, Configuration::TexturesShips>			Configuration::text
 
 
 ResourceManager<sf::Font, int> Configuration::fonts;
-ResourceManager<sf::SoundBuffer, int> Configuration::sounds;
+ResourceManager<sf::SoundBuffer, Configuration::Sounds> Configuration::sounds;
 ResourceManager<sf::Music, int> Configuration::musics;
 
 ActionMap<int> Configuration::playerInputs;
@@ -129,8 +129,11 @@ void Configuration::initTexturesWeaponParts()
 {
 
 	textures_weaponry.load(TexturesWeaponry::ammo_laser				, "../media/textures/ammunition/lasers/laser_bullets.png");
+	
 	textures_weaponry.load(TexturesWeaponry::ammo_missile			, "../media/textures/ammunition/missiles/Missile.png");
 	textures_weaponry.load(TexturesWeaponry::ammo_missile_thrusters	, "../media/textures/thrusters/missile_thrusters.png");
+	textures_weaponry.load(TexturesWeaponry::ammo_missile_death_anim, "../media/textures/ammunition/missiles/missile_death_anim.png");
+	
 	textures_weaponry.load(TexturesWeaponry::ammo_beam				, "../media/textures/ammunition/beams/Red_Laser_Beam.png");
 
 	textures_weaponry.load(TexturesWeaponry::turret_laser			, "../media/textures/weapons/turrettest.png");
@@ -171,9 +174,10 @@ void Configuration::initFonts()
 void Configuration::initSounds()
 {
 	////laser
-	sounds.load(Sounds::LaserPlayer, "../media/textures/ammunition/lasers/Laser_Bullets.wav");
-	sounds.load(Sounds::Missile, "../media/sounds/missile/missile.wav");
-	sounds.load(Sounds::Beam, "../media/textures/ammunition/beams/Red_Laser_Beam.wav");
+	sounds.load(Sounds::laser, "../media/textures/ammunition/lasers/Laser_Bullets.wav");
+	sounds.load(Sounds::missile, "../media/sounds/missile/missile.wav");
+	sounds.load(Sounds::missile_explosion, "../media/sounds/missile/explosion_4.wav");
+	sounds.load(Sounds::beam, "../media/textures/ammunition/beams/Red_Laser_Beam.wav");
 
 }
 void Configuration::initMusics()

@@ -4,8 +4,8 @@
 void SpaceBackground::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	target.draw(m_Background);
-	for (auto&& obj : m_BackgroundObjects)
-		target.draw(obj.first);
+	for (auto&& [sprite, velocity] : m_BackgroundObjects)
+		target.draw(sprite);
 
 }
 
@@ -43,8 +43,8 @@ void SpaceBackground::update(const sf::Time& deltaTime)
 		spawnTime = m_MinDelay + rand() % (m_MaxDelay-m_MinDelay);
 	}
 
-	for (auto&& bg : m_BackgroundObjects)
-		bg.first.move(bg.second * deltaTime.asSeconds());
+	for (auto&&[sprite, velocity]: m_BackgroundObjects)
+		sprite.move(velocity * deltaTime.asSeconds());
 }
 
 

@@ -132,7 +132,7 @@ void AnimatedSprite::update(const sf::Time& dt)
 
 			if (m_CurrentFrame + 1 < m_Animation->size())
 				++m_CurrentFrame;
-			else if(m_Loop || m_Repetitions > 0){
+			else if (m_Loop || m_Repetitions > 0) {
 				m_CurrentFrame = 0;
 
 				if (!m_Loop) {
@@ -140,11 +140,14 @@ void AnimatedSprite::update(const sf::Time& dt)
 
 					if (m_Repetitions <= 0) {
 						m_Status = Stopped;
+
 						onFinished();
 						return;
 					}
 				}
 			}
+			else
+				m_Status = Stopped;
 		}
 		setFrame(m_CurrentFrame, false);
 	}

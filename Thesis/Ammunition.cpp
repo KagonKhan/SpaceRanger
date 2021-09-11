@@ -2,9 +2,6 @@
 #include "PlayerShip.h"
 #include "Ammunition.h"
 
-
-
-
 void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_AnimatedSprite);
@@ -13,7 +10,7 @@ void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
 Ammunition::Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
 	: Entity(Configuration::textures_weaponry.get(tex_id)), m_DegAngle(deg_angle),m_Speed(speed),
 		m_Animation(&Configuration::textures_weaponry.get(tex_id)),
-		m_Boundaries(boundaries), m_CanBeDeleted(false)
+		m_Boundaries(boundaries), m_CanBeDeleted(false), m_MarkedForDeletion(false)
 
 {
 	setRadAngle();
@@ -85,26 +82,29 @@ void Ammunition::rotateSprite(float angle)
 	m_Sprite.rotate(angle);
 }
 
+#pragma endregion
+
+void Ammunition::markForDeletion(bool playAnimation)
+{
+	onDeletion(playAnimation);
+}
+
 bool Ammunition::canBeDeleted()
 {
 	return m_CanBeDeleted;
 }
-
-void Ammunition::setCanDelete(bool deletion)
-{
-	m_CanBeDeleted = deletion;
-}
-
-#pragma endregion
-
 void Ammunition::update(const sf::Time& deltaTime)
 {
-	updateAnimation(deltaTime);
-	updatePosition(deltaTime);
+
+	if (!m_MarkedForDeletion) {
+		updateAnimation(deltaTime);
+		updatePosition(deltaTime);
+	}
+
 	updateIndividualBehavior(deltaTime);
 
 	if (!Helpers::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
-		m_CanBeDeleted = true;
+		markForDeletion(false);
 }
 
 

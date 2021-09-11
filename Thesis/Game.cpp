@@ -44,6 +44,8 @@ void Game::processEvents()
 	{
 		if (sfevent.type == sf::Event::Closed)
 			m_Window.close(); //close the window
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
+			system("CLS");
 
 		m_States.top()->processEvents(sfevent);
 	}

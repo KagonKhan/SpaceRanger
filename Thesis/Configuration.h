@@ -46,7 +46,7 @@ public:
 	static 	sf::RectangleShape tar;
 
 
-	static ResourceManager<sf::SoundBuffer, int> sounds;
+
 	static ResourceManager<sf::Music, int> musics;
 	static ResourceManager<sf::Font, int> fonts;
 
@@ -90,7 +90,7 @@ public:
 	enum class TexturesWeaponry {
 		turret_laser, turret_rocket, turret_beam,
 
-		ammo_laser, ammo_missile, ammo_missile_thrusters, ammo_beam,
+		ammo_laser, ammo_missile, ammo_missile_thrusters, ammo_missile_death_anim,ammo_beam,
 	};
 	enum class TexturesShips
 	{
@@ -124,11 +124,13 @@ public:
 		Down,
 		Shoot,
 	};
-	enum Sounds : int {
-		LaserPlayer,
-		Missile,
-		Beam
+	enum class Sounds {
+		laser,
+		missile, missile_explosion,
+		beam,
 	};
+	static ResourceManager<sf::SoundBuffer, Sounds> sounds;
+
 	enum Musics : int {
 		MainMenuTheme
 	};

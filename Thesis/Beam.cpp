@@ -38,3 +38,7 @@ void Beam::updateIndividualBehavior(const sf::Time& deltaTime)
 	if (m_AnimatedSprite.getStatus() != AnimatedSprite::Status::Playing)
 		m_CanBeDeleted = true;
 }
+
+void Beam::onDeletion(bool playAnimation)
+{
+}

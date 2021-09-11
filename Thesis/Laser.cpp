@@ -24,6 +24,11 @@ void Laser::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 }
 
+void Laser::onDeletion(bool playAnimation)
+{
+	m_CanBeDeleted = true;
+}
+
 Laser::~Laser()
 {
 
@@ -31,6 +36,7 @@ Laser::~Laser()
 
 float Laser::dealDamage()
 {
+	markForDeletion(true);
 	return 10.f;
 }
 

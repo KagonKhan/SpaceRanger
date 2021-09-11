@@ -156,9 +156,6 @@
     <ClCompile Include="CanCollide.cpp">
       <Filter>Game\Entities\Attributes</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Layout.cpp">
       <Filter>GUI\Widgets\Layouts</Filter>
     </ClCompile>
@@ -246,6 +243,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Game\Entities\Weapon\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -319,9 +319,6 @@
     </ClInclude>
     <ClInclude Include="CanCollide.h">
       <Filter>Game\Entities\Attributes</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Layout.h">
       <Filter>GUI\Widgets\Layouts</Filter>
@@ -416,5 +413,11 @@
     <ClInclude Include="Weaponry.h">
       <Filter>Game\Entities\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

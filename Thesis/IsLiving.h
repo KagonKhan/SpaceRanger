@@ -31,5 +31,7 @@ public:
 	int getCurrentPlating() const;
 	double getCurrentArmor() const;
 
+	virtual void onDestroy() = 0;
+
 	ShipStats& getShipStats();
 };

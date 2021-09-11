@@ -26,7 +26,7 @@ void MissileTurret::createBullet()
 
 void MissileTurret::createSound()
 {
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::Missile)));
+	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::missile)));
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 	sound->setVolume(volume);
 

@@ -19,11 +19,13 @@ private:
 
 	virtual void initAnimation() = 0;
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
+	virtual void onDeletion(bool playAnimation) = 0;
 
 protected:
 	float m_Speed, m_DegAngle, m_RadAngle;
 
 	bool m_CanBeDeleted;
+	bool m_MarkedForDeletion;
 
 	sf::Vector2f m_Boundaries;
 
@@ -49,7 +51,8 @@ public:
 	void rotateSprite(float angle);
 #pragma endregion
 
+	void markForDeletion(bool playAnimation = false);
+
 	bool canBeDeleted();
-	void setCanDelete(bool deletion);
 	virtual float dealDamage() = 0;
 };

@@ -21,7 +21,7 @@ void IsLiving::receiveDamage(double amount)
 {
 	m_ShipStats.m_CurrentHp -= amount;
 	if (m_ShipStats.m_CurrentHp <= 0)
-		m_ShipStats.m_IsAlive = false;
+		onDestroy();
 }
 
 bool IsLiving::isAlive() const

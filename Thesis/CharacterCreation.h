@@ -4,7 +4,8 @@
 /* TODO: add proper buttons, sprites, */
 
 class HangarState;
-struct CharacterCreation : public sf::Drawable
+class CharacterCreation : 
+	public sf::Drawable
 {
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;

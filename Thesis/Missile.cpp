@@ -1,10 +1,24 @@
 #include "pch.h"
 #include "Missile.h"
 
-Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::TexturesWeaponry thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	: Ammunition(thrusters, boundaries, deg_angle, speed),
-	m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f)
+void Missile::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
+	if (m_MarkedForDeletion)
+		target.draw(m_DeathAnimationSprite);
+	else {
+		target.draw(m_AnimatedSprite);
+		target.draw(m_Sprite);
+	}
+
+}
+
+
+Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::TexturesWeaponry thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed)
+	: Ammunition(thrusters, boundaries, deg_angle, speed), m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_missile_death_anim)),
+	m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f),
+	m_DeathSound(Configuration::sounds.get(Configuration::Sounds::missile_explosion))
+{
+	puts("Missile\tctor");
 	initAnimation();
 
 
@@ -13,6 +27,11 @@ Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::Textures
 	m_Sprite.setScale(0.5f, 0.5f);
 	m_Sprite.setPosition(m_Position);
 
+}
+
+Missile::~Missile()
+{
+	puts("Missile\tdtor");
 }
 
 void Missile::initAnimation()
@@ -26,6 +45,18 @@ void Missile::initAnimation()
 	m_AnimatedSprite.setFrameTime(sf::seconds(0.1f));
 	m_AnimatedSprite.setColor(sf::Color::Yellow);
 	m_AnimatedSprite.play();
+
+
+
+	for(int i = 1; i <= 9; ++i)
+		m_DeathAnimation.addFramesLine(9, 9, i);
+
+	m_DeathAnimationSprite.setAnimation(&m_DeathAnimation);
+	m_DeathAnimationSprite.setOrigin(m_DeathAnimationSprite.getSize() / 2.f);
+	m_DeathAnimationSprite.setFrameTime(sf::seconds(0.0125f));
+	m_DeathAnimationSprite.setRepeat(1);
+	m_DeathAnimationSprite.setLoop(false);
+	m_DeathAnimationSprite.pause();
 }
 
 void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
@@ -33,6 +64,15 @@ void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
 
 	if (m_Target)
 		updateTrackingSystem(deltaTime);
+
+
+	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Playing) 
+		m_DeathAnimationSprite.update(deltaTime);
+	
+		
+	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Stopped) 
+		m_CanBeDeleted = true;
+
 }
 
 void Missile::updateTrackingSystem(const sf::Time& deltaTime)
@@ -63,11 +103,19 @@ void Missile::updateTrackingSystem(const sf::Time& deltaTime)
 	}
 }
 
-void Missile::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Missile::onDeletion(bool playAnimation)
 {
+	if (playAnimation) {
+		m_MarkedForDeletion = true;
+		m_DeathAnimationSprite.setPosition(m_Position);
+		m_DeathAnimationSprite.play();
 
-	target.draw(m_AnimatedSprite);
-	target.draw(m_Sprite);
+		m_DeathSound.setPosition(m_Position.x, -m_Position.y, 0.f);
+		m_DeathSound.setVolume(50);
+		m_DeathSound.setMinDistance(std::sqrt(200 * 200 + 300 * 300));
+		m_DeathSound.play();
+	}
+	else m_CanBeDeleted = true;
 }
 
 void Missile::lockOnTarget(const Entity* target)
@@ -77,7 +125,11 @@ void Missile::lockOnTarget(const Entity* target)
 
 float Missile::dealDamage()
 {
-	return 50.f;
+	if (!m_MarkedForDeletion) {
+		markForDeletion(true);
+		return 50.f;
+	}
+	return 0.f;
 }
 
 

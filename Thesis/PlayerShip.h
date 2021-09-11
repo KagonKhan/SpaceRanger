@@ -27,12 +27,12 @@ private:
 	void updateSprites(const sf::Time& deltaTime) override;
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
+	void onDestroy() override;
 
 public:
 	PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player);
 	PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries);
 	virtual ~PlayerShip();
-
 
 
 	const sf::Sprite& getSprite()const;

@@ -1,7 +1,8 @@
 #pragma once
 #include "PlayerShip.h"
 
-class Player : public sf::Drawable
+class Player :
+	public sf::Drawable
 {
 friend class PlayerInfoSheet;
 friend class HangarState;

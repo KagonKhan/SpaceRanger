@@ -43,6 +43,11 @@ PlayerShip::~PlayerShip()
 {
 }
 
+void PlayerShip::onDestroy()
+{
+	puts("Player destroyed");
+}
+
 #pragma region Initializers / Setters / Getters
 
 void PlayerShip::initVariables() 
@@ -54,10 +59,10 @@ void PlayerShip::initVariables()
 
 void PlayerShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f( 60.f, 0.f), .5f, WeaponType::Missile);
-	initWeapon(m_Position, sf::Vector2f(-60.f, 0.f), .5f, WeaponType::Missile);
-	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  5.f, WeaponType::Laser);
-	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  5.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f( 60.f, 0.f), 25.5f, WeaponType::Missile);
+	initWeapon(m_Position, sf::Vector2f(-60.f, 0.f), 25.5f, WeaponType::Missile);
+	//initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  5.f, WeaponType::Laser);
+	//initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  5.f, WeaponType::Laser);
 	initWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
 }
 
