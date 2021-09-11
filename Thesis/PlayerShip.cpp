@@ -1,19 +1,16 @@
 ﻿#include "pch.h"
 #include "PlayerShip.h"
+#include "Weaponry.h"
 
 void PlayerShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
 	for (auto&& weapon : m_Weapons)
 		target.draw(*weapon);
 
 	target.draw(m_Sprite);
 	target.draw(m_ExhaustAnimatedSpriteLeft);
 	target.draw(m_ExhaustAnimatedSpriteRight);
-	
-	
 }
-
 
 PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player)
 	: Ship(100, tex_id), m_Boundaries(boundaries), 
@@ -61,8 +58,10 @@ void PlayerShip::initWeapons()
 {
 	initWeapon(m_Position, sf::Vector2f( 60.f, 0.f),  .25f, WeaponType::Missile);
 	initWeapon(m_Position, sf::Vector2f(-60.f, 0.f),  .25f, WeaponType::Missile);
-	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  1.f, WeaponType::Laser);
-	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  1.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
+	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
 	initWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
 }
 

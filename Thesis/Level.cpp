@@ -1,7 +1,14 @@
 #include "pch.h"
 #include "Level.h"
+#include "BeamShip.h"
+#include "BossEnemyShip.h"
+#include "MinigunShip.h"
+#include "RocketShip.h"
 #include "ScoutEnemyShip.h"
-
+#include "ScoutShipV2.h"
+#include "StealthShip.h"
+#include "SupportShip.h"
+#include "TankShip.h"
 
 #include "Ammunition.h"
 #include "PlayerShip.h"
@@ -16,9 +23,7 @@ void Level::draw(sf::RenderTarget& target, sf::RenderStates) const
 Level::Level(sf::RenderWindow& window, PlayerShip& player)
 	:m_Window(window), m_Player(player)
 {
-	sf::FloatRect rect(0, 0, m_Window.getSize().x, m_Window.getSize().y / 3.f);
 
-	populateAreaWithEnemies(m_Enemies, EnemyShips::scout, rect, sf::Vector2f(20.f,10.f));
 }
 
 Level::~Level()
@@ -28,13 +33,16 @@ Level::~Level()
 void Level::update(const sf::Time& deltaTime)
 {
 	checkCollisions();
-	
+	static int type = 7;
 	for (auto&& entity : m_Enemies) {
 		entity->update(deltaTime);
 	}
 	if (m_Enemies.empty()) {
-		sf::FloatRect rect(0, 0, m_Window.getSize().x, m_Window.getSize().y / 3.f);
-		populateAreaWithEnemies(m_Enemies, EnemyShips::scout, rect, sf::Vector2f(20.f, 10.f));
+		sf::FloatRect rect(0, 0, m_Window.getSize().x/3, m_Window.getSize().y /3);
+		populateAreaWithEnemies(m_Enemies, EnemyShips(type), rect, sf::Vector2f(20.f, 10.f));
+		++type;
+
+		type %= 9;
 	}
 }
 
@@ -83,7 +91,7 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 	for(int i = 0; i < num_x; i++)
 		for (int j = 0; j < num_y; j++) {
 			
-			auto enemy = createEnemy(EnemyShips::scout);
+			auto enemy = createEnemy(enemyShip);
 
 			sf::Vector2f pos(area.left + i* size.x, area.top + j * size.y);
 
@@ -92,7 +100,6 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 
 			pos.x += (i + 1) * mid_padding.x;
 			pos.y += (j + 1) * mid_padding.y;
-
 
 			enemy->setPosition(pos);
 
@@ -139,42 +146,48 @@ EnemyShip::ptr Level::createEnemy(EnemyShips ship)
 
 EnemyShip::ptr Level::createEnemyMinigun()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<MinigunShip> enemy(new MinigunShip(Configuration::TexturesShips::enemy_ship_minigun));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemySupport()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<SupportShip> enemy(new SupportShip(Configuration::TexturesShips::enemy_ship_support));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyBeam()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<BeamShip> enemy(new BeamShip(Configuration::TexturesShips::enemy_ship_beam));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyRocket()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<RocketShip> enemy(new RocketShip(Configuration::TexturesShips::enemy_ship_rocket));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyScout()
 {
 	std::unique_ptr<ScoutEnemyShip> enemy(new ScoutEnemyShip(Configuration::TexturesShips::enemy_ship_scout));
-	
-
 	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyTank()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<TankShip> enemy(new TankShip(Configuration::TexturesShips::enemy_ship_tank));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyScoutV2()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<ScoutShipV2> enemy(new ScoutShipV2(Configuration::TexturesShips::enemy_ship_scout_v2));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyStealth()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<StealthShip> enemy(new StealthShip(Configuration::TexturesShips::enemy_ship_stealth));
+	return std::move(enemy);
 }
 EnemyShip::ptr Level::createEnemyBoss()
 {
-	return EnemyShip::ptr();
+	std::unique_ptr<BossEnemyShip> enemy(new BossEnemyShip(Configuration::TexturesShips::enemy_ship_boss));
+	return std::move(enemy);
 }
 
 #pragma endregion
@@ -224,7 +237,6 @@ void Level::checkForDeletion()
 	for (unsigned int i = 0; i < m_Enemies.size(); ++i) {
 		if (m_Enemies[i]->shouldBeDeleted() && m_Enemies[i]->canBeDeleted())
 			m_Enemies.erase(m_Enemies.begin() + i);
-
 	}
 }
 

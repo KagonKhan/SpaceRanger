@@ -43,6 +43,7 @@ public:
 
 #pragma region SETTERS / GETTERS
 	void setPosition(const sf::Vector2f& pos) override;
+	void setSpeed(float speed);
 	float getRotation()const;
 	float getRotationRad()const;
 	float getSpriteRotation()const;

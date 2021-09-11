@@ -5,8 +5,10 @@ void Ship::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	target.draw(m_Sprite);
 
+
 	for (auto&& weapon : m_Weapons)
 		target.draw(*weapon);
+
 
 }
 

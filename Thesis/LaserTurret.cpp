@@ -3,18 +3,23 @@
 #include "Laser.h"
 
 LaserTurret::LaserTurret(Configuration::TexturesWeaponry tex_id)
-	: Weapon(tex_id)
+	: Weapon(tex_id), m_Pattern(Laser::Patterns::straight)
 {
-
+	
 }
 
 LaserTurret::~LaserTurret()
 {
 }
 
+void LaserTurret::setPattern(Laser::Patterns pattern)
+{
+	m_Pattern = pattern;
+}
+
 void LaserTurret::createBullet()
 {
-	std::unique_ptr<Laser> shot(new Laser(Configuration::TexturesWeaponry::ammo_laser, Configuration::boundaries, -90, 1200));
+	std::unique_ptr<Laser> shot(new Laser(Configuration::TexturesWeaponry::ammo_laser, Configuration::boundaries, -90, 1200, m_Pattern));
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 

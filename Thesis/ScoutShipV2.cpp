@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "BossEnemyShip.h"
+#include "ScoutShipV2.h"
 
-BossEnemyShip::BossEnemyShip(Configuration::TexturesShips tex_id)
+ScoutShipV2::ScoutShipV2(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {
 	initWeapons();
 }
 
-BossEnemyShip::~BossEnemyShip()
+ScoutShipV2::~ScoutShipV2()
 {
 }
 
 
-void BossEnemyShip::initWeapons()
+void ScoutShipV2::initWeapons()
 {
 	initWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 	initWeapon(m_Position, sf::Vector2f(70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
@@ -21,12 +21,12 @@ void BossEnemyShip::initWeapons()
 		weapon->setVisible(false);
 }
 
-void BossEnemyShip::updateIndividualBehavior(const sf::Time& deltaTime)
+void ScoutShipV2::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 	shoot(deltaTime);
 }
 
-void BossEnemyShip::shoot(const sf::Time& deltaTime)
+void ScoutShipV2::shoot(const sf::Time& deltaTime)
 {
 	static float time = 0.f;
 	static float max = 5 + rand() % 10;
@@ -40,7 +40,7 @@ void BossEnemyShip::shoot(const sf::Time& deltaTime)
 	}
 }
 
-void BossEnemyShip::onDestroy()
+void ScoutShipV2::onDestroy()
 {
 }
 

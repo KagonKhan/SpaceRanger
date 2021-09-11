@@ -29,11 +29,10 @@ void BeamTurret::createBullet()
 void BeamTurret::createSound()
 {
 	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::beam)));
-	sound->setAttenuation(0);
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 
 
-	sound->setAttenuation(8.f);
+	sound->setAttenuation(1.f);
 	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
 	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
 	sound->setVolume(volume * 10);
@@ -46,6 +45,7 @@ void BeamTurret::createSound()
 void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 	if (m_Shots.empty())
+		if(m_Parent.has_value())
 		if (typeid(m_Parent.value().get()).name() == typeid(PlayerShip).name()) {
 			PlayerShip* ship = dynamic_cast<PlayerShip*>(&m_Parent.value().get());
 			if (ship->getAreActionsBlocked())

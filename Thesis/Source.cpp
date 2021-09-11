@@ -39,8 +39,8 @@
 		- Sprite collision detection does not work. I suppose the issue is in the animator. 
 			non animated sprite like missile works as expected
 		- Weapons probably should spawn bullets inside world class? instead of holding them inside?
-
-
+		- Some sound optimization is required. With many enemies there is too many sound sources
+		- For some reason BeamShip does not make a sound when shooting
 
 
 

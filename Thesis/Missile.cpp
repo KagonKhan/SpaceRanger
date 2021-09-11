@@ -18,7 +18,7 @@ Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::Textures
 	m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f),
 	m_DeathSound(Configuration::sounds.get(Configuration::Sounds::missile_explosion))
 {
-	puts("Missile\tctor");
+
 	initAnimation();
 
 
@@ -31,7 +31,7 @@ Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::Textures
 
 Missile::~Missile()
 {
-	puts("Missile\tdtor");
+
 }
 
 void Missile::initAnimation()

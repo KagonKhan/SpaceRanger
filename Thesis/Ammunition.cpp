@@ -132,3 +132,8 @@ void Ammunition::setPosition(const sf::Vector2f& pos)
 	m_Sprite.setPosition(pos);
 	m_AnimatedSprite.setPosition(pos);
 }
+
+void Ammunition::setSpeed(float speed)
+{
+	m_Speed = speed;
+}

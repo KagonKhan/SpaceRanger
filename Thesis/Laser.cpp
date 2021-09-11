@@ -11,13 +11,16 @@ void Laser::draw(sf::RenderTarget& target, sf::RenderStates) const
 	}
 }
 
-Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
+Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Patterns pattern)
 	: Ammunition(tex_id, boundaries, deg_angle, speed),
 	m_DeathSound(Configuration::sounds.get(Configuration::Sounds::laser_hit)),
-	m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_laser_hit))
-
+	m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_laser_hit)),
+	m_Pattern(pattern)
 {
 	initAnimation();
+	srand(reinterpret_cast<unsigned int>(this));
+
+	m_Speed = 1500.f;
 }
 
 Laser::~Laser()
@@ -48,7 +51,7 @@ void Laser::initAnimation()
 	m_DeathAnimationSprite.setRepeat(1);
 	m_DeathAnimationSprite.setLoop(false);
 	m_DeathAnimationSprite.pause();
-	m_DeathAnimationSprite.setScale(0.05f, 0.05f);
+	m_DeathAnimationSprite.setScale(0.15f, 0.15f);
 
 
 
@@ -58,6 +61,21 @@ void Laser::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 	if (m_MarkedForDeletion)
 		updateDeathEvents(deltaTime);
+
+	updateMovementPatters(deltaTime);
+}
+
+void Laser::updateMovementPatters(const sf::Time& deltaTime)
+{		
+	switch (m_Pattern) {
+	case Patterns::straight:
+
+		break;
+	case Patterns::swarm:
+		rotate(static_cast<float>(rand()%3 - 1));
+		break;
+	}
+	
 }
 
 void Laser::onDeletion(bool playAnimation)
@@ -94,4 +112,3 @@ float Laser::dealDamage()
 	}
 	return 0.f;
 }
-

@@ -1,7 +1,7 @@
 #pragma once
 #include "EnemyShip.h"
-class BossEnemyShip :
-	public EnemyShip
+class BeamShip :
+    public EnemyShip
 {
 private:
 
@@ -12,6 +12,7 @@ private:
 	void onDestroy() override;
 
 public:
-	BossEnemyShip(Configuration::TexturesShips tex_id);
-	virtual ~BossEnemyShip();
+	BeamShip(Configuration::TexturesShips tex_id);
+	virtual ~BeamShip();
 };
+

@@ -246,6 +246,27 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="BeamShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="MinigunShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoutShipV2.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="StealthShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="SupportShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="TankShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -415,6 +436,27 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TankShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="SupportShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="StealthShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoutShipV2.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="BeamShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="MinigunShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
