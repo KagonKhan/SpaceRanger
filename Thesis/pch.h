@@ -17,7 +17,8 @@
 #include <stack>
 #include <list>
 #include <unordered_map>
-
+#include <queue>
+#include <deque>
 
 #include <functional>
 #include <utility>

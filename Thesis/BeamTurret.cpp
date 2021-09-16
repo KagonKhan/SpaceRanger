@@ -39,7 +39,7 @@ void BeamTurret::createSound()
 
 
 	sound->play();
-	m_Sounds.emplace_back(std::move(sound));
+	m_Sounds.emplace(std::move(sound));
 }
 
 void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)

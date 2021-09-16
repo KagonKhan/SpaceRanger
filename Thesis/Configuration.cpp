@@ -4,7 +4,7 @@
 
 short int Configuration::m_MasterVolume = 10;
 short int Configuration::m_SoundEffectsVolume = 10; 
-short int Configuration::m_SoundVolume = 20;
+short int Configuration::m_SoundVolume = 10;
 short int Configuration::m_DialogueVolume = 20;
 
 

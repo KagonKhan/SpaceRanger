@@ -16,8 +16,8 @@ protected:
 	// Constant deletion on random indexes
 	// If testing results in slow processing, I might think of custom containers
 	std::vector<std::unique_ptr<Ammunition>> m_Shots;
-	// TODO better containers exists for this job, implement them
-	std::list<std::unique_ptr<sf::Sound>> m_Sounds;
+
+	std::queue<std::unique_ptr<sf::Sound>> m_Sounds;
 
 	const Entity* m_Target;
 	
@@ -30,9 +30,9 @@ protected:
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
 
 
+
 	virtual void createBullet() = 0;
 	virtual void createSound() = 0;
-
 
 	std::vector<Ammunition*> ghostPTR;
 
@@ -43,7 +43,7 @@ public:
 
 	void setIsWeaponActive(bool isActive);
 	bool isActive();
-	void shoot();
+	bool shoot();
 	void update(const sf::Time& deltaTime) override final;
 
 	std::vector<Ammunition*>& getShots();

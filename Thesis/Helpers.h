@@ -1,5 +1,5 @@
 #pragma once
-
+#include <filesystem>
 class Helpers
 {
 private:
@@ -7,7 +7,7 @@ private:
 	Helpers(const Helpers&) = delete;
 	Helpers& operator= (const Helpers&) = delete;
 public:
-
+	
 	static void CreateWindow(sf::RenderWindow& window, std::optional<std::string> fileContents = std::nullopt);
 	static void LoadFileToString(const std::filesystem::path& path, std::string& loadTo);
 	static void ReplaceFirstOccurance(std::string& s, const std::string& toReplace, const std::string& replaceWith);

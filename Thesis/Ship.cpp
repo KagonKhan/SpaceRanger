@@ -29,12 +29,16 @@ void Ship::update(const sf::Time& deltaTime)
 		m_AreActionsBlocked = true;
 		return;
 	}
+	if (m_AreActionsBlocked)
+		return;
+
+
 
 	updateIndividualBehavior(deltaTime);
 	updateMovement(deltaTime);
 	updatePosition(deltaTime);
 	updateSprites(deltaTime);
-
+	
 }
 
 void Ship::updateMovement(const sf::Time& deltaTime){}
@@ -55,6 +59,8 @@ void Ship::updateWeapons(const sf::Time& deltaTime)
 	for (auto&& weapon : m_Weapons)
 		weapon->update(deltaTime);
 }
+
+#pragma region SETTERS / GETTERS
 
 void Ship::setPosition(const sf::Vector2f& pos)
 {
@@ -113,6 +119,8 @@ void Ship::markForDeletion()
 {
 	m_MarkedForDeletion = true;
 }
+
+#pragma endregion
 
 void Ship::onDestroy()
 {

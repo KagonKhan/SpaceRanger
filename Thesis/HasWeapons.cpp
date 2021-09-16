@@ -44,9 +44,14 @@ void HasWeapons::addWeapon(std::unique_ptr<Weapon> weapon)
 //possibly add some index 
 void HasWeapons::shoot()
 {
+	bool result = false;
 	for (auto&& weapon : m_Weapons) {
-		if(weapon->isActive())
-			weapon->shoot();
-	
+		if (weapon->isActive()) {
+			result = weapon->shoot();
+		}
 	}
+
+	// This is a workaround so that weapons shooting all at once don't make multiple sounds - openAL limitation
+	//if (result)
+	//	m_Weapons.back()->createSound();
 }

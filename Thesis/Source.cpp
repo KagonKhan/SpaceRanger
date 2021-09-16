@@ -5,12 +5,12 @@
 /* NEAREST ENDEAVOURS 
 *	- Fill out other ship type classes
 *	- Have on death animation
-*	- Rocket explode animation
 * 
 * 
 * 
 * 
 * 
+*	-  DONE || Rocket explode animation
 */
 
 
@@ -92,6 +92,12 @@ int main() {
 	catch (std::exception& e) {
 		std::cout << e.what();
 	}
+
+
+
+
+
+
 }
 
 /*

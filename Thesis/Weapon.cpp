@@ -85,14 +85,18 @@ void Weapon::setPosition(float x, float y)
 #pragma endregion
 
 
-void Weapon::shoot()
+bool Weapon::shoot()
 {
 	if(m_IsWeaponActive)
 		if (m_TimeSinceLastShot > m_FiringDelay) {
 			createBullet();
 			createSound();
 			m_TimeSinceLastShot = 0;
+
+			return true;
 		}
+
+	return false;
 }
 
 void Weapon::update(const sf::Time& deltaTime)
@@ -121,7 +125,7 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 		m_Shots[i]->update(deltaTime);
 
 		if (m_Shots[i]->canBeDeleted())
-			m_Shots.erase(m_Shots.begin() + i);
+			m_Shots.erase(m_Shots.begin() + i--);
 
 	}
 }
@@ -140,9 +144,12 @@ void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 
 void Weapon::deleteFinishedSounds()
 {
-	m_Sounds.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {
+	while (m_Sounds.size() > 0 && m_Sounds.front()->getStatus() == sf::Sound::Status::Stopped)
+		m_Sounds.pop();
+
+	/*m_Sounds.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {
 		return sound->getStatus() != sf::SoundSource::Status::Playing;
-		});
+		});*/
 }
 
 std::vector<Ammunition*>& Weapon::getShots()

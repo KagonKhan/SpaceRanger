@@ -36,7 +36,7 @@ void MissileTurret::createSound()
 	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
 
 	sound->play();
-	m_Sounds.emplace_back(std::move(sound));
+	m_Sounds.emplace(std::move(sound));
 }
 
 void MissileTurret::updateIndividualBehavior(const sf::Time& deltaTime)

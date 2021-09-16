@@ -41,7 +41,7 @@ void LaserTurret::createSound()
 
 
 
-	m_Sounds.emplace_back(std::move(sound));
+	m_Sounds.emplace(std::move(sound));
 }
 
 void LaserTurret::updateIndividualBehavior(const sf::Time& deltaTime)
