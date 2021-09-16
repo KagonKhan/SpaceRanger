@@ -42,7 +42,7 @@
 		- Some sound optimization is required. With many enemies there is too many sound sources
 		- For some reason BeamShip does not make a sound when shooting
 
-
+		- Laser hit animation stays on screen for some time
 
 
 

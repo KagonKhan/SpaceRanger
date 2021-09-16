@@ -118,12 +118,14 @@ bool Ship::shouldBeDeleted()
 void Ship::markForDeletion()
 {
 	m_MarkedForDeletion = true;
+	m_AreActionsBlocked = true;
 }
 
 #pragma endregion
 
 void Ship::onDestroy()
 {
-	setPosition(sf::Vector2f(-99999, -99999));
+	setPosition(-99999, -99999);
+	markForDeletion();
 }
 

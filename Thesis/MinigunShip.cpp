@@ -38,5 +38,6 @@ void MinigunShip::shoot(const sf::Time& deltaTime)
 
 void MinigunShip::onDestroy()
 {
+	Ship::onDestroy();
 }
 

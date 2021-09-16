@@ -37,5 +37,6 @@ void TankShip::shoot(const sf::Time& deltaTime)
 
 void TankShip::onDestroy()
 {
+	Ship::onDestroy();
 }
 

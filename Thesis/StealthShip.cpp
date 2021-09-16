@@ -46,5 +46,6 @@ void StealthShip::shoot(const sf::Time& deltaTime)
 
 void StealthShip::onDestroy()
 {
+	Ship::onDestroy();
 }
 

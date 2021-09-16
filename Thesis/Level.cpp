@@ -222,14 +222,9 @@ void Level::checkEnemyCollisions()
 	for(auto&& ammo : ammunition)
 		for (auto&& enemy : m_Enemies)
 			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
-				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) {
+				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U))
 					enemy->receiveDamage(ammo->dealDamage());
-					if (enemy->getCurrentHP() <= 0) {
-						enemy->setPosition(-99999, -99999);
-						enemy->markForDeletion();
-					}
-
-				}
+				
 }
 
 void Level::checkForDeletion()

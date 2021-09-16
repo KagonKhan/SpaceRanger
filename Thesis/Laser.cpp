@@ -4,8 +4,10 @@
 
 void Laser::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	if (m_MarkedForDeletion)
-		target.draw(m_DeathAnimationSprite);
+	if (m_MarkedForDeletion) {
+		if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Playing)
+			target.draw(m_DeathAnimationSprite);
+	}
 	else {
 		target.draw(m_AnimatedSprite);
 	}
@@ -98,7 +100,6 @@ void Laser::updateDeathEvents(const sf::Time& deltaTime)
 {
 	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Playing)
 		m_DeathAnimationSprite.update(deltaTime);
-
 
 	if (m_DeathAnimationSprite.getStatus() == AnimatedSprite::Status::Stopped && m_DeathSound.getStatus() == sf::Sound::Status::Stopped)
 		m_CanBeDeleted = true;

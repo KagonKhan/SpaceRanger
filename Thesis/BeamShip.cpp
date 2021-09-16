@@ -34,5 +34,6 @@ void BeamShip::shoot(const sf::Time& deltaTime)
 
 void BeamShip::onDestroy()
 {
+	Ship::onDestroy();
 }
 

@@ -17,7 +17,7 @@ IsLiving::~IsLiving()
 	m_ShipStats.m_IsAlive = false;
 }
 
-void IsLiving::receiveDamage(double amount)
+void IsLiving::receiveDamage(double amount) 
 {
 	m_ShipStats.m_CurrentHp -= amount;
 	if (m_ShipStats.m_CurrentHp <= 0)

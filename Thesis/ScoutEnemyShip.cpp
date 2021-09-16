@@ -42,5 +42,6 @@ void ScoutEnemyShip::shoot(const sf::Time& deltaTime)
 
 void ScoutEnemyShip::onDestroy()
 {
+	Ship::onDestroy();
 }
 

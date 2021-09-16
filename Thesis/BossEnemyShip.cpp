@@ -42,5 +42,6 @@ void BossEnemyShip::shoot(const sf::Time& deltaTime)
 
 void BossEnemyShip::onDestroy()
 {
+	Ship::onDestroy();
 }
 
