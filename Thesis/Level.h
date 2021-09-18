@@ -1,6 +1,5 @@
 #pragma once
-#include "EnemyShip.h"
-
+#include "Fleet.h"
 class Level :
 	public sf::Drawable
 {
@@ -11,7 +10,7 @@ protected:
 	sf::RenderWindow& m_Window;
 	PlayerShip& m_Player;
 	
-	std::vector<std::vector<EnemyShip::ptr>> m_Enemies;
+	std::vector<Fleet> m_Enemies;
 
 
 	void updateEnemies(const sf::Time& deltaTime);
@@ -32,9 +31,9 @@ public:
 	};
 
 	void populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding);
-	std::vector<std::vector<EnemyShip::ptr>>& getEnemies();
-	void addGroupOfEnemies(std::vector<EnemyShip::ptr> enemies);
-
+	std::vector<Fleet>& getEnemies();
+	void addFleet(std::vector<EnemyShip::ptr> fleet);
+	Fleet& getFleet(int index);
 
 #pragma region enemy init
 private :

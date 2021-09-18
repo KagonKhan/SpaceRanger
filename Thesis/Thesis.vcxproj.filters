@@ -273,6 +273,9 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Fleet.cpp">
+      <Filter>Game\Entities\Ship</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -469,6 +472,9 @@
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Fleet.h">
+      <Filter>Game\Entities\Ship</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

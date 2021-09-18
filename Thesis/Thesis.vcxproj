@@ -184,6 +184,7 @@
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Fleet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HangarState.cpp" />
     <ClCompile Include="HasWeapons.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Fleet.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HangarState.h" />
     <ClInclude Include="HasWeapons.h" />

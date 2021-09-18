@@ -16,11 +16,8 @@
 
 void Level::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	for (auto&& group : m_Enemies) {
-		for(auto&& enemy : group)
-		target.draw(*enemy);
-
-	}
+	for (auto&& fleet : m_Enemies) 
+		target.draw(fleet);
 }
 
 Level::Level(sf::RenderWindow& window, PlayerShip& player)
@@ -95,7 +92,7 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 			enemies.push_back(std::move(enemy));
 		}
 
-	addGroupOfEnemies(std::move(enemies));
+	addFleet(std::move(enemies));
 }
 
 
@@ -185,14 +182,21 @@ EnemyShip::ptr Level::createEnemyBoss()
 #pragma endregion
 
 
-std::vector<std::vector<EnemyShip::ptr>>& Level::getEnemies()
+std::vector<Fleet>& Level::getEnemies()
 {
 	return m_Enemies;
 }
 
-void Level::addGroupOfEnemies(std::vector<EnemyShip::ptr> enemies)
+void Level::addFleet(std::vector<EnemyShip::ptr> fleet)
 {
-	m_Enemies.push_back(std::move(enemies));
+	Fleet temp;
+	temp.addFleet(std::move(fleet));
+	m_Enemies.push_back(std::move(temp));
+}
+
+Fleet& Level::getFleet(int index)
+{
+	return m_Enemies.at(index);
 }
 
 
@@ -204,9 +208,8 @@ void Level::update(const sf::Time& deltaTime)
 
 void Level::updateEnemies(const sf::Time& deltaTime)
 {
-	for (auto&& group : m_Enemies)
-		for (auto&& enemy : group)
-			enemy->update(deltaTime);
+	for (auto&& fleet : m_Enemies)
+		fleet.update(deltaTime);
 
 }
 
@@ -220,8 +223,8 @@ void Level::checkCollisions()
 void Level::checkPlayerCollisions()
 {
 	std::vector<Ammunition*> ammunition;
-	for (auto&& group : m_Enemies)
-		for (auto&& enemy : group)
+	for (auto&& fleet : m_Enemies)
+		for (auto&& enemy : fleet.getShips())
 			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr)
 				ammunition.insert(ammunition.begin(), ptr->getShots().begin(), ptr->getShots().end());
 	
@@ -238,8 +241,8 @@ void Level::checkEnemyCollisions()
 	ammunition.insert(ammunition.begin(), m_Player.getShots().begin(), m_Player.getShots().end());
 
 	for(auto&& ammo : ammunition)
-		for (auto&& group : m_Enemies) 
-			for (auto&& enemy : group)
+		for (auto&& fleet : m_Enemies) 
+			for (auto&& enemy : fleet.getShips())
 				if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
 					if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U))
 						enemy->receiveDamage(ammo->dealDamage());
@@ -248,10 +251,12 @@ void Level::checkEnemyCollisions()
 
 void Level::checkForDeletion()
 {
-	for (size_t i = 0; i < m_Enemies.size(); ++i) {
-		for(size_t j = 0; j < m_Enemies[i].size(); ++j)
-			if (m_Enemies[i][j]->shouldBeDeleted() && m_Enemies[i][j]->canBeDeleted())
-				m_Enemies[i].erase(m_Enemies[i].begin() + j--);
+
+
+	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num) {
+		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
+			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted() && m_Enemies[fleet_num][ship_num]->canBeDeleted())
+				m_Enemies[fleet_num].erase(ship_num--);
 	}
 
 	// TODO: check if this is necessary - do I have to delete an empty subvector or is it automagically
