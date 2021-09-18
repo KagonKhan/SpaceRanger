@@ -15,4 +15,6 @@ private:
 public:
 	BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref parent = std::nullopt);
 	virtual ~BeamTurret();
+
+	void stop();
 };

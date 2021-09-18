@@ -4,7 +4,6 @@
 
 void SpaceState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
 	target.draw(m_Background);
 	target.draw(m_Player);
 	target.draw(m_Level);
@@ -22,10 +21,12 @@ SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 {
 	puts("SpaceState\tctor");
 
-	
+	m_LevelManager = std::make_unique<Level_One>(m_Level);
 
 	initPlayer();
 }
+
+
 void SpaceState::initGUI()
 {
 
@@ -60,9 +61,9 @@ void SpaceState::update(const sf::Time& deltaTime)
 		return;
 	}
 	m_Player.update(deltaTime);
-
 	m_Background.update(deltaTime);
-	m_Level.update(deltaTime);
+
+	m_LevelManager->update(deltaTime);
 }
 
 

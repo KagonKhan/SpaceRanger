@@ -12,10 +12,13 @@
 
 #include "Ammunition.h"
 #include "PlayerShip.h"
+
+
 void Level::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	for (auto&& entity : m_Enemies) {
-		target.draw(*entity);
+	for (auto&& group : m_Enemies) {
+		for(auto&& enemy : group)
+		target.draw(*enemy);
 
 	}
 }
@@ -28,22 +31,6 @@ Level::Level(sf::RenderWindow& window, PlayerShip& player)
 
 Level::~Level()
 {
-}
-
-void Level::update(const sf::Time& deltaTime)
-{
-	checkCollisions();
-	static int type = 7;
-	for (auto&& entity : m_Enemies) {
-		entity->update(deltaTime);
-	}
-	if (m_Enemies.empty()) {
-		sf::FloatRect rect(0, 0, m_Window.getSize().x/3, m_Window.getSize().y /3);
-		populateAreaWithEnemies(m_Enemies, EnemyShips(type), rect, sf::Vector2f(20.f, 10.f));
-		++type;
-
-		type %= 9;
-	}
 }
 
 
@@ -88,6 +75,8 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 	mid_padding.x = (area.width - static_cast<float>(num_x) * size.x) / static_cast<float>(num_x);
 	mid_padding.y = (area.height- static_cast<float>(num_y) * size.y) / static_cast<float>(num_y);
 
+	std::vector<EnemyShip::ptr> enemies;
+
 	for(int i = 0; i < num_x; i++)
 		for (int j = 0; j < num_y; j++) {
 			
@@ -103,9 +92,12 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 
 			enemy->setPosition(pos);
 
-			m_Enemies.push_back(std::move(enemy));
+			enemies.push_back(std::move(enemy));
 		}
+
+	addGroupOfEnemies(std::move(enemies));
 }
+
 
 EnemyShip::ptr Level::createEnemy(EnemyShips ship)
 {
@@ -193,6 +185,31 @@ EnemyShip::ptr Level::createEnemyBoss()
 #pragma endregion
 
 
+std::vector<std::vector<EnemyShip::ptr>>& Level::getEnemies()
+{
+	return m_Enemies;
+}
+
+void Level::addGroupOfEnemies(std::vector<EnemyShip::ptr> enemies)
+{
+	m_Enemies.push_back(std::move(enemies));
+}
+
+
+void Level::update(const sf::Time& deltaTime)
+{	
+	updateEnemies(deltaTime);
+	checkCollisions();
+}
+
+void Level::updateEnemies(const sf::Time& deltaTime)
+{
+	for (auto&& group : m_Enemies)
+		for (auto&& enemy : group)
+			enemy->update(deltaTime);
+
+}
+
 void Level::checkCollisions()
 {
 	checkEnemyCollisions();
@@ -203,9 +220,10 @@ void Level::checkCollisions()
 void Level::checkPlayerCollisions()
 {
 	std::vector<Ammunition*> ammunition;
-	for (auto&& entity : m_Enemies) 
-		if (Ship* ptr = dynamic_cast<Ship*>(entity.get()); ptr)
-			ammunition.insert(ammunition.begin(), ptr->getShots().begin(), ptr->getShots().end());
+	for (auto&& group : m_Enemies)
+		for (auto&& enemy : group)
+			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr)
+				ammunition.insert(ammunition.begin(), ptr->getShots().begin(), ptr->getShots().end());
 	
 	
 	for (auto&& ammo : ammunition)
@@ -220,18 +238,26 @@ void Level::checkEnemyCollisions()
 	ammunition.insert(ammunition.begin(), m_Player.getShots().begin(), m_Player.getShots().end());
 
 	for(auto&& ammo : ammunition)
-		for (auto&& enemy : m_Enemies)
-			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
-				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U))
-					enemy->receiveDamage(ammo->dealDamage());
+		for (auto&& group : m_Enemies) 
+			for (auto&& enemy : group)
+				if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
+					if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U))
+						enemy->receiveDamage(ammo->dealDamage());
 				
 }
 
 void Level::checkForDeletion()
 {
-	for (unsigned int i = 0; i < m_Enemies.size(); ++i) {
-		if (m_Enemies[i]->shouldBeDeleted() && m_Enemies[i]->canBeDeleted())
-			m_Enemies.erase(m_Enemies.begin() + i);
+	for (size_t i = 0; i < m_Enemies.size(); ++i) {
+		for(size_t j = 0; j < m_Enemies[i].size(); ++j)
+			if (m_Enemies[i][j]->shouldBeDeleted() && m_Enemies[i][j]->canBeDeleted())
+				m_Enemies[i].erase(m_Enemies[i].begin() + j--);
+	}
+
+	// TODO: check if this is necessary - do I have to delete an empty subvector or is it automagically
+	for (size_t i = 0; i < m_Enemies.size(); ++i) {
+		if (m_Enemies[i].size() == 0)
+			m_Enemies.erase(m_Enemies.begin() + i--);
 	}
 }
 

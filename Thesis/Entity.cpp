@@ -43,7 +43,7 @@ sf::Sprite& Entity::getSprite()
 
 void Entity::setPosition(const sf::Vector2f& pos)
 {
-	m_Position = pos;
+	m_Position = pos + m_Offset;
 	m_Shape.setPosition(pos);
 	m_Sprite.setPosition(pos);	
 }
@@ -51,6 +51,16 @@ void Entity::setPosition(const sf::Vector2f& pos)
 void Entity::setPosition(float x, float y)
 {
 	setPosition(sf::Vector2f(x, y));
+}
+
+void Entity::setOffset(float x, float y)
+{
+	setOffset(sf::Vector2f(x, y));
+}
+
+void Entity::setOffset(const sf::Vector2f& offset)
+{
+	m_Offset = offset;
 }
 
 #pragma endregion

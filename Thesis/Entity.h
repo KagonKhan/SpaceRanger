@@ -11,7 +11,7 @@ private:
 protected:
 	sf::Sprite m_Sprite;
 	sf::RectangleShape m_Shape; // Possibly for collision detection
-	sf::Vector2f m_Position, m_Velocity, m_Direction;
+	sf::Vector2f m_Position, m_Offset, m_Velocity, m_Direction;
 
 	bool m_IsVisible;
 
@@ -30,6 +30,8 @@ public:
 	sf::Sprite& getSprite();
 	virtual void setPosition(const sf::Vector2f& pos);
 	virtual void setPosition(float x, float y);
+	void setOffset(float x, float y);
+	void setOffset(const sf::Vector2f& offset);
 #pragma endregion
 
 

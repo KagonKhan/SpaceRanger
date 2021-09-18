@@ -60,19 +60,10 @@ void Weapon::rotateSprite(float angle)
 	m_Sprite.rotate(angle);
 }
 
-void Weapon::setWeaponOffset(const sf::Vector2f& offset)
-{
-	m_WeaponOffset = offset;
-}
-
-const sf::Vector2f& Weapon::getWeaponOffset()
-{
-	return m_WeaponOffset;
-}
 
 void Weapon::setPosition(const sf::Vector2f& pos)
 {
-	m_Position = pos + m_WeaponOffset;
+	m_Position = pos + m_Offset;
 	m_Shape.setPosition(m_Position);
 	m_Sprite.setPosition(m_Position);
 }

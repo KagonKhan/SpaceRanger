@@ -12,6 +12,11 @@ BeamTurret::~BeamTurret()
 {
 }
 
+void BeamTurret::stop()
+{
+	m_Shots.clear();
+}
+
 void BeamTurret::createBullet()
 {
 	std::unique_ptr<Beam> shot(new Beam(Configuration::TexturesWeaponry::ammo_beam, Configuration::boundaries, -90, 400));

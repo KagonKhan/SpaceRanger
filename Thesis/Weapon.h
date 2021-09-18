@@ -12,7 +12,6 @@ protected:
 
 	bool m_IsWeaponActive;
 
-	sf::Vector2f m_WeaponOffset;
 	// Constant deletion on random indexes
 	// If testing results in slow processing, I might think of custom containers
 	std::vector<std::unique_ptr<Ammunition>> m_Shots;
@@ -53,8 +52,6 @@ public:
 	float getSpriteRotation()const;
 	void setSpriteRotation(float angle);
 	void rotateSprite(float angle);
-	void setWeaponOffset(const sf::Vector2f& offset);
-	const sf::Vector2f& getWeaponOffset();
 
 	/* Different behavior, becasue a weapon can have offset */
 	void setPosition(const sf::Vector2f& pos) override;

@@ -30,7 +30,7 @@ void HasWeapons::initWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset,
 
 	m_Weapons.back()->setPosition(pos);
 	m_Weapons.back()->setIsWeaponActive(true);
-	m_Weapons.back()->setWeaponOffset(offset);
+	m_Weapons.back()->setOffset(offset);
 	m_Weapons.back()->setFiringRate(firing_rate);
 	m_Weapons.back()->setSpriteRotation(rotation);
 	m_Weapons.back()->setIsWeaponActive(true);

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BeamShip.h"
+#include "BeamTurret.h"
 
 BeamShip::BeamShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
@@ -35,5 +36,6 @@ void BeamShip::shoot(const sf::Time& deltaTime)
 void BeamShip::onDestroy()
 {
 	Ship::onDestroy();
+	dynamic_cast<BeamTurret*>(m_Weapons.back().get())->stop();
 }
 
