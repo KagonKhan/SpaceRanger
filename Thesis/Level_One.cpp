@@ -24,6 +24,18 @@ void Level_One::update(const sf::Time& deltaTime)
 }
 
 
+void Level_One::initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector2f padding)
+{
+	std::vector<EnemyShip::ptr> enemies;
+	m_Level.populateAreaWithEnemies(enemies, type, area, padding);
+
+	for (auto&& enemy : enemies) 
+		enemy->setAreActionsBlocked(true);
+	
+
+	m_Level.addFleet(std::move(enemies));
+}
+
 void Level_One::updatePhase(const sf::Time& deltaTime)
 {
 	switch (m_CurrentPhase)
@@ -51,26 +63,34 @@ void Level_One::updatePhase(const sf::Time& deltaTime)
 	}
 }
 
+
 void Level_One::phaseOne(const sf::Time& deltaTime)
 {
 	static bool firstTime = true;
 
 	if (firstTime) {
-		std::vector<EnemyShip::ptr> enemies;
-		m_Level.populateAreaWithEnemies(enemies, Level::EnemyShips::scout, sf::FloatRect(0, -700, Configuration::boundaries.x, 400), sf::Vector2f(5, 5));
-		
-		for (auto&& enemy : enemies)
-			enemy->setAreActionsBlocked(true);
-
-		m_Level.addFleet(std::move(enemies));
+		initFleet(Level::EnemyShips::scout, sf::FloatRect(0, -700, Configuration::boundaries.x, 400), sf::Vector2f(5, 5));
 		firstTime = false;
 		return;
 	}
+
 	static auto&& fleet = m_Level.getFleet(0);
 
-	if(fleet.getRectangle().top > 0)
-		for (auto&& enemy : fleet)
-			enemy->setAreActionsBlocked(false);
+
+
+
+
+
+
+
+
+
+
+
+
+	if (fleet.getRectangle().top > 0)
+		for (auto&& ship : fleet) 
+			ship->setAreActionsBlocked(false);	
 	else
 		fleet.move(sf::Vector2f(0, 100) * deltaTime.asSeconds());
 
@@ -78,35 +98,43 @@ void Level_One::phaseOne(const sf::Time& deltaTime)
 	if (fleet.size() == 0)
 		m_CurrentPhase = Phases::two;
 }
+
+
 void Level_One::phaseTwo(const sf::Time& deltaTime)
 {
 	static bool firstTime = true;
-
+	
 	if (firstTime) {
-		std::vector<EnemyShip::ptr> enemies;
-		m_Level.populateAreaWithEnemies(enemies, Level::EnemyShips::tank, sf::FloatRect(0, -700, Configuration::boundaries.x, 400), sf::Vector2f(5, 5));
+		initFleet(Level::EnemyShips::scout, sf::FloatRect(-985, 0, Configuration::boundaries.x / 2.f - 100, 400), sf::Vector2f(5, 5));
+		initFleet(Level::EnemyShips::scout, sf::FloatRect(2000, 0, Configuration::boundaries.x / 2.f  - 100, 400), sf::Vector2f(5, 5));
 
-		for (auto&& enemy : enemies)
-			enemy->setAreActionsBlocked(true);
-
-		m_Level.addFleet(std::move(enemies));
 		firstTime = false;
 		return;
 	}
-	static auto&& fleet = m_Level.getFleet(0);
+	static auto&& fleet1 = m_Level.getFleet(0);
+	static auto&& fleet2 = m_Level.getFleet(1);
+
 	static float time = 0;
 	time += deltaTime.asSeconds();
-	if (fleet.getRectangle().top > 0) {
-		sf::Vector2f moveBy;
-		moveBy.x = sinf(time);
-		moveBy.y = cosf(time);
 
-		fleet.move(moveBy);
 
+	if (fleet1.getRectangle().left > 0) {
+		for (auto&& ship : fleet1)
+			ship->setAreActionsBlocked(false);
 	}
 	else
-		fleet.move(sf::Vector2f(0, 100) * deltaTime.asSeconds());
+		fleet1.move(sf::Vector2f( 200, 0) * deltaTime.asSeconds());
+
+
+	if (fleet2.getRectangle().left + fleet2.getRectangle().width < Configuration::boundaries.x) {
+		for (auto&& ship : fleet2)
+			ship->setAreActionsBlocked(false);
+	}
+	else
+		fleet2.move(sf::Vector2f(-200, 0) * deltaTime.asSeconds());
 }
+
+
 void Level_One::phaseThree(const sf::Time& deltaTime)
 {
 }

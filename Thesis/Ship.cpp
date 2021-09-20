@@ -29,6 +29,7 @@ void Ship::update(const sf::Time& deltaTime)
 		m_AreActionsBlocked = true;
 		return;
 	}
+
 	if (m_AreActionsBlocked)
 		return;
 
@@ -82,7 +83,8 @@ void Ship::setAreActionsBlocked(bool is_blocked)
 	m_AreActionsBlocked = is_blocked;
 
 	// Freeze movement
-	m_Direction = sf::Vector2f(0, 0);
+	if(is_blocked)
+		m_Direction = sf::Vector2f(0, 0);
 }
 
 bool Ship::getAreActionsBlocked() const

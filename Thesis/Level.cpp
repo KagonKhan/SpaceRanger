@@ -18,12 +18,14 @@ void Level::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto&& fleet : m_Enemies) 
 		target.draw(fleet);
+
+	//target.draw(testing);
 }
 
 Level::Level(sf::RenderWindow& window, PlayerShip& player)
 	:m_Window(window), m_Player(player)
 {
-
+	testing.setFillColor(sf::Color::Red);
 }
 
 Level::~Level()
@@ -34,45 +36,15 @@ Level::~Level()
 #pragma region INIT/ENEMY
 void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding)
 {
-	sf::Vector2f size;
-	switch (enemyShip) {
-		case EnemyShips::minigun:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_minigun).getSize();
-		break;
-		case EnemyShips::support:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_support).getSize();
-		break;
-		case EnemyShips::beam:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_beam).getSize();
-		break;
-		case EnemyShips::rocket:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_rocket).getSize();
-		break;
-		case EnemyShips::scout:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_scout).getSize();
-		break;
-		case EnemyShips::tank:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_tank).getSize();
-		break;
-		case EnemyShips::scout_v2:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_scout_v2).getSize();
-		break;
-		case EnemyShips::stealth:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_stealth).getSize();
-		break;
-		case EnemyShips::boss:
-			size = (sf::Vector2f)Configuration::textures_ships.get(Configuration::TexturesShips::enemy_ship_boss).getSize();
-		break;
-	}
+	sf::Vector2f size = createEnemy(enemyShip)->getSize();
 
-	int num_x = area.width / (size.x + padding.x);
+	int num_x = area.width / (size.x  + padding.x);
 	int num_y = area.height / (size.y + padding.y);
 
 	sf::Vector2f mid_padding;
-	mid_padding.x = (area.width - static_cast<float>(num_x) * size.x) / static_cast<float>(num_x);
-	mid_padding.y = (area.height- static_cast<float>(num_y) * size.y) / static_cast<float>(num_y);
+	mid_padding.x = (area.width - static_cast<float>(num_x + 1) * size.x) / static_cast<float>(num_x + 1);
+	mid_padding.y = (area.height- static_cast<float>(num_y + 1) * size.y) / static_cast<float>(num_y + 1);
 
-	std::vector<EnemyShip::ptr> enemies;
 
 	for(int i = 0; i < num_x; i++)
 		for (int j = 0; j < num_y; j++) {
@@ -89,10 +61,10 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 
 			enemy->setPosition(pos);
 
-			enemies.push_back(std::move(enemy));
+			container.push_back(std::move(enemy));
 		}
 
-	addFleet(std::move(enemies));
+	//addFleet(std::move(enemies));
 }
 
 
@@ -194,6 +166,11 @@ void Level::addFleet(std::vector<EnemyShip::ptr> fleet)
 	m_Enemies.push_back(std::move(temp));
 }
 
+void Level::addFleet(Fleet fleet)
+{
+	m_Enemies.push_back(std::move(fleet));
+}
+
 Fleet& Level::getFleet(int index)
 {
 	return m_Enemies.at(index);
@@ -204,6 +181,12 @@ void Level::update(const sf::Time& deltaTime)
 {	
 	updateEnemies(deltaTime);
 	checkCollisions();
+
+
+	if (m_Enemies.size()) {
+		testing.setSize(m_Enemies[0].getSize());
+		testing.setPosition(m_Enemies[0].getRectangle().left, m_Enemies[0].getRectangle().top);
+	}
 }
 
 void Level::updateEnemies(const sf::Time& deltaTime)
@@ -211,6 +194,8 @@ void Level::updateEnemies(const sf::Time& deltaTime)
 	for (auto&& fleet : m_Enemies)
 		fleet.update(deltaTime);
 
+	for (auto&& ship : m_EnemiesForDeletion)
+		ship->update(deltaTime);
 }
 
 void Level::checkCollisions()
@@ -244,20 +229,31 @@ void Level::checkEnemyCollisions()
 		for (auto&& fleet : m_Enemies) 
 			for (auto&& enemy : fleet.getShips())
 				if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
-					if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U))
+					if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) 
 						enemy->receiveDamage(ammo->dealDamage());
+
 				
 }
 
 void Level::checkForDeletion()
 {
-
-
 	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num) {
 		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
-			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted() && m_Enemies[fleet_num][ship_num]->canBeDeleted())
+			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted()) {
+				m_EnemiesForDeletion.push_back(std::move((m_Enemies[fleet_num][ship_num])));
+
 				m_Enemies[fleet_num].erase(ship_num--);
+			}
 	}
+
+
+
+	for (size_t ship_num = 0; ship_num < m_EnemiesForDeletion.size(); ++ship_num)
+		if (m_EnemiesForDeletion[ship_num]->shouldBeDeleted() && m_EnemiesForDeletion[ship_num]->canBeDeleted())
+			m_EnemiesForDeletion.erase(m_EnemiesForDeletion.begin() + ship_num--);
+	
+
+
 
 	// TODO: check if this is necessary - do I have to delete an empty subvector or is it automagically
 	for (size_t i = 0; i < m_Enemies.size(); ++i) {

@@ -11,6 +11,10 @@ protected:
 	PlayerShip& m_Player;
 	
 	std::vector<Fleet> m_Enemies;
+	std::vector<EnemyShip::ptr> m_EnemiesForDeletion;
+
+
+	sf::RectangleShape testing;
 
 
 	void updateEnemies(const sf::Time& deltaTime);
@@ -33,6 +37,7 @@ public:
 	void populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding);
 	std::vector<Fleet>& getEnemies();
 	void addFleet(std::vector<EnemyShip::ptr> fleet);
+	void addFleet(Fleet fleet);
 	Fleet& getFleet(int index);
 
 #pragma region enemy init

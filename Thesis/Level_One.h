@@ -13,6 +13,9 @@ private:
 		one, two, three, four, five, six, seven, eight, nine
 	} m_CurrentPhase;
 
+	void initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector2f padding);
+
+
 	/* could hold these in an array */
 	void updatePhase(const sf::Time& deltaTime);
 		void phaseOne(const sf::Time& deltaTime);

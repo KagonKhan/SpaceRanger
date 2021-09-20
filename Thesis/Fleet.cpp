@@ -7,30 +7,6 @@ void Fleet::draw(sf::RenderTarget& target, sf::RenderStates) const
 		target.draw(*ship);
 }
 
-EnemyShip::ptr& Fleet::operator[](std::size_t index)
-{
-	return m_Fleet[index];
-}
-
-const EnemyShip::ptr& Fleet::operator[](std::size_t index) const
-{
-	return m_Fleet[index];
-}
-
-void Fleet::erase(std::size_t index)
-{
-	m_Fleet.erase(m_Fleet.begin() + index);
-}
-
-std::vector<EnemyShip::ptr>::iterator Fleet::begin()
-{
-	return m_Fleet.begin();
-}
-
-std::vector<EnemyShip::ptr>::iterator Fleet::end()
-{
-	return m_Fleet.end();
-}
 
 void Fleet::addFleet(std::vector<EnemyShip::ptr> fleet)
 {
@@ -41,32 +17,34 @@ std::vector<EnemyShip::ptr>& Fleet::getShips()
 {
 	return m_Fleet;
 }
-
+// does not work for now - when enemy is destroyed i teleport it to-99999-999999
 sf::FloatRect Fleet::getRectangle()
 {
-	float minX = 999999, minY = 999999, maxX = -999999, maxY = -999999;
+	float max_x{ std::numeric_limits<float>::min() }, min_x{ std::numeric_limits<float>::max() };
+	float max_y{ std::numeric_limits<float>::min() }, min_y{ std::numeric_limits<float>::max() };
+
 	for (auto&& ship : m_Fleet) {
-		auto pos = ship->getPosition();
-		auto size = ship->getSize();
+		const sf::Vector2f curr_ship_size(ship->getSize() / 2.f);
+		const sf::Vector2f curr_ship_pos(ship->getPosition());
 
-		if (pos.x - size.x < minX)
-			minX = pos.x - size.x;
-		if (pos.y - size.y < minY)
-			minY = pos.y - size.y;
+		if (max_x < curr_ship_pos.x + curr_ship_size.x) max_x = curr_ship_pos.x + curr_ship_size.x;
+		if (max_y < curr_ship_pos.y + curr_ship_size.y)	max_y = curr_ship_pos.y + curr_ship_size.y;
 
-		if (pos.x + size.x > maxX)
-			maxX = pos.x + size.x;
-		if (pos.y + size.y > maxY)
-			maxY = pos.y + size.y;
+		if (min_x > curr_ship_pos.x - curr_ship_size.x)	min_x = curr_ship_pos.x - curr_ship_size.x;
+		if (min_y > curr_ship_pos.y - curr_ship_size.y)	min_y = curr_ship_pos.y - curr_ship_size.y;
 	}
 
-	return sf::FloatRect(minX, minY, maxX - minX, maxY - minY);
+	sf::Vector2f pos(min_x, min_y);
+	sf::Vector2f size(sf::Vector2f(max_x, max_y) - pos);
+
+	return sf::FloatRect(pos,size);
 }
 
-size_t Fleet::size() const
+sf::Vector2f Fleet::getSize()
 {
-	return m_Fleet.size();
+	return sf::Vector2f(getRectangle().width, getRectangle().height);
 }
+
 
 void Fleet::update(const sf::Time& deltaTime)
 {
