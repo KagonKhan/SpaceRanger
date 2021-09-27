@@ -5,8 +5,8 @@
 /* NEAREST ENDEAVOURS 
 *	- Fill out other ship type classes
 *	- Have on death animation
-* 
-* 
+*	- ADD COMMAND QUEUE IN FLEET CLASS
+*	- Convert ships to accepting direction and having speed internally, instead of manually moving them
 * 
 * 
 * 
@@ -82,17 +82,17 @@
 */
 
 int main() {
-	try {
-		Game game;
-		game.run(120);
-	}
-	catch (std::exception& e) {
-		std::cout << e.what();
-	}
+	Game game;
+	game.run(120);
 
 
 
-
+	//try {
+	//}
+	//catch (std::exception& e) {
+	//	std::cout << e.what();
+	//}
+	//
 
 
 }

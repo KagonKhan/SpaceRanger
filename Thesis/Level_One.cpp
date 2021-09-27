@@ -13,7 +13,7 @@ Level_One::~Level_One()
 
 void Level_One::init()
 {
-	m_CurrentPhase = Phases::one;
+	m_CurrentPhase = Phases::three;
 }
 
 void Level_One::update(const sf::Time& deltaTime)
@@ -66,6 +66,7 @@ void Level_One::updatePhase(const sf::Time& deltaTime)
 
 void Level_One::phaseOne(const sf::Time& deltaTime)
 {
+
 	static bool firstTime = true;
 
 	if (firstTime) {
@@ -75,17 +76,6 @@ void Level_One::phaseOne(const sf::Time& deltaTime)
 	}
 
 	static auto&& fleet = m_Level.getFleet(0);
-
-
-
-
-
-
-
-
-
-
-
 
 
 	if (fleet.getRectangle().top > 0)
@@ -132,12 +122,68 @@ void Level_One::phaseTwo(const sf::Time& deltaTime)
 	}
 	else
 		fleet2.move(sf::Vector2f(-200, 0) * deltaTime.asSeconds());
+
+
+	if (fleet1.size() == 0 && fleet2.size() == 0)
+		m_CurrentPhase = Phases::three;
 }
+
 
 
 void Level_One::phaseThree(const sf::Time& deltaTime)
 {
+
+	static bool firstTime = true;
+
+	if (firstTime) {
+		initFleet(Level::EnemyShips::stealth, sf::FloatRect(-200, -1000, 450, 800), sf::Vector2f(5, 5));
+		initFleet(Level::EnemyShips::stealth, sf::FloatRect(Configuration::boundaries.x, -1000, 450, 800), sf::Vector2f(5, 5));
+
+
+		firstTime = false;
+		return;
+	}
+
+	static auto&& fleet1 = m_Level.getFleet(0);
+	static auto&& fleet2 = m_Level.getFleet(1);
+
+	static float time = 0;
+	time += deltaTime.asSeconds();
+
+
+	if (fleet1.getRectangle().left < 0)
+		fleet1.move(sf::Vector2f(200, 0) * deltaTime.asSeconds());
+	else if (fleet1.getRectangle().top < 0) {
+		fleet1.move(sf::Vector2f(0, 200) * deltaTime.asSeconds());
+	}
+	else
+		for (auto&& ship : fleet1)
+			ship->setAreActionsBlocked(false);
+
+
+
+
+	if (fleet2.getRectangle().left + fleet2.getRectangle().width > Configuration::boundaries.x) 
+		fleet2.move(sf::Vector2f(-200, 0) * deltaTime.asSeconds());
+	else if (fleet2.getRectangle().top < 0) {
+		fleet2.move(sf::Vector2f(0, 200) * deltaTime.asSeconds());
+	}
+	else
+		for (auto&& ship : fleet2)
+			ship->setAreActionsBlocked(false);
+
+
+
+	if (fleet1.size() == 0 && fleet2.size() == 0)
+		m_CurrentPhase = Phases::four;
 }
+
+
+
+
+
+
+
 void Level_One::phaseFour(const sf::Time& deltaTime)
 {
 }

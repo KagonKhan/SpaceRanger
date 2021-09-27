@@ -38,12 +38,12 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 {
 	sf::Vector2f size = createEnemy(enemyShip)->getSize();
 
-	int num_x = area.width / (size.x  + padding.x);
-	int num_y = area.height / (size.y + padding.y);
+	int num_x = (area.width  ) / (size.x + padding.x);
+	int num_y = (area.height ) / (size.y + padding.y);
 
 	sf::Vector2f mid_padding;
-	mid_padding.x = (area.width - static_cast<float>(num_x + 1) * size.x) / static_cast<float>(num_x + 1);
-	mid_padding.y = (area.height- static_cast<float>(num_y + 1) * size.y) / static_cast<float>(num_y + 1);
+	mid_padding.x = (area.width - static_cast<float>(num_x) * size.x) / static_cast<float>(num_x);
+	mid_padding.y = (area.height- static_cast<float>(num_y) * size.y) / static_cast<float>(num_y);
 
 
 	for(int i = 0; i < num_x; i++)
@@ -57,6 +57,7 @@ void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, Enem
 			pos += size / 2.f;
 
 			pos.x += (i + 1) * mid_padding.x;
+			pos.x -= mid_padding.x / 2.f;
 			pos.y += (j + 1) * mid_padding.y;
 
 			enemy->setPosition(pos);
@@ -237,14 +238,13 @@ void Level::checkEnemyCollisions()
 
 void Level::checkForDeletion()
 {
-	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num) {
+	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num)
 		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
 			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted()) {
 				m_EnemiesForDeletion.push_back(std::move((m_Enemies[fleet_num][ship_num])));
-
 				m_Enemies[fleet_num].erase(ship_num--);
 			}
-	}
+	
 
 
 
@@ -256,9 +256,9 @@ void Level::checkForDeletion()
 
 
 	// TODO: check if this is necessary - do I have to delete an empty subvector or is it automagically
-	for (size_t i = 0; i < m_Enemies.size(); ++i) {
+	for (size_t i = 0; i < m_Enemies.size(); ++i) 
 		if (m_Enemies[i].size() == 0)
 			m_Enemies.erase(m_Enemies.begin() + i--);
-	}
+	
 }
 

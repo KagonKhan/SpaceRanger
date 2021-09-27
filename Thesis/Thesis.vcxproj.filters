@@ -88,6 +88,9 @@
     <Filter Include="Game\Entities\Weapon\Weapon">
       <UniqueIdentifier>{1980f874-e1e2-4589-8aee-a3867b4bdbd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entities\Ship\EnemyShips\Types">
+      <UniqueIdentifier>{136ccbb3-6704-4a86-be09-f25f49534c2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -204,12 +207,6 @@
     <ClCompile Include="PlayerInfoSheet.cpp">
       <Filter>Game\States\GameStates\SubModules</Filter>
     </ClCompile>
-    <ClCompile Include="ScoutEnemyShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="BossEnemyShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
     <ClCompile Include="SpaceBackground.cpp">
       <Filter>Game\States\GameStates\SubModules</Filter>
     </ClCompile>
@@ -246,35 +243,41 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="BeamShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="MinigunShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="RocketShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoutShipV2.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="StealthShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="SupportShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
-    <ClCompile Include="TankShip.cpp">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClCompile>
     <ClCompile Include="Level_One.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="BeamShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnemyShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="MinigunShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoutEnemyShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoutShipV2.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="StealthShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="SupportShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="TankShip.cpp">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClCompile>
     <ClCompile Include="Fleet.cpp">
-      <Filter>Game\Entities\Ship</Filter>
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -401,12 +404,6 @@
     <ClInclude Include="PlayerInfoSheet.h">
       <Filter>Game\States\GameStates\SubModules</Filter>
     </ClInclude>
-    <ClInclude Include="BossEnemyShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoutEnemyShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
     <ClInclude Include="SpaceBackground.h">
       <Filter>Game\States\GameStates\SubModules</Filter>
     </ClInclude>
@@ -446,35 +443,41 @@
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="TankShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="SupportShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="StealthShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="RocketShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoutShipV2.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="BeamShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
-    <ClInclude Include="MinigunShip.h">
-      <Filter>Game\Entities\Ship\EnemyShips</Filter>
-    </ClInclude>
     <ClInclude Include="Level_One.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="BeamShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="BossEnemyShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="MinigunShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoutEnemyShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoutShipV2.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="StealthShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="SupportShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="TankShip.h">
+      <Filter>Game\Entities\Ship\EnemyShips\Types</Filter>
+    </ClInclude>
     <ClInclude Include="Fleet.h">
-      <Filter>Game\Entities\Ship</Filter>
+      <Filter>Game\Entities\Ship\EnemyShips</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
