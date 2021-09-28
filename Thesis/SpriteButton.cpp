@@ -25,10 +25,7 @@ SpriteButton::SpriteButton(opt_ref parent, std::optional<sf::Vector2f> size, con
 		setSize(size.value());
 }
 
-SpriteButton::~SpriteButton()
-{
 
-}
 
 
 

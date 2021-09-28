@@ -3,7 +3,7 @@
 #include "HangarState.h"
 
 #include "OptionsState.h"
-void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	target.draw(m_BackgroundSprite);
 	target.draw(m_Title);
@@ -12,11 +12,9 @@ void MainMenuState::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 
 
 MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State::ptr>& states)
-	: State(window, states),
-	m_BackgroundTexture(Configuration::textures_menu.get(Configuration::TexturesMenuState::background)),
-	m_Title(std::nullopt,"SPACE RANGER")
+	: State(window, states)
 {
-	puts("MainMenu\tctor");
+	BOOST_LOG_TRIVIAL(info) << "MainMenu ctor";
 	initGUI();
 	initBackground();
 	initTitle();
@@ -27,33 +25,33 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State::ptr>& s
 
 MainMenuState::~MainMenuState()
 {
-	puts("MainMenu\tdtor");
+	BOOST_LOG_TRIVIAL(info) << "MainMenu dtor";
 }
 
 
 void MainMenuState::initGUI()
 {
-	std::unique_ptr<VerticalLayout> layout(new VerticalLayout(opt_ref(m_UI), 2.f));
+	auto layout = std::make_unique<VerticalLayout>(opt_ref(m_UI), 2.f);
 
-	std::unique_ptr<TextButton> new_game(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(N)ew Game"));
+	auto new_game = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(N)ew Game");
 	new_game->setLetterSpacing(5);
 	new_game->on_click = [this](const sf::Event&, Button&) {
 		NewGame();
 	};
 
-	std::unique_ptr<TextButton> options(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(O)ptions"));
+	auto options = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(O)ptions");
 	options->setLetterSpacing(5);
 	options->on_click = [this](const sf::Event&, Button&) {
 		Options();
 	};
 	
-	std::unique_ptr<TextButton> high_scores(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)ight Scores"));
+	auto high_scores = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)ight Scores");
 	high_scores->setLetterSpacing(5);
-	high_scores->on_click = [this](const sf::Event&, Button&) {
-		std::cout << "High Scores\n";
+	high_scores->on_click = [](const sf::Event&, Button&) {
+		BOOST_LOG_TRIVIAL(info) << "High Scores\n";
 	};	
 
-	std::unique_ptr<TextButton> quit(new TextButton(opt_ref(*layout), std::nullopt, sf::Color::Red, "(Q)uit"));
+	auto quit = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(Q)uit");
 	quit->setLetterSpacing(5);
 	quit->on_click = [this](const sf::Event&, Button&) {
 		m_ShouldQuit = true;
@@ -71,35 +69,35 @@ void MainMenuState::initGUI()
 	m_UI.addLayout(std::move(layout));
 
 	m_UI.bind( Configuration::GuiInputs::N,
-		[this](const sf::Event& sfevent)
+		[](const sf::Event&)
 		{
-			std::cout << "New Game\n";
+			BOOST_LOG_TRIVIAL(info) << "New Game\n";
 		}
 	);
 
 	m_UI.bind( Configuration::GuiInputs::O,
-		[this](const sf::Event& sfevent)
+		[](const sf::Event&)
 		{
-			std::cout << "Options\n";
+			BOOST_LOG_TRIVIAL(info) << "Options\n";
 		}
 	);
 
 	m_UI.bind( Configuration::GuiInputs::H,
-		[this](const sf::Event& sfevent)
+		[](const sf::Event&)
 		{
-			std::cout << "High Scores\n";
+			BOOST_LOG_TRIVIAL(info) << "High Scores\n";
 		}
 	);
 
 	m_UI.bind( Configuration::GuiInputs::Escape,
-		[this](const sf::Event& sfevent)
+		[this](const sf::Event&)
 		{
 			this->m_Window.close();
 		}
 	);
 
 	m_UI.bind( Configuration::GuiInputs::Q,
-		[this](const sf::Event& sfevent)
+		[this](const sf::Event&)
 		{
 			m_ShouldQuit = true;
 		}
@@ -127,7 +125,7 @@ void MainMenuState::initTitle()
 	m_Title.setPosition(title_position);
 }
 
-void MainMenuState::initMusic()
+void MainMenuState::initMusic() const
 {
 	Configuration::m_MainMenuMusic = &Configuration::musics.get(Configuration::Musics::MainMenuTheme);
 	Configuration::m_MainMenuMusic->setAttenuation(0);
@@ -173,10 +171,9 @@ void MainMenuState::updateBackground(const sf::Time& deltaTime)
 	m_BackgroundSprite.setTextureRect(rect);
 }
 
-void MainMenuState::updateTitle(const sf::Time& deltaTime)
+void MainMenuState::updateTitle(const sf::Time&)
 {
 	static bool move_up = true;
-	static const sf::Color tit_col = m_Title.getOutlineColor(); 
 
 	static auto is_in_range = [](int val, int lower, int upper)	{
 		return lower <= val && val <= upper;
@@ -204,9 +201,8 @@ void MainMenuState::updateTitle(const sf::Time& deltaTime)
 
 void MainMenuState::processEvents(const sf::Event& sfevent)
 {
-	if (sfevent.type == sf::Event::KeyPressed)
-		if (sfevent.key.code == sf::Keyboard::Key::Escape)
-			m_ShouldQuit = true;
+	if (sfevent.type == sf::Event::KeyPressed && sfevent.key.code == sf::Keyboard::Key::Escape)
+		m_ShouldQuit = true;
 	m_UI.processEvent(sfevent);
 }
 
@@ -215,6 +211,7 @@ void MainMenuState::update(const sf::Time& deltaTime)
 {
 	if (m_ShouldQuit)
 		m_States.pop();
+
 	updateBackground(deltaTime);
 	updateTitle(deltaTime);
 }

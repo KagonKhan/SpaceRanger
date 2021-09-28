@@ -3,11 +3,11 @@
 
 bool Collision::CircleTestM(const sf::Sprite& first, const sf::Sprite& second)
 {
-    sf::Vector2f first_rect(first.getTextureRect().width, first.getTextureRect().height);
+    sf::Vector2f first_rect(static_cast<float>(first.getTextureRect().width), static_cast<float>(first.getTextureRect().height));
     first_rect.x *= first.getScale().x;
     first_rect.y *= first.getScale().y;
 
-    sf::Vector2f second_rect(second.getTextureRect().width, second.getTextureRect().height);
+    sf::Vector2f second_rect(static_cast<float>(second.getTextureRect().width), static_cast<float>(second.getTextureRect().height));
     second_rect.x *= second.getScale().x;
     second_rect.y *= second.getScale().y;
 

@@ -13,6 +13,6 @@ public:
 
     void update(const sf::Time& deltaTime) override;
 
-
+    using ptr = std::unique_ptr<VerticalLayout>;
 };
 

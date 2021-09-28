@@ -5,11 +5,6 @@ MinigunShip::MinigunShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {
 	initWeapons();
-	puts("MinigunShip\tctor");
-}
-
-MinigunShip::~MinigunShip()
-{
 }
 
 
@@ -29,7 +24,7 @@ void MinigunShip::updateIndividualBehavior(const sf::Time& deltaTime)
 	shoot(deltaTime);
 }
 
-void MinigunShip::shoot(const sf::Time& deltaTime)
+void MinigunShip::shoot(const sf::Time&)
 {
 
 	HasWeapons::shoot();

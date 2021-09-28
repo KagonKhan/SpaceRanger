@@ -8,25 +8,27 @@ class CharacterCreation :
 	public sf::Drawable
 {
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
-	bool m_IsDone;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
-	sf::Text m_CharacterDescription;
-	sf::String m_CharDescString;
-	sf::RectangleShape m_AvatarFrame, m_TextArea, doneButton;
+	sf::RenderWindow&				m_Window;
+	HangarState&					m_Hangar;
+	sf::Text						m_CharacterDescription;
+	sf::String						m_CharDescString;
+	sf::RectangleShape				m_AvatarFrame;
+	sf::RectangleShape				m_TextArea;
+	sf::RectangleShape				doneButton;
+	UserInterface					m_UI;
+	std::array<sf::Sprite, 4>		m_AvatarSprites;
+	short int						sprite_id;
+	bool							m_IsDone{ false };
 
-	UserInterface m_UI;
-	sf::Sprite m_AvatarSprites[4];
-	short int sprite_id;
 
-	sf::RenderWindow& m_Window;
-	HangarState& m_Hangar;
 
 
 	void initGUI();
 		void addGUINavigation();
-			void addButtonArrows(UnoLayPtr& unordered_layout);
-			void addButtonConfirm(UnoLayPtr& unordered_layout);
+			void addButtonArrows(UnorderedLayout::ptr& unordered_layout);
+			void addButtonConfirm(UnorderedLayout::ptr& unordered_layout);
 
 	void initAvatars();
 	void initShapes();
@@ -37,7 +39,7 @@ private:
 
 public:
 	CharacterCreation(sf::RenderWindow& window, HangarState& hangar);
-	~CharacterCreation();
+
 
 	bool isDone()const;
 	void processEvents(const sf::Event& sfevent);

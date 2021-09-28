@@ -12,7 +12,7 @@ void HangarState::onCharacterCreationFinished(int sprite_id)
 
 
 /* CAREFUL updates and draw call order is important since some objects do not exists immediately */
-void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void HangarState::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	if (!m_Creation.isDone()) {
 		target.draw(m_Creation);
@@ -25,19 +25,13 @@ void HangarState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 HangarState::HangarState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	: State(window, states),
-	m_Background(Configuration::textures_hangar.get(Configuration::TexturesHangarState::background)),
-	m_Creation(m_Window, *this),
-	m_Player(std::nullopt),
-	m_PlayerInfoArea(std::nullopt)
+	m_Creation(m_Window, *this)
 {
 	initBackground();
 	initGUI();
 }
 
-HangarState::~HangarState()
-{
 
-}
 
 
 /* ==================================      INITIALIZERS      ================================== */
@@ -50,35 +44,38 @@ void HangarState::initGUI()
 }
 void HangarState::addGUINavigation()
 {
-	UnoLayPtr navigation(new UnorderedLayout(opt_ref(m_UI)));
+	auto navigation = std::make_unique<UnorderedLayout>(opt_ref(m_UI));
 	addButtonBack(navigation);
 	addButtonNext(navigation);	
 	m_UI.addLayout(std::move(navigation));
 }
-void HangarState::addButtonBack(UnoLayPtr& unordered_layout)
+void HangarState::addButtonBack(UnorderedLayout::ptr& unordered_layout)
 {
-	std::unique_ptr<TextButton> back(new TextButton(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK"));
-	back->on_click = [this](const sf::Event&, Button& button) {
+	auto back = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK");
+	back->on_click = [this](const sf::Event&, Button&) {
 		m_ShouldQuit = true;
 	};
 	unordered_layout->add(std::move(back));
 }
-void HangarState::addButtonNext(UnoLayPtr& unordered_layout)
+void HangarState::addButtonNext(UnorderedLayout::ptr& unordered_layout)
 {
-	std::unique_ptr<TextButton> next(new TextButton(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "NEXT"));
-	next->on_click = [this](const sf::Event&, Button& button) {
+	auto next = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "NEXT");
+	next->on_click = [this](const sf::Event&, Button&) {
 		//m_States.emplace(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
 	};
-	next->setPosition(sf::Vector2f(m_Window.getSize().x - next->getSize().x, 0.f));
+
+	next->setPosition(sf::Vector2f(static_cast<float>(m_Window.getSize().x) - next->getSize().x, 0.f));
 	unordered_layout->add(std::move(next));
 }
 void HangarState::initGUIKeybinds()
 {
-	m_UI.bind(Configuration::GuiInputs::Escape, [this](const sf::Event& sfevent) {
+	m_UI.bind(Configuration::GuiInputs::Escape, [this](const sf::Event&) {
 		m_ShouldQuit = true;
 		});
 
 }
+
+
 void HangarState::initBackground()
 {
 	sf::Vector2f window_size(m_Window.getSize());

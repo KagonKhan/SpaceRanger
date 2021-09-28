@@ -85,7 +85,7 @@ void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> 
 	Configuration::boundaries = sf::Vector2f(window.getSize());
 }
 
-void Helpers::ReplaceFirstOccurance(std::string& string, const std::string& toReplace, const std::string& replaceWith)
+void Helpers::ReplaceFirstOccurance(std::string& string, std::string_view toReplace, std::string_view replaceWith)
 {
 	std::size_t pos = string.find(toReplace);
 	if (pos == std::string::npos)
@@ -120,8 +120,7 @@ float Helpers::toRad(float deg)
 
 sf::Vector2f Helpers::normalize(sf::Vector2f vec)
 {
-	float length = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
-	if (length != 0)
+	if (float length = std::sqrtf(vec.x * vec.x + vec.y * vec.y); length != 0)
 		vec /= length;
 
 	return sf::Vector2f(vec);
@@ -138,6 +137,7 @@ float Helpers::getLength(sf::Vector2f vec)
 {
 	return std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 }
+
 
 void Helpers::drawPath(sf::RenderTarget& target, const Spline& path)
 {

@@ -2,6 +2,7 @@
 #include "OptionsState.h"
 #include "MainMenuState.h"
 
+
 void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	target.draw(m_BackgroundSprite);
@@ -10,17 +11,11 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates) const
 }
 
 OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State::ptr>& states, sf::Sprite& bgsprite)
-	: State(window, states), m_BackgroundSprite(bgsprite), 
-	m_Title(std::nullopt,"OPTIONS", Configuration::fonts.get(Configuration::Fonts::SpaceGui), 100)
+	: State(window, states),  m_WinSize{m_Window.getSize()}, m_BackgroundSprite(bgsprite)
 {
 	puts("OptionsState\tctor");
 	initTitle();
 	initGUI();
-}
-
-OptionsState::~OptionsState()
-{
-	puts("OptionsState\tdtor");
 }
 
 
@@ -32,7 +27,7 @@ void OptionsState::initTitle()
 	m_Title.setLetterSpacing(8);
 	m_Title.setOutlineThickness(9);
 	m_Title.setOutlineColor(sf::Color::Blue);
-	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
+	sf::Vector2f title_position((m_WinSize.x - m_Title.getSize().x) / 2.f, 150);
 
 	m_Title.setPosition(title_position);
 
@@ -48,7 +43,7 @@ void OptionsState::initGUI()
 }
 void OptionsState::addGUIGraphics()
 {
-	VerLayPtr vert_layout(new VerticalLayout(opt_ref(m_UI), 5.f));
+	auto vert_layout = std::make_unique<VerticalLayout>(opt_ref(m_UI), 5.f);
 		addButtonResolutions(vert_layout);
 		addButtonFullscreen(vert_layout);
 		addButtonVSync(vert_layout);
@@ -57,20 +52,19 @@ void OptionsState::addGUIGraphics()
 
 #pragma region GUI/Graphics
 
-void OptionsState::addButtonResolutions(VerLayPtr& vert_layout)
+void OptionsState::addButtonResolutions(VerticalLayout::ptr& vert_layout)
 {
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 
-	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
+	sf::Vector2f size(m_WinSize.x * 0.8f, 75.f);
 	std::string	button_text = "Screen   Resolution";
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
 	sf::Vector2f area_size(500.f, 75.f);
 
-	std::unique_ptr<ArrowSwitchTextButton> window_sizes(new ArrowSwitchTextButton(
-		opt_ref(m_UI), size, button_text, font, 25u, modes.size(), area_size, sf::Vector2f(100, 50)));
+	auto window_sizes= std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, button_text, font, 25u, modes.size(), area_size, sf::Vector2f(100, 50));
 
 	for (unsigned int i = 0; i < modes.size(); ++i) {
-		std::string	button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
+		button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
 		window_sizes->addOption(button_text, font, 25u);
 	}
 
@@ -84,27 +78,25 @@ void OptionsState::addButtonResolutions(VerLayPtr& vert_layout)
 
 
 }
-void OptionsState::addButtonFullscreen(VerLayPtr& vert_layout)
+void OptionsState::addButtonFullscreen(VerticalLayout::ptr& vert_layout)
 {
-	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
+	sf::Vector2f size(m_WinSize.x * 0.8f, 75.f);
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
 	sf::Vector2f area_size(500.f, 75.f);
 
-	std::unique_ptr<ArrowSwitchTextButton> fullscreen(new ArrowSwitchTextButton(
-		opt_ref(m_UI), size, "Fullscreen", font, 25u, 2, area_size, sf::Vector2f(100, 50)));
+	auto fullscreen = std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, "Fullscreen", font, 25u, 2, area_size, sf::Vector2f(100, 50));
 	fullscreen->addOption("On", font, 25u);
 	fullscreen->addOption("Off", font, 25u);
 
 	vert_layout->add(std::move(fullscreen));
 }
-void OptionsState::addButtonVSync(VerLayPtr& vert_layout)
+void OptionsState::addButtonVSync(VerticalLayout::ptr& vert_layout)
 {
-	sf::Vector2f size(m_Window.getSize().x * 0.8f, 75.f);
+	sf::Vector2f size(m_WinSize.x * 0.8f, 75.f);
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
 	sf::Vector2f area_size(500.f, 75.f);
 
-	std::unique_ptr<ArrowSwitchTextButton> vsync(new ArrowSwitchTextButton(
-		opt_ref(m_UI), size, "Vertical   Synchronization", font, 25u, 2, area_size, sf::Vector2f(100, 50)));
+	auto vsync = std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, "Vertical   Synchronization", font, 25u, 2, area_size, sf::Vector2f(100, 50));
 	vsync->addOption("On", font, 25u);
 	vsync->addOption("Off", font, 25u);
 
@@ -116,35 +108,33 @@ void OptionsState::addButtonVSync(VerLayPtr& vert_layout)
 
 void OptionsState::initGUIMusic()
 {
-	//uis.insert(std::make_pair<int, UI*>(Music, new UI(m_Window)));
+	/*
+			uis.insert(std::make_pair<int, UI*>(Music, new UI(m_Window)));
+			HorizontalLayout* music_buttons = new HorizontalLayout();
+			Checkbox* music_checkbox = new Checkbox("Music");
+			music_checkbox->on_click = [this](const sf::Event&, Button& button) {
+				flipMusicState();
+			};
+			TextButton* music_slider = new TextButton("THIS WILL BE A MUSIC SLIDER");
+			music_slider->on_click = [this](const sf::Event&, Button& button) {
+				//TODO: slider implementation();
+			};
+			music_checkbox->setIsChecked(true);
+			music_buttons->add(music_checkbox);
+			music_buttons->add(music_slider);
+			music_buttons->setPosition(sf::Vector2f(50, 400));
+			uis.at(Music)->addLayout(music_buttons);
 
-	//HorizontalLayout* music_buttons = new HorizontalLayout();
-
-	//Checkbox* music_checkbox = new Checkbox("Music");
-	//music_checkbox->on_click = [this](const sf::Event&, Button& button) {
-	//	flipMusicState();
-	//};
-
-	//TextButton* music_slider = new TextButton("THIS WILL BE A MUSIC SLIDER");
-	//music_slider->on_click = [this](const sf::Event&, Button& button) {
-	//	//TODO: slider implementation();
-	//};
-	//music_checkbox->setIsChecked(true);
-
-	//music_buttons->add(music_checkbox);
-	//music_buttons->add(music_slider);
-	//music_buttons->setPosition(sf::Vector2f(50, 400));
-
-	//uis.at(Music)->addLayout(music_buttons);
+	*/
 }
 
 void OptionsState::addGUINavigation()
 {
-	UnoLayPtr unordered_layout(new UnorderedLayout(opt_ref(m_UI)));
+	auto unordered_layout = std::make_unique<UnorderedLayout>(opt_ref(m_UI));
 		addButtonBack(unordered_layout);
 	m_UI.addLayout(std::move(unordered_layout));
 
-	HorLayPtr horizontal_layout(new HorizontalLayout(opt_ref(m_UI), 5.f));
+	auto horizontal_layout = std::make_unique<HorizontalLayout>(opt_ref(m_UI), 5.f);
 		addButtonApply(horizontal_layout);
 		addButtonSave(horizontal_layout);
 	horizontal_layout->setPosition(static_cast<sf::Vector2f>(m_Window.getSize()) - horizontal_layout->getSize());
@@ -152,10 +142,9 @@ void OptionsState::addGUINavigation()
 }
 #pragma region GUI/navigation
 
-void OptionsState::addButtonBack(UnoLayPtr& unordered_layout)
+void OptionsState::addButtonBack(UnorderedLayout::ptr& unordered_layout)
 {
-	std::unique_ptr<TextButton> back(new TextButton(
-		opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK"));
+	auto back = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK");
 	back->on_click = [this](const sf::Event&, Button&) {
 		m_ShouldQuit = true;
 	};
@@ -164,21 +153,19 @@ void OptionsState::addButtonBack(UnoLayPtr& unordered_layout)
 	unordered_layout->add(std::move(back));
 }
 
-void OptionsState::addButtonApply(HorLayPtr& horizontal_layout)
+void OptionsState::addButtonApply(HorizontalLayout::ptr& horizontal_layout)
 {
-	std::unique_ptr<TextButton> save(new TextButton(
-		opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "APPLY"));
-	save->on_click = [this](const sf::Event&, Button& button) {
+	auto save = std::make_unique<TextButton>(opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "APPLY");
+	save->on_click = [this](const sf::Event&, Button&) {
 		readAndApplyButtonData();
 	};
 	horizontal_layout->add(std::move(save));
 }
 
-void OptionsState::addButtonSave(HorLayPtr& horizontal_layout)
+void OptionsState::addButtonSave(HorizontalLayout::ptr& horizontal_layout)
 {
-	std::unique_ptr<TextButton> save(new TextButton(
-		opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "SAVE"));
-	save->on_click = [this](const sf::Event&, Button& button) {
+	auto save = std::make_unique<TextButton>(opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "SAVE");
+	save->on_click = [this](const sf::Event&, Button&) {
 		std::cout << "tba\n";// TODO implement functionality;
 	};
 	horizontal_layout->add(std::move(save));

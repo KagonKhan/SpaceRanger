@@ -10,55 +10,60 @@ class CheckboxButton :
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
-	sf::RectangleShape m_Shape;
-	sf::Color m_OutlineColor, m_FillColor;
-	float m_Padding;
+	sf::RectangleShape						m_Shape;
+	sf::Color								m_OutlineColor;
+	sf::Color								m_FillColor;
+	float									m_Padding		{ 5.f };
+	Label									m_Label;
+	Checkbox								m_Checkbox;
+	sf::Color								m_CheckboxColor	{ 200,200,200,200 };
 
-	Label m_Label;
-	Checkbox m_Checkbox;
-	sf::Color m_CheckboxColor;
 
 
 	void processEvent(const sf::Event& sfevent) override;
 	void onMouseEntered() override;
 	void onMouseLeft() override;
 
+	void reposition();
 	void recalculateCheckboxPosition();
 	void recalculateTextPosition();
 
 public:
 
 	CheckboxButton(opt_ref parent, const sf::Vector2f& size, const sf::Color& fillColor,
-		std::string_view text, sf::Font& font, unsigned int charSize = 25,
+		std::string_view text, const sf::Font& font, unsigned int charSize = 25,
 		float boxSize = 25.f);
-	virtual ~CheckboxButton();
+
 
 
 
 #pragma region SETTERS / GETTERS
 
 	/* CHECKBOX SETTERS */
-	void setCheckboxSize(float size);
 	void setCheckboxFillColor(const sf::Color& color);
-	void setCheckboxOutline(float thickness);
 
 	/* BUTTON SETTERS */
 	void setPosition(const sf::Vector2f& pos) override;
-	void setOutlineThickness(float thickness);
 	void setFillColor(const sf::Color& color);
-	void setSize(const sf::Vector2f& size);
-	sf::Vector2f getSize() const;
 
-	/* TEXT SETTERS */
-	void setString(const std::string& string);
-	void setFont(const sf::Font& font);
-	void setCharacterSize(unsigned int size);
-	void setLetterSpacing(float spacingFactor);
-	void setTextStyle(sf::Uint32 style);
-	void setTextFillColor(const sf::Color& color);
-	void setTextOutlineColor(const sf::Color& color);
-	void setTextOutlineThickness(float thickness);
-	unsigned int getCharacterSize() const;
+	
+
+
+
+	void setSize(const sf::Vector2f& size)				{		m_Shape.setSize(size);					  reposition(); }
+	void setString(const std::string& string)			{		m_Label.setString(string);				  reposition(); }
+	void setFont(const sf::Font& font)					{		m_Label.setFont(font);					  reposition(); }
+	void setCharacterSize(unsigned int size)			{		m_Label.setCharacterSize(size);			  reposition(); }
+	void setLetterSpacing(float factor)					{		m_Label.setLetterSpacing(factor);		  reposition(); }
+	void setTextStyle(sf::Uint32 style)					{		m_Label.setStyle(style);				  reposition(); }
+	void setCheckboxSize(float size)					{		m_Checkbox.setSize(size);								}
+	void setCheckboxOutline(float thickness)			{		m_Checkbox.setOutlineThickness(thickness);				}
+	void setOutlineThickness(float thickness)			{		m_Shape.setOutlineThickness(thickness);					}
+	sf::Vector2f getSize() const						{		return m_Shape.getSize();								}
+	void setTextFillColor(const sf::Color& color)		{		m_Label.setFillColor(color);							}
+	void setTextOutlineColor(const sf::Color& color)	{		m_Label.setOutlineColor(color);							}
+	void setTextOutlineThickness(float thickness)		{		m_Label.setOutlineThickness(thickness);					}
+	unsigned int getCharacterSize() const				{		return m_Label.getCharacterSize();						}
 
 
 #pragma endregion

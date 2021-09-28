@@ -10,17 +10,10 @@ void ArrowSwitchTextButton::draw(sf::RenderTarget& target, sf::RenderStates) con
 
 }
 
-ArrowSwitchTextButton::ArrowSwitchTextButton(opt_ref parent, const sf::Vector2f& size, std::string_view text, sf::Font& font, unsigned int charSize, unsigned int numberOfOptions, const sf::Vector2f& switchAreaSize, std::optional<sf::Vector2f> arrow_size, const sf::Texture& left, const sf::Texture& right)
-	: Button(parent), m_Padding(10.f), m_Shape(size), m_Label(opt_ref(*this), text, font, charSize), m_SwitchArea(opt_ref(*this), numberOfOptions, switchAreaSize, left, right, arrow_size)
+ArrowSwitchTextButton::ArrowSwitchTextButton(opt_ref parent, const sf::Vector2f& size, std::string_view text, const sf::Font& font, unsigned int charSize, unsigned int numberOfOptions, const sf::Vector2f& switchAreaSize, std::optional<sf::Vector2f> arrow_size, const sf::Texture& left, const sf::Texture& right)
+	: Button(parent), m_Shape(size), m_Label(opt_ref(*this), text, font, charSize), m_SwitchArea(opt_ref(*this), numberOfOptions, switchAreaSize, left, right, arrow_size)
 {
-
 	initColors();
-	setPosition({ 0, 0 });
-}
-
-ArrowSwitchTextButton::~ArrowSwitchTextButton()
-{
-
 }
 
 void ArrowSwitchTextButton::initColors()
@@ -33,8 +26,6 @@ void ArrowSwitchTextButton::initColors()
 
 void ArrowSwitchTextButton::processEvent(const sf::Event& sfevent)
 {
-
-
 	m_SwitchArea.processEvent(sfevent);
 
 
@@ -56,26 +47,6 @@ void ArrowSwitchTextButton::processEvent(const sf::Event& sfevent)
 		else if (!(old_status == Status::Hover) && (m_Status == Status::Hover))
 			onMouseEntered();
 	}
-}
-
-void ArrowSwitchTextButton::onMouseEntered()
-{
-	m_Shape.setFillColor(m_HoverColor);
-}
-
-void ArrowSwitchTextButton::onMouseLeft()
-{
-	m_Shape.setFillColor(m_FillColor);
-}
-
-void ArrowSwitchTextButton::addOption(std::string_view option, sf::Font& font, unsigned int charSize)
-{
-	m_SwitchArea.addOption(option, font, charSize);
-}
-
-std::string ArrowSwitchTextButton::readValue()
-{
-	return m_SwitchArea.getString();
 }
 
 
@@ -119,15 +90,6 @@ void ArrowSwitchTextButton::setPosition(const sf::Vector2f& pos)
 	reposition();
 }
 
-void ArrowSwitchTextButton::setOutlineThickness(float thickness)
-{
-	m_Shape.setOutlineThickness(thickness);
-}
-
-void ArrowSwitchTextButton::setOutlineColor(const sf::Color& color)
-{
-	m_Shape.setOutlineColor(color);
-}
 
 void ArrowSwitchTextButton::setSize(const sf::Vector2f& size)
 {
@@ -135,68 +97,5 @@ void ArrowSwitchTextButton::setSize(const sf::Vector2f& size)
 	reposition();
 }
 
-sf::Vector2f ArrowSwitchTextButton::getSize() const
-{
-	return m_Shape.getSize();
-}
-
-
-
-
-/* TEXT SETTERS */
-void ArrowSwitchTextButton::setString(const std::string& string)
-{
-	m_Label.setString(string);
-}
-
-void ArrowSwitchTextButton::setFont(const sf::Font& font)
-{
-	m_Label.setFont(font);
-}
-
-void ArrowSwitchTextButton::setCharacterSize(unsigned int size)
-{
-	m_Label.setCharacterSize(size);
-}
-
-void ArrowSwitchTextButton::setLineSpacing(float spacingFactor)
-{
-	m_Label.setLineSpacing(spacingFactor);
-}
-
-void ArrowSwitchTextButton::setLetterSpacing(float spacingFactor)
-{
-	m_Label.setLetterSpacing(spacingFactor);
-}
-
-void ArrowSwitchTextButton::setTextStyle(sf::Uint32 style)
-{
-	m_Label.setStyle(style);
-}
-
-void ArrowSwitchTextButton::setTextFillColor(const sf::Color& color)
-{
-	m_Label.setFillColor(color);
-}
-
-void ArrowSwitchTextButton::setTextOutlineColor(const sf::Color& color)
-{
-	m_Label.setOutlineColor(color);
-}
-
-void ArrowSwitchTextButton::setTextOutlineThickness(float thickness)
-{
-	m_Label.setOutlineThickness(thickness);
-}
-
-unsigned int ArrowSwitchTextButton::getCharacterSize() const
-{
-	return m_Label.getCharacterSize();
-}
-
-std::string ArrowSwitchTextButton::getString() const
-{
-	return m_Label.getString();
-}
 
 #pragma endregion

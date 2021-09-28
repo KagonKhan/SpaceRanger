@@ -116,14 +116,10 @@ public:
 
 
 	enum Fonts : int {
-		Gui,
-		SpaceGui,
+		Gui,		SpaceGui,
 	};
 	enum PlayerInputs : int {
-		Up,
-		Left,
-		Right,
-		Down,
+		Up,		Left,		Right,		Down,
 		Shoot,
 	};
 	enum class Sounds {
@@ -138,11 +134,7 @@ public:
 	};
 
 	enum GuiInputs : int {
-		N,
-		O,
-		H,
-		Q,
-		Escape
+		N,		O,		H,		Q,		Escape
 	};
 
 	

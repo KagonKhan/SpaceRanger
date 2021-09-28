@@ -4,26 +4,20 @@
 class Player :
 	public sf::Drawable
 {
+private:
+
 friend class PlayerInfoSheet;
 friend class HangarState;
-private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-
-	sf::Sprite m_Avatar; // TODO some day maybe animated avatar, would be cute
-	sf::Vector2f m_Position;
-
-	mutable PlayerShip m_Ship;
+	
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	struct Stats {
-
-	public:
 		int credits;
 		short int level;
 		short int current_experience;
 		short int luck;
 		short int level_up_points;
-			
+
 		short int piloting_proficiency;
 		short int damage_proficiency;
 		short int barter_proficiency;
@@ -32,21 +26,27 @@ private:
 		//...
 		//...
 		//...
-	} m_PlayerStats;
+	};
 
-	PlayerShip& getPlayerShip() const;
-	const sf::Sprite& getPlayerShipSprite() const;
-	sf::Vector2f getSpriteSize()const;
-	void setSpriteScale(const sf::Vector2f& scale);
-	Stats& getPlayerStats();
+	Stats						m_PlayerStats		{ 100, 1, 0, 0, 100,      0,0,0,0 };
+	sf::Sprite					m_Avatar; // TODO some day maybe animated avatar, would be cute
+	mutable PlayerShip			m_Ship;
+	sf::Vector2f				m_Position;
+
+
+
+
+
+
+	sf::Vector2f getSpriteSize()const					{			return { m_Avatar.getGlobalBounds().width, m_Avatar.getGlobalBounds().height };			}
+	const sf::Sprite& getPlayerShipSprite() const		{			return m_Ship.getSprite();																}
+	PlayerShip& getPlayerShip() const					{			return m_Ship;																			}
+	Stats& getPlayerStats()								{			return m_PlayerStats;																	}
+	void setSpriteScale(const sf::Vector2f& scale)		{			m_Avatar.setScale(scale);																}
 
 
 public:
-	Player(const Player&) = delete;
-	Player& operator=(const Player&) = delete;
-
 	Player(Configuration::TexturesPlayer avatar, const sf::Vector2f& boundaries);
-	~Player();
 
 	void setPosition(const sf::Vector2f& pos);
 

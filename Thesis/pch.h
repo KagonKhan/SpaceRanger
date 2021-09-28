@@ -28,7 +28,7 @@
 #include <memory>
 #include <optional>
 #include <iomanip>
-
+#include <random>
 
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
@@ -36,6 +36,7 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 
+#include "boost/log/trivial.hpp"
 
 
 #pragma warning(pop)
@@ -58,21 +59,4 @@
 #include "Helpers.h"
 
 
-typedef std::optional<std::reference_wrapper<Widget>> opt_ref;
-
-
-
-
-typedef std::unique_ptr<HorizontalLayout>	HorLayPtr;
-typedef std::unique_ptr<TableLayout>		TabLayPtr;
-typedef std::unique_ptr<UnorderedLayout>	UnoLayPtr;
-typedef std::unique_ptr<VerticalLayout>		VerLayPtr;
-
-typedef std::unique_ptr<ArrowSwitchTextButton>	ArrButPtr;
-typedef std::unique_ptr<CheckboxButton>			CheLayPtr;
-typedef std::unique_ptr<SpriteButton>			SprLayPtr;
-typedef std::unique_ptr<TextButton>				TexLayPtr;
-
-
-
-# define M_PIl          3.141592653589793238462643383279502884L /* pi */
+constexpr long double M_PIl = 3.141592653589793238462643383279502884L; /* pi */

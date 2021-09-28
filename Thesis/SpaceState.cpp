@@ -22,7 +22,7 @@ SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	: State(window, states), m_Player((Configuration::TexturesShips)0, (sf::Vector2f)m_Window.getSize()),
 	m_Background(window, 1, 2), m_Level(m_Window, m_Player)
 {
-	puts("SpaceState\tctor");
+	BOOST_LOG_TRIVIAL(info) << "SpaceState ctor";
 
 	m_LevelManager = std::make_unique<LevelManagerOne>(m_Level);
 
@@ -53,7 +53,7 @@ void SpaceState::processEvents(const sf::Event& sfevent)
 
 SpaceState::~SpaceState()
 {
-	puts("SpaceState\tdtor");
+	BOOST_LOG_TRIVIAL(info) << "SpaceState dtor";
 }
 
 void SpaceState::update(const sf::Time& deltaTime)

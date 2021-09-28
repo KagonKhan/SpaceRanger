@@ -5,25 +5,26 @@
 class MainMenuState :
 	public State
 {
-friend class OptionsState;
 private:
-	UserInterface m_UI;
-	Label m_Title;
+friend class OptionsState;
+
+	sf::Texture&				m_BackgroundTexture		{ Configuration::textures_menu.get(Configuration::TexturesMenuState::background) };
+	sf::Sprite					m_BackgroundSprite;
+	UserInterface				m_UI;
+	Label						m_Title					{ std::nullopt,"SPACE RANGER" };
 	
-	sf::Texture& m_BackgroundTexture;
-	sf::Sprite m_BackgroundSprite;
 
 
 	void initTitle();
 	void initGUI();
 	void initBackground();
-	void initMusic();
+	void initMusic() const;
 
 
 	void updateBackground(const sf::Time& deltaTime);
 	void updateTitle(const sf::Time& deltaTime);
 
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override ;
 
 	void Options();
 	void NewGame();
@@ -32,10 +33,10 @@ private:
 
 public:
 	MainMenuState(sf::RenderWindow& window, std::stack<State::ptr>& states);
-	virtual ~MainMenuState();
+	~MainMenuState() final;
 
-	void processEvents(const sf::Event& sfevent);
+	void processEvents(const sf::Event& sfevent) override;
 
-	void update(const sf::Time& deltaTime)  override final;
+	void update(const sf::Time& deltaTime)  override;
 };
 

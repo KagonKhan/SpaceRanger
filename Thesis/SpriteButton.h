@@ -25,7 +25,7 @@ public:
     // Creates label
     SpriteButton(opt_ref parent, std::optional<sf::Vector2f> size, const sf::Texture& texture,
         std::string_view text, sf::Font& font, unsigned int charSize = 25);
-    virtual ~SpriteButton();
+
 
     // Text positioning
     enum class Style

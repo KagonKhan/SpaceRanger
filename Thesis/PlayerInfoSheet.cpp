@@ -34,9 +34,6 @@ PlayerInfoSheet::PlayerInfoSheet(sf::RenderWindow& window, HangarState& hangar, 
 	initShipStats();
 	initGUI();
 }
-PlayerInfoSheet::~PlayerInfoSheet()
-{
-}
 
 
 /* ==================================      INITIALIZERS      ================================== */
@@ -54,6 +51,9 @@ void PlayerInfoSheet::initRectangles()
 	initShipArea();
 	initShipStats();
 }
+
+
+/* This whole section is a mess ... */
 #pragma region INIT/RECTAGLES
 void PlayerInfoSheet::initPlayerArea() {
 	sf::RectangleShape& m_PlayerArea = m_RectangleShapes[static_cast<unsigned int>(RectangleShapesIDs::m_PlayerArea)];

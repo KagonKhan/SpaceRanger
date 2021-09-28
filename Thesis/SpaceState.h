@@ -10,7 +10,7 @@ class SpaceState :
 	public State
 {
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
 	
 	UserInterface m_UI;
 	//PlayerShip& m_Player;

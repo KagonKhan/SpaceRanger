@@ -16,15 +16,12 @@ void CharacterCreation::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 
 CharacterCreation::CharacterCreation(sf::RenderWindow& window, HangarState& hangar)
-	: m_IsDone(false), m_Window(window), m_Hangar(hangar)
+	: m_Window(window), m_Hangar(hangar)
 {
 	initShapes();
 	initAvatars();
 	initDescriptions();
 	initGUI();
-}
-CharacterCreation::~CharacterCreation()
-{
 }
 
 
@@ -37,21 +34,21 @@ void CharacterCreation::initGUI()
 }
 void CharacterCreation::addGUINavigation()
 {
-	UnoLayPtr unordered_layout(new UnorderedLayout(opt_ref(m_UI)));
+	auto unordered_layout = std::make_unique<UnorderedLayout>(Widget::opt_ref(m_UI));
 	    addButtonArrows(unordered_layout);
 	    addButtonConfirm(unordered_layout);
 	m_UI.addLayout(std::move(unordered_layout));
 }
-void CharacterCreation::addButtonArrows(UnoLayPtr& unordered_layout)
+void CharacterCreation::addButtonArrows(UnorderedLayout::ptr& unordered_layout)
 {
-	std::unique_ptr<SpriteButton> left_arrow(new SpriteButton(opt_ref(*unordered_layout), sf::Vector2f(100, 50), Configuration::textures_hangar.get(Configuration::TexturesHangarState::left_arrow)));
+	auto left_arrow = std::make_unique<SpriteButton>(Widget::opt_ref(*unordered_layout), sf::Vector2f(100, 50), Configuration::textures_hangar.get(Configuration::TexturesHangarState::left_arrow));
 	left_arrow->on_click = [this](const sf::Event&, Button& ) {
 		swapAvatarSprite(true);
 	};
 	left_arrow->setPosition(m_AvatarFrame.getPosition());
 	unordered_layout->add(std::move(left_arrow));
 
-	std::unique_ptr<SpriteButton> right_arrow(new SpriteButton(opt_ref(*unordered_layout), sf::Vector2f(100, 50), Configuration::textures_hangar.get(Configuration::TexturesHangarState::right_arrow)));
+	auto right_arrow = std::make_unique<SpriteButton>(Widget::opt_ref(*unordered_layout), sf::Vector2f(100, 50), Configuration::textures_hangar.get(Configuration::TexturesHangarState::right_arrow));
 	right_arrow->on_click = [this](const sf::Event&, Button& ) {
 		swapAvatarSprite(false);
 	};
@@ -59,10 +56,10 @@ void CharacterCreation::addButtonArrows(UnoLayPtr& unordered_layout)
 	unordered_layout->add(std::move(right_arrow));
 
 }
-void CharacterCreation::addButtonConfirm(UnoLayPtr& unordered_layout)
+void CharacterCreation::addButtonConfirm(UnorderedLayout::ptr& unordered_layout)
 {
-	std::unique_ptr<TextButton> confirm(new TextButton(opt_ref(*unordered_layout), sf::Vector2f(250, 50), sf::Color::Red, "confirm"));
-	confirm->on_click = [this](const sf::Event& sfevent, Button& button) {
+	auto confirm = std::make_unique<TextButton>(Widget::opt_ref(*unordered_layout), sf::Vector2f(250, 50), sf::Color::Red, "confirm");
+	confirm->on_click = [this](const sf::Event&, Button&) {
 		finishedCreation();
 	};
 	confirm->setPosition(m_TextArea.getPosition() + m_TextArea.getSize() - confirm->getSize());
@@ -130,7 +127,8 @@ void CharacterCreation::initDescriptions()
 	m_CharacterDescription.setPosition(m_TextArea.getPosition());
 
 	int string_size = m_CharDescString.getSize();
-	float text_pos = m_TextArea.getPosition().x, text_size = m_TextArea.getSize().x;
+	float text_pos = m_TextArea.getPosition().x;
+	float text_size = m_TextArea.getSize().x;
 	float limit = text_pos + text_size - 75;
 
 	for (int i = 0; i < string_size; ++i) {

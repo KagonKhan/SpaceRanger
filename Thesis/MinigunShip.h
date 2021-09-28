@@ -12,7 +12,6 @@ private:
 	void onDestroy() override;
 
 public:
-	MinigunShip(Configuration::TexturesShips tex_id);
-	virtual ~MinigunShip();
+	explicit MinigunShip(Configuration::TexturesShips tex_id);
 };
 

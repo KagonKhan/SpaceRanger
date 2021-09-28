@@ -17,21 +17,21 @@ class HangarState :
 friend class CharacterCreation;
 friend class PlayerInfoSheet;
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
-	CharacterCreation m_Creation;
 
-	std::optional<PlayerInfoSheet> m_PlayerInfoArea;
+	CharacterCreation						m_Creation;
+	std::optional<PlayerInfoSheet>			m_PlayerInfoArea	{ std::nullopt };
+	std::optional<Player>					m_Player			{ std::nullopt };
+	sf::Sprite								m_Background		{ Configuration::textures_hangar.get(Configuration::TexturesHangarState::background) };
+	UserInterface							m_UI;
 
-	sf::Sprite m_Background;
-	UserInterface m_UI;
-	std::optional<Player> m_Player;
 
 
 	void initGUI();
 		void addGUINavigation();
-			void addButtonBack(UnoLayPtr& unordered_layout);
-			void addButtonNext(UnoLayPtr& unordered_layout);
+			void addButtonBack(UnorderedLayout::ptr& unordered_layout);
+			void addButtonNext(UnorderedLayout::ptr& unordered_layout);
 			void initGUIKeybinds();
 	void initBackground();
 
@@ -48,13 +48,10 @@ public:
 			- What about levels? A switch with an enum? All of them are classes 
 		
 	*/
-	HangarState(const HangarState&) = delete;
-	HangarState operator=(const HangarState&) = delete;
-
 	HangarState(sf::RenderWindow& window, std::stack<State::ptr>& states);
-	virtual ~HangarState();
 
-	void processEvents(const sf::Event& sfevent) override final;
-	void update(const sf::Time& deltaTime) override final;
+
+	void processEvents(const sf::Event& sfevent) override ;
+	void update(const sf::Time& deltaTime) override ;
 };
 

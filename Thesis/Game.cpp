@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "Game.h"
 #include "MainMenuState.h"
+#include "PlayerShip.h"
 
 Game::Game()
 {
-	puts("Game\t\tctor");
+	BOOST_LOG_TRIVIAL(info) << "Game ctor";
 	Configuration::initialize();
 	initWindow();
 	initStates();
@@ -13,7 +14,7 @@ Game::Game()
 
 Game::~Game()
 {
-	puts("Game\t\tdtor");
+	BOOST_LOG_TRIVIAL(info) << "Game dtor";
 }
 
 void Game::initWindow()
@@ -24,7 +25,6 @@ void Game::initWindow()
 	m_GameView.zoom(2.f);
 	m_Window.setView(m_GameView);
 }
-#include "PlayerShip.h"
 void Game::initStates()
 {
 	m_States.emplace(new SpaceState(m_Window, m_States));
@@ -32,7 +32,7 @@ void Game::initStates()
 
 void Game::initCursor()
 {
-	Animation *cursor_anim = new Animation(&Configuration::textures_game.get(Configuration::TexturesGameState::cursor));
+	auto  *cursor_anim = new Animation(&Configuration::textures_game.get(Configuration::TexturesGameState::cursor));
 	cursor_anim->addFramesLine(40, 10, 6);
 	
 	m_Cursor.setAnimation(cursor_anim);

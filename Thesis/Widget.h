@@ -8,7 +8,7 @@
 class Widget :
 	public sf::Drawable
 {
-public: typedef std::optional<std::reference_wrapper<Widget>> opt_ref;
+public: using opt_ref = std::optional<std::reference_wrapper<Widget>>;
 
 private:
 	friend class Layout;

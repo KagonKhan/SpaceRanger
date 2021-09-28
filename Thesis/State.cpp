@@ -7,12 +7,12 @@ void State::updateMousePos()
 }
 
 State::State(sf::RenderWindow& window, std::stack<State::ptr>& states)
-	:m_Window(window), m_States(states), m_ShouldQuit(false)
+	:m_States(states), m_Window(window), m_ShouldQuit(false)
 {
-	puts("State\t\tctor");
+	BOOST_LOG_TRIVIAL(info) << "State ctor";
 }
 
 State::~State()
 {
-	puts("State\t\tdtor");
+	BOOST_LOG_TRIVIAL(info) << "State dtor";
 }
