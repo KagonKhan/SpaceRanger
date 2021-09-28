@@ -150,6 +150,11 @@ void Helpers::drawPath(sf::RenderTarget& target, const Spline& path)
 	}
 }
 
+void Helpers::print(sf::Vector2f vec)
+{
+	std::cout << vec.x << ", " << vec.y << '\n';
+}
+
 float Helpers::perpDot(const sf::Vector2f& A, const sf::Vector2f& B)
 {
 	return (A.x * B.y) - (A.y * B.x);

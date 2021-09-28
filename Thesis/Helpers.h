@@ -27,7 +27,7 @@ public:
 	static float getLength(sf::Vector2f vec);
 
 	static void drawPath(sf::RenderTarget& target, const Spline& path);
-
+	static void print(sf::Vector2f vec);
 
 	static float perpDot(const sf::Vector2f& A, const sf::Vector2f& B);
 	static float dot(const sf::Vector2f& A, const sf::Vector2f& B);

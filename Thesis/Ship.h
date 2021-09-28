@@ -34,7 +34,7 @@ public:
 	Ship(double max_hp, Configuration::TexturesShips tex_id);
 	virtual ~Ship();
 
-	void update(const sf::Time& deltaTime)override final;
+	void update(const sf::Time& deltaTime)override;
 
 	void setPosition(const sf::Vector2f& pos) override;
 

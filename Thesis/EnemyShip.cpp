@@ -7,32 +7,37 @@ EnemyShip::EnemyShip(float maxHp, Configuration::TexturesShips tex_id)
 	srand(reinterpret_cast<unsigned int>(this));
 }
 
+void EnemyShip::setTargetPos(sf::Vector2f pos)
+{
+	m_Target = pos;
+}
+
 
 void EnemyShip::updateMovement(const sf::Time& deltaTime)
 {
 	if (m_Path.has_value())
 		followPath(deltaTime);
+
+	m_Position += m_Direction * 600.f * deltaTime.asSeconds();
 }
 
-void EnemyShip::followPath(const sf::Time& deltaTime)
+void EnemyShip::followPath( const sf::Time& deltaTime)
 {
-	static sf::Vector2f target;
-	static bool getNextPoint = true;
-	if (getNextPoint) {
-		target = m_Path.value().getNextPoint();
-		getNextPoint = false;
+	if (m_GetNextPoint) {
+		m_Target = m_Path.value().getNextPoint();
+		m_GetNextPoint = false;
 
 
 		//std::cout << "\nangle: " << m_Path.value().getAngle();
 	}
-	float length = Helpers::getLength(target - m_Position);
-	m_Direction = Helpers::normalize((target - m_Position));
+
+
+	float length = Helpers::getLength(m_Target - m_Position);
+	m_Direction = Helpers::normalize(m_Target - m_Position);
 
 	setRotation(m_Path.value().getAngle() - 90.f);
 
 	if (length < 15.f)
-		getNextPoint = true;
-
-	m_Position += m_Direction * 200.f * deltaTime.asSeconds();
+		m_GetNextPoint = true;
 
 }
