@@ -17,20 +17,16 @@ void Fleet::setPath(const std::vector<sf::Vector2f>& waypoints)
 	}
 }
 
-void Fleet::addFleet(std::vector<EnemyShip::ptr> fleet)
-{
-	m_Fleet = std::move(fleet);
-}
 
-std::vector<EnemyShip::ptr>& Fleet::getShips()
-{
-	return m_Fleet;
-}
+
 // does not work for now - when enemy is destroyed i teleport it to-99999-999999
-sf::FloatRect Fleet::getRectangle()
+sf::FloatRect Fleet::getRectangle() const
 {
-	float max_x{ std::numeric_limits<float>::min() }, min_x{ std::numeric_limits<float>::max() };
-	float max_y{ std::numeric_limits<float>::min() }, min_y{ std::numeric_limits<float>::max() };
+	float min_x{ std::numeric_limits<float>::max() };
+	float min_y{ std::numeric_limits<float>::max() };
+
+	float max_x{ std::numeric_limits<float>::min() };
+	float max_y{ std::numeric_limits<float>::min() };
 
 	for (auto&& ship : m_Fleet) {
 		const sf::Vector2f curr_ship_size(ship->getSize() / 2.f);
@@ -47,11 +43,6 @@ sf::FloatRect Fleet::getRectangle()
 	sf::Vector2f size(sf::Vector2f(max_x, max_y) - pos);
 
 	return sf::FloatRect(pos,size);
-}
-
-sf::Vector2f Fleet::getSize()
-{
-	return sf::Vector2f(getRectangle().width, getRectangle().height);
 }
 
 

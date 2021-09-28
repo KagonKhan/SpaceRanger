@@ -4,13 +4,13 @@
 #include <stack>
 #include "SpaceBackground.h"
 #include "Level.h"
-#include "Level_One.h"
+#include "LevelManagerOne.h"
 
 class SpaceState : 
 	public State
 {
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
 	
 	UserInterface m_UI;
 	//PlayerShip& m_Player;
@@ -29,11 +29,11 @@ private:
 public:
 	//SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player);
 	SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states);
-	virtual ~SpaceState();
+	~SpaceState() final;
 
 
 
-	void processEvents(const sf::Event& sfevent);
-	void update(const sf::Time& deltaTime)  override final;
+	void processEvents(const sf::Event& sfevent) override;
+	void update(const sf::Time& deltaTime)  override;
 };
 

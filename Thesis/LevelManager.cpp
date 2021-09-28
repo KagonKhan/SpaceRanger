@@ -7,5 +7,5 @@ LevelManager::LevelManager(Level& level)
 }
 
 LevelManager::~LevelManager()
-{ 
+{  
 }

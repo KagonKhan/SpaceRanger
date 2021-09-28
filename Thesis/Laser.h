@@ -4,14 +4,17 @@
 class Laser :
 	public Ammunition
 {
+public:
+	enum class Patterns { straight, swarm, };
+
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
 	Animation m_DeathAnimation;
 	AnimatedSprite m_DeathAnimationSprite;
 	sf::Sound m_DeathSound;
 
-	enum class Patterns;
+
 	Patterns m_Pattern;
 
 
@@ -25,8 +28,7 @@ private:
 
 public:
 	Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f, Patterns pattern = Patterns::straight);
-	virtual ~Laser();
 
-	float dealDamage();
-	enum class Patterns { straight, swarm, };
+
+	float dealDamage() override;
 };

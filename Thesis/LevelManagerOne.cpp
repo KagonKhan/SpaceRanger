@@ -1,22 +1,14 @@
 #include "pch.h"
-#include "Level_One.h"
+#include "LevelManagerOne.h"
 
-Level_One::Level_One(Level& level)
+LevelManagerOne::LevelManagerOne(Level& level)
 	: LevelManager(level)
-{
-	init();
-}
-
-Level_One::~Level_One()
-{
-}
-
-void Level_One::init()
 {
 	m_CurrentPhase = Phases::three;
 }
 
-void Level_One::update(const sf::Time& deltaTime)
+
+void LevelManagerOne::update(const sf::Time& deltaTime)
 {
 	updatePhase(deltaTime);
 
@@ -24,7 +16,7 @@ void Level_One::update(const sf::Time& deltaTime)
 }
 
 
-void Level_One::initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector2f padding)
+void LevelManagerOne::initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector2f padding)
 {
 	std::vector<EnemyShip::ptr> enemies;
 	m_Level.populateAreaWithEnemies(enemies, type, area, padding);
@@ -36,40 +28,28 @@ void Level_One::initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector
 	m_Level.addFleet(std::move(enemies));
 }
 
-void Level_One::updatePhase(const sf::Time& deltaTime)
+void LevelManagerOne::updatePhase(const sf::Time& deltaTime)
 {
 	switch (m_CurrentPhase)
 	{
-	case Level_One::Phases::one:		phaseOne(deltaTime);
-		break;
-	case Level_One::Phases::two:		phaseTwo(deltaTime);
-		break;
-	case Level_One::Phases::three:		phaseThree(deltaTime);
-		break;
-	case Level_One::Phases::four:		phaseFour(deltaTime);
-		break;
-	case Level_One::Phases::five:		phaseFive(deltaTime);
-		break;
-	case Level_One::Phases::six:		phaseSix(deltaTime);
-		break;
-	case Level_One::Phases::seven:		phaseSeven(deltaTime);
-		break;
-	case Level_One::Phases::eight:		phaseEight(deltaTime);
-		break;
-	case Level_One::Phases::nine:		phaseNine(deltaTime);
-		break;
-	default:
-		break;
+	case Phases::one:		phaseOne(deltaTime);		break;
+	case Phases::two:		phaseTwo(deltaTime);		break;
+	case Phases::three:		phaseThree(deltaTime);		break;
+	case Phases::four:		phaseFour(deltaTime);		break;
+	case Phases::five:		phaseFive(deltaTime);		break;
+	case Phases::six:		phaseSix(deltaTime);		break;
+	case Phases::seven:		phaseSeven(deltaTime);		break;
+	case Phases::eight:		phaseEight(deltaTime);		break;
+	case Phases::nine:		phaseNine(deltaTime);		break;
+	default:											break;
 	}
 }
 
 
-void Level_One::phaseOne(const sf::Time& deltaTime)
+void LevelManagerOne::phaseOne(const sf::Time& deltaTime)
 {
 
-	static bool firstTime = true;
-
-	if (firstTime) {
+	if (static bool firstTime = true; firstTime) {
 		initFleet(Level::EnemyShips::scout, sf::FloatRect(0, -700, Configuration::boundaries.x, 400), sf::Vector2f(5, 5));
 		firstTime = false;
 
@@ -94,11 +74,11 @@ void Level_One::phaseOne(const sf::Time& deltaTime)
 }
 
 
-void Level_One::phaseTwo(const sf::Time& deltaTime)
+void LevelManagerOne::phaseTwo(const sf::Time& deltaTime)
 {
-	static bool firstTime = true;
-	
-	if (firstTime) {
+
+
+	if (static bool firstTime = true; firstTime) {
 		initFleet(Level::EnemyShips::scout, sf::FloatRect(-985, 0, Configuration::boundaries.x / 2.f - 100, 400), sf::Vector2f(5, 5));
 		initFleet(Level::EnemyShips::scout, sf::FloatRect(2000, 0, Configuration::boundaries.x / 2.f  - 100, 400), sf::Vector2f(5, 5));
 
@@ -134,12 +114,12 @@ void Level_One::phaseTwo(const sf::Time& deltaTime)
 
 
 
-void Level_One::phaseThree(const sf::Time& deltaTime)
+void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 {
 
-	static bool firstTime = true;
 
-	if (firstTime) {
+
+	if (static bool firstTime = true; firstTime) {
 		initFleet(Level::EnemyShips::stealth, sf::FloatRect(-200, -1000, 450, 800), sf::Vector2f(5, 5));
 		initFleet(Level::EnemyShips::stealth, sf::FloatRect(Configuration::boundaries.x, -1000, 450, 800), sf::Vector2f(5, 5));
 
@@ -191,21 +171,21 @@ void Level_One::phaseThree(const sf::Time& deltaTime)
 
 
 
-void Level_One::phaseFour(const sf::Time& deltaTime)
+void LevelManagerOne::phaseFour(const sf::Time& deltaTime)
 {
 }
-void Level_One::phaseFive(const sf::Time& deltaTime)
+void LevelManagerOne::phaseFive(const sf::Time& deltaTime)
 {
 }
-void Level_One::phaseSix(const sf::Time& deltaTime)
+void LevelManagerOne::phaseSix(const sf::Time& deltaTime)
 {
 }
-void Level_One::phaseSeven(const sf::Time& deltaTime)
+void LevelManagerOne::phaseSeven(const sf::Time& deltaTime)
 {
 }
-void Level_One::phaseEight(const sf::Time& deltaTime)
+void LevelManagerOne::phaseEight(const sf::Time& deltaTime)
 {
 }
-void Level_One::phaseNine(const sf::Time& deltaTime)
+void LevelManagerOne::phaseNine(const sf::Time& deltaTime)
 {
 }

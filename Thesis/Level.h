@@ -3,8 +3,26 @@
 class Level :
 	public sf::Drawable
 {
+public:
+	enum class EnemyShips {
+		minigun, support, beam, rocket, scout, tank, scout_v2, stealth, boss,
+	};
+
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+
+#pragma region enemy init
+	EnemyShip::ptr createEnemy(EnemyShips ship) const;
+	EnemyShip::ptr createEnemyMinigun()			const;
+	EnemyShip::ptr createEnemySupport()			const;
+	EnemyShip::ptr createEnemyBeam()			const;
+	EnemyShip::ptr createEnemyRocket()			const;
+	EnemyShip::ptr createEnemyScout()			const;
+	EnemyShip::ptr createEnemyTank()			const;
+	EnemyShip::ptr createEnemyScoutV2()		    const;
+	EnemyShip::ptr createEnemyStealth()		    const;
+	EnemyShip::ptr createEnemyBoss()			const;
+#pragma endregion
 
 protected:
 	sf::RenderWindow& m_Window;
@@ -12,9 +30,6 @@ protected:
 	
 	std::vector<Fleet> m_Enemies;
 	std::vector<EnemyShip::ptr> m_EnemiesForDeletion;
-
-
-	sf::RectangleShape testing;
 
 
 	void updateEnemies(const sf::Time& deltaTime);
@@ -26,31 +41,17 @@ protected:
 
 public:
 	Level(sf::RenderWindow& window, PlayerShip& player);
-	virtual ~Level();
-	
+
 	void update(const sf::Time& deltaTime);
 
-	enum class EnemyShips {
-		minigun, support, beam, rocket, scout, tank, scout_v2, stealth, boss,
-	};
+
 
 	void populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding);
-	std::vector<Fleet>& getEnemies();
 	void addFleet(std::vector<EnemyShip::ptr> fleet);
-	void addFleet(Fleet fleet);
-	Fleet& getFleet(int index);
 
-#pragma region enemy init
-private :
-EnemyShip::ptr createEnemy(EnemyShips ship);
-EnemyShip::ptr createEnemyMinigun();
-EnemyShip::ptr createEnemySupport();
-EnemyShip::ptr createEnemyBeam();
-EnemyShip::ptr createEnemyRocket();
-EnemyShip::ptr createEnemyScout();
-EnemyShip::ptr createEnemyTank();
-EnemyShip::ptr createEnemyScoutV2();
-EnemyShip::ptr createEnemyStealth();
-EnemyShip::ptr createEnemyBoss();
-#pragma endregion
+
+	std::vector<Fleet>& getEnemies()	{			return m_Enemies;							}
+	Fleet& getFleet(int index)			{			return m_Enemies.at(index);					}
+	void addFleet(Fleet fleet)			{			m_Enemies.push_back(std::move(fleet));		}
+
 };

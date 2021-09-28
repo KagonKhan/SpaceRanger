@@ -5,12 +5,9 @@ class LevelManager
 {
 protected:
 	Level& m_Level;
-	virtual void init() = 0;
-
-
 
 public:
-	LevelManager(Level& level);
+	explicit LevelManager(Level& level);
 	virtual ~LevelManager();
 
 

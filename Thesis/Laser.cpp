@@ -25,11 +25,6 @@ Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundar
 	m_Speed = 1500.f;
 }
 
-Laser::~Laser()
-{
-
-}
-
 void Laser::initAnimation()
 {
 	m_Animation.addFramesColumn(1, 3, 0);

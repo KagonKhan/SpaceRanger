@@ -58,9 +58,6 @@ void Spline::calculateSplinePoints(const std::vector<sf::Vector2f>& waypoints, f
 	for (float t = 0.f; t < size; t += precision) 
 		m_Points.push_back(getSplinePoint(waypoints, t, looped));
 
-	std::cout << m_Gradients.size() << " : " << m_Points.size() << "\n";
-	system("PAUSE");
-
 }
 
 Spline::Spline(const std::vector<sf::Vector2f>& waypoints, float precision, bool isLooped)

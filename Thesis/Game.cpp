@@ -3,7 +3,6 @@
 #include "MainMenuState.h"
 
 Game::Game()
-	: m_Window()
 {
 	puts("Game\t\tctor");
 	Configuration::initialize();

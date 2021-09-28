@@ -7,7 +7,7 @@ IsLiving::ShipStats& IsLiving::getShipStats()
 	return m_ShipStats;
 }
 
-IsLiving::IsLiving(double max_hp, int armor, int plating)
+IsLiving::IsLiving(float max_hp, int armor, int plating)
 	: m_ShipStats({max_hp, max_hp, armor, plating, true})
 {
 }
@@ -17,7 +17,7 @@ IsLiving::~IsLiving()
 	m_ShipStats.m_IsAlive = false;
 }
 
-void IsLiving::receiveDamage(double amount) 
+void IsLiving::receiveDamage(float amount) 
 {
 	m_ShipStats.m_CurrentHp -= amount;
 	if (m_ShipStats.m_CurrentHp <= 0)

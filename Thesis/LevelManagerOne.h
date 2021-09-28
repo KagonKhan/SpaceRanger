@@ -3,15 +3,15 @@
 #include "LevelManager.h"
 
 
-class Level_One :
+class LevelManagerOne :
 	public LevelManager
 {
 private:
-	void init() override;
 
 	enum class Phases {
 		one, two, three, four, five, six, seven, eight, nine
-	} m_CurrentPhase;
+	};
+	Phases m_CurrentPhase;
 
 	void initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector2f padding);
 
@@ -30,8 +30,7 @@ private:
 
 
 public:
-	Level_One(Level& level);
-	~Level_One();
+	explicit LevelManagerOne(Level& level);
 
 	void update(const sf::Time& deltaTime) override;
 };

@@ -198,7 +198,7 @@
     <ClCompile Include="Layout.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="Level_One.cpp" />
+    <ClCompile Include="LevelManagerOne.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Meteor.cpp" />
     <ClCompile Include="MinigunShip.cpp" />
@@ -271,7 +271,7 @@
     <ClInclude Include="Layout.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="Level_One.h" />
+    <ClInclude Include="LevelManagerOne.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Meteor.h" />
     <ClInclude Include="MinigunShip.h" />
