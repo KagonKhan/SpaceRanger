@@ -8,6 +8,7 @@ class Fleet :
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 	std::vector<EnemyShip::ptr> m_Fleet;
+	std::optional<Spline> m_Path;
 
 public:
 	
@@ -47,12 +48,12 @@ public:
 	}
 #pragma endregion
 
+	void setPath(const std::vector<sf::Vector2f>& waypoints);
 
 	void addFleet(std::vector<EnemyShip::ptr> fleet);
 	std::vector<EnemyShip::ptr>& getShips();
 	sf::FloatRect getRectangle();
 	sf::Vector2f getSize();
-
 
 	void update(const sf::Time& deltaTime);
 

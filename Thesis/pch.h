@@ -72,3 +72,7 @@ typedef std::unique_ptr<ArrowSwitchTextButton>	ArrButPtr;
 typedef std::unique_ptr<CheckboxButton>			CheLayPtr;
 typedef std::unique_ptr<SpriteButton>			SprLayPtr;
 typedef std::unique_ptr<TextButton>				TexLayPtr;
+
+
+
+# define M_PIl          3.141592653589793238462643383279502884L /* pi */

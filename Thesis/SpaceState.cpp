@@ -2,11 +2,15 @@
 #include "SpaceState.h"
 #include "PlayerShip.h"
 
+#include "StealthShip.h"
+
+
 void SpaceState::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_Background);
 	target.draw(m_Player);
 	target.draw(m_Level);
+
 }
 
 //SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player)
@@ -39,6 +43,11 @@ void SpaceState::initPlayer()
 	pos.x /= 2.f;
 	
 	m_Player.setPosition(pos);
+
+
+	std::vector<sf::Vector2f> wp= { {75, 86},{1850, 906},{80, 866},{930, -144},{1850, 906},{80, 866},{1855, 91} };
+	Spline path{ wp, 0.01f, true };
+
 }
 
 
@@ -62,6 +71,7 @@ void SpaceState::update(const sf::Time& deltaTime)
 	}
 	m_Player.update(deltaTime);
 	m_Background.update(deltaTime);
+
 
 	m_LevelManager->update(deltaTime);
 }

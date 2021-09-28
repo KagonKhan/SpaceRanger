@@ -37,15 +37,17 @@ public:
 	void update(const sf::Time& deltaTime)override final;
 
 	void setPosition(const sf::Vector2f& pos) override;
-	void setPosition(float x, float y) override;
 
 	void setAreActionsBlocked(bool is_blocked);
-	bool getAreActionsBlocked() const;
+	void setWeaponsAsActive(bool enabled);
 
+
+	void markForDeletion();
 
 	std::vector<Ammunition*>& getShots();
 
-	bool canBeDeleted();
-	bool shouldBeDeleted();
-	void markForDeletion();
+	bool canBeDeleted() const {		return m_CanBeDeleted;	} 
+	bool shouldBeDeleted()const { return m_MarkedForDeletion; }
+	bool getAreActionsBlocked() const { return m_AreActionsBlocked; }
+	void setPosition(float x, float y) override { setPosition(sf::Vector2f(x, y)); }
 };

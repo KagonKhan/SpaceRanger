@@ -241,7 +241,7 @@ void Level::checkForDeletion()
 	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num)
 		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
 			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted()) {
-				m_EnemiesForDeletion.push_back(std::move((m_Enemies[fleet_num][ship_num])));
+				m_EnemiesForDeletion.push_back(std::move(m_Enemies[fleet_num][ship_num]));
 				m_Enemies[fleet_num].erase(ship_num--);
 			}
 	

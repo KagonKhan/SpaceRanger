@@ -8,6 +8,15 @@ void Fleet::draw(sf::RenderTarget& target, sf::RenderStates) const
 }
 
 
+void Fleet::setPath(const std::vector<sf::Vector2f>& waypoints)
+{
+	m_Path.emplace(waypoints, 0.01, true);
+
+	for (auto&& ship : m_Fleet) {
+		ship->setPath(m_Path);
+	}
+}
+
 void Fleet::addFleet(std::vector<EnemyShip::ptr> fleet)
 {
 	m_Fleet = std::move(fleet);

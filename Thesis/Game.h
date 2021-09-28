@@ -6,6 +6,8 @@ class Game
 {
 private:
 	sf::RenderWindow m_Window;
+	sf::View m_GameView;
+
 	std::stack<State::ptr> m_States;
 	sf::Event sfevent;
 

@@ -31,7 +31,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableASAN>true</EnableASAN>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -122,6 +122,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>S:\Users\sszyn\source\SFML\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -220,6 +221,7 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SpaceBackground.cpp" />
     <ClCompile Include="SpaceState.cpp" />
+    <ClCompile Include="Spline.cpp" />
     <ClCompile Include="SpriteButton.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StealthShip.cpp" />
@@ -287,6 +289,7 @@
     <ClInclude Include="Ship.h" />
     <ClInclude Include="SpaceBackground.h" />
     <ClInclude Include="SpaceState.h" />
+    <ClInclude Include="Spline.h" />
     <ClInclude Include="SpriteButton.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StealthShip.h" />

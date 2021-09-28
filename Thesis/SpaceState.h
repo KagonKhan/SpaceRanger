@@ -16,6 +16,8 @@ private:
 	//PlayerShip& m_Player;
 	PlayerShip m_Player;
 	SpaceBackground m_Background;
+
+
 	Level m_Level;
 	std::unique_ptr<LevelManager> m_LevelManager;
 

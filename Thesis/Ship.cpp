@@ -5,17 +5,17 @@ void Ship::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	target.draw(m_Sprite);
 
-
 	for (auto&& weapon : m_Weapons)
 		target.draw(*weapon);
-
 
 }
 
 Ship::Ship(double max_hp, Configuration::TexturesShips tex_id)
 	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp), HasWeapons(), CanCollide(),
 	m_AreActionsBlocked(false), m_CanBeDeleted(false), m_MarkedForDeletion(false)
-{}
+{
+
+}
 
 Ship::~Ship(){}
 
@@ -34,7 +34,6 @@ void Ship::update(const sf::Time& deltaTime)
 		return;
 
 
-
 	updateIndividualBehavior(deltaTime);
 	updateMovement(deltaTime);
 	updatePosition(deltaTime);
@@ -42,7 +41,10 @@ void Ship::update(const sf::Time& deltaTime)
 	
 }
 
-void Ship::updateMovement(const sf::Time& deltaTime){}
+void Ship::updateMovement(const sf::Time& deltaTime)
+{
+
+}
 
 void Ship::updatePosition(const sf::Time& deltaTime)
 {
@@ -53,7 +55,10 @@ void Ship::updatePosition(const sf::Time& deltaTime)
 		weapon->setPosition(m_Position);
 }
 
-void Ship::updateSprites(const sf::Time& deltaTime){}
+void Ship::updateSprites(const sf::Time& deltaTime)
+{
+
+}
 
 void Ship::updateWeapons(const sf::Time& deltaTime)
 {
@@ -73,11 +78,6 @@ void Ship::setPosition(const sf::Vector2f& pos)
 		weapon->setPosition(m_Position);
 }
 
-void Ship::setPosition(float x, float y)
-{
-	setPosition(sf::Vector2f(x, y));
-}
-
 void Ship::setAreActionsBlocked(bool is_blocked)
 {
 	m_AreActionsBlocked = is_blocked;
@@ -87,10 +87,12 @@ void Ship::setAreActionsBlocked(bool is_blocked)
 		m_Direction = sf::Vector2f(0, 0);
 }
 
-bool Ship::getAreActionsBlocked() const
+void Ship::setWeaponsAsActive(bool enabled)
 {
-	return m_AreActionsBlocked;
+	for (auto&& weapon : m_Weapons)
+		weapon->setIsWeaponActive(enabled);
 }
+
 
 std::vector<Ammunition*>& Ship::getShots()
 {
@@ -107,15 +109,6 @@ std::vector<Ammunition*>& Ship::getShots()
 	return ghostPTR;
 }
 
-bool Ship::canBeDeleted()
-{
-	return m_CanBeDeleted;
-}
-
-bool Ship::shouldBeDeleted()
-{
-	return m_MarkedForDeletion;
-}
 
 void Ship::markForDeletion()
 {

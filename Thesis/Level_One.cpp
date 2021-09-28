@@ -30,7 +30,7 @@ void Level_One::initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector
 	m_Level.populateAreaWithEnemies(enemies, type, area, padding);
 
 	for (auto&& enemy : enemies) 
-		enemy->setAreActionsBlocked(true);
+		enemy->setWeaponsAsActive(false);
 	
 
 	m_Level.addFleet(std::move(enemies));
@@ -72,10 +72,14 @@ void Level_One::phaseOne(const sf::Time& deltaTime)
 	if (firstTime) {
 		initFleet(Level::EnemyShips::scout, sf::FloatRect(0, -700, Configuration::boundaries.x, 400), sf::Vector2f(5, 5));
 		firstTime = false;
+
+
+
 		return;
 	}
 
 	static auto&& fleet = m_Level.getFleet(0);
+
 
 
 	if (fleet.getRectangle().top > 0)
@@ -110,7 +114,7 @@ void Level_One::phaseTwo(const sf::Time& deltaTime)
 
 	if (fleet1.getRectangle().left > 0) {
 		for (auto&& ship : fleet1)
-			ship->setAreActionsBlocked(false);
+			ship->setWeaponsAsActive(true);
 	}
 	else
 		fleet1.move(sf::Vector2f( 200, 0) * deltaTime.asSeconds());
@@ -118,7 +122,7 @@ void Level_One::phaseTwo(const sf::Time& deltaTime)
 
 	if (fleet2.getRectangle().left + fleet2.getRectangle().width < Configuration::boundaries.x) {
 		for (auto&& ship : fleet2)
-			ship->setAreActionsBlocked(false);
+			ship->setWeaponsAsActive(true);
 	}
 	else
 		fleet2.move(sf::Vector2f(-200, 0) * deltaTime.asSeconds());
@@ -140,6 +144,9 @@ void Level_One::phaseThree(const sf::Time& deltaTime)
 		initFleet(Level::EnemyShips::stealth, sf::FloatRect(Configuration::boundaries.x, -1000, 450, 800), sf::Vector2f(5, 5));
 
 
+		std::vector<sf::Vector2f> path = { {75, 86},{1850, 906},{80, 866},{930, -144},{1850, 906},{80, 866},{1855, 91} };
+
+		m_Level.getFleet(0).setPath(path);
 		firstTime = false;
 		return;
 	}
@@ -152,13 +159,13 @@ void Level_One::phaseThree(const sf::Time& deltaTime)
 
 
 	if (fleet1.getRectangle().left < 0)
-		fleet1.move(sf::Vector2f(200, 0) * deltaTime.asSeconds());
+		;
 	else if (fleet1.getRectangle().top < 0) {
-		fleet1.move(sf::Vector2f(0, 200) * deltaTime.asSeconds());
+		;
 	}
 	else
 		for (auto&& ship : fleet1)
-			ship->setAreActionsBlocked(false);
+			ship->setWeaponsAsActive(true);
 
 
 
@@ -170,7 +177,7 @@ void Level_One::phaseThree(const sf::Time& deltaTime)
 	}
 	else
 		for (auto&& ship : fleet2)
-			ship->setAreActionsBlocked(false);
+			ship->setWeaponsAsActive(true);
 
 
 

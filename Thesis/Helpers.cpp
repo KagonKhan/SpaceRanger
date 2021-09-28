@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Helpers.h"
-
+#include "Spline.h"
 void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> fileContents)
 {
 
@@ -99,7 +99,55 @@ bool Helpers::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vec
 {
 	if (pos.x > size.x || pos.x < -size.x || pos.y > size.y || pos.y < -size.y)
 		return false;
-	return true;
+	else
+		return true;
+}
+
+float Helpers::toDeg(float rad)
+{
+	return rad * 180.f / static_cast<float>(M_PIl);
+}
+
+float Helpers::toDeg(const sf::Vector2f& vec)
+{
+	return Helpers::toDeg(atan2f(vec.y, vec.x));
+}
+
+float Helpers::toRad(float deg)
+{
+	return deg * static_cast<float>(M_PIl) / 180.f;
+}
+
+sf::Vector2f Helpers::normalize(sf::Vector2f vec)
+{
+	float length = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+	if (length != 0)
+		vec /= length;
+
+	return sf::Vector2f(vec);
+}
+
+void Helpers::normalize(sf::Vector2f& vec)
+{
+	float length = getLength(vec);
+	if (length != 0)
+		vec /= length;
+}
+
+float Helpers::getLength(sf::Vector2f vec)
+{
+	return std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+}
+
+void Helpers::drawPath(sf::RenderTarget& target, const Spline& path)
+{
+	sf::CircleShape pixel(1.f);
+	pixel.setFillColor(sf::Color::White);
+
+	for (auto&& point : path.getPath()) {
+		pixel.setPosition(point);
+		target.draw(pixel);
+	}
 }
 
 float Helpers::perpDot(const sf::Vector2f& A, const sf::Vector2f& B)

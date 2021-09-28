@@ -22,8 +22,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 
 #pragma region SETTERS / GETTERS
-	typedef std::unique_ptr<Entity> ptr;
-	typedef std::optional<std::reference_wrapper<Entity>> opt_ref;
+
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getSize() const;
 	sf::Vector2f getRectangleSize() const;
@@ -38,5 +37,7 @@ public:
 	bool isVisible();
 	void setVisible(bool visibility);
 
+	typedef std::unique_ptr<Entity> ptr;
+	typedef std::optional<std::reference_wrapper<Entity>> opt_ref;
 };
 

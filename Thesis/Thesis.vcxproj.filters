@@ -91,6 +91,9 @@
     <Filter Include="Game\Entities\Ship\EnemyShips\Types">
       <UniqueIdentifier>{136ccbb3-6704-4a86-be09-f25f49534c2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities\Aux">
+      <UniqueIdentifier>{6f4e9a56-6701-4750-96cb-ae176d908112}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -182,9 +185,6 @@
     </ClCompile>
     <ClCompile Include="TableLayout.cpp">
       <Filter>GUI\Widgets\Layouts\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Helpers.cpp">
-      <Filter>Utilities\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>GUI\Widgets\Buttons</Filter>
@@ -278,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="Fleet.cpp">
       <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClCompile>
+    <ClCompile Include="Spline.cpp">
+      <Filter>Utilities\Aux</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers.cpp">
+      <Filter>Utilities\Aux</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -380,9 +386,6 @@
     <ClInclude Include="TableLayout.h">
       <Filter>GUI\Widgets\Layouts\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers.h">
-      <Filter>Utilities\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>GUI\Widgets\Buttons</Filter>
     </ClInclude>
@@ -478,6 +481,12 @@
     </ClInclude>
     <ClInclude Include="Fleet.h">
       <Filter>Game\Entities\Ship\EnemyShips</Filter>
+    </ClInclude>
+    <ClInclude Include="Spline.h">
+      <Filter>Utilities\Aux</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Utilities\Aux</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

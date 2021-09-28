@@ -1,5 +1,7 @@
 #pragma once
 #include <filesystem>
+
+class Spline;
 class Helpers
 {
 private:
@@ -16,6 +18,15 @@ public:
 
 	// Receives position, and checks if contained in area
 	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
+	
+	static float toDeg(float rad);
+	static float toDeg(const sf::Vector2f& vec);
+	static float toRad(float deg);
+	static sf::Vector2f normalize(sf::Vector2f vec);
+	static void normalize(sf::Vector2f& vec);
+	static float getLength(sf::Vector2f vec);
+
+	static void drawPath(sf::RenderTarget& target, const Spline& path);
 
 
 	static float perpDot(const sf::Vector2f& A, const sf::Vector2f& B);

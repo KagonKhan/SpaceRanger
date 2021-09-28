@@ -20,6 +20,10 @@ Game::~Game()
 void Game::initWindow()
 {
 	Helpers::CreateWindow(m_Window);
+
+	m_GameView = m_Window.getDefaultView();
+	m_GameView.zoom(2.f);
+	m_Window.setView(m_GameView);
 }
 #include "PlayerShip.h"
 void Game::initStates()
