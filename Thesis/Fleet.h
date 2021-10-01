@@ -52,6 +52,7 @@ public:
 	void update(const sf::Time& deltaTime);
 
 	void setPath(const std::vector<sf::Vector2f>& waypoints);
+	void setPath(Spline path);
 	sf::FloatRect getRectangle() const;
 	void move(const sf::Vector2f& moveBy);
 	void setWeaponsAsActive(bool active);

@@ -88,7 +88,7 @@ void Fleet::position(PositionType pos)
 	sf::Vector2f m_WinSize = Configuration::boundaries;
 
 	switch (X) {
-	case X::Left:	moveBy.x += -rect.width;													break;
+	case X::Left:	moveBy.x += -rect.width + ((Xplace == Place::Inside) ? +rect.width : 0);	break;										break;
 	case X::Middle:	moveBy.x += (m_WinSize.x - rect.width) / 2.f;								break;
 	case X::Right:	moveBy.x += m_WinSize. x + ((Xplace == Place::Inside) ? -rect.width : 0);	break;
 	default:																					break;
@@ -111,6 +111,15 @@ void Fleet::position(PositionType pos)
 void Fleet::setPath(const std::vector<sf::Vector2f>& waypoints)
 {
 	m_Path.emplace(waypoints, 0.01, true);
+
+	for (auto&& ship : m_Ships) {
+		ship->setPath(m_Path);
+	}
+}
+
+void Fleet::setPath(Spline path)
+{
+	m_Path = path;
 
 	for (auto&& ship : m_Ships) {
 		ship->setPath(m_Path);

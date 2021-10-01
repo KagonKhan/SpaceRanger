@@ -4,6 +4,7 @@
 Spline::Spline(const std::vector<sf::Vector2f>& waypoints, float precision, bool isLooped)
 	: m_Looped(isLooped), m_Precision(precision)
 {
+	m_WayPoints = waypoints;
 	calculateSplinePoints(waypoints, precision, isLooped);
 }
 
@@ -72,6 +73,8 @@ void Spline::setWaypoints(const std::vector<sf::Vector2f>& waypoints)
 {
 	m_Points.clear();
 	m_Gradients.clear();
+	m_WayPoints.clear();
+	m_WayPoints = waypoints;
 	calculateSplinePoints(waypoints, m_Precision, m_Looped);
 }
 
@@ -94,4 +97,20 @@ sf::Vector2f Spline::getNextPoint()
 	}
 	
 	return retval;
+}
+
+Spline Spline::getMirroredPath(bool mirrorByX)
+{
+	std::vector<sf::Vector2f>	mirrored_waypoints;
+
+	for (auto point : m_WayPoints)
+	{
+		static float maxX = Configuration::boundaries.x;
+		sf::Vector2f pnt(maxX - point.x, point.y);
+		mirrored_waypoints.push_back(pnt);
+	}
+
+	Spline result(mirrored_waypoints, m_Precision, m_Looped);
+	
+	return result;
 }

@@ -4,7 +4,7 @@ using namespace Pos;
 LevelManagerOne::LevelManagerOne(Level& level)
 	: LevelManager(level)
 {
-	m_CurrentPhase = Phases::one;
+	m_CurrentPhase = Phases::three;
 }
 
 
@@ -170,7 +170,7 @@ void LevelManagerOne::phaseTwo(const sf::Time& deltaTime)
 void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 {
 
-
+	static Fleet* fleet[2]{ nullptr,nullptr };
 
 	if (static bool firstTime = true; firstTime) {
 		Fleet::PositionType position1 = std::make_tuple(X::Left, Place::Inside, Y::Top, Place::Outside);
@@ -179,7 +179,6 @@ void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 			sf::FloatRect(0, 0, 450, 800),
 			sf::Vector2f(5, 5),
 			position1
-		
 		);
 
 
@@ -188,48 +187,49 @@ void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 			sf::FloatRect(0, 0, 450, 800),
 			sf::Vector2f(5, 5),
 			position2
-		
 		);
 
 
-		std::vector<sf::Vector2f> path = { {75, 86},{1850, 906},{80, 866},{930, -144},{1850, 906},{80, 866},{1855, 91} };
+		std::vector<sf::Vector2f> wp = { {75, 86},{1850, 906},{80, 866},{930, -144},{1850, 906},{80, 866},{1855, 91} };
+		Spline path(wp, 0.01f, true);
 
-		m_Level.getFleet(0).setPath(path);
+		fleet[0] = m_Level.getFleetPtr(0);
+		fleet[0]->setPath(path);
+		fleet[1] = m_Level.getFleetPtr(1);
+		fleet[1]->setPath(path.getMirroredPath(true));
 		firstTime = false;
 		return;
 	}
 
-	static auto&& fleet1 = m_Level.getFleet(0);
-	static auto&& fleet2 = m_Level.getFleet(1);
+
+
 
 	static float time = 0;
 	time += deltaTime.asSeconds();
 
 
-	if (fleet1.getRectangle().left < 0)
+	if (fleet[0]->getRectangle().left < 0)
 		;
-	else if (fleet1.getRectangle().top < 0) {
+	else if (fleet[0]->getRectangle().top < 0) {
 		;
 	}
 	else
-		for (auto&& ship : fleet1)
+		for (auto&& ship : *fleet[0])
+			ship->setWeaponsAsActive(true);
+	
+	if (fleet[1]->getRectangle().left < 0)
+		;
+	else if (fleet[1]->getRectangle().top < 0) {
+		;
+	}
+	else
+		for (auto&& ship : *fleet[1])
 			ship->setWeaponsAsActive(true);
 
 
 
 
-	if (fleet2.getRectangle().left + fleet2.getRectangle().width > Configuration::boundaries.x) 
-		fleet2.move(sf::Vector2f(-200, 0) * deltaTime.asSeconds());
-	else if (fleet2.getRectangle().top < 0) {
-		fleet2.move(sf::Vector2f(0, 200) * deltaTime.asSeconds());
-	}
-	else
-		for (auto&& ship : fleet2)
-			ship->setWeaponsAsActive(true);
-
-
-
-	if (fleet1.size() == 0 && fleet2.size() == 0){
+	if (fleet[0]->size() == 0 && fleet[1]->size() == 0){
 		m_CurrentPhase = Phases::four;
 		m_Level.clearRects();
 	}

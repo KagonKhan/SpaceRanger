@@ -4,6 +4,7 @@ class Spline
 {
 private:
 	std::vector<sf::Vector2f>	m_Points;
+	std::vector<sf::Vector2f>	m_WayPoints;
 	std::vector<sf::Vector2f>	m_Gradients;
 	int							m_Index		{ 0 };
 	int							m_Laps		{ 0 };
@@ -21,7 +22,7 @@ public:
 	void setWaypoints(const std::vector<sf::Vector2f>& waypoints);
 
 	sf::Vector2f getNextPoint();
-
+	Spline getMirroredPath(bool mirrorByX);
 
 	int getLaps() const								{			return m_Laps;											}
 	bool isDone()const								{			return m_Done;											}
