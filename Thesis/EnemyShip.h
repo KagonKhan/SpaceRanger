@@ -20,12 +20,21 @@ protected:
 	void setRotation(float angle )					{	m_Sprite.setRotation(angle);	}
 
 public:
+	using ptr = std::unique_ptr<EnemyShip>;
+	enum class Type {
+		minigun, support, beam, rocket, scout, tank, scout_v2, stealth, boss,
+	};
+
+
+
 	EnemyShip(float maxHp, Configuration::TexturesShips tex_id);
 
 	void setTargetPos(sf::Vector2f pos);
 
 
-	void setPath(const std::optional<Spline>& path) {		m_Path = path;		}
 
-	using ptr = std::unique_ptr<EnemyShip>;
+	static ptr create(Type ship);
+
+
+	void setPath(const std::optional<Spline>& path) {		m_Path = path;		}
 };

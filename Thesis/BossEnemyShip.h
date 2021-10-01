@@ -12,6 +12,7 @@ private:
 	void onDestroy() override;
 
 public:
-	BossEnemyShip(Configuration::TexturesShips tex_id);
-	virtual ~BossEnemyShip();
+	explicit BossEnemyShip();
+	explicit BossEnemyShip(Configuration::TexturesShips tex_id);
+	~BossEnemyShip() override;
 };

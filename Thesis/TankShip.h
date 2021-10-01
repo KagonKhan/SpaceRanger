@@ -12,7 +12,9 @@ private:
 	void onDestroy() override;
 
 public:
-	TankShip(Configuration::TexturesShips tex_id);
-	virtual ~TankShip();
+	explicit TankShip();
+	explicit TankShip(Configuration::TexturesShips tex_id);
+
+	~TankShip() override;
 };
 

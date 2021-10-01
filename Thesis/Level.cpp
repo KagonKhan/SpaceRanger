@@ -1,14 +1,6 @@
 #include "pch.h"
 #include "Level.h"
-#include "BeamShip.h"
-#include "BossEnemyShip.h"
-#include "MinigunShip.h"
-#include "RocketShip.h"
-#include "ScoutEnemyShip.h"
-#include "ScoutShipV2.h"
-#include "StealthShip.h"
-#include "SupportShip.h"
-#include "TankShip.h"
+
 
 #include "Ammunition.h"
 #include "PlayerShip.h"
@@ -17,6 +9,9 @@
 void Level::draw( sf::RenderTarget& target, sf::RenderStates ) const
 {
 	for (auto&& fleet : m_Enemies) 
+		target.draw(fleet);
+	
+	for (auto&& fleet : m_rects)
 		target.draw(fleet);
 
 }
@@ -28,115 +23,31 @@ Level::Level( sf::RenderWindow& window, PlayerShip& player )
 }
 
 
-#pragma region INIT/ENEMY
-void Level::populateAreaWithEnemies(std::vector<EnemyShip::ptr>& container, EnemyShips enemyShip, sf::FloatRect area, sf::Vector2f padding)
+void Level::addRect()
 {
-	sf::Vector2f size = createEnemy(enemyShip)->getSize();
+	auto rect = m_Enemies.back().getRectangle();
+	sf::RectangleShape shape(sf::Vector2f(rect.width, rect.height));
+	shape.setPosition(rect.left, rect.height);
+	shape.setFillColor(sf::Color::Transparent);
 
-	int num_x = static_cast<int>((area.width  ) / (size.x + padding.x));
-	int num_y = static_cast<int>((area.height ) / (size.y + padding.y));
+	shape.setOutlineColor(sf::Color::White);
+	shape.setOutlineThickness(2.f);
 
-
-	sf::Vector2f mid_padding;
-	mid_padding.x = (area.width - static_cast<float>(num_x) * size.x) / static_cast<float>(num_x);
-	mid_padding.y = (area.height- static_cast<float>(num_y) * size.y) / static_cast<float>(num_y);
-
-
-	for(int i = 0; i < num_x; i++)
-		for (int j = 0; j < num_y; j++) {
-			
-			auto enemy = createEnemy(enemyShip);
-
-			sf::Vector2f pos(area.left + i* size.x, area.top + j * size.y);
-
-			// Origin in the middle, so move the pos
-			pos += size / 2.f;
-
-			pos.x += (static_cast<float>(i) + 1) * mid_padding.x;
-			pos.x -= mid_padding.x / 2.f;
-			pos.y += (static_cast<float>(j) + 1) * mid_padding.y;
-
-			enemy->setPosition(pos);
-
-			container.push_back(std::move(enemy));
-		}
+	m_rects.push_back(shape);
 }
 
-
-EnemyShip::ptr Level::createEnemy(EnemyShips ship) const
-{
-	EnemyShip::ptr enemy;
-
-	switch (ship) {
-	case EnemyShips::minigun:		enemy = createEnemyMinigun();	break;
-	case EnemyShips::support:		enemy = createEnemySupport();	break;
-	case EnemyShips::beam:			enemy = createEnemyBeam();		break;
-	case EnemyShips::rocket:		enemy = createEnemyRocket();	break;
-	case EnemyShips::scout:			enemy = createEnemyScout();		break;
-	case EnemyShips::tank:			enemy = createEnemyTank();		break;
-	case EnemyShips::scout_v2:		enemy = createEnemyScoutV2();	break;
-	case EnemyShips::stealth:		enemy = createEnemyStealth();	break;
-	case EnemyShips::boss:			enemy = createEnemyBoss();		break;
-	default:														break;
-	}
-
-	return std::move(enemy);
-}
-
-EnemyShip::ptr Level::createEnemyMinigun() const
-{
-	auto enemy= std::make_unique<MinigunShip>(Configuration::TexturesShips::enemy_ship_minigun);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemySupport() const
-{
-	auto enemy = std::make_unique<SupportShip>(Configuration::TexturesShips::enemy_ship_support);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyBeam() const
-{
-	auto enemy = std::make_unique<BeamShip>(Configuration::TexturesShips::enemy_ship_beam);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyRocket() const
-{
-	auto enemy = std::make_unique<RocketShip>(Configuration::TexturesShips::enemy_ship_rocket);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyScout() const
-{
-	auto enemy = std::make_unique<ScoutEnemyShip>(Configuration::TexturesShips::enemy_ship_scout);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyTank() const
-{
-	auto enemy = std::make_unique<TankShip>(Configuration::TexturesShips::enemy_ship_tank);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyScoutV2() const
-{
-	auto enemy = std::make_unique<ScoutShipV2>(Configuration::TexturesShips::enemy_ship_scout_v2);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyStealth() const
-{
-	auto enemy = std::make_unique<StealthShip>(Configuration::TexturesShips::enemy_ship_stealth);
-	return std::move(enemy);
-}
-EnemyShip::ptr Level::createEnemyBoss() const
-{
-	auto enemy = std::make_unique<BossEnemyShip>(Configuration::TexturesShips::enemy_ship_boss);
-	return std::move(enemy);
-}
-
-#pragma endregion
 
 
 void Level::addFleet(std::vector<EnemyShip::ptr> fleet)
 {
-	Fleet temp;
-	temp.addFleet(std::move(fleet));
-	m_Enemies.push_back(std::move(temp));
+	m_Enemies.emplace_back(std::move(fleet));
+	addRect();
+}
+
+void Level::addFleet(Fleet fleet)
+{
+	m_Enemies.push_back(std::move(fleet));
+	addRect();
 }
 
 
@@ -145,6 +56,13 @@ void Level::update(const sf::Time& deltaTime)
 {	
 	updateEnemies(deltaTime);
 	checkCollisions();
+
+
+	for (int i = 0; i < m_Enemies.size(); ++i) {
+		auto rect = m_Enemies[i].getRectangle();
+		m_rects[i].setPosition(rect.left, rect.top);
+		m_rects[i].setSize(sf::Vector2f(rect.width, rect.height));
+	}
 }
 
 void Level::updateEnemies(const sf::Time& deltaTime)
@@ -218,4 +136,3 @@ void Level::checkForDeletion()
 			m_Enemies.erase(m_Enemies.begin() + i--);
 	
 }
-

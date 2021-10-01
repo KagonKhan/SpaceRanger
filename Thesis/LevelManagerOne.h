@@ -13,7 +13,8 @@ private:
 	};
 	Phases m_CurrentPhase;
 
-	void initFleet(Level::EnemyShips type, sf::FloatRect area, sf::Vector2f padding);
+
+	void initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos = std::nullopt);
 
 
 	/* could hold these in an array */

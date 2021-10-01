@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "StealthShip.h"
 
+StealthShip::StealthShip()
+	: StealthShip(Configuration::TexturesShips::enemy_ship_stealth)
+{
+}
+
 StealthShip::StealthShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

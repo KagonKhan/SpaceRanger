@@ -17,6 +17,7 @@ private:
 	PlayerShip m_Player;
 	SpaceBackground m_Background;
 
+	sf::RectangleShape bounding;
 
 	Level m_Level;
 	std::unique_ptr<LevelManager> m_LevelManager;
@@ -34,6 +35,6 @@ public:
 
 
 	void processEvents(const sf::Event& sfevent) override;
-	void update(const sf::Time& deltaTime)  override;
+	void update(const sf::Time& deltaTime) override;
 };
 

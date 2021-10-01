@@ -46,7 +46,7 @@ void Ship::updateMovement(const sf::Time& deltaTime)
 
 }
 
-void Ship::updatePosition(const sf::Time& deltaTime)
+void Ship::updatePosition(const sf::Time& deltaTime) 
 {
 	m_Sprite.setPosition(m_Position);
 	m_Shape.setPosition(m_Position);
@@ -73,6 +73,16 @@ void Ship::setPosition(const sf::Vector2f& pos)
 	m_Position = pos;
 	m_Shape.setPosition(m_Position);
 	m_Sprite.setPosition(m_Position);
+
+	for (auto&& weapon : m_Weapons)
+		weapon->setPosition(m_Position);
+}
+
+void Ship::move(const sf::Vector2f& moveBy)
+{
+	m_Position += moveBy;
+	m_Shape.move(moveBy);
+	m_Sprite.move(moveBy);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setPosition(m_Position);

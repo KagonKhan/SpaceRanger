@@ -10,6 +10,8 @@ void SpaceState::draw(sf::RenderTarget& target, sf::RenderStates) const
 	target.draw(m_Background);
 	target.draw(m_Player);
 	target.draw(m_Level);
+
+	target.draw(bounding);
 }
 
 //SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player)
@@ -27,6 +29,13 @@ SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	m_LevelManager = std::make_unique<LevelManagerOne>(m_Level);
 
 	initPlayer();
+
+
+
+	bounding.setSize((sf::Vector2f)window.getSize());
+	bounding.setOutlineColor(sf::Color::White);
+	bounding.setOutlineThickness(5.f);
+	bounding.setFillColor(sf::Color::Transparent);
 }
 
 

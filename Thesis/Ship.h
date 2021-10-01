@@ -5,7 +5,7 @@
 #include "CanCollide.h"
 
 class Ship :
-	public Entity,
+	public Entity, 
 	public IsLiving,
 	public HasWeapons,
 	public CanCollide
@@ -37,6 +37,7 @@ public:
 	void update(const sf::Time& deltaTime)override;
 
 	void setPosition(const sf::Vector2f& pos) override;
+	void move(const sf::Vector2f& moveBy);
 
 	void setAreActionsBlocked(bool is_blocked);
 	void setWeaponsAsActive(bool enabled);

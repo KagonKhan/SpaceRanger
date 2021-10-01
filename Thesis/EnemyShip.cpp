@@ -1,6 +1,17 @@
 #include "pch.h"
 #include "EnemyShip.h"
 
+
+#include "BeamShip.h"
+#include "BossEnemyShip.h"
+#include "MinigunShip.h"
+#include "RocketShip.h"
+#include "ScoutEnemyShip.h"
+#include "ScoutShipV2.h"
+#include "StealthShip.h"
+#include "SupportShip.h"
+#include "TankShip.h"
+
 EnemyShip::EnemyShip(float maxHp, Configuration::TexturesShips tex_id)
 	: Ship(maxHp, tex_id), m_Path(std::nullopt)
 {
@@ -8,9 +19,10 @@ EnemyShip::EnemyShip(float maxHp, Configuration::TexturesShips tex_id)
 }
 
 void EnemyShip::setTargetPos(sf::Vector2f pos)
-{
+{ 
 	m_Target = pos;
 }
+
 
 
 void EnemyShip::updateMovement(const sf::Time& deltaTime)
@@ -40,4 +52,25 @@ void EnemyShip::followPath( const sf::Time& deltaTime)
 	if (length < 15.f)
 		m_GetNextPoint = true;
 
+}
+
+
+EnemyShip::ptr EnemyShip::create(Type ship)
+{
+	EnemyShip::ptr enemy;
+
+	switch (ship) {
+	case Type::minigun:			enemy = std::make_unique<MinigunShip>();	break;
+	case Type::support:			enemy = std::make_unique<SupportShip>();	break;
+	case Type::beam:			enemy = std::make_unique<BeamShip>();		break;
+	case Type::rocket:			enemy = std::make_unique<RocketShip>();		break;
+	case Type::scout:			enemy = std::make_unique<ScoutEnemyShip>();	break;
+	case Type::tank:			enemy = std::make_unique<TankShip>();		break;
+	case Type::scout_v2:		enemy = std::make_unique<ScoutShipV2>();	break;
+	case Type::stealth:			enemy = std::make_unique<StealthShip>();	break;
+	case Type::boss:			enemy = std::make_unique<BossEnemyShip>();	break;
+	default:																break;
+	}
+
+	return std::move(enemy);
 }

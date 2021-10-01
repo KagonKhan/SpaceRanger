@@ -12,7 +12,8 @@ private:
 	void onDestroy() override;
 
 public:
-	SupportShip(Configuration::TexturesShips tex_id);
-	virtual ~SupportShip();
+	explicit SupportShip();
+	explicit SupportShip(Configuration::TexturesShips tex_id);
+	~SupportShip() override;
 };
 

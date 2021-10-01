@@ -5,6 +5,7 @@ class LevelManager
 {
 protected:
 	Level& m_Level;
+	sf::Vector2f m_WinSize;
 
 public:
 	explicit LevelManager(Level& level);

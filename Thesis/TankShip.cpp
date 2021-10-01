@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "TankShip.h"
 
+TankShip::TankShip()
+	:TankShip(Configuration::TexturesShips::enemy_ship_tank)
+{
+}
+
 TankShip::TankShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

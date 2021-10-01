@@ -137,7 +137,8 @@ public:
 		N,		O,		H,		Q,		Escape
 	};
 
-	
+
+
 
 	static void initialize();
 

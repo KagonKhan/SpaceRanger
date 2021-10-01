@@ -18,7 +18,8 @@ public:
 
 	// Receives position, and checks if contained in area
 	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
-	
+
+
 	static float toDeg(float rad);
 	static float toDeg(const sf::Vector2f& vec);
 	static float toRad(float deg);

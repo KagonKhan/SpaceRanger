@@ -49,6 +49,23 @@ void Game::processEvents()
 			m_Window.close(); //close the window
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
 			system("CLS");
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
+			m_GameView = m_Window.getDefaultView();
+			m_GameView.zoom(2.f);
+			m_Window.setView(m_GameView);
+		}
+		if (sfevent.type == sf::Event::MouseWheelMoved) {
+			auto view = m_Window.getView();
+
+			if (sfevent.mouseWheel.delta < 0)
+				view.zoom(1.01f);		
+			else if (sfevent.mouseWheel.delta > 0)
+				view.zoom(0.99f);
+
+
+			m_Window.setView(view);
+		}
+
 
 		m_States.top()->processEvents(sfevent);
 	}

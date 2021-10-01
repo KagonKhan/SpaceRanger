@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "ScoutShipV2.h"
 
+ScoutShipV2::ScoutShipV2()
+	:ScoutShipV2(Configuration::TexturesShips::enemy_ship_scout_v2)
+{
+}
+
 ScoutShipV2::ScoutShipV2(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

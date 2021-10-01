@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "BossEnemyShip.h"
 
+BossEnemyShip::BossEnemyShip()
+	: BossEnemyShip(Configuration::TexturesShips::enemy_ship_boss)
+{
+}
+
 BossEnemyShip::BossEnemyShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "SupportShip.h"
 
+SupportShip::SupportShip()
+	:SupportShip(Configuration::TexturesShips::enemy_ship_support)
+{
+}
+
 SupportShip::SupportShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

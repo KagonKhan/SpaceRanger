@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "MinigunShip.h"
 
+MinigunShip::MinigunShip()
+	:MinigunShip(Configuration::TexturesShips::enemy_ship_minigun)
+{
+}
+
 MinigunShip::MinigunShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

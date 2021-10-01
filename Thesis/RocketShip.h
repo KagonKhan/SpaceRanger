@@ -11,7 +11,8 @@ private:
 	void onDestroy() override;
 
 public:
-	RocketShip(Configuration::TexturesShips tex_id);
-	virtual ~RocketShip();
+	explicit RocketShip();
+	explicit RocketShip(Configuration::TexturesShips tex_id);
+	~RocketShip() override;
 };
 

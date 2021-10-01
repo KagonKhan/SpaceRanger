@@ -11,7 +11,8 @@ private:
 	void onDestroy() override;
 
 public:
-	StealthShip(Configuration::TexturesShips tex_id);
-	virtual ~StealthShip();
+	explicit StealthShip();
+	explicit StealthShip(Configuration::TexturesShips tex_id);
+	~StealthShip() override;
 };
 

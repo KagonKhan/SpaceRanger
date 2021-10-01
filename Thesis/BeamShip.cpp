@@ -2,6 +2,11 @@
 #include "BeamShip.h"
 #include "BeamTurret.h"
 
+BeamShip::BeamShip()
+	: BeamShip(Configuration::TexturesShips::enemy_ship_beam)
+{
+}
+
 BeamShip::BeamShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {

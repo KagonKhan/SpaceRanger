@@ -11,7 +11,8 @@ private:
 	void onDestroy() override;
 
 public:
-	ScoutShipV2(Configuration::TexturesShips tex_id);
-	virtual ~ScoutShipV2();
+	explicit ScoutShipV2();
+	explicit ScoutShipV2(Configuration::TexturesShips tex_id);
+	~ScoutShipV2() override;
 };
 

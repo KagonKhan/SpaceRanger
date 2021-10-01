@@ -12,7 +12,8 @@ private:
 	void onDestroy() override;
 
 public:
-	BeamShip(Configuration::TexturesShips tex_id);
-	virtual ~BeamShip();
+	explicit BeamShip();
+	explicit BeamShip(Configuration::TexturesShips tex_id);
+	~BeamShip() override;
 };
 
