@@ -2,8 +2,6 @@
 #include "HasWeapons.h"
 #include "Weaponry.h"
 
-HasWeapons::HasWeapons() {}
-HasWeapons::~HasWeapons(){}
 
 void HasWeapons::initWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation, Entity::opt_ref parent)
 {
@@ -36,22 +34,29 @@ void HasWeapons::initWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset,
 	m_Weapons.back()->setIsWeaponActive(true);
 }
 
-void HasWeapons::addWeapon(std::unique_ptr<Weapon> weapon)
-{
-	m_Weapons.push_back(std::move(weapon));
-}
 
-//possibly add some index 
+
 void HasWeapons::shoot()
 {
-	bool result = false;
-	for (auto&& weapon : m_Weapons) {
-		if (weapon->isActive()) {
-			result = weapon->shoot();
-		}
-	}
+	bool makeSound{ true };
 
-	// This is a workaround so that weapons shooting all at once don't make multiple sounds - openAL limitation
-	//if (result)
-	//	m_Weapons.back()->createSound();
+	for (auto&& it = begin(m_Weapons); it != end(m_Weapons); ++it)	
+		if (auto&& weapon = *it; weapon->isActive()) {
+			weapon->shoot(makeSound);
+			makeSound = checkForDistinctSound(it);
+		}
+}
+
+// For this function to work as it's supposed to, the weapon container would have to be grouped by weapon type!
+// TODO: measure how complex this function is (time)
+bool HasWeapons::checkForDistinctSound(std::vector<Weapon::ptr>::iterator weaponIt)
+{
+	if (std::next(weaponIt) != end(m_Weapons)) {
+		auto&& currWeapon = *weaponIt->get();
+		auto&& nextWeapon = *std::next(weaponIt)->get();
+
+		if (typeid(currWeapon).name() != typeid(nextWeapon).name())
+			return true;
+	}
+	return false;
 }

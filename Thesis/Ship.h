@@ -28,7 +28,6 @@ protected:
 	virtual void updateWeapons(const sf::Time& deltaTime);
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
 
-	virtual void onDestroy();
 
 public:
 	Ship(double max_hp, Configuration::TexturesShips tex_id);
@@ -43,7 +42,7 @@ public:
 	void setWeaponsAsActive(bool enabled);
 
 
-
+	virtual void onDestroy();
 
 
 	void markForDeletion();

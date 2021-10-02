@@ -42,11 +42,12 @@ public:
 
 	void setIsWeaponActive(bool isActive);
 	bool isActive();
-	bool shoot();
+	void shoot(bool makeSound = true);
 	void update(const sf::Time& deltaTime) override ;
 
 	std::vector<Ammunition*>& getShots();
 
+	using ptr = std::unique_ptr<Weapon>;
 
 #pragma region SETTERS / GETTERS
 	float getSpriteRotation()const;

@@ -76,18 +76,16 @@ void Weapon::setPosition(float x, float y)
 #pragma endregion
 
 
-bool Weapon::shoot()
+void Weapon::shoot(bool makeSound)
 {
 	if(m_IsWeaponActive)
 		if (m_TimeSinceLastShot > m_FiringDelay) {
 			createBullet();
-			//createSound();
+			if(makeSound)	createSound();
 			m_TimeSinceLastShot = 0;
 
-			return true;
 		}
 
-	return false;
 }
 
 void Weapon::update(const sf::Time& deltaTime)

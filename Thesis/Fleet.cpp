@@ -182,8 +182,6 @@ void Fleet::update(const sf::Time& deltaTime)
 		}
 
 	}
-
-	BOOST_LOG_TRIVIAL(info) << ready << ", " << queue.size();
 	
 
 	for (auto&& ship : m_Ships)
