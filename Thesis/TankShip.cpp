@@ -13,12 +13,6 @@ TankShip::TankShip(Configuration::TexturesShips tex_id)
 	m_Speed = 50.f;
 }
 
-TankShip::~TankShip()
-{
-	// TODO this class will have unique weapon (shell weapon) large cannon, slow rate, giant blast
-	// Probably have energy shield
-}
-
 
 void TankShip::initWeapons()
 {

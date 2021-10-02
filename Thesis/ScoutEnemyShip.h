@@ -12,5 +12,5 @@ private:
 public:
 	explicit ScoutEnemyShip();
 	explicit ScoutEnemyShip(Configuration::TexturesShips tex_id);
-	~ScoutEnemyShip() override;
+
 };

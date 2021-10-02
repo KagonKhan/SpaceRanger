@@ -11,9 +11,9 @@ class Ammunition :
 	private sf::NonCopyable
 {
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void setRadAngle();
-	void updateAnimation(const sf::Time& deltaTime);
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void setRadAngle() { m_RadAngle = m_DegAngle / 180.f * static_cast<float>(M_PIl); };
+	void updateAnimation(const sf::Time& deltaTime){ m_AnimatedSprite.update(deltaTime); }
 	void updatePosition(const sf::Time& deltaTime);
 
 	virtual void initAnimation() = 0;
@@ -21,10 +21,11 @@ private:
 	virtual void onDeletion(bool playAnimation) = 0;
 
 protected:
-	float m_Speed, m_DegAngle, m_RadAngle;
+	float m_DegAngle;
+	float m_RadAngle;
 
-	bool m_CanBeDeleted;
-	bool m_MarkedForDeletion;
+	bool m_CanBeDeleted{ false };
+	bool m_MarkedForDeletion{ false };
 
 	sf::Vector2f m_Boundaries;
 
@@ -36,25 +37,24 @@ protected:
 
 public:
 	Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
-	virtual ~Ammunition();
 
 	void update(const sf::Time& deltaTime) override;
 
-#pragma region SETTERS / GETTERS
-	void setPosition(const sf::Vector2f& pos) override;
-	void setSpeed(float speed);
-	float getRotation()const;
-	float getRotationRad()const;
-	float getSpriteRotation()const;
 
-	void setSpriteRotation(float angle);
+	void setPosition(const sf::Vector2f& pos) override;
+	void setSpeed(float speed){ m_Speed = speed; }
+	float getRotation()const { return m_RadAngle; }
+	float getRotationRad()const { return m_RadAngle; }
+	float getSpriteRotation()const { return m_Sprite.getRotation(); }
+
+	void setSpriteRotation(float angle){ m_Sprite.setRotation(angle); }
 	void setRotation(float angle);
 	void rotate(float angle);
-	void rotateSprite(float angle);
-#pragma endregion
+	void rotateSprite(float angle){ m_Sprite.rotate(angle); }
 
-	void markForDeletion(bool playAnimation = false);
 
-	bool canBeDeleted();
+	void markForDeletion(bool playAnimation = false) { onDeletion(playAnimation); };
+
+	bool canBeDeleted()const {		return m_CanBeDeleted;	};
 	virtual float dealDamage() = 0;
 };

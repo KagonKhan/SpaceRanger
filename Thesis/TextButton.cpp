@@ -9,7 +9,7 @@ void TextButton::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 
 TextButton::TextButton(opt_ref parent, std::optional<sf::Vector2f> size, const sf::Color& fillColor, std::string_view text, sf::Font& font, unsigned int charSize)
-	: Button(parent), m_Label(opt_ref(*this), text, font, charSize), m_IsAutoAdjustable(false), m_Style(Style::Middle)
+	: Button(parent), m_Label(opt_ref(*this), text, font, charSize)
 {
 
 	setFillColor(fillColor);
@@ -18,11 +18,6 @@ TextButton::TextButton(opt_ref parent, std::optional<sf::Vector2f> size, const s
 		m_Shape.setSize(size.value());
 	else
 		setIsAutoAdjustable(true);
-}
-
-TextButton::~TextButton()
-{
-
 }
 
 
@@ -79,41 +74,16 @@ void TextButton::positionTextBasedOnStyle()
 	const sf::Vector2f label_size(m_Label.getSize());
 
 	switch (m_Style) {
-	case Style::TopLeft:
-		pos = sf::Vector2f(0, 0);
-		break;
-
-	case Style::TopMiddle:
-		pos = sf::Vector2f((size.x - label_size.x) / 2.f, 0);
-		break;
-
-	case Style::TopRight:
-		pos = sf::Vector2f(size.x - label_size.x, 0);
-		break;
-
-	case Style::MiddleLeft:
-		pos = sf::Vector2f(0, (size.y - label_size.y) / 2.f);
-		break;
-
-	case Style::Middle:
-		pos = sf::Vector2f((size - label_size) / 2.f);
-		break;
-
-	case Style::MiddleRight:
-		pos = sf::Vector2f(size.x - label_size.x, (size.y - label_size.y) / 2.f);
-		break;
-
-	case Style::BottomLeft:
-		pos = sf::Vector2f(0, size.y - label_size.y);
-		break;
-
-	case Style::BottomMiddle:
-		pos = sf::Vector2f((size.x - label_size.x) / 2.f, size.y - label_size.y);
-		break;
-
-	case Style::BottomRight:
-		pos = sf::Vector2f(size - label_size);
-		break;
+	case Style::TopLeft:		pos = sf::Vector2f(0.f							, 0.f							);		break;
+	case Style::TopMiddle:		pos = sf::Vector2f((size.x - label_size.x) / 2.f, 0.f							);		break;
+	case Style::TopRight:		pos = sf::Vector2f(size.x - label_size.x		, 0.f							);		break;
+	case Style::MiddleLeft:		pos = sf::Vector2f(0.f							, (size.y - label_size.y) / 2.f	);		break;
+	case Style::Middle:			pos = sf::Vector2f((size - label_size) / 2.f									);		break;
+	case Style::MiddleRight:	pos = sf::Vector2f(size.x - label_size.x		, (size.y - label_size.y) / 2.f	);		break;
+	case Style::BottomLeft:		pos = sf::Vector2f(0.f							, size.y - label_size.y			);		break;
+	case Style::BottomMiddle:	pos = sf::Vector2f((size.x - label_size.x) / 2.f, size.y - label_size.y			);		break;
+	case Style::BottomRight:	pos = sf::Vector2f(size - label_size											);		break;
+	default: break;
 	}
 
 	m_Label.setPosition(pos + m_Position);

@@ -20,7 +20,7 @@ Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundar
 	m_Pattern(pattern)
 {
 	initAnimation();
-	srand(reinterpret_cast<unsigned int>(this));
+
 
 	m_Speed = 1500.f;
 }
@@ -65,12 +65,9 @@ void Laser::updateIndividualBehavior(const sf::Time& deltaTime)
 void Laser::updateMovementPatters(const sf::Time& deltaTime)
 {		
 	switch (m_Pattern) {
-	case Patterns::straight:
-
-		break;
-	case Patterns::swarm:
-		rotate(static_cast<float>(rand()%3 - 1));
-		break;
+	case Patterns::straight:													break;
+	case Patterns::swarm:		rotate(Helpers::getRandom(-2.f, 2.f));			break;
+	default:																	break;
 	}
 	
 }

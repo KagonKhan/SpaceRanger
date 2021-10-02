@@ -9,9 +9,6 @@ Beam::Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundarie
 	m_Speed = 0;
 }
 
-Beam::~Beam()
-{
-}
 
 float Beam::dealDamage()
 {

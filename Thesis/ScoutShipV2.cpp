@@ -13,11 +13,6 @@ ScoutShipV2::ScoutShipV2(Configuration::TexturesShips tex_id)
 	m_Speed = 150.f;
 }
 
-ScoutShipV2::~ScoutShipV2()
-{
-}
-
-
 void ScoutShipV2::initWeapons()
 {
 	addWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
@@ -35,12 +30,12 @@ void ScoutShipV2::updateIndividualBehavior(const sf::Time& deltaTime)
 void ScoutShipV2::shoot(const sf::Time& deltaTime)
 {
 	static float time = 0.f;
-	static float max = 5 + rand() % 10;
+	static float max = Helpers::getRandom(5.f, 15.f);
 	time += deltaTime.asSeconds();
 
 	if (time >= max) {
 		time = 0.f;
-		max = 5 + rand() % 10;
+		max = Helpers::getRandom(5.f, 15.f);
 
 		HasWeapons::shoot();
 	}

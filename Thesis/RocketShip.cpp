@@ -13,10 +13,6 @@ RocketShip::RocketShip(Configuration::TexturesShips tex_id)
 	m_Speed = 100.f;
 }
 
-RocketShip::~RocketShip()
-{
-}
-
 
 void RocketShip::initWeapons()
 {

@@ -13,13 +13,6 @@ SupportShip::SupportShip(Configuration::TexturesShips tex_id)
 	m_Speed = 100.f;
 }
 
-SupportShip::~SupportShip()
-{
-	// TODO - add some forms of shields, maybe increases defense for nearby enemies,
-	// generally either doesnt shoot or really weak
-}
-
-
 void SupportShip::initWeapons()
 {
 

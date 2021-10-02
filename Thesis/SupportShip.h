@@ -12,6 +12,6 @@ private:
 public:
 	explicit SupportShip();
 	explicit SupportShip(Configuration::TexturesShips tex_id);
-	~SupportShip() override;
+
 };
 

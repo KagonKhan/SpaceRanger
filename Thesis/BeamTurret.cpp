@@ -19,7 +19,7 @@ void BeamTurret::stop()
 
 void BeamTurret::createBullet()
 {
-	std::unique_ptr<Beam> shot(new Beam(Configuration::TexturesWeaponry::ammo_beam, Configuration::boundaries, -90, 400));
+	auto shot = std::make_unique<Beam>(Configuration::TexturesWeaponry::ammo_beam, Configuration::boundaries, -90, 400);
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 
@@ -32,12 +32,12 @@ void BeamTurret::createBullet()
 
 void BeamTurret::createSound()
 {
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::beam)));
+	auto sound = std::make_unique<sf::Sound>(Configuration::sounds.get(Configuration::Sounds::beam));
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 
 	sound->setAttenuation(1.f);
 	sound->setPosition(m_Position.x, -m_Position.y, 0.f);
-	sound->setMinDistance(std::sqrt(200 * 200 + 300 * 300));
+	sound->setMinDistance(std::sqrtf(200.f * 200.f + 300.f * 300.f));
 	sound->setVolume(volume * 10);
 	sound->play();
 
@@ -47,7 +47,7 @@ void BeamTurret::createSound()
 void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 	if (m_Parent.has_value() && m_Shots.empty())
-		if (typeid(m_Parent.value().get()).name() == typeid(PlayerShip).name())
+		if (auto&& parent = m_Parent.value().get(); typeid(parent).name() == typeid(PlayerShip).name())
 			dynamic_cast<PlayerShip*>(&m_Parent.value().get())->setAreActionsBlocked(false);
 		
 }

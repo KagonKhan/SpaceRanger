@@ -14,11 +14,6 @@ StealthShip::StealthShip(Configuration::TexturesShips tex_id)
 	m_Speed = 2000.f;
 }
 
-StealthShip::~StealthShip()
-{
-	// TODO implement invisibility
-}
-
 
 void StealthShip::initWeapons()
 {

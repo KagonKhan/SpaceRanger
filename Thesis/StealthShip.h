@@ -11,6 +11,6 @@ private:
 public:
 	explicit StealthShip();
 	explicit StealthShip(Configuration::TexturesShips tex_id);
-	~StealthShip() override;
+
 };
 

@@ -10,7 +10,7 @@ protected:
 
     sf::RectangleShape m_Shape;
     sf::Color m_OutlineColor, m_FillColor;
-    bool m_IsAutoAdjustable;
+    bool m_IsAutoAdjustable{ false };
 
     Label m_Label;
 
@@ -25,7 +25,6 @@ protected:
 public:
     TextButton(opt_ref parent, std::optional<sf::Vector2f> size, const sf::Color& fillColor,
         std::string_view text, sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui), unsigned int charSize = 25);
-    virtual ~TextButton();
 
     // Text positioning
     enum class Style
@@ -39,7 +38,7 @@ public:
         BottomLeft = 1 << 6,
         BottomMiddle = 1 << 7,
         BottomRight = 1 << 8
-    } m_Style;
+    } m_Style{ Style::Middle };
 
     void setIsAutoAdjustable(bool adjust);
 

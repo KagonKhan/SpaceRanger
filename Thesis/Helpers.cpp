@@ -6,9 +6,12 @@ void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> 
 
 
 	std::string title;
-	int x = 400, y = 400;
-	int framerate = 120;
-	bool fullscreen = 0, borderless = 0, vsync = 0;
+	int x				{ 400 };
+	int y				{ 400 };
+	int framerate		{ 120 };
+	bool fullscreen		{ false };
+	bool borderless		{ false };
+	bool vsync			{ false };
 
 	std::ifstream settings("../media/config/screen.txt");
 	if (!settings.is_open())
@@ -58,7 +61,6 @@ void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> 
 			if (name == "resolution") {
 				std::string skip;
 				buffer >> x >> skip >> y;
-				std::cout << "\n" << x << ", " << y << "\n";
 			}
 		}
 	}
@@ -153,7 +155,7 @@ void Helpers::drawPath(sf::RenderTarget& target, const Spline& path)
 
 void Helpers::print(sf::Vector2f vec)
 {
-	std::cout << vec.x << ", " << vec.y << '\n';
+	BOOST_LOG_TRIVIAL(info) << vec.x << ", " << vec.y << '\n';
 }
 
 float Helpers::perpDot(const sf::Vector2f& A, const sf::Vector2f& B)

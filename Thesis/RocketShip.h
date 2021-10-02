@@ -11,6 +11,6 @@ private:
 public:
 	explicit RocketShip();
 	explicit RocketShip(Configuration::TexturesShips tex_id);
-	~RocketShip() override;
+
 };
 

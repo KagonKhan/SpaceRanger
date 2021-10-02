@@ -13,5 +13,4 @@ private:
 public:
 	explicit BossEnemyShip();
 	explicit BossEnemyShip(Configuration::TexturesShips tex_id);
-	~BossEnemyShip() override;
 };

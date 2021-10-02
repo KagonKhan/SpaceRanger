@@ -13,6 +13,5 @@ public:
 	explicit TankShip();
 	explicit TankShip(Configuration::TexturesShips tex_id);
 
-	~TankShip() override;
 };
 

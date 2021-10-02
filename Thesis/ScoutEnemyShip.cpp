@@ -13,11 +13,6 @@ ScoutEnemyShip::ScoutEnemyShip(Configuration::TexturesShips tex_id)
 	m_Speed = 150.f;
 }
 
-ScoutEnemyShip::~ScoutEnemyShip()
-{
-}
-
-
 void ScoutEnemyShip::initWeapons()
 {
 	addWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
@@ -35,12 +30,12 @@ void ScoutEnemyShip::updateIndividualBehavior(const sf::Time& deltaTime)
 void ScoutEnemyShip::shoot(const sf::Time& deltaTime)
 {
 	static float time = 0.f;
-	static float max = 5 + rand() % 10;
+	static float max = Helpers::getRandom(5.f, 15.f);
 	time += deltaTime.asSeconds();
 
 	if (time >= max) {
 		time = 0.f;
-		max = 5 + rand() % 10;
+		max = Helpers::getRandom(5.f, 15.f);
 
 		HasWeapons::shoot();
 	}

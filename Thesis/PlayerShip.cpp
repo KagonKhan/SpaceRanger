@@ -14,7 +14,6 @@ void PlayerShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player)
 	: Ship(100, tex_id), m_Boundaries(boundaries), 
-	m_SpeedLimit(1200, 900),
 	//m_Player(player),
 	m_ExhaustAnimationForward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust)),
 	m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust))
@@ -36,13 +35,10 @@ m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::Tex
 	initAnimations();
 }
 
-PlayerShip::~PlayerShip()
-{
-}
 
 void PlayerShip::onDestroy()
 {
-	puts("Player destroyed");
+
 }
 
 #pragma region Initializers / Setters / Getters
@@ -83,11 +79,6 @@ void PlayerShip::initAnimations()
 
 	m_ExhaustAnimatedSpriteRight = m_ExhaustAnimatedSpriteLeft;
 	m_ExhaustAnimatedSpriteRight.setOffset(sf::Vector2f(23.f, 32.f));
-}
-
-const sf::Sprite& PlayerShip::getSprite() const
-{
-	return m_Sprite;
 }
 
 #pragma endregion
@@ -153,8 +144,8 @@ void PlayerShip::updateMovement(const sf::Time& deltaTime)
 	else if (m_Direction.y < -m_SpeedLimit.y)
 		m_Direction.y = -m_SpeedLimit.y;
 
-	float len = std::sqrtf(std::powf(m_Direction.x, 2.f) + std::powf(m_Direction.y,2.f));
-	if (m_SpeedLimit.x < len) {
+	
+	if (float len = Helpers::getLength(m_Direction); m_SpeedLimit.x < len) {
 		len = m_SpeedLimit.x / len;
 		m_Direction *= len;
 	}
@@ -193,7 +184,6 @@ void PlayerShip::updateIndividualBehavior(const sf::Time& deltaTime)
 
 	sf::Listener::setPosition(m_Position.x, -m_Position.y, 300.f);
 
-	if (!m_AreActionsBlocked)
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			shoot();
+	if (!m_AreActionsBlocked && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		shoot();
 }

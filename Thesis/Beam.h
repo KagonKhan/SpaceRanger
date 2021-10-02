@@ -12,7 +12,6 @@ private:
 	void onDeletion(bool playAnimation = false) override;
 public:
 	Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
-	virtual ~Beam();
 
-	float dealDamage();
+	float dealDamage() override;
 };

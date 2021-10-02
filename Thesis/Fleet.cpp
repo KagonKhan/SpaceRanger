@@ -18,13 +18,12 @@ void Fleet::addMovementToQueue(sf::Vector2f dir, float length)
 
 
 Fleet::Fleet(Fleet&& other) noexcept
-: m_Ships(std::move(other.m_Ships)), m_Path(std::move(other.m_Path))
+: m_Ships(std::move(other.m_Ships))
 {}
 
 Fleet& Fleet::operator=(Fleet&& other)noexcept
 {
 	m_Ships = std::move(other.m_Ships);
-	m_Path = std::move(other.m_Path);
 	return *this;
 }
 
@@ -46,14 +45,14 @@ Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
 	mid_padding.x = (area.width - static_cast<float>(num_x) * size.x) / static_cast<float>(num_x);
 	mid_padding.y = (area.height - static_cast<float>(num_y) * size.y) / static_cast<float>(num_y);
 
-	//m_Ships.resize(num_x * num_y);
+	m_Ships.reserve(num_x * num_y);
 
 	for (int i = 0; i < num_x; i++)
 		for (int j = 0; j < num_y; j++) {
 
 			auto enemy = EnemyShip::create(type);
 
-			sf::Vector2f pos(area.left + i * size.x, area.top + j * size.y);
+			sf::Vector2f pos(area.left + static_cast<float>(i) * size.x, area.top + static_cast<float>(j) * size.y);
 
 			// Origin in the middle, so move the pos
 			pos += size / 2.f;
@@ -77,7 +76,7 @@ Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
 }
 
 
-void Fleet::setPosition(PositionType pos)
+void Fleet::setPosition(PositionType pos) const
 {
 	using namespace pos;
 
@@ -87,7 +86,7 @@ void Fleet::setPosition(PositionType pos)
 	move(moveTo00);
 
 
-	auto [X, Xplace, Y, Yplace] = pos;
+	const auto& [X, Xplace, Y, Yplace] = pos;
 	sf::Vector2f moveBy;
 
 	sf::Vector2f m_WinSize = Configuration::boundaries;
@@ -113,25 +112,18 @@ void Fleet::setPosition(PositionType pos)
 }
 
 
-void Fleet::setPath(const std::vector<sf::Vector2f>& waypoints)
+void Fleet::setPath(const std::vector<sf::Vector2f>& waypoints) const
 {
-	m_Path.emplace(waypoints, 0.01, true);
-
-	for (auto&& ship : m_Ships) {
-		ship->setPath(m_Path.value());
-	}
+	Spline path(waypoints, 0.01f, true);
+	for (auto&& ship : m_Ships) 
+		ship->setPath(path);
 }
 
-void Fleet::setPath(Spline path)
+void Fleet::setPath(Spline path) const
 {
-	m_Path = path;
-
-	for (auto&& ship : m_Ships) {
-		ship->setPath(m_Path.value());
-	}
+	for (auto&& ship : m_Ships) 
+		ship->setPath(path);
 }
-
-
 
 // does not work for now - when enemy is destroyed i teleport it to-99999-999999
 sf::FloatRect Fleet::getRectangle() const
@@ -160,8 +152,6 @@ sf::FloatRect Fleet::getRectangle() const
 }
 
 
-
-
 void Fleet::update(const sf::Time& deltaTime)
 {
 	for (auto&& ship : m_Ships) {
@@ -169,14 +159,14 @@ void Fleet::update(const sf::Time& deltaTime)
 	}
 
 	static auto& [queue, ready] = m_MoveQueue;
-	if (!queue.empty()) {
-		if (ready) {
-			for (auto&& ship : m_Ships) {
-				ship->setMovement(queue.front());
-			}
-			ready = false;
-			queue.pop();
+	if (!queue.empty() && ready) {
+
+		for (auto&& ship : m_Ships) {
+			ship->setMovement(queue.front());
 		}
+		ready = false;
+		queue.pop();
+		
 
 	}
 	
@@ -187,13 +177,13 @@ void Fleet::update(const sf::Time& deltaTime)
 
 }
 
-void Fleet::move(const sf::Vector2f& moveBy)
+void Fleet::move(const sf::Vector2f& moveBy) const
 {
 	for (auto&& ship : m_Ships)
 		ship->move(moveBy);
 }
 
-void Fleet::setWeaponsAsActive(bool active)
+void Fleet::setWeaponsAsActive(bool active) const
 {
 	for (auto&& ship : m_Ships)
 		ship->setWeaponsAsActive(active);

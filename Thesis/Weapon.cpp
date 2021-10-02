@@ -12,14 +12,9 @@ void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 Weapon::Weapon(Configuration::TexturesWeaponry tex_id)
-	: Entity(Configuration::textures_weaponry.get(tex_id)),
-	m_Target(nullptr), m_FiringRate(0), m_TimeSinceLastShot(0), m_FiringDelay(0), m_IsWeaponActive(false)
+	: Entity(Configuration::textures_weaponry.get(tex_id))
 {
 
-}
-
-Weapon::~Weapon()
-{
 }
 
 
@@ -30,35 +25,6 @@ void Weapon::setFiringRate(float rate)
 	m_FiringDelay = 1 / m_FiringRate;
 }
 
-void Weapon::setTarget(const Entity* target)
-{
-	m_Target = target;
-}
-
-void Weapon::setIsWeaponActive(bool isActive)
-{
-	m_IsWeaponActive = isActive;
-}
-
-bool Weapon::isActive()
-{
-	return m_IsWeaponActive;
-}
-
-float Weapon::getSpriteRotation() const
-{
-	return m_Sprite.getRotation();
-}
-
-void Weapon::setSpriteRotation(float angle)
-{
-	m_Sprite.setRotation(angle);
-}
-
-void Weapon::rotateSprite(float angle)
-{
-	m_Sprite.rotate(angle);
-}
 
 
 void Weapon::setPosition(const sf::Vector2f& pos)
@@ -78,13 +44,12 @@ void Weapon::setPosition(float x, float y)
 
 void Weapon::shoot(bool makeSound)
 {
-	if(m_IsWeaponActive)
-		if (m_TimeSinceLastShot > m_FiringDelay) {
-			createBullet();
-			if(makeSound)	createSound();
-			m_TimeSinceLastShot = 0;
+	if(m_IsWeaponActive && m_TimeSinceLastShot > m_FiringDelay) {
+		createBullet();
+		if (makeSound);// createSound();
+		m_TimeSinceLastShot = 0;
 
-		}
+	}
 
 }
 
@@ -103,10 +68,6 @@ void Weapon::update(const sf::Time& deltaTime)
 }
 
 
-void Weapon::updateTimings(const sf::Time& deltaTime)
-{
-	m_TimeSinceLastShot += deltaTime.asSeconds();
-}
 
 void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 {
@@ -133,7 +94,7 @@ void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
 
 void Weapon::deleteFinishedSounds()
 {
-	while (m_Sounds.size() > 0 && m_Sounds.front()->getStatus() == sf::Sound::Status::Stopped)
+	while (!m_Sounds.empty() && m_Sounds.front()->getStatus() == sf::Sound::Status::Stopped)
 		m_Sounds.pop();
 
 	/*m_Sounds.remove_if([](const std::unique_ptr<sf::Sound>& sound) -> bool {

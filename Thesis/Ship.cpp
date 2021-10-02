@@ -97,7 +97,7 @@ int Ship::getMaxCap(const std::vector<Ammunition*> container) const
 {
 	static int max_cap = container.size();
 
-	if (container.size() > max_cap) {
+	if (static_cast<int>(container.size()) > max_cap) {
 		BOOST_LOG_TRIVIAL(info) << max_cap << " : " << container.size();
 
 		max_cap = container.size();
@@ -110,9 +110,9 @@ std::vector<Ammunition*>& Ship::getAmmoOnScreen()
 {
 
 	// TODO: Test if this actually makes a difference
-	int max_cap = getMaxCap(ammoOnScreen);
+	//int max_cap = getMaxCap(ammoOnScreen);
 	ammoOnScreen.clear();
-	ammoOnScreen.reserve(max_cap);
+	//ammoOnScreen.reserve(max_cap);
 
 
 	for (auto&& weapon : m_Weapons)

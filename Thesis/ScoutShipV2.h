@@ -11,6 +11,6 @@ private:
 public:
 	explicit ScoutShipV2();
 	explicit ScoutShipV2(Configuration::TexturesShips tex_id);
-	~ScoutShipV2() override;
+
 };
 

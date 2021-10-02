@@ -14,9 +14,6 @@ BossEnemyShip::BossEnemyShip(Configuration::TexturesShips tex_id)
 	m_Speed = 25.f;
 }
 
-BossEnemyShip::~BossEnemyShip()
-{
-}
 
 
 void BossEnemyShip::initWeapons()
@@ -36,12 +33,13 @@ void BossEnemyShip::updateIndividualBehavior(const sf::Time& deltaTime)
 void BossEnemyShip::shoot(const sf::Time& deltaTime)
 {
 	static float time = 0.f;
-	static float max = 5 + rand() % 10;
+
+	static float max = Helpers::getRandom(5.f, 15.f);
 	time += deltaTime.asSeconds();
 
 	if (time >= max) {
 		time = 0.f;
-		max = 5 + rand() % 10;
+		max = Helpers::getRandom(5.f, 15.f);
 
 		HasWeapons::shoot();
 	}

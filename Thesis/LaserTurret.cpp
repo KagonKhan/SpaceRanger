@@ -8,14 +8,12 @@ LaserTurret::LaserTurret()
 }
 
 LaserTurret::LaserTurret(Configuration::TexturesWeaponry tex_id)
-	: Weapon(tex_id), m_Pattern(Laser::Patterns::straight)
+	: Weapon(tex_id)
 {
 	
 }
 
-LaserTurret::~LaserTurret()
-{
-}
+
 
 void LaserTurret::setPattern(Laser::Patterns pattern)
 {
@@ -24,7 +22,7 @@ void LaserTurret::setPattern(Laser::Patterns pattern)
 
 void LaserTurret::createBullet()
 {
-	std::unique_ptr<Laser> shot(new Laser(Configuration::TexturesWeaponry::ammo_laser, Configuration::boundaries, -90, 1200, m_Pattern));
+	auto shot = std::make_unique<Laser>(Configuration::TexturesWeaponry::ammo_laser, Configuration::boundaries, -90, 1200, m_Pattern);
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 
@@ -34,7 +32,7 @@ void LaserTurret::createBullet()
 
 void LaserTurret::createSound()
 {
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::laser)));
+	/*std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::laser)));
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 	sound->setVolume(volume);
 
@@ -46,7 +44,7 @@ void LaserTurret::createSound()
 
 
 
-	m_Sounds.emplace(std::move(sound));
+	m_Sounds.emplace(std::move(sound));*/
 }
 
 void LaserTurret::updateIndividualBehavior(const sf::Time& deltaTime)

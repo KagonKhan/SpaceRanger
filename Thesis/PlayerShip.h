@@ -8,10 +8,10 @@ class PlayerShip :
 	public Ship
 {
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
 
 	sf::Vector2f m_Boundaries;
-	sf::Vector2f m_SpeedLimit;
+	sf::Vector2f m_SpeedLimit{ 1200, 900 };
 
 
 	Animation m_ExhaustAnimationForward, m_ExhaustAnimationBackward;
@@ -32,9 +32,6 @@ private:
 public:
 	PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player);
 	PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries);
-	virtual ~PlayerShip();
 
-
-	const sf::Sprite& getSprite()const;
 };
 

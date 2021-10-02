@@ -11,7 +11,7 @@ private:
     void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
     sf::Sprite m_Sprite;
-    std::optional<Label> m_Label;
+    std::optional<Label> m_Label{ std::nullopt };
 
     virtual void processEvent(const sf::Event& sfevent);
     virtual void onMouseEntered();
@@ -39,7 +39,7 @@ public:
         BottomLeft = 1 << 6,
         BottomMiddle = 1 << 7,
         BottomRight = 1 << 8
-    } m_Style;
+    } m_Style{ Style::Middle };
 
 #pragma region SETTERS / GETTERS
 

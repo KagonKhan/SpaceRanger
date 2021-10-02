@@ -14,8 +14,8 @@ void Missile::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 
 Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::TexturesWeaponry thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	: Ammunition(thrusters, boundaries, deg_angle, speed), m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_missile_death_anim)),
-	m_Target(nullptr), m_RotationRadius(0.5), m_SeekingDistance(400), m_FuelDuration(5.f),
+	: Ammunition(thrusters, boundaries, deg_angle, speed),
+	m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_missile_death_anim)),
 	m_DeathSound(Configuration::sounds.get(Configuration::Sounds::missile_explosion))
 {
 
@@ -29,10 +29,6 @@ Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::Textures
 
 }
 
-Missile::~Missile()
-{
-
-}
 
 void Missile::initAnimation()
 {
@@ -119,7 +115,7 @@ void Missile::onDeletion(bool playAnimation)
 		m_DeathSound.setPosition(m_Position.x, -m_Position.y, 0.f);
 		m_DeathSound.setVolume(50);
 		m_DeathSound.setAttenuation(1);
-		m_DeathSound.setMinDistance(std::sqrt(200 * 200 + 300 * 300));
+		m_DeathSound.setMinDistance(std::sqrtf(200.f * 200.f + 300.f * 300.f));
 		m_DeathSound.play();
 	}
 	else m_CanBeDeleted = true;
