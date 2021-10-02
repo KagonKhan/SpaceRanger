@@ -1,7 +1,7 @@
 #pragma once
 #include "EnemyShip.h"
 
-namespace Pos {
+namespace pos {
 	enum class X { Left, Middle, Right, };
 	enum class Y { Top, Middle, Bottom, };
 	enum class Place { Inside, Outside, };
@@ -17,13 +17,11 @@ private:
 	std::vector<EnemyShip::ptr> m_Ships;
 	std::optional<Spline> m_Path;
 
-	std::pair<std::queue<Movement>, bool> m_MoveQueue;
+	std::pair<std::queue<MoveCommand>, bool> m_MoveQueue;
 
 
 public:
-	using PositionType = std::tuple< Pos::X, Pos::Place, Pos::Y, Pos::Place>;
 
-	void addMovementToQueue(sf::Vector2f dir, float length);
 
 
 
@@ -43,17 +41,17 @@ public:
 	Fleet(Fleet&& other) noexcept;
 	Fleet& operator=(Fleet&& other) noexcept;
 	explicit Fleet(std::vector<EnemyShip::ptr> fleet);
-	explicit Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding);
+	Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding);
 
-	~Fleet() override;
-
-
+	using ptr = std::unique_ptr<Fleet>;
+	using PositionType = std::tuple< pos::X, pos::Place, pos::Y, pos::Place>;
 	
-	
-	void position(PositionType pos);
-
-
 	void update(const sf::Time& deltaTime);
+	
+	void setPosition(PositionType pos);
+
+
+	void addMovementToQueue(sf::Vector2f dir, float length);
 
 	void setPath(const std::vector<sf::Vector2f>& waypoints);
 	void setPath(Spline path);
@@ -66,5 +64,4 @@ public:
 	std::vector<EnemyShip::ptr>& getShips()				{			return m_Ships;													}
 	sf::Vector2f getSize()	const						{			return { getRectangle().width, getRectangle().height };			}
 
-	using ptr = std::unique_ptr<Fleet>;
 };

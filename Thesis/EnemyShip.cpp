@@ -13,15 +13,8 @@
 #include "TankShip.h"
 
 EnemyShip::EnemyShip(float maxHp, Configuration::TexturesShips tex_id)
-	: Ship(maxHp, tex_id), m_Path(std::nullopt)
-{
-	srand(reinterpret_cast<unsigned int>(this));
-}
-
-void EnemyShip::setTargetPos(sf::Vector2f pos)
-{ 
-	m_Target = pos;
-}
+	: Ship(maxHp, tex_id)
+{}
 
 
 
@@ -31,33 +24,28 @@ void EnemyShip::updateMovement(const sf::Time& deltaTime)
 		followPath(deltaTime);
 	else if (m_Move.has_value())
 		followDir(deltaTime);
-
-
-
 }
 
 void EnemyShip::followPath( const sf::Time& deltaTime)
 {
-	if (m_GetNextPoint) {
-		m_Target = m_Path.value().getNextPoint();
-		m_GetNextPoint = false;
+	auto& [path, getNextPoint] = m_Path.value();
+	sf::Vector2f target;
 
-
-		//std::cout << "\nangle: " << m_Path.value().getAngle();
+	if (getNextPoint) {
+		target = path.getNextPoint();
+		getNextPoint = false;
 	}
-
-
-	float length = Helpers::getLength(m_Target - m_Position);
-	m_Direction = Helpers::normalize(m_Target - m_Position);
+	else {
+		target = path.getCurrent();
+	}
 
 	//setRotation(m_Path.value().getAngle() - 90.f);
 
-	if (length < 15.f)
-		m_GetNextPoint = true;
+	m_Direction	= Helpers::normalize(target - m_Position);
+	move(m_Direction * m_Speed * deltaTime.asSeconds());
 
-
-	sf::Vector2f moveBy = m_Direction * m_Speed * deltaTime.asSeconds();
-	move(moveBy);
+	if (float length = Helpers::getLength(target - m_Position); length < 5.f)
+		getNextPoint = true;
 }
 
 void EnemyShip::followDir(const sf::Time& deltaTime)
@@ -66,23 +54,13 @@ void EnemyShip::followDir(const sf::Time& deltaTime)
 	m_Direction = Helpers::normalize(std::as_const(dir));
 
 	sf::Vector2f moveBy = dir * m_Speed * deltaTime.asSeconds();
-
 	move(moveBy);
 
 	length -= Helpers::getLength(moveBy);
-
-	if (length < 5.f)
+	if (length < 5.f) {
 		m_Move.reset();
-}
-
-void EnemyShip::setMovement(Movement move)
-{
-	m_Move.emplace(move);
-}
-
-bool EnemyShip::isMoving() const
-{
-	return Helpers::getLength(m_Direction) > 0;
+		m_Direction = sf::Vector2f(0, 0);
+	}
 }
 
 

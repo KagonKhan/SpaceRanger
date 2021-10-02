@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "LevelManagerOne.h"
-using namespace Pos;
+using namespace pos;
 LevelManagerOne::LevelManagerOne(Level& level)
 	: LevelManager(level)
 {
@@ -12,11 +12,11 @@ LevelManagerOne::LevelManagerOne(Level& level)
 		static Fleet* fleet = nullptr;
 		if (static bool firstTime = true; firstTime) {
 
-			Fleet::PositionType position = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
+			Fleet::PositionType setPosition = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
 
 
 			initFleet(EnemyShip::Type::stealth, sf::FloatRect(0, 0, Configuration::boundaries.x, 400),
-				sf::Vector2f(5, 5),	position);
+				sf::Vector2f(5, 5),	setPosition);
 
 			fleet = m_Level.getFleetPtr(0);
 
@@ -74,7 +74,7 @@ void LevelManagerOne::initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Ve
 
 
 	if (pos.has_value())
-		fleet.position(pos.value());
+		fleet.setPosition(pos.value());
 
 	
 
@@ -109,13 +109,13 @@ void LevelManagerOne::phaseOne(const sf::Time& deltaTime)
 	static Fleet* fleet = nullptr;
 	if (static bool firstTime = true; firstTime) {
 
-		Fleet::PositionType position = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
+		Fleet::PositionType setPosition = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
 
 
 		initFleet(EnemyShip::Type::scout,
 			sf::FloatRect(0, 0, Configuration::boundaries.x, 400),
 			sf::Vector2f(5, 5),
-			position
+			setPosition
 		);
 
 		fleet = m_Level.getFleetPtr(0);

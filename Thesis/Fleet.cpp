@@ -76,13 +76,10 @@ Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
 	m_MoveQueue.second = true;
 }
 
-Fleet::~Fleet()
-{
-}
 
-void Fleet::position(PositionType pos)
+void Fleet::setPosition(PositionType pos)
 {
-	using namespace Pos;
+	using namespace pos;
 
 
 	auto rect = getRectangle();
@@ -121,7 +118,7 @@ void Fleet::setPath(const std::vector<sf::Vector2f>& waypoints)
 	m_Path.emplace(waypoints, 0.01, true);
 
 	for (auto&& ship : m_Ships) {
-		ship->setPath(m_Path);
+		ship->setPath(m_Path.value());
 	}
 }
 
@@ -130,7 +127,7 @@ void Fleet::setPath(Spline path)
 	m_Path = path;
 
 	for (auto&& ship : m_Ships) {
-		ship->setPath(m_Path);
+		ship->setPath(m_Path.value());
 	}
 }
 
@@ -185,7 +182,7 @@ void Fleet::update(const sf::Time& deltaTime)
 	
 
 	for (auto&& ship : m_Ships)
-		if (ship->hasValue() == false)
+		if (ship->hasMoveCommand() == false)
 			ready = true;
 
 }

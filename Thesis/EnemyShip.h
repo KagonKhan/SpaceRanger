@@ -2,7 +2,7 @@
 #include "Ship.h"
 #include "Spline.h"
 
-struct Movement
+struct MoveCommand
 {
 	std::pair<sf::Vector2f, float> move;
 };
@@ -10,38 +10,26 @@ struct Movement
 class EnemyShip :
 	public Ship
 {
-
-private:
-	sf::Vector2f m_Target;
-	bool m_GetNextPoint{ true };
-
 protected:
-	std::optional<Spline> m_Path;
-	std::optional<Movement> m_Move;
+	std::optional<std::pair<Spline, bool>>	m_Path{ std::nullopt };
+	std::optional<MoveCommand>				m_Move{ std::nullopt };
+
+
 	void updateMovement(const sf::Time& deltaTime) override;
 	void followPath( const sf::Time& deltaTime);
 	void followDir(const sf::Time& deltaTime);
 
-	void setRotation(float angle )					{	m_Sprite.setRotation(angle);	}
-
 public:
+	EnemyShip(float maxHp, Configuration::TexturesShips tex_id);
+
 	using ptr = std::unique_ptr<EnemyShip>;
 	enum class Type {
 		minigun, support, beam, rocket, scout, tank, scout_v2, stealth, boss,
-	};
+	};	static ptr create(Type ship);
 
 
-
-	EnemyShip(float maxHp, Configuration::TexturesShips tex_id);
-
-	void setTargetPos(sf::Vector2f pos);
-
-	void setMovement(Movement move);
-	bool isMoving() const;
-	bool hasValue()const { return m_Move.has_value(); }
-
-	static ptr create(Type ship);
-
-
-	void setPath(const std::optional<Spline>& path) {		m_Path = path;		}
+	bool hasMoveCommand() const						{		return m_Move.has_value();		}
+	void setRotation(float angle )					{		m_Sprite.setRotation(angle);	}
+	void setMovement(MoveCommand move)				{		m_Move.emplace(move);			}
+	void setPath(const Spline& path)				{		m_Path.emplace(path, true);		}
 };
