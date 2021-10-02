@@ -22,17 +22,17 @@ StealthShip::~StealthShip()
 
 void StealthShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f(-53.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f( 53.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-53.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 53.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
-	initWeapon(m_Position, sf::Vector2f(-48.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f( 48.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-48.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 48.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
-	initWeapon(m_Position, sf::Vector2f(-38.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f( 38.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-38.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 38.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
-	initWeapon(m_Position, sf::Vector2f(-27.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f( 27.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-27.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 27.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
 
 	for (auto&& weapon : m_Weapons)
@@ -50,9 +50,3 @@ void StealthShip::shoot(const sf::Time& deltaTime)
 	HasWeapons::shoot();
 	
 }
-
-void StealthShip::onDestroy()
-{
-	Ship::onDestroy();
-}
-

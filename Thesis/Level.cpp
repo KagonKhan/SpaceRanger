@@ -87,7 +87,7 @@ void Level::checkPlayerCollisions()
 	for (auto&& fleet : m_Enemies)
 		for (auto&& enemy : fleet.getShips())
 			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr)
-				ammunition.insert(ammunition.begin(), ptr->getShots().begin(), ptr->getShots().end());
+				ammunition.insert(ammunition.begin(), ptr->getAmmoOnScreen().begin(), ptr->getAmmoOnScreen().end());
 	
 	
 	for (auto&& ammo : ammunition)
@@ -99,7 +99,7 @@ void Level::checkPlayerCollisions()
 void Level::checkEnemyCollisions()
 {
 	std::vector<Ammunition*> ammunition;
-	ammunition.insert(ammunition.begin(), m_Player.getShots().begin(), m_Player.getShots().end());
+	ammunition.insert(ammunition.begin(), m_Player.getAmmoOnScreen().begin(), m_Player.getAmmoOnScreen().end());
 
 	for(auto&& ammo : ammunition)
 		for (auto&& fleet : m_Enemies) 

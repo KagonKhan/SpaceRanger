@@ -13,7 +13,7 @@ private:
 	Entity::opt_ref m_Parent;
 
 public:
-	explicit BeamTurret();
+	explicit BeamTurret(Entity::opt_ref parent = std::nullopt);
 	explicit BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref parent = std::nullopt);
 
 

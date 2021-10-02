@@ -56,13 +56,13 @@ void PlayerShip::initVariables()
 
 void PlayerShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f( 60.f, 0.f),  .25f, WeaponType::Missile);
-	initWeapon(m_Position, sf::Vector2f(-60.f, 0.f),  .25f, WeaponType::Missile);
-	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
-	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
-	initWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
-	initWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
-	initWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
+	addWeapon(m_Position, sf::Vector2f( 60.f, 0.f),  .25f, WeaponType::Missile);
+	addWeapon(m_Position, sf::Vector2f(-60.f, 0.f),  .25f, WeaponType::Missile);
+	addWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
+	addWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
+	addWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
+	addWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
+	addWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
 }
 
 
@@ -189,6 +189,8 @@ void PlayerShip::updateSprites(const sf::Time& deltaTime)
 
 void PlayerShip::updateIndividualBehavior(const sf::Time& deltaTime)
 {
+	updateSprites(deltaTime);
+
 	sf::Listener::setPosition(m_Position.x, -m_Position.y, 300.f);
 
 	if (!m_AreActionsBlocked)

@@ -2,8 +2,8 @@
 #include "BeamTurret.h"
 #include "Beam.h"
 #include "PlayerShip.h"
-BeamTurret::BeamTurret()
-	:BeamTurret(Configuration::TexturesWeaponry::turret_laser)
+BeamTurret::BeamTurret(Entity::opt_ref parent)
+	:BeamTurret(Configuration::TexturesWeaponry::turret_laser, parent)
 {
 }
 BeamTurret::BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref parent)

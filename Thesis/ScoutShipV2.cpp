@@ -20,8 +20,8 @@ ScoutShipV2::~ScoutShipV2()
 
 void ScoutShipV2::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f(70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setVisible(false);
@@ -44,10 +44,5 @@ void ScoutShipV2::shoot(const sf::Time& deltaTime)
 
 		HasWeapons::shoot();
 	}
-}
-
-void ScoutShipV2::onDestroy()
-{
-	Ship::onDestroy();
 }
 

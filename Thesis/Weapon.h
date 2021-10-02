@@ -33,7 +33,7 @@ protected:
 	virtual void createBullet() = 0;
 	virtual void createSound() = 0;
 
-	std::vector<Ammunition*> ghostPTR;
+	std::vector<Ammunition*> ammoOnScreen;
 
 
 public:
@@ -45,7 +45,7 @@ public:
 	void shoot(bool makeSound = true);
 	void update(const sf::Time& deltaTime) override ;
 
-	std::vector<Ammunition*>& getShots();
+	std::vector<Ammunition*>& getAmmoOnScreen();
 
 	using ptr = std::unique_ptr<Weapon>;
 

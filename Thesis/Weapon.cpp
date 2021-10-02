@@ -141,12 +141,12 @@ void Weapon::deleteFinishedSounds()
 		});*/
 }
 
-std::vector<Ammunition*>& Weapon::getShots()
+std::vector<Ammunition*>& Weapon::getAmmoOnScreen()
 {
-	ghostPTR.clear();
+	ammoOnScreen.clear();
 
 	for (auto&& ammo : m_Shots)
-		ghostPTR.push_back(ammo.get());
+		ammoOnScreen.push_back(ammo.get());
 
-	return ghostPTR;
+	return ammoOnScreen;
 }

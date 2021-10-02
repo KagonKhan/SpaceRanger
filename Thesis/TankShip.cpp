@@ -22,7 +22,7 @@ TankShip::~TankShip()
 
 void TankShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f(-31.f, 0.f), 2.25f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-31.f, 0.f), 2.25f, WeaponType::Laser, 0.f);
 
 
 	for (auto&& weapon : m_Weapons)
@@ -41,8 +41,4 @@ void TankShip::shoot(const sf::Time& deltaTime)
 
 }
 
-void TankShip::onDestroy()
-{
-	Ship::onDestroy();
-}
 

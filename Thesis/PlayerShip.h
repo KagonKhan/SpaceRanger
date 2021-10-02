@@ -24,7 +24,7 @@ private:
 	void initAnimations();
 
 	void updateMovement(const sf::Time& deltaTime) override;
-	void updateSprites(const sf::Time& deltaTime) override;
+	void updateSprites(const sf::Time& deltaTime);
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
 	void onDestroy() override;

@@ -8,8 +8,6 @@ private:
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 	void shoot(const sf::Time& deltaTime);
 
-	void onDestroy() override;
-
 public:
 	explicit ScoutShipV2();
 	explicit ScoutShipV2(Configuration::TexturesShips tex_id);

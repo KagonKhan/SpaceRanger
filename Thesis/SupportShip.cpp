@@ -34,9 +34,3 @@ void SupportShip::shoot(const sf::Time& deltaTime)
 {
 
 }
-
-void SupportShip::onDestroy()
-{
-	Ship::onDestroy();
-}
-

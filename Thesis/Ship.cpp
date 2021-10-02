@@ -10,19 +10,17 @@ void Ship::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 }
 
-Ship::Ship(double max_hp, Configuration::TexturesShips tex_id)
-	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp), HasWeapons(), CanCollide(),
-	m_AreActionsBlocked(false), m_CanBeDeleted(false), m_MarkedForDeletion(false)
-{
 
-}
+Ship::Ship(float max_hp, Configuration::TexturesShips tex_id)
+	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp)
+{}
 
-Ship::~Ship(){}
-
+// CAREFUL: order is strictly enforced, which may lead to bugs
 void Ship::update(const sf::Time& deltaTime)
 { 
 	// Update weapons even if the entity is not alive, otherwise the shots will just disappear
 	updateWeapons(deltaTime);
+	updateCanBeDeleted();
 
 
 	if (!isAlive()) {
@@ -30,34 +28,11 @@ void Ship::update(const sf::Time& deltaTime)
 		return;
 	}
 
-	if (m_AreActionsBlocked)
-		return;
+	//if (m_AreActionsBlocked)		return;
 
 
 	updateIndividualBehavior(deltaTime);
 	updateMovement(deltaTime);
-	updatePosition(deltaTime);
-	updateSprites(deltaTime);
-	
-}
-
-void Ship::updateMovement(const sf::Time& deltaTime)
-{
-
-}
-
-void Ship::updatePosition(const sf::Time& deltaTime) 
-{
-	m_Sprite.setPosition(m_Position);
-	m_Shape.setPosition(m_Position);
-
-	for (auto&& weapon : m_Weapons)
-		weapon->setPosition(m_Position);
-}
-
-void Ship::updateSprites(const sf::Time& deltaTime)
-{
-
 }
 
 void Ship::updateWeapons(const sf::Time& deltaTime)
@@ -66,26 +41,38 @@ void Ship::updateWeapons(const sf::Time& deltaTime)
 		weapon->update(deltaTime);
 }
 
-#pragma region SETTERS / GETTERS
-
-void Ship::setPosition(const sf::Vector2f& pos)
+// Maybe there is no point in checking every frame if can be deleted, and just when it tries to be deleted
+void Ship::updateCanBeDeleted()
 {
-	m_Position = pos;
-	m_Shape.setPosition(m_Position);
+	if (ammoOnScreen.empty())
+		m_CanBeDeleted = true;
+	else
+		m_CanBeDeleted = false;
+}
+
+void Ship::repositionSprites()
+{
 	m_Sprite.setPosition(m_Position);
+	m_Shape.setPosition(m_Position);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setPosition(m_Position);
 }
 
+
+
+#pragma region SETTERS / GETTERS
+
+void Ship::setPosition(const sf::Vector2f& pos)
+{
+	m_Position = pos;
+	repositionSprites(); 
+}
+
 void Ship::move(const sf::Vector2f& moveBy)
 {
 	m_Position += moveBy;
-	m_Shape.move(moveBy);
-	m_Sprite.move(moveBy);
-
-	for (auto&& weapon : m_Weapons)
-		weapon->setPosition(m_Position);
+	repositionSprites();
 }
 
 void Ship::setAreActionsBlocked(bool is_blocked)
@@ -97,27 +84,47 @@ void Ship::setAreActionsBlocked(bool is_blocked)
 		m_Direction = sf::Vector2f(0, 0);
 }
 
-void Ship::setWeaponsAsActive(bool enabled)
+void Ship::setWeaponsAsActive(bool active) const
 {
 	for (auto&& weapon : m_Weapons)
-		weapon->setIsWeaponActive(enabled);
+		weapon->setIsWeaponActive(active);
 }
 
 
-std::vector<Ammunition*>& Ship::getShots()
+
+
+int Ship::getMaxCap(const std::vector<Ammunition*> container) const
 {
-	ghostPTR.clear();
-	for (auto&& weapon : m_Weapons)
-		for (auto&& ammo : weapon->getShots()) 
-			ghostPTR.push_back(ammo);
+	static int max_cap = container.size();
 
-	if (ghostPTR.size() == 0)
-		m_CanBeDeleted = true;
-	else
-		m_CanBeDeleted = false;
+	if (container.size() > max_cap) {
+		BOOST_LOG_TRIVIAL(info) << max_cap << " : " << container.size();
 
-	return ghostPTR;
+		max_cap = container.size();
+	}
+
+	return max_cap;
 }
+
+std::vector<Ammunition*>& Ship::getAmmoOnScreen()
+{
+
+	// TODO: Test if this actually makes a difference
+	int max_cap = getMaxCap(ammoOnScreen);
+	ammoOnScreen.clear();
+	ammoOnScreen.reserve(max_cap);
+
+
+	for (auto&& weapon : m_Weapons)
+		for (auto&& ammo : weapon->getAmmoOnScreen()) 
+			ammoOnScreen.push_back(ammo);
+
+	return ammoOnScreen;
+}
+
+#pragma endregion
+
+
 
 
 
@@ -127,11 +134,8 @@ void Ship::markForDeletion()
 	m_AreActionsBlocked = true;
 }
 
-#pragma endregion
-
 void Ship::onDestroy()
 {
-	setPosition(-99999, -99999);
+	setPosition(-9.f, -9.f);
 	markForDeletion();
 }
-

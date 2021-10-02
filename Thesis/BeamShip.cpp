@@ -21,7 +21,7 @@ BeamShip::~BeamShip()
 
 void BeamShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f(5.f, 20.f), 0.2f, WeaponType::Beam, 0.f);
+	addWeapon(m_Position, sf::Vector2f(5.f, 20.f), 0.2f, WeaponType::Beam, 0.f);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setVisible(false);
@@ -38,10 +38,3 @@ void BeamShip::shoot(const sf::Time& deltaTime)
 	HasWeapons::shoot();
 	
 }
-
-void BeamShip::onDestroy()
-{
-	Ship::onDestroy();
-	dynamic_cast<BeamTurret*>(m_Weapons.back().get())->stop();
-}
-

@@ -4,6 +4,13 @@ class Entity;
 class CanCollide
 {
 	
+	/* 
+	*	TODO: not sure what to do with this class.
+	*	Maybe a function const &getSprite, since all collisions are based on them
+	* 
+	* 
+	*/
+
 
 public:
 	//virtual bool isColliding(const Entity& other) const = 0;

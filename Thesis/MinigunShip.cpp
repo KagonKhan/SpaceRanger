@@ -16,10 +16,10 @@ MinigunShip::MinigunShip(Configuration::TexturesShips tex_id)
 
 void MinigunShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f(-35.f, 10.f),  5.f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f( 35.f, 10.f),  5.f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f(-18.f, 20.f),  5.f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f( 18.f, 20.f),  5.f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-35.f, 10.f),  5.f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 35.f, 10.f),  5.f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-18.f, 20.f),  5.f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 18.f, 20.f),  5.f, WeaponType::Laser, 0.f);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setVisible(false);
@@ -36,9 +36,3 @@ void MinigunShip::shoot(const sf::Time&)
 	HasWeapons::shoot();
 
 }
-
-void MinigunShip::onDestroy()
-{
-	Ship::onDestroy();
-}
-

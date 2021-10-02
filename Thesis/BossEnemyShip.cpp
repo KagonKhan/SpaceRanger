@@ -21,8 +21,8 @@ BossEnemyShip::~BossEnemyShip()
 
 void BossEnemyShip::initWeapons()
 {
-	initWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	initWeapon(m_Position, sf::Vector2f(70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(70.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setVisible(false);
@@ -46,9 +46,3 @@ void BossEnemyShip::shoot(const sf::Time& deltaTime)
 		HasWeapons::shoot();
 	}
 }
-
-void BossEnemyShip::onDestroy()
-{
-	Ship::onDestroy();
-}
-
