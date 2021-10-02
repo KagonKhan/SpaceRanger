@@ -2,6 +2,11 @@
 #include "LaserTurret.h"
 #include "Laser.h"
 
+LaserTurret::LaserTurret()
+	: LaserTurret(Configuration::TexturesWeaponry::turret_laser)
+{
+}
+
 LaserTurret::LaserTurret(Configuration::TexturesWeaponry tex_id)
 	: Weapon(tex_id), m_Pattern(Laser::Patterns::straight)
 {

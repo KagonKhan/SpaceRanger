@@ -5,11 +5,12 @@ class MissileTurret :
 	public Weapon
 {
 private:
-	virtual void createBullet() override;
-	virtual void createSound() override;
-	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override;
+	void createBullet() override;
+	void createSound() override;
+	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
 public:
-	MissileTurret(Configuration::TexturesWeaponry tex_id);
+	explicit MissileTurret();
+	explicit MissileTurret(Configuration::TexturesWeaponry tex_id);
 	virtual ~MissileTurret();
 };

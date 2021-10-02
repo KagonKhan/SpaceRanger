@@ -5,11 +5,11 @@
 class HasWeapons
 {
 private:
-	bool checkForDistinctSound(std::vector<Weapon::ptr>::iterator weaponIt);
+	bool makeAnotherSound(std::vector<Weapon::ptr>::iterator weaponIt);
 
 protected:
-	std::vector<Weapon::ptr> m_Weapons;
-	enum class WeaponType { Laser, Missile, Beam };
+	std::vector<Weapon::ptr>	m_Weapons;
+	enum class	WeaponType		{ Laser, Missile, Beam };
 
 	void initWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation = 180.f, Entity::opt_ref parent = std::nullopt);
 

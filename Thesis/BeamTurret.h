@@ -6,15 +6,16 @@ class BeamTurret :
 	public Weapon
 {
 private:
-	virtual void createBullet() override;
-	virtual void createSound() override;
-	virtual void updateIndividualBehavior(const sf::Time& deltaTime) override; 
+	void createBullet() override;
+	void createSound() override;
+	void updateIndividualBehavior(const sf::Time& deltaTime) override; 
 
-	std::optional<std::reference_wrapper<Entity>> m_Parent;
+	Entity::opt_ref m_Parent;
 
 public:
-	BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref parent = std::nullopt);
-	virtual ~BeamTurret();
+	explicit BeamTurret();
+	explicit BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref parent = std::nullopt);
+
 
 	void stop();
 };

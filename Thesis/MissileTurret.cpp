@@ -2,6 +2,11 @@
 #include "MissileTurret.h"
 #include "Missile.h"
 
+MissileTurret::MissileTurret()
+	: MissileTurret(Configuration::TexturesWeaponry::turret_laser)
+{
+}
+
 MissileTurret::MissileTurret(Configuration::TexturesWeaponry tex_id)
 	: Weapon(tex_id)
 {
