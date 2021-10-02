@@ -8,6 +8,7 @@ namespace Pos {
 }
 
 
+
 class Fleet :
 	public sf::Drawable
 {
@@ -16,10 +17,13 @@ private:
 	std::vector<EnemyShip::ptr> m_Ships;
 	std::optional<Spline> m_Path;
 
+	std::pair<std::queue<Movement>, bool> m_MoveQueue;
+
+
 public:
-
-
 	using PositionType = std::tuple< Pos::X, Pos::Place, Pos::Y, Pos::Place>;
+
+	void addMovementToQueue(sf::Vector2f dir, float length);
 
 
 

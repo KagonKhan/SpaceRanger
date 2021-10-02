@@ -10,6 +10,9 @@
 * 
 * 
 * 
+* 
+*	- ADD A MOVE QUEUE TO SHIPS SO THEY MOVE USING THAT INSTEAD OF PATH 
+* 
 *	-  DONE || Rocket explode animation
 */
 

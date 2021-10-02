@@ -37,13 +37,13 @@ protected:
 
 
 public:
-	Weapon(Configuration::TexturesWeaponry tex_id);
+	explicit Weapon(Configuration::TexturesWeaponry tex_id);
 	virtual ~Weapon();
 
 	void setIsWeaponActive(bool isActive);
 	bool isActive();
 	bool shoot();
-	void update(const sf::Time& deltaTime) override final;
+	void update(const sf::Time& deltaTime) override ;
 
 	std::vector<Ammunition*>& getShots();
 

@@ -11,6 +11,7 @@ BeamShip::BeamShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {
 	initWeapons();
+	m_Speed = 50.f;
 }
 
 BeamShip::~BeamShip()

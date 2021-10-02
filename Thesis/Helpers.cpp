@@ -118,12 +118,13 @@ float Helpers::toRad(float deg)
 	return deg * static_cast<float>(M_PIl) / 180.f;
 }
 
-sf::Vector2f Helpers::normalize(sf::Vector2f vec)
+sf::Vector2f Helpers::normalize(const sf::Vector2f& vec)
 {
+	sf::Vector2f result = vec;
 	if (float length = std::sqrtf(vec.x * vec.x + vec.y * vec.y); length != 0)
-		vec /= length;
+		result /= length;
 
-	return sf::Vector2f(vec);
+	return result;
 }
 
 void Helpers::normalize(sf::Vector2f& vec)

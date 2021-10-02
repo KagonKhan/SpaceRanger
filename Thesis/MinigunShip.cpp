@@ -10,6 +10,7 @@ MinigunShip::MinigunShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {
 	initWeapons();
+	m_Speed = 175.f;
 }
 
 

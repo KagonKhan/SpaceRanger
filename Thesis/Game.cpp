@@ -49,11 +49,26 @@ void Game::processEvents()
 			m_Window.close(); //close the window
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
 			system("CLS");
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add)) {
+			m_GameSpeed += 0.05f;
+			if (m_GameSpeed >= 2.f) m_GameSpeed = 2.f;
+			BOOST_LOG_TRIVIAL(info) << m_GameSpeed;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract)) {
+			m_GameSpeed -= 0.05f;
+			if (m_GameSpeed <= .1f) m_GameSpeed = .1f;
+			BOOST_LOG_TRIVIAL(info) << m_GameSpeed;
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
 			m_GameView = m_Window.getDefaultView();
 			m_GameView.zoom(2.f);
 			m_Window.setView(m_GameView);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
+			system("PAUSE");
+			return;
+		}
+
 		if (sfevent.type == sf::Event::MouseWheelMoved) {
 			auto view = m_Window.getView();
 
@@ -76,6 +91,8 @@ void Game::update(const sf::Time& deltaTime)
 {
 	updateMouse(deltaTime);
 	updateStates(deltaTime);
+
+	
 }
 
 void Game::updateMouse(const sf::Time& deltaTime)
@@ -120,12 +137,12 @@ void Game::run(int minFPS)
 
 		// If the game runs slower than it should
 		// Update if many times, before rendering
-		while (timeSinceLastUpdate > TimePerFrame) {
+		while (timeSinceLastUpdate >= TimePerFrame) {
 			timeSinceLastUpdate -= TimePerFrame;
 
-			update(TimePerFrame);
+			update(TimePerFrame * m_GameSpeed);
 		}
-		update(timeSinceLastUpdate);
+		update(timeSinceLastUpdate * m_GameSpeed);
 		render();
 	}
 }

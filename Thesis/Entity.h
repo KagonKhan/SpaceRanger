@@ -12,6 +12,8 @@ protected:
 	sf::Sprite m_Sprite;
 	sf::RectangleShape m_Shape; // Possibly for collision detection
 	sf::Vector2f m_Position, m_Offset, m_Velocity, m_Direction;
+	float m_Speed;
+
 
 	bool m_IsVisible;
 

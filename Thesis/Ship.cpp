@@ -120,6 +120,7 @@ std::vector<Ammunition*>& Ship::getShots()
 }
 
 
+
 void Ship::markForDeletion()
 {
 	m_MarkedForDeletion = true;

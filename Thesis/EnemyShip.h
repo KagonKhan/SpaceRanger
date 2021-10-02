@@ -2,6 +2,10 @@
 #include "Ship.h"
 #include "Spline.h"
 
+struct Movement
+{
+	std::pair<sf::Vector2f, float> move;
+};
 
 class EnemyShip :
 	public Ship
@@ -13,9 +17,10 @@ private:
 
 protected:
 	std::optional<Spline> m_Path;
+	std::optional<Movement> m_Move;
 	void updateMovement(const sf::Time& deltaTime) override;
 	void followPath( const sf::Time& deltaTime);
-
+	void followDir(const sf::Time& deltaTime);
 
 	void setRotation(float angle )					{	m_Sprite.setRotation(angle);	}
 
@@ -31,7 +36,9 @@ public:
 
 	void setTargetPos(sf::Vector2f pos);
 
-
+	void setMovement(Movement move);
+	bool isMoving() const;
+	bool hasValue()const { return m_Move.has_value(); }
 
 	static ptr create(Type ship);
 

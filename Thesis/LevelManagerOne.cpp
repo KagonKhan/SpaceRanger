@@ -4,7 +4,55 @@ using namespace Pos;
 LevelManagerOne::LevelManagerOne(Level& level)
 	: LevelManager(level)
 {
-	m_CurrentPhase = Phases::three;
+	m_CurrentPhase = Phases::one;
+
+
+	PhaseFunction phase_one;
+	phase_one.function = [this](const sf::Time& deltaTime) {
+		static Fleet* fleet = nullptr;
+		if (static bool firstTime = true; firstTime) {
+
+			Fleet::PositionType position = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
+
+
+			initFleet(EnemyShip::Type::stealth, sf::FloatRect(0, 0, Configuration::boundaries.x, 400),
+				sf::Vector2f(5, 5),	position);
+
+			fleet = m_Level.getFleetPtr(0);
+
+			auto rect = fleet->getRectangle();
+			float length = -rect.top;
+
+
+			fleet->addMovementToQueue({0.f, 1.f}, length);
+			fleet->addMovementToQueue({0.f, 1.f}, length/2.f);
+			fleet->addMovementToQueue({0.f, -1.f}, length/2.f);
+			
+			fleet->addMovementToQueue({1.f,	 0.f}, length/2.f);
+			fleet->addMovementToQueue({-1.f,  0.f}, length/2.f);
+
+			fleet->addMovementToQueue({-10.f, -10.f}, length/2.f);
+			fleet->addMovementToQueue({10.f, 10.f}, length/2.f);
+			
+			
+			firstTime = false;
+			return;
+		}
+
+		if (fleet->getRectangle().top > 0)
+			for (auto&& ship : *fleet)
+				ship->setWeaponsAsActive(true);
+
+
+
+		if (fleet->size() == 0) {
+			m_Level.clearRects();
+			phases.pop();
+		}
+	};
+
+	phases.push(phase_one);
+
 }
 
 
@@ -35,19 +83,24 @@ void LevelManagerOne::initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Ve
 
 void LevelManagerOne::updatePhase(const sf::Time& deltaTime)
 {
-	switch (m_CurrentPhase)
-	{
-	case Phases::one:		phaseOne(deltaTime);		break;
-	case Phases::two:		phaseTwo(deltaTime);		break;
-	case Phases::three:		phaseThree(deltaTime);		break;
-	case Phases::four:		phaseFour(deltaTime);		break;
-	case Phases::five:		phaseFive(deltaTime);		break;
-	case Phases::six:		phaseSix(deltaTime);		break;
-	case Phases::seven:		phaseSeven(deltaTime);		break;
-	case Phases::eight:		phaseEight(deltaTime);		break;
-	case Phases::nine:		phaseNine(deltaTime);		break;
-	default:											break;
+	if (!phases.empty()) {
+		phases.front().function(deltaTime);
 	}
+
+
+	//switch (m_CurrentPhase)
+	//{
+	//case Phases::one:		phaseOne(deltaTime);		break;
+	//case Phases::two:		phaseTwo(deltaTime);		break;
+	//case Phases::three:		phaseThree(deltaTime);		break;
+	//case Phases::four:		phaseFour(deltaTime);		break;
+	//case Phases::five:		phaseFive(deltaTime);		break;
+	//case Phases::six:		phaseSix(deltaTime);		break;
+	//case Phases::seven:		phaseSeven(deltaTime);		break;
+	//case Phases::eight:		phaseEight(deltaTime);		break;
+	//case Phases::nine:		phaseNine(deltaTime);		break;
+	//default:											break;
+	//}
 }
 
 
@@ -70,10 +123,6 @@ void LevelManagerOne::phaseOne(const sf::Time& deltaTime)
 		return;
 	}
 
-	if (static bool pauseOnce = true; pauseOnce) {
-		system("PAUSE");
-		pauseOnce = false;
-	}
 
 
 
@@ -123,13 +172,6 @@ void LevelManagerOne::phaseTwo(const sf::Time& deltaTime)
 		fleet[1] = m_Level.getFleetPtr(1);
 		return;
 	}
-
-	if (static bool pauseOnce = true; pauseOnce) {
-		system("PAUSE");
-		pauseOnce = false;
-	}
-
-
 
 
 

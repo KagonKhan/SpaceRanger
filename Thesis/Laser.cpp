@@ -82,11 +82,13 @@ void Laser::onDeletion(bool playAnimation)
 		m_DeathAnimationSprite.setPosition(m_Position);
 		m_DeathAnimationSprite.play();
 
-		m_DeathSound.setPosition(m_Position.x, -m_Position.y, 0.f);
+
+		//TODO: Once done, uncomment
+		/*m_DeathSound.setPosition(m_Position.x, -m_Position.y, 0.f);
 		m_DeathSound.setVolume(60);
 		m_DeathSound.setAttenuation(1);
 		m_DeathSound.setMinDistance(std::sqrt(200 * 200 + 300 * 300));
-		m_DeathSound.play();
+		m_DeathSound.play();*/
 	}
 	else m_CanBeDeleted = true;
 }

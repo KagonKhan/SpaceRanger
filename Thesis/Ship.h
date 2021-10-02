@@ -43,12 +43,15 @@ public:
 	void setWeaponsAsActive(bool enabled);
 
 
+
+
+
 	void markForDeletion();
 
 	std::vector<Ammunition*>& getShots();
 
-	bool canBeDeleted() const {		return m_CanBeDeleted;	} 
-	bool shouldBeDeleted()const { return m_MarkedForDeletion; }
-	bool getAreActionsBlocked() const { return m_AreActionsBlocked; }
-	void setPosition(float x, float y) override { setPosition(sf::Vector2f(x, y)); }
+	bool canBeDeleted()						const	 {		return m_CanBeDeleted;				}	 
+	bool shouldBeDeleted()					const	 {		return m_MarkedForDeletion;			}
+	bool getAreActionsBlocked()				const	 {		return m_AreActionsBlocked;			}
+	void setPosition(float x, float y)		override {		setPosition(sf::Vector2f(x, y));	}
 };

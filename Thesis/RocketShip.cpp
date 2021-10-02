@@ -10,6 +10,7 @@ RocketShip::RocketShip(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {
 	initWeapons();
+	m_Speed = 100.f;
 }
 
 RocketShip::~RocketShip()

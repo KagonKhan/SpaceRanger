@@ -23,7 +23,7 @@ public:
 	static float toDeg(float rad);
 	static float toDeg(const sf::Vector2f& vec);
 	static float toRad(float deg);
-	static sf::Vector2f normalize(sf::Vector2f vec);
+	static sf::Vector2f normalize(const sf::Vector2f& vec);
 	static void normalize(sf::Vector2f& vec);
 	static float getLength(sf::Vector2f vec);
 

@@ -81,7 +81,7 @@ bool Weapon::shoot()
 	if(m_IsWeaponActive)
 		if (m_TimeSinceLastShot > m_FiringDelay) {
 			createBullet();
-			createSound();
+			//createSound();
 			m_TimeSinceLastShot = 0;
 
 			return true;

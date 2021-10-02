@@ -6,8 +6,13 @@ void Fleet::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto&& ship : m_Ships)
 		target.draw(*ship);
+}
 
+void Fleet::addMovementToQueue(sf::Vector2f dir, float length)
+{
+	Helpers::normalize(dir);
 
+	m_MoveQueue.first.emplace( std::pair{ dir,length });
 }
 
 
@@ -66,6 +71,9 @@ Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
 	auto rect = getRectangle();
 	sf::Vector2f moveTo(area.left - rect.left, area.top - rect.top);
 	move(moveTo);
+
+
+	m_MoveQueue.second = true;
 }
 
 Fleet::~Fleet()
@@ -159,9 +167,28 @@ sf::FloatRect Fleet::getRectangle() const
 
 void Fleet::update(const sf::Time& deltaTime)
 {
-	for (auto&& ship : m_Ships)
+	for (auto&& ship : m_Ships) {
 		ship->update(deltaTime);
+	}
 
+	static auto& [queue, ready] = m_MoveQueue;
+	if (!queue.empty()) {
+		if (ready) {
+			for (auto&& ship : m_Ships) {
+				ship->setMovement(queue.front());
+			}
+			ready = false;
+			queue.pop();
+		}
+
+	}
+
+	BOOST_LOG_TRIVIAL(info) << ready << ", " << queue.size();
+	
+
+	for (auto&& ship : m_Ships)
+		if (ship->hasValue() == false)
+			ready = true;
 
 }
 

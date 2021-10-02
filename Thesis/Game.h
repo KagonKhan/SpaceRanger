@@ -11,6 +11,8 @@ private:
 	std::stack<State::ptr> m_States;
 	sf::Event sfevent;
 
+	float m_GameSpeed{ 1.f };
+
 	AnimatedSprite m_Cursor;
 
 	void initWindow();

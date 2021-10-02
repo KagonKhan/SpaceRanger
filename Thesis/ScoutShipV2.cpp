@@ -10,6 +10,7 @@ ScoutShipV2::ScoutShipV2(Configuration::TexturesShips tex_id)
 	: EnemyShip(100.f, tex_id)
 {
 	initWeapons();
+	m_Speed = 150.f;
 }
 
 ScoutShipV2::~ScoutShipV2()

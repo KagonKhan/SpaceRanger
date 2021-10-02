@@ -2,6 +2,11 @@
 
 #include "LevelManager.h"
 
+struct PhaseFunction
+{
+	std::function<void(const sf::Time&)> function;
+};
+
 
 class LevelManagerOne :
 	public LevelManager
@@ -13,6 +18,7 @@ private:
 	};
 	Phases m_CurrentPhase;
 
+	std::queue<PhaseFunction> phases;
 
 	void initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos = std::nullopt);
 
