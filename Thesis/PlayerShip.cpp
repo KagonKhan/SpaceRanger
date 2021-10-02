@@ -50,7 +50,7 @@ void PlayerShip::onDestroy()
 void PlayerShip::initVariables() 
 {
 	float velocity = 50;
-	m_Velocity = sf::Vector2f(velocity * 0.9f, velocity * 0.75f);
+	sf::Vector2f m_Velocity = sf::Vector2f(velocity * 0.9f, velocity * 0.75f);
 	m_Direction = sf::Vector2f(0, 0);
 }
 
@@ -99,14 +99,14 @@ void PlayerShip::updateMovement(const sf::Time& deltaTime)
 	m_Direction *= 0.97f;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		m_Direction.x -= m_Velocity.x;
+		m_Direction.x -= m_Speed;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		m_Direction.x += m_Velocity.x;
+		m_Direction.x += m_Speed;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		m_Direction.y -= m_Velocity.y;
+		m_Direction.y -= m_Speed;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		m_Direction.y += m_Velocity.y;
+		m_Direction.y += m_Speed;
 
 #pragma region Movement Boundaries
 

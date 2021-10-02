@@ -117,7 +117,7 @@ void Ammunition::updatePosition(const sf::Time& deltaTime)
 {
 	m_Direction.x = cosf(getRotationRad() + M_PIl / 2.f);
 	m_Direction.y = sinf(getRotationRad() + M_PIl / 2.f);
-	m_Velocity = m_Direction * m_Speed;
+	sf::Vector2f m_Velocity = m_Direction * m_Speed;
 
 	m_Position += m_Velocity * deltaTime.asSeconds();
 
