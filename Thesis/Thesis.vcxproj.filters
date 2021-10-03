@@ -285,7 +285,7 @@
     <ClCompile Include="Helpers.cpp">
       <Filter>Utilities\Aux</Filter>
     </ClCompile>
-    <ClCompile Include="HasOnDeath.cpp">
+    <ClCompile Include="OnDestroy.cpp">
       <Filter>Game\Entities\Attributes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -491,7 +491,7 @@
     <ClInclude Include="Helpers.h">
       <Filter>Utilities\Aux</Filter>
     </ClInclude>
-    <ClInclude Include="HasOnDeath.h">
+    <ClInclude Include="OnDestroy.h">
       <Filter>Game\Entities\Attributes</Filter>
     </ClInclude>
   </ItemGroup>

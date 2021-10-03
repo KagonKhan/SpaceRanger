@@ -12,7 +12,7 @@ Beam::Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundarie
 
 void Beam::initAnimation()
 {
-	m_Animation.addFramesLine(11, 1, 0);
+	m_Animation.addFrames(Animation::Line{ 11,1,0 });
 
 	m_AnimatedSprite.setAnimation(&m_Animation);
 	m_AnimatedSprite.setOrigin(sf::Vector2f(m_AnimatedSprite.getSize().x / 2.f, m_AnimatedSprite.getSize().y - 35));
@@ -27,15 +27,17 @@ void Beam::initAnimation()
 
 void Beam::updateIndividualBehavior(const sf::Time& deltaTime)
 {
-	checkIfAnimationFinished();
-}
-
-void Beam::checkIfAnimationFinished()
-{
 	if (m_AnimatedSprite.getStatus() != AnimatedSprite::Status::Playing)
-		m_CanBeDeleted = true;
+		m_OnDestroy.start(true);
 }
 
-void Beam::onDeletion(bool playAnimation)
+float Beam::dealDamage()
 {
+
+	if (m_DamageTick.getElapsedTime() > sf::seconds(0.2f)) {
+		BOOST_LOG_TRIVIAL(info) << "Damage tick";
+		m_DamageTick.restart();
+		return 10.f;
+	}
+	
 }

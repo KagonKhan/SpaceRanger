@@ -11,22 +11,20 @@ class Ship :
 	public CanCollide
 {
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 	int getMaxCap(const std::vector<Ammunition*> container) const;
 
 protected:
 	bool							m_AreActionsBlocked	   { false };	
-	bool							m_CanBeDeleted		   { false };	// Everything done, can be deleted
-	bool							m_MarkedForDeletion	   { false };	// Wants to be deleted
-	std::vector<Ammunition*>		ammoOnScreen;
+	std::vector<Ammunition*>		ammoOnScreen; 
+	OnDestroy m_OnDestroy;
+
+
 
 
 	virtual void updateWeapons(const sf::Time& deltaTime);
-
-
+	virtual void updateOnDestroy(const sf::Time& deltaTime);
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
 	virtual void updateMovement(const sf::Time& deltaTime) = 0;
-
 
 	virtual void repositionSprites(sf::Vector2f positionAt);
 
@@ -36,18 +34,14 @@ public:
 	void update(const sf::Time& deltaTime) override;
 
 
-	void markForDeletion();
-	void onDestroy() override;
 	std::vector<Ammunition*>& getAmmoOnScreen();
 
 	void setAreActionsBlocked(bool is_blocked);
 	void setWeaponsAsActive(bool active) const;
 
-	virtual void updateCanBeDeleted();
+
 	void move(const sf::Vector2f& moveBy)				{		repositionSprites(m_Position + moveBy); }
 	void setPosition(const sf::Vector2f& pos) override	{		repositionSprites(pos);					}
 	void setPosition(float x, float y)		  override  {		setPosition(sf::Vector2f(x, y));		}
-	bool canBeDeleted()						  const		{		return m_CanBeDeleted;					}	 
-	bool shouldBeDeleted()					  const		{		return m_MarkedForDeletion;				}
 	bool getAreActionsBlocked()				  const		{		return m_AreActionsBlocked;				}
 };

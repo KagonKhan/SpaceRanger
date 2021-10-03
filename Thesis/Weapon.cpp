@@ -59,8 +59,10 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 	for (unsigned int i = 0; i < m_Shots.size(); ++i) {
 		m_Shots[i]->update(deltaTime);
 
-		if (m_Shots[i]->canBeDeleted())
-			m_Shots.erase(m_Shots.begin() + i--);
+		if (m_Shots[i]->canBeDeleted()) {
+			m_Shots.erase(m_Shots.begin() + i);
+			--i;
+		}
 
 	}
 }

@@ -18,8 +18,24 @@ EnemyShip::EnemyShip(float maxHp, Configuration::TexturesShips tex_id)
 
 
 
+void EnemyShip::draw(sf::RenderTarget& target, sf::RenderStates) const
+{
+
+	target.draw(m_Sprite);
+
+	for (auto&& weapon : m_Weapons)
+		target.draw(*weapon);
+
+}
+
+
 void EnemyShip::updateMovement(const sf::Time& deltaTime)
 {
+	if (m_OnDestroy.isMarkedForDeletion()) {
+		m_Direction = sf::Vector2f(0, 0);
+		return;
+	}
+
 	if (m_Path.has_value())
 		followPath(deltaTime);
 	else if (m_Move.has_value())
@@ -82,4 +98,17 @@ EnemyShip::ptr EnemyShip::create(Type ship)
 	}
 
 	return std::move(enemy);
+}
+
+bool EnemyShip::shouldBeDeleted()
+{
+	if (m_OnDestroy.isMarkedForDeletion())
+		return true;
+
+	if (getHP() <= 0) {
+		m_OnDestroy.start();
+		return true;
+	}
+
+	return false;
 }

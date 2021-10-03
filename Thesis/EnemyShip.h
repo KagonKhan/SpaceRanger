@@ -1,6 +1,7 @@
 #pragma once
 #include "Ship.h"
 #include "Spline.h"
+#include "OnDestroy.h"
 
 struct MoveCommand
 {
@@ -10,6 +11,9 @@ struct MoveCommand
 class EnemyShip :
 	public Ship
 {
+private:
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+
 protected:
 	std::optional<std::pair<Spline, bool>>	m_Path{ std::nullopt };
 	std::optional<MoveCommand>				m_Move{ std::nullopt };
@@ -21,15 +25,15 @@ protected:
 
 public:
 	EnemyShip(float maxHp, Configuration::TexturesShips tex_id);
-
 	using ptr = std::unique_ptr<EnemyShip>;
 	enum class Type {
 		minigun, support, beam, rocket, scout, tank, scout_v2, stealth, boss,
 	};	static ptr create(Type ship);
 
-
-	bool hasMoveCommand() const						{		return m_Move.has_value();		}
-	void setRotation(float angle )					{		m_Sprite.setRotation(angle);	}
-	void setMovement(MoveCommand move)				{		m_Move.emplace(move);			}
-	void setPath(const Spline& path)				{		m_Path.emplace(path, true);		}
+	bool shouldBeDeleted();
+	bool canBeDeleted()	const						{		return m_OnDestroy.canBeDeleted();	}
+	bool hasMoveCommand() const						{		return m_Move.has_value();			}
+	void setRotation(float angle )					{		m_Sprite.setRotation(angle);		}
+	void setMovement(MoveCommand move)				{		m_Move.emplace(move);				}
+	void setPath(const Spline& path)				{		m_Path.emplace(path, true);			}
 };

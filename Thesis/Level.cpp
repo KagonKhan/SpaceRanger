@@ -13,6 +13,9 @@ void Level::draw( sf::RenderTarget& target, sf::RenderStates ) const
 	
 	for (auto&& fleet : m_rects)
 		target.draw(fleet);
+	
+	for (auto&& ship : m_EnemiesForDeletion)
+		target.draw(*ship);
 
 }
 
@@ -92,8 +95,7 @@ void Level::checkPlayerCollisions()
 	std::vector<Ammunition*> ammunition;
 	for (auto&& fleet : m_Enemies)
 		for (auto&& enemy : fleet.getShips())
-			if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr)
-				ammunition.insert(ammunition.begin(), ptr->getAmmoOnScreen().begin(), ptr->getAmmoOnScreen().end());
+			ammunition.insert(ammunition.begin(), enemy->getAmmoOnScreen().begin(), enemy->getAmmoOnScreen().end());
 	
 	
 	for (auto&& ammo : ammunition)
@@ -113,8 +115,7 @@ void Level::checkEnemyCollisions()
 	for(auto&& ammo : ammunition)
 		for (auto&& fleet : m_Enemies) 
 			for (auto&& enemy : fleet.getShips())
-				if (Ship* ptr = dynamic_cast<Ship*>(enemy.get()); ptr != nullptr)
-					if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) 
+				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) 
 						enemy->receiveDamage(ammo->dealDamage());
 
 				
@@ -125,6 +126,7 @@ void Level::checkEnemyCollisions()
 
 void Level::checkForDeletion()
 {
+	// Move dead ships to diff container
 	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num)
 		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
 			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted()) {
@@ -135,10 +137,11 @@ void Level::checkForDeletion()
 	
 
 
-
+	// Check if dead ships are ready for deletion
 	for (size_t ship_num = 0; ship_num < m_EnemiesForDeletion.size(); ++ship_num) {
-		if (m_EnemiesForDeletion[ship_num]->shouldBeDeleted() && m_EnemiesForDeletion[ship_num]->canBeDeleted()) {
+		if (m_EnemiesForDeletion[ship_num]->canBeDeleted()) {
 			m_EnemiesForDeletion.erase(m_EnemiesForDeletion.begin() + ship_num);
+
 			--ship_num;
 		}
 

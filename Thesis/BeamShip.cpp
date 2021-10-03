@@ -14,6 +14,13 @@ BeamShip::BeamShip(Configuration::TexturesShips tex_id)
 	m_Speed = 50.f;
 }
 
+void BeamShip::stopShooting()
+{
+	for (auto&& weapon : m_Weapons)
+		if (auto beamWeapon = dynamic_cast<BeamTurret*>(weapon.get()); beamWeapon != nullptr)
+			beamWeapon->stop();
+}
+
 
 void BeamShip::initWeapons()
 {

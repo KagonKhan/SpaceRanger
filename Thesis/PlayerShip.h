@@ -31,7 +31,6 @@ private:
 	void updateSprites(const sf::Time& deltaTime);
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 
-	void onDestroy() override;
 
 public:
 	PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player);

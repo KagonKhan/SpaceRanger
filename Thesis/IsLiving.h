@@ -24,7 +24,7 @@ public:
 	// Calls onDestroy() when hp< =0
 	virtual void receiveDamage(float amount);
 
-	virtual void onDestroy() = 0;
+
 
 
 	bool isAlive()				const	{		return m_ShipStats.m_IsAlive;		}

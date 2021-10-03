@@ -10,12 +10,11 @@ private:
 	void initAnimation() ;
 	
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
-	void checkIfAnimationFinished();
 
-	void onDeletion(bool playAnimation = false) override;
+	sf::Clock m_DamageTick;
 
 public:
 	Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed = 400.f);
 
-	float dealDamage() override		{		return 0.0f;		}
+	float dealDamage() override;
 };

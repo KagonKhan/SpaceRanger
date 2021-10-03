@@ -19,6 +19,10 @@
 #include <unordered_map>
 #include <queue>
 #include <deque>
+#include <variant>
+#include <optional>
+
+
 
 #include <functional>
 #include <utility>
@@ -26,7 +30,6 @@
 #include <cassert>
 #include <stdexcept>
 #include <memory>
-#include <optional>
 #include <iomanip>
 #include <random>
 

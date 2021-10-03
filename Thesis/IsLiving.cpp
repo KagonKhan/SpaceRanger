@@ -10,7 +10,5 @@ IsLiving::IsLiving(float max_hp, int armor, int plating)
 void IsLiving::receiveDamage(float amount) 
 {
 	m_ShipStats.m_CurrentHp -= amount;
-	if (m_ShipStats.m_CurrentHp <= 0)
-		onDestroy();
 }
 

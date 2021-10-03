@@ -31,10 +31,6 @@ PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& 
 }
 
 
-void PlayerShip::onDestroy()
-{
-
-}
 
 #pragma region Initializers / Setters / Getters
 
@@ -57,8 +53,11 @@ void PlayerShip::initWeapons()
 
 void PlayerShip::initAnimations()
 {
-	m_ExhaustAnimationForward.addFramesLine(8, 1, 0, 0, 3);
-	m_ExhaustAnimationBackward.addFramesLine(8, 1, 0, 5, 0);
+	Animation::Line framesForward{ 8,1,0,0,3 };
+	Animation::Line framesBackward{ 8,1,0,5,0 };
+	m_ExhaustAnimationForward.addFrames(framesForward);
+	m_ExhaustAnimationBackward.addFrames(framesBackward);
+
 
 	m_ExhaustAnimatedSpriteLeft.setAnimation(&m_ExhaustAnimationForward);
 	m_ExhaustAnimatedSpriteLeft.setLoop(false);

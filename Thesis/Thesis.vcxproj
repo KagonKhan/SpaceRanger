@@ -192,7 +192,7 @@
     <ClCompile Include="Fleet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HangarState.cpp" />
-    <ClCompile Include="HasOnDeath.cpp" />
+    <ClCompile Include="OnDestroy.cpp" />
     <ClCompile Include="HasWeapons.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="HorizontalLayout.cpp" />
@@ -266,7 +266,7 @@
     <ClInclude Include="Fleet.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HangarState.h" />
-    <ClInclude Include="HasOnDeath.h" />
+    <ClInclude Include="OnDestroy.h" />
     <ClInclude Include="HasWeapons.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="HorizontalLayout.h" />

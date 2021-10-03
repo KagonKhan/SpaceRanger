@@ -1,18 +1,9 @@
 #include "pch.h" 
 #include "Ship.h"
 
-void Ship::draw(sf::RenderTarget& target, sf::RenderStates) const
-{
-	target.draw(m_Sprite);
-
-	for (auto&& weapon : m_Weapons)
-		target.draw(*weapon);
-
-}
-
 
 Ship::Ship(float max_hp, Configuration::TexturesShips tex_id)
-	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp)
+	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp), m_OnDestroy(*this)
 {
 	m_Sprite.setScale(0.5f, 0.5f);
 }
@@ -22,13 +13,10 @@ void Ship::update(const sf::Time& deltaTime)
 { 
 	// Update weapons even if the entity is not alive, otherwise the shots will just disappear
 	updateWeapons(deltaTime);
-	updateCanBeDeleted();
-
-
-	//if (!isAlive()) {
-	//	m_AreActionsBlocked = true;
-	//	return;
-	//}
+	 
+	if (m_OnDestroy.isMarkedForDeletion())
+		updateOnDestroy(deltaTime);
+	
 
 	if (m_AreActionsBlocked)		return;
 
@@ -50,20 +38,11 @@ void Ship::updateWeapons(const sf::Time& deltaTime)
 	}
 }
 
-// Maybe there is no point in checking every frame if can be deleted, and just when it tries to be deleted
-void Ship::updateCanBeDeleted()
+void Ship::updateOnDestroy(const sf::Time& deltaTime)
 {
-	if (m_MarkedForDeletion) {
-		getAmmoOnScreen();
-
-
-		if (ammoOnScreen.empty())
-			m_CanBeDeleted = true;
-		else
-			m_CanBeDeleted = false;
-
-	}
+	m_OnDestroy.update(deltaTime);
 }
+
 
 void Ship::repositionSprites(sf::Vector2f positionAt)
 {
@@ -125,19 +104,3 @@ std::vector<Ammunition*>& Ship::getAmmoOnScreen()
 	return ammoOnScreen;
 }
 
-
-
-
-
-void Ship::onDestroy()
-{
-	setPosition(-9.f, -9.f);
-	markForDeletion();
-}
-
-
-void Ship::markForDeletion()
-{
-	m_MarkedForDeletion = true;
-	m_AreActionsBlocked = true;
-}

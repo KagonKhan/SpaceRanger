@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "CanCollide.h"
 #include "AnimatedSprite.h"
-
+#include "OnDestroy.h"
 
 class Weapon; 
 class Ammunition :
@@ -18,23 +18,22 @@ private:
 	void updatePosition(const sf::Time& deltaTime);
 
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
-	virtual void onDeletion(bool playAnimation) = 0;
-
+	 
 protected:
 	float m_DegAngle;
 	float m_RadAngle;
-
-	bool m_CanBeDeleted{ false };
-	bool m_MarkedForDeletion{ false };
 
 	sf::Vector2f m_Boundaries;
 
 	Animation m_Animation;
 	AnimatedSprite m_AnimatedSprite;
 
+	OnDestroy m_OnDestroy;
 
 public:
 	Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
+	~Ammunition()override;
+
 
 	void update(const sf::Time& deltaTime) override;
 
@@ -46,12 +45,10 @@ public:
 	void setRotation(float angle);
 	void rotate(float angle);
 
-	void markForDeletion(bool playAnimation = false) { onDeletion(playAnimation); };
-
+	bool canBeDeleted()	const								{			return m_OnDestroy.canBeDeleted();	}
 	void setSpeed(float speed)								{			m_Speed = speed;					}
 	void setSpriteRotation(float angle)						{			m_Sprite.setRotation(angle);		}
 	void rotateSprite(float angle)							{			m_Sprite.rotate(angle);				}
-	bool canBeDeleted() const								{			return m_CanBeDeleted;				}
 	float getRotation() const								{			return m_DegAngle;					}
 	float getRotationRad() const							{			return m_RadAngle;					}
 	float getSpriteRotation() const							{			return m_Sprite.getRotation();		}

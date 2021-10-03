@@ -32,8 +32,10 @@ void Game::initStates()
 
 void Game::initCursor()
 {
+
+	Animation::Line frames{ 40,10,6 };
 	auto  *cursor_anim = new Animation(&Configuration::textures_game.get(Configuration::TexturesGameState::cursor));
-	cursor_anim->addFramesLine(40, 10, 6);
+	cursor_anim->addFrames(frames);
 	
 	m_Cursor.setAnimation(cursor_anim);
 	m_Cursor.setFrameTime(sf::seconds(0.1f));
@@ -51,7 +53,7 @@ void Game::processEvents()
 			system("CLS");
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add)) {
 			m_GameSpeed += 0.05f;
-			if (m_GameSpeed >= 2.f) m_GameSpeed = 2.f;
+			if (m_GameSpeed >= 6.f) m_GameSpeed = 6.f;
 
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract)) {

@@ -11,6 +11,8 @@ private:
 public:
 	explicit BeamShip();
 	explicit BeamShip(Configuration::TexturesShips tex_id);
+	
 
+	void stopShooting();
 };
 
