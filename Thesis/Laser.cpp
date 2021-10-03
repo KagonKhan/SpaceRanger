@@ -15,8 +15,6 @@ void Laser::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed, Patterns pattern)
 	: Ammunition(tex_id, boundaries, deg_angle, speed),
-	m_DeathSound(Configuration::sounds.get(Configuration::Sounds::laser_hit)),
-	m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_laser_hit)),
 	m_Pattern(pattern)
 {
 	initAnimation();
@@ -38,8 +36,6 @@ void Laser::initAnimation()
 
 
 
-
-
 	m_DeathAnimation.addFramesLine(8, 1, 0);
 
 	m_DeathAnimationSprite.setAnimation(&m_DeathAnimation);
@@ -49,8 +45,6 @@ void Laser::initAnimation()
 	m_DeathAnimationSprite.setLoop(false);
 	m_DeathAnimationSprite.pause();
 	m_DeathAnimationSprite.setScale(0.15f, 0.15f);
-
-
 
 }
 

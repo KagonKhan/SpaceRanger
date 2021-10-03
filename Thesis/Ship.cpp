@@ -23,12 +23,12 @@ void Ship::update(const sf::Time& deltaTime)
 	updateCanBeDeleted();
 
 
-	if (!isAlive()) {
-		m_AreActionsBlocked = true;
-		return;
-	}
+	//if (!isAlive()) {
+	//	m_AreActionsBlocked = true;
+	//	return;
+	//}
 
-	//if (m_AreActionsBlocked)		return;
+	if (m_AreActionsBlocked)		return;
 
 
 	updateIndividualBehavior(deltaTime);
@@ -44,14 +44,22 @@ void Ship::updateWeapons(const sf::Time& deltaTime)
 // Maybe there is no point in checking every frame if can be deleted, and just when it tries to be deleted
 void Ship::updateCanBeDeleted()
 {
-	if (ammoOnScreen.empty())
-		m_CanBeDeleted = true;
-	else
-		m_CanBeDeleted = false;
+	if (m_MarkedForDeletion) {
+		getAmmoOnScreen();
+
+
+		if (ammoOnScreen.empty())
+			m_CanBeDeleted = true;
+		else
+			m_CanBeDeleted = false;
+
+	}
 }
 
-void Ship::repositionSprites()
+void Ship::repositionSprites(sf::Vector2f positionAt)
 {
+	m_Position = positionAt;
+
 	m_Sprite.setPosition(m_Position);
 	m_Shape.setPosition(m_Position);
 
@@ -61,19 +69,6 @@ void Ship::repositionSprites()
 
 
 
-#pragma region SETTERS / GETTERS
-
-void Ship::setPosition(const sf::Vector2f& pos)
-{
-	m_Position = pos;
-	repositionSprites(); 
-}
-
-void Ship::move(const sf::Vector2f& moveBy)
-{
-	m_Position += moveBy;
-	repositionSprites();
-}
 
 void Ship::setAreActionsBlocked(bool is_blocked)
 {
@@ -110,9 +105,9 @@ std::vector<Ammunition*>& Ship::getAmmoOnScreen()
 {
 
 	// TODO: Test if this actually makes a difference
-	//int max_cap = getMaxCap(ammoOnScreen);
+	int max_cap = getMaxCap(ammoOnScreen);
 	ammoOnScreen.clear();
-	//ammoOnScreen.reserve(max_cap);
+	ammoOnScreen.reserve(max_cap);
 
 
 	for (auto&& weapon : m_Weapons)
@@ -122,20 +117,19 @@ std::vector<Ammunition*>& Ship::getAmmoOnScreen()
 	return ammoOnScreen;
 }
 
-#pragma endregion
 
 
 
+
+void Ship::onDestroy()
+{
+	setPosition(-9.f, -9.f);
+	markForDeletion();
+}
 
 
 void Ship::markForDeletion()
 {
 	m_MarkedForDeletion = true;
 	m_AreActionsBlocked = true;
-}
-
-void Ship::onDestroy()
-{
-	setPosition(-9.f, -9.f);
-	markForDeletion();
 }

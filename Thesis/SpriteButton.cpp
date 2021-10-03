@@ -59,16 +59,6 @@ void SpriteButton::processEvent(const sf::Event& sfevent)
 	}
 }
 
-void SpriteButton::onMouseEntered()
-{
-	m_Sprite.setColor(sf::Color(182, 182, 182));
-	m_Sprite.setColor(sf::Color(182, 182, 182));
-}
-
-void SpriteButton::onMouseLeft()
-{
-	m_Sprite.setColor(sf::Color::White);
-}
 
 // Assuming origin is 0,0
 void SpriteButton::positionTextBasedOnStyle()
@@ -203,38 +193,6 @@ void SpriteButton::setTextStyle(sf::Uint32 style)
 		throw std::runtime_error("m_Label does not exist!\n");
 }
 
-void SpriteButton::setTextFillColor(const sf::Color& color)
-{
-	if (m_Label.has_value())
-		m_Label.value().setFillColor(color);
-	else
-		throw std::runtime_error("m_Label does not exist!\n");
-}
 
-void SpriteButton::setTextOutlineColor(const sf::Color& color)
-{
-	if (m_Label.has_value())
-		m_Label.value().setOutlineColor(color);
-	else
-		throw std::runtime_error("m_Label does not exist!\n");
-}
-
-void SpriteButton::setTextOutlineThickness(float thickness)
-{
-	if (m_Label.has_value()) {
-		m_Label.value().setOutlineThickness(thickness);
-		positionTextBasedOnStyle();
-	}
-	else
-		throw std::runtime_error("m_Label does not exist!\n");
-}
-
-unsigned int SpriteButton::getCharacterSize() const
-{
-	if (m_Label.has_value())
-		return m_Label.value().getCharacterSize();
-	else
-		throw std::runtime_error("m_Label does not exist!\n");
-}
 
 #pragma endregion

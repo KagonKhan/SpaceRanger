@@ -10,15 +10,15 @@ public:
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
-	Animation m_DeathAnimation;
-	AnimatedSprite m_DeathAnimationSprite;
-	sf::Sound m_DeathSound;
+	Animation			m_DeathAnimation		{ &Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_laser_hit) };
+	AnimatedSprite		m_DeathAnimationSprite;
+	sf::Sound			m_DeathSound			{ Configuration::sounds.get(Configuration::Sounds::laser_hit) };
 
 
 	Patterns m_Pattern;
 
 
-	void initAnimation() override;
+	void initAnimation() ;
 	void updateIndividualBehavior(const sf::Time& deltaTime) override;
 	void updateMovementPatters(const sf::Time& deltaTime);
 

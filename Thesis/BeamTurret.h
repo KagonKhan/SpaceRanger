@@ -17,5 +17,5 @@ public:
 	explicit BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref parent = std::nullopt);
 
 
-	void stop();
+	void stop()				{ m_Shots.clear(); }
 };

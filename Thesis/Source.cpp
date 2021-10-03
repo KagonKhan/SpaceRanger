@@ -5,9 +5,12 @@
 /* NEAREST ENDEAVOURS 
 *	- Fill out other ship type classes
 *	- Have on death animation
-*	- ADD COMMAND QUEUE IN FLEET CLASS
-*	- Convert ships to accepting direction and having speed internally, instead of manually moving them
+*	
+*	
 * 
+* 
+*	- ships and ammo has duplicate code in terms of "marked for deletion" "on destroy" fix it
+*	- float Missile::dealDamage() can probably be simplified 
 * 
 * 
 * 

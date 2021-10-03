@@ -12,10 +12,6 @@ BeamTurret::BeamTurret(Configuration::TexturesWeaponry tex_id, Entity::opt_ref p
 
 }
 
-void BeamTurret::stop()
-{
-	m_Shots.clear();
-}
 
 void BeamTurret::createBullet()
 {

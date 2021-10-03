@@ -52,7 +52,7 @@ public:
     void setStyle(Style style);
 
     void setSize(const sf::Vector2f& size);
-    sf::Vector2f getSize() const;
+    sf::Vector2f getSize() const                            { return m_Shape.getSize(); }
 
 
     /* TEXT SETTERS */
@@ -62,10 +62,10 @@ public:
     void setLineSpacing(float spacingFactor);
     void setLetterSpacing(float spacingFactor);
     void setTextStyle(sf::Uint32 style);
-    void setTextFillColor(const sf::Color& color);
-    void setTextOutlineColor(const sf::Color& color);
+    void setTextFillColor(const sf::Color& color)           { m_Label.setFillColor(color); }
+    void setTextOutlineColor(const sf::Color& color)        { m_Label.setOutlineColor(color); }
     void setTextOutlineThickness(float thickness);
-    unsigned int getCharacterSize() const;
+    unsigned int getCharacterSize() const                   { return m_Label.getCharacterSize(); }
 
 #pragma endregion
 

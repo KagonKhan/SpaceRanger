@@ -148,10 +148,6 @@ void TextButton::setSize(const sf::Vector2f& size)
 	positionTextBasedOnStyle();
 }
 
-sf::Vector2f TextButton::getSize() const
-{
-	return m_Shape.getSize();
-}
 
 
 
@@ -200,16 +196,6 @@ void TextButton::setTextStyle(sf::Uint32 style)
 		adjustSizeToLabel();
 }
 
-void TextButton::setTextFillColor(const sf::Color& color)
-{
-	m_Label.setFillColor(color);
-}
-
-void TextButton::setTextOutlineColor(const sf::Color& color)
-{
-	m_Label.setOutlineColor(color);
-}
-
 void TextButton::setTextOutlineThickness(float thickness)
 {
 	m_Label.setOutlineThickness(thickness);
@@ -217,9 +203,5 @@ void TextButton::setTextOutlineThickness(float thickness)
 		adjustSizeToLabel();
 }
 
-unsigned int TextButton::getCharacterSize() const
-{
-	return m_Label.getCharacterSize();
-}
 
 #pragma endregion

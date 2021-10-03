@@ -10,12 +10,6 @@ Beam::Beam(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundarie
 }
 
 
-float Beam::dealDamage()
-{
-	return 0.0f;
-}
-
-
 void Beam::initAnimation()
 {
 	m_Animation.addFramesLine(11, 1, 0);
@@ -27,10 +21,16 @@ void Beam::initAnimation()
 	m_AnimatedSprite.setRepeat(3);
 	m_AnimatedSprite.setScale(1.5f, 4.f);
 	m_AnimatedSprite.setRotation(180);
+
 	m_AnimatedSprite.play();
 }
 
 void Beam::updateIndividualBehavior(const sf::Time& deltaTime)
+{
+	checkIfAnimationFinished();
+}
+
+void Beam::checkIfAnimationFinished()
 {
 	if (m_AnimatedSprite.getStatus() != AnimatedSprite::Status::Playing)
 		m_CanBeDeleted = true;

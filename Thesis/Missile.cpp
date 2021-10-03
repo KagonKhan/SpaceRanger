@@ -14,19 +14,12 @@ void Missile::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 
 Missile::Missile(Configuration::TexturesWeaponry tex_id, Configuration::TexturesWeaponry thrusters, const sf::Vector2f& boundaries, float deg_angle, float speed)
-	: Ammunition(thrusters, boundaries, deg_angle, speed),
-	m_DeathAnimation(&Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_missile_death_anim)),
-	m_DeathSound(Configuration::sounds.get(Configuration::Sounds::missile_explosion))
+	: Ammunition(thrusters, boundaries, deg_angle, speed)
 {
-
 	initAnimation();
+	initSprites(tex_id);
 
-
-	m_Sprite.setTexture(Configuration::textures_weaponry.get(tex_id), true);
-	m_Sprite.setOrigin(m_Sprite.getGlobalBounds().width / 2.f, m_Sprite.getGlobalBounds().height / 2.f);
-	m_Sprite.setScale(0.5f, 0.5f);
-	m_Sprite.setPosition(m_Position);
-
+	m_Speed = 300.f;
 }
 
 
@@ -53,6 +46,14 @@ void Missile::initAnimation()
 	m_DeathAnimationSprite.setRepeat(1);
 	m_DeathAnimationSprite.setLoop(false);
 	m_DeathAnimationSprite.pause();
+}
+
+void Missile::initSprites(Configuration::TexturesWeaponry tex_id)
+{
+	m_Sprite.setTexture(Configuration::textures_weaponry.get(tex_id), true);
+	m_Sprite.setOrigin(m_Sprite.getGlobalBounds().width / 2.f, m_Sprite.getGlobalBounds().height / 2.f);
+	m_Sprite.setScale(0.5f, 0.5f);
+	m_Sprite.setPosition(m_Position);
 }
 
 void Missile::updateIndividualBehavior(const sf::Time& deltaTime)
@@ -121,10 +122,6 @@ void Missile::onDeletion(bool playAnimation)
 	else m_CanBeDeleted = true;
 }
 
-void Missile::lockOnTarget(const Entity* target)
-{
-	m_Target = target;
-}
 
 float Missile::dealDamage()
 {

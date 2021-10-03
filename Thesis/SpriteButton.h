@@ -14,8 +14,8 @@ private:
     std::optional<Label> m_Label{ std::nullopt };
 
     virtual void processEvent(const sf::Event& sfevent);
-    virtual void onMouseEntered();
-    virtual void onMouseLeft();
+    virtual void onMouseEntered()                           {       m_Sprite.setColor(sf::Color(182, 182, 182));        }
+    virtual void onMouseLeft()                              {       m_Sprite.setColor(sf::Color::White);                }
 
     void positionTextBasedOnStyle();
 
@@ -58,10 +58,10 @@ public:
     void setLineSpacing(float spacingFactor);
     void setLetterSpacing(float spacingFactor);
     void setTextStyle(sf::Uint32 style);
-    void setTextFillColor(const sf::Color& color);
-    void setTextOutlineColor(const sf::Color& color);
-    void setTextOutlineThickness(float thickness);
-    unsigned int getCharacterSize() const;
+    void setTextFillColor(const sf::Color& color)           {       m_Label.value().setFillColor(color);                }
+    void setTextOutlineColor(const sf::Color& color)        {       m_Label.value().setOutlineColor(color);             }
+    void setTextOutlineThickness(float thickness)           {       m_Label.value().setOutlineThickness(thickness);     }
+    unsigned int getCharacterSize() const                   {       return m_Label.value().getCharacterSize();          }
 
 #pragma endregion
 

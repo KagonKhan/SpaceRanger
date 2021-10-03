@@ -80,6 +80,12 @@ void Level::checkCollisions()
 	checkPlayerCollisions();
 	checkForDeletion();
 }
+
+
+
+
+
+
 // Enemy hit player
 void Level::checkPlayerCollisions()
 {
@@ -95,6 +101,9 @@ void Level::checkPlayerCollisions()
 			m_Player.receiveDamage(ammo->dealDamage() * 0.f);
 		}
 }
+
+
+
 // Player hit enemy
 void Level::checkEnemyCollisions()
 {
@@ -111,21 +120,29 @@ void Level::checkEnemyCollisions()
 				
 }
 
+
+
+
 void Level::checkForDeletion()
 {
 	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num)
 		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
 			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted()) {
 				m_EnemiesForDeletion.push_back(std::move(m_Enemies[fleet_num][ship_num]));
-				m_Enemies[fleet_num].erase(ship_num--);
+				m_Enemies[fleet_num].erase(ship_num);
+				--ship_num;
 			}
 	
+	BOOST_LOG_TRIVIAL(info) << m_Enemies.size() << " : " << m_EnemiesForDeletion.size();
 
 
+	for (size_t ship_num = 0; ship_num < m_EnemiesForDeletion.size(); ++ship_num) {
+		if (m_EnemiesForDeletion[ship_num]->shouldBeDeleted() && m_EnemiesForDeletion[ship_num]->canBeDeleted()) {
+			m_EnemiesForDeletion.erase(m_EnemiesForDeletion.begin() + ship_num);
+			--ship_num;
+		}
 
-	for (size_t ship_num = 0; ship_num < m_EnemiesForDeletion.size(); ++ship_num)
-		if (m_EnemiesForDeletion[ship_num]->shouldBeDeleted() && m_EnemiesForDeletion[ship_num]->canBeDeleted())
-			m_EnemiesForDeletion.erase(m_EnemiesForDeletion.begin() + ship_num--);
+	}
 	
 
 

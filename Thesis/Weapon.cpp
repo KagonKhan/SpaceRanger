@@ -18,7 +18,6 @@ Weapon::Weapon(Configuration::TexturesWeaponry tex_id)
 }
 
 
-#pragma region SETTERS / GETTERS
 void Weapon::setFiringRate(float rate)
 {
 	m_FiringRate=rate;
@@ -27,26 +26,12 @@ void Weapon::setFiringRate(float rate)
 
 
 
-void Weapon::setPosition(const sf::Vector2f& pos)
-{
-	m_Position = pos + m_Offset;
-	m_Shape.setPosition(m_Position);
-	m_Sprite.setPosition(m_Position);
-}
-
-void Weapon::setPosition(float x, float y)
-{
-	setPosition(sf::Vector2f(x, y));
-}
-
-#pragma endregion
-
-
 void Weapon::shoot(bool makeSound)
 {
 	if(m_IsWeaponActive && m_TimeSinceLastShot > m_FiringDelay) {
 		createBullet();
-		if (makeSound);// createSound();
+		if (makeSound) createSound();
+
 		m_TimeSinceLastShot = 0;
 
 	}

@@ -2,16 +2,10 @@
 #include "PlayerShip.h"
 #include "Ammunition.h"
 
-void Ammunition::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	target.draw(m_AnimatedSprite);
-}
-
 Ammunition::Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed)
 	: Entity(Configuration::textures_weaponry.get(tex_id)), m_DegAngle(deg_angle),
-		m_Animation(&Configuration::textures_weaponry.get(tex_id)),
-		m_Boundaries(boundaries)
-
+		m_Boundaries(boundaries),
+		m_Animation(&Configuration::textures_weaponry.get(tex_id))
 {
 	setRadAngle();
 }
@@ -71,18 +65,21 @@ void Ammunition::updatePosition(const sf::Time& deltaTime)
 {
 	m_Direction.x = cosf(getRotationRad() + static_cast<float>(M_PIl) / 2.f);
 	m_Direction.y = sinf(getRotationRad() + static_cast<float>(M_PIl) / 2.f);
+	Helpers::normalize(m_Direction);
 	sf::Vector2f m_Velocity = m_Direction * m_Speed;
 
-	m_Position += m_Velocity * deltaTime.asSeconds();
-
-	m_AnimatedSprite.setPosition(m_Position);
-	m_Sprite.setPosition(m_Position);
-
+	move(m_Velocity * deltaTime.asSeconds());
 }
 
 void Ammunition::setPosition(const sf::Vector2f& pos)
 {
 	Entity::setPosition(pos);
 	m_AnimatedSprite.setPosition(pos);
+}
+
+void Ammunition::move(sf::Vector2f moveBy)
+{
+	Entity::setPosition(m_Position + moveBy);
+	m_AnimatedSprite.move(moveBy);
 }
 

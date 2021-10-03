@@ -4,19 +4,19 @@
 #include "AnimatedSprite.h"
 
 
-class Weapon;
+class Weapon; 
 class Ammunition :
 	public Entity,
 	public CanCollide,
 	private sf::NonCopyable
 {
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void setRadAngle() { m_RadAngle = m_DegAngle / 180.f * static_cast<float>(M_PIl); };
-	void updateAnimation(const sf::Time& deltaTime){ m_AnimatedSprite.update(deltaTime); }
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override	{		target.draw(m_AnimatedSprite);									}
+	void updateAnimation(const sf::Time& deltaTime)							{		m_AnimatedSprite.update(deltaTime);								}
+	void setRadAngle()														{		m_RadAngle = m_DegAngle / 180.f * static_cast<float>(M_PIl);	}
+
 	void updatePosition(const sf::Time& deltaTime);
 
-	virtual void initAnimation() = 0;
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
 	virtual void onDeletion(bool playAnimation) = 0;
 
@@ -33,28 +33,26 @@ protected:
 	AnimatedSprite m_AnimatedSprite;
 
 
-
-
 public:
 	Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundaries, float deg_angle, float speed);
 
 	void update(const sf::Time& deltaTime) override;
 
+	virtual float dealDamage() = 0;
 
 	void setPosition(const sf::Vector2f& pos) override;
-	void setSpeed(float speed){ m_Speed = speed; }
-	float getRotation()const { return m_RadAngle; }
-	float getRotationRad()const { return m_RadAngle; }
-	float getSpriteRotation()const { return m_Sprite.getRotation(); }
+	void move(sf::Vector2f moveBy);
 
-	void setSpriteRotation(float angle){ m_Sprite.setRotation(angle); }
 	void setRotation(float angle);
 	void rotate(float angle);
-	void rotateSprite(float angle){ m_Sprite.rotate(angle); }
-
 
 	void markForDeletion(bool playAnimation = false) { onDeletion(playAnimation); };
 
-	bool canBeDeleted()const {		return m_CanBeDeleted;	};
-	virtual float dealDamage() = 0;
+	void setSpeed(float speed)								{			m_Speed = speed;					}
+	void setSpriteRotation(float angle)						{			m_Sprite.setRotation(angle);		}
+	void rotateSprite(float angle)							{			m_Sprite.rotate(angle);				}
+	bool canBeDeleted() const								{			return m_CanBeDeleted;				}
+	float getRotation() const								{			return m_DegAngle;					}
+	float getRotationRad() const							{			return m_RadAngle;					}
+	float getSpriteRotation() const							{			return m_Sprite.getRotation();		}
 };

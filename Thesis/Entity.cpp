@@ -22,7 +22,7 @@ void Entity::setOrigins()
 void Entity::setPosition(const sf::Vector2f& pos)
 {
 	m_Position = pos + m_Offset;
-	m_Shape.setPosition(pos);
-	m_Sprite.setPosition(pos);	
+	m_Shape.setPosition(m_Position);
+	m_Sprite.setPosition(m_Position);
 }
 

@@ -13,10 +13,8 @@ void PlayerShip::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries, Player& player)
-	: Ship(100, tex_id), m_Boundaries(boundaries), 
+	: Ship(100, tex_id), m_Boundaries(boundaries)
 	//m_Player(player),
-	m_ExhaustAnimationForward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust)),
-	m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust))
 {
 	initVariables();
 	initWeapons();
@@ -25,10 +23,7 @@ PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& 
 }
 
 PlayerShip::PlayerShip(Configuration::TexturesShips tex_id, const sf::Vector2f& boundaries)
-	: Ship(100, tex_id), m_Boundaries(boundaries), 
-m_SpeedLimit(1200, 900),
-m_ExhaustAnimationForward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust)),
-m_ExhaustAnimationBackward(&Configuration::textures_ships.get(Configuration::TexturesShips::player_exhaust))
+	: Ship(100, tex_id), m_Boundaries(boundaries)
 {
 	initVariables();
 	initWeapons();
@@ -45,9 +40,7 @@ void PlayerShip::onDestroy()
 
 void PlayerShip::initVariables() 
 {
-	float velocity = 50;
-	sf::Vector2f m_Velocity = sf::Vector2f(velocity * 0.9f, velocity * 0.75f);
-	m_Direction = sf::Vector2f(0, 0);
+	m_Speed = 300.f;
 }
 
 void PlayerShip::initWeapons()
@@ -89,84 +82,71 @@ void PlayerShip::updateMovement(const sf::Time& deltaTime)
 {
 	m_Direction *= 0.97f;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		m_Direction.x -= m_Speed;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		m_Direction.x += m_Speed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))				m_Direction.x -= m_Speed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))				m_Direction.x += m_Speed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))				m_Direction.y -= m_Speed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))				m_Direction.y += m_Speed;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		m_Direction.y -= m_Speed;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		m_Direction.y += m_Speed;
-
-#pragma region Movement Boundaries
-
-	// TODO - limit based on sprite size, not based on random nuymbers
-	/* Limit movement in X direction, slowly reducing ship velocity */
-	if (m_Position.x < 150 && m_Direction.x < 0 || m_Position.x + 150 > m_Boundaries.x && m_Direction.x > 0)
-		m_Direction.x *= 0.85f;
-
-	if (m_Position.x < 100 && m_Direction.x < 0 || m_Position.x + 100 > m_Boundaries.x && m_Direction.x > 0)
-		m_Direction.x *= 0.65f;
-
-	if (m_Position.x < 50 && m_Direction.x < 0 || m_Position.x + 50 > m_Boundaries.x && m_Direction.x > 0)
-		m_Direction.x *= 0.45f;
-
-	if (m_Position.x < 10 && m_Direction.x < 0 || m_Position.x + 10 > m_Boundaries.x && m_Direction.x > 0)
-		m_Direction.x *= 0.0f;
+	checkBoundaries();
+	checkMaxSpeed();
 
 
-	/* Limit movement in Y direction, slowly reducing ship velocity */
-	if (m_Position.y > m_Boundaries.y - getSize().y - 10 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 90.f && m_Direction.y < 0)
-		m_Direction.y *= 0.93f;
 
-	if (m_Position.y > m_Boundaries.y - getSize().y + 0 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 60.f && m_Direction.y < 0)
-		m_Direction.y *= 0.75f;
+	move(m_Direction * deltaTime.asSeconds());
 
-	if (m_Position.y > m_Boundaries.y - getSize().y + 20 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 30.f && m_Direction.y < 0)
-		m_Direction.y *= 0.55f;
+	sf::Listener::setPosition(m_Position.x, -m_Position.y, 300.f);
+}
 
-	if (m_Position.y > m_Boundaries.y - getSize().y + 40 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 10.f && m_Direction.y < 0)
-		m_Direction.y *= 0.f;
+void PlayerShip::checkBoundaries()
+{	
+	if (m_Position.x < 150 && m_Direction.x < 0 || m_Position.x + 150 > m_Boundaries.x && m_Direction.x > 0)		m_Direction.x *= 0.85f;
+	if (m_Position.x < 100 && m_Direction.x < 0 || m_Position.x + 100 > m_Boundaries.x && m_Direction.x > 0)		m_Direction.x *= 0.65f;
+	if (m_Position.x < 50  && m_Direction.x < 0 || m_Position.x + 50  > m_Boundaries.x && m_Direction.x > 0)		m_Direction.x *= 0.45f;
+	if (m_Position.x < 10  && m_Direction.x < 0 || m_Position.x + 10  > m_Boundaries.x && m_Direction.x > 0)		m_Direction.x *= 0.0f;
 
-#pragma endregion
+	if (m_Position.y > m_Boundaries.y - getSize().y - 10 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 90.f && m_Direction.y < 0)		m_Direction.y *= 0.93f;
+	if (m_Position.y > m_Boundaries.y - getSize().y + 0  && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 60.f && m_Direction.y < 0)		m_Direction.y *= 0.75f;
+	if (m_Position.y > m_Boundaries.y - getSize().y + 20 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 30.f && m_Direction.y < 0)		m_Direction.y *= 0.55f;
+	if (m_Position.y > m_Boundaries.y - getSize().y + 40 && m_Direction.y > 0 || m_Position.y < 2.5f * m_Boundaries.y / 4.f + 10.f && m_Direction.y < 0)		m_Direction.y *= 0.f;
+}
 
-#pragma region Movement Speed Limits
 
-	/* TODO: movement is still a bit janky, further research needed probably */
-	if (m_Direction.x > m_SpeedLimit.x)
-		m_Direction.x = m_SpeedLimit.x;
-	else if (m_Direction.x < -m_SpeedLimit.x)
-		m_Direction.x = -m_SpeedLimit.x;
+void PlayerShip::checkMaxSpeed()
+{	
+	if		(m_Direction.x > m_SpeedLimit.x)		m_Direction.x = m_SpeedLimit.x;
+	else if (m_Direction.x < -m_SpeedLimit.x)		m_Direction.x = -m_SpeedLimit.x;
+	else if (m_Direction.y > m_SpeedLimit.y)		m_Direction.y = m_SpeedLimit.y;
+	else if (m_Direction.y < -m_SpeedLimit.y)		m_Direction.y = -m_SpeedLimit.y;
 
-	else if (m_Direction.y > m_SpeedLimit.y)
-		m_Direction.y = m_SpeedLimit.y;	
-	else if (m_Direction.y < -m_SpeedLimit.y)
-		m_Direction.y = -m_SpeedLimit.y;
 
-	
+
 	if (float len = Helpers::getLength(m_Direction); m_SpeedLimit.x < len) {
 		len = m_SpeedLimit.x / len;
 		m_Direction *= len;
 	}
 
-#pragma endregion
-
-	m_Position.x += m_Direction.x * deltaTime.asSeconds();
-	m_Position.y += m_Direction.y * deltaTime.asSeconds();
 
 }
 
+void PlayerShip::updateIndividualBehavior(const sf::Time& deltaTime)
+{
+	updateSprites(deltaTime);
+
+
+
+	if (!m_AreActionsBlocked && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		shoot();
+}
 
 void PlayerShip::updateSprites(const sf::Time& deltaTime)
 {
 	// if moving up, swap animation to stronger exhaust
-	if (m_Direction.y < 0) {
+	if (m_Direction.y > 0) {
 		m_ExhaustAnimatedSpriteLeft.setAnimation(&m_ExhaustAnimationForward);
 		m_ExhaustAnimatedSpriteRight.setAnimation(&m_ExhaustAnimationForward);
 	}
 	// if moving down, swap animation to weaker exhaust
-	else if (m_Direction.y > 0) {
+	else if (m_Direction.y < 0) {
 		m_ExhaustAnimatedSpriteLeft.setAnimation(&m_ExhaustAnimationBackward);
 		m_ExhaustAnimatedSpriteRight.setAnimation(&m_ExhaustAnimationBackward);
 	}
@@ -176,14 +156,4 @@ void PlayerShip::updateSprites(const sf::Time& deltaTime)
 
 	m_ExhaustAnimatedSpriteLeft.setPosition(m_Position);
 	m_ExhaustAnimatedSpriteRight.setPosition(m_Position);
-}
-
-void PlayerShip::updateIndividualBehavior(const sf::Time& deltaTime)
-{
-	updateSprites(deltaTime);
-
-	sf::Listener::setPosition(m_Position.x, -m_Position.y, 300.f);
-
-	if (!m_AreActionsBlocked && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		shoot();
 }
