@@ -8,6 +8,8 @@ Ammunition::Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2
 		m_Animation(&Configuration::textures_weaponry.get(tex_id))
 {
 	setRadAngle();
+
+	m_Sprite.setScale(0.5f, 0.5f);
 }
 
 
@@ -55,7 +57,9 @@ void Ammunition::update(const sf::Time& deltaTime)
 
 	updateIndividualBehavior(deltaTime);
 
-	if (!Helpers::CheckIfPointContainedInArea(m_Position, Configuration::boundaries))
+	auto a = Configuration::boundaries;
+	const auto area = sf::FloatRect(-a/5.f, a * 1.5f);
+	if (!Helpers::CheckIfPointContainedInArea(m_Position, area))
 		markForDeletion(false);
 }
 

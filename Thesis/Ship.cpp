@@ -13,7 +13,9 @@ void Ship::draw(sf::RenderTarget& target, sf::RenderStates) const
 
 Ship::Ship(float max_hp, Configuration::TexturesShips tex_id)
 	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp)
-{}
+{
+	m_Sprite.setScale(0.5f, 0.5f);
+}
 
 // CAREFUL: order is strictly enforced, which may lead to bugs
 void Ship::update(const sf::Time& deltaTime)
@@ -37,8 +39,15 @@ void Ship::update(const sf::Time& deltaTime)
 
 void Ship::updateWeapons(const sf::Time& deltaTime)
 {
-	for (auto&& weapon : m_Weapons)
+	static const auto area = sf::FloatRect(sf::Vector2f(0, 0), Configuration::boundaries);
+	for (auto&& weapon : m_Weapons) {
 		weapon->update(deltaTime);
+		if (!Helpers::CheckIfPointContainedInArea(m_Position, area))
+			weapon->setIsWeaponActive(false);
+		else
+			weapon->setIsWeaponActive(true);
+
+	}
 }
 
 // Maybe there is no point in checking every frame if can be deleted, and just when it tries to be deleted
@@ -93,7 +102,6 @@ int Ship::getMaxCap(const std::vector<Ammunition*> container) const
 	static int max_cap = container.size();
 
 	if (static_cast<int>(container.size()) > max_cap) {
-		BOOST_LOG_TRIVIAL(info) << max_cap << " : " << container.size();
 
 		max_cap = container.size();
 	}

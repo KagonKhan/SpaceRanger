@@ -29,19 +29,19 @@ protected:
 	void addRect();
 
 public:
-	const sf::RenderWindow& getWindow()const { return m_Window; }
 	Level(sf::RenderWindow& window, PlayerShip& player);
 
 	void update(const sf::Time& deltaTime);
 
 
-	void clearRects() { m_rects.clear(); }
 	void addFleet(std::vector<EnemyShip::ptr> fleet);
 	void addFleet(Fleet fleet);
 
 
-	std::vector<Fleet>& getEnemies()	{			return m_Enemies;							}
-	Fleet& getFleet(int index)			{			return m_Enemies.at(index);					}
-	Fleet* getFleetPtr(int index)		{			return &m_Enemies.at(index);				}
+	void clearRects()							{			m_rects.clear();					}
+	const sf::RenderWindow& getWindow()const	{			return m_Window;					}
+	std::vector<Fleet>& getEnemies()			{			return m_Enemies;					}
+	Fleet& getFleet(int index)					{			return m_Enemies.at(index);			}
+	Fleet* getFleetPtr(int index)				{			return &m_Enemies.at(index);		}
 
 };

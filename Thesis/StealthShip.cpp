@@ -11,7 +11,8 @@ StealthShip::StealthShip(Configuration::TexturesShips tex_id)
 {
 	initWeapons();
 	m_Sprite.setScale(0.5f, 0.5f);
-	m_Speed = 2000.f;
+	m_Speed = 1000.f;
+	
 }
 
 

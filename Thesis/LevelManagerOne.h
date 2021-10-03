@@ -20,8 +20,10 @@ private:
 
 	std::queue<PhaseFunction> phases;
 
-	void initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos = std::nullopt);
+	void addFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos = std::nullopt);
+	Fleet* initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos = std::nullopt);
 
+	void debugSpawn();
 
 	/* could hold these in an array */
 	void updatePhase(const sf::Time& deltaTime);

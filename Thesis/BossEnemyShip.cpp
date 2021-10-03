@@ -32,9 +32,9 @@ void BossEnemyShip::updateIndividualBehavior(const sf::Time& deltaTime)
 
 void BossEnemyShip::shoot(const sf::Time& deltaTime)
 {
-	static float time = 0.f;
+	float time = 0.f;
 
-	static float max = Helpers::getRandom(5.f, 15.f);
+	float max = Helpers::getRandom(5.f, 15.f);
 	time += deltaTime.asSeconds();
 
 	if (time >= max) {

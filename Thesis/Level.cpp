@@ -35,7 +35,7 @@ void Level::addRect()
 
 	m_rects.push_back(shape);
 }
-
+ 
 
 
 void Level::addFleet(std::vector<EnemyShip::ptr> fleet)
@@ -133,7 +133,7 @@ void Level::checkForDeletion()
 				--ship_num;
 			}
 	
-	BOOST_LOG_TRIVIAL(info) << m_Enemies.size() << " : " << m_EnemiesForDeletion.size();
+
 
 
 	for (size_t ship_num = 0; ship_num < m_EnemiesForDeletion.size(); ++ship_num) {

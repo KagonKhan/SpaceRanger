@@ -12,7 +12,7 @@ void Fleet::addMovementToQueue(sf::Vector2f dir, float length)
 {
 	Helpers::normalize(dir);
 
-	m_MoveQueue.first.emplace( std::pair{ dir,length });
+	m_MoveQueue.first.emplace( std::pair{ dir, std::fabsf(length) });
 }
 
 
@@ -30,6 +30,7 @@ Fleet& Fleet::operator=(Fleet&& other)noexcept
 Fleet::Fleet(std::vector<EnemyShip::ptr> fleet)
 {
 	m_Ships = std::move(fleet);
+	m_MoveQueue.second = true;
 }
 
 Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
@@ -50,8 +51,13 @@ Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
 	for (int i = 0; i < num_x; i++)
 		for (int j = 0; j < num_y; j++) {
 
-			auto enemy = EnemyShip::create(type);
-
+			EnemyShip::ptr enemy{ nullptr };
+			if (true) {
+				enemy = EnemyShip::create(EnemyShip::Type(Helpers::getRandom(0,8)));
+			}
+			else {
+				enemy = EnemyShip::create(type);
+			}
 			sf::Vector2f pos(area.left + static_cast<float>(i) * size.x, area.top + static_cast<float>(j) * size.y);
 
 			// Origin in the middle, so move the pos
@@ -158,7 +164,7 @@ void Fleet::update(const sf::Time& deltaTime)
 		ship->update(deltaTime);
 	}
 
-	static auto& [queue, ready] = m_MoveQueue;
+	auto& [queue, ready] = m_MoveQueue;
 	if (!queue.empty() && ready) {
 
 		for (auto&& ship : m_Ships) {
@@ -166,8 +172,6 @@ void Fleet::update(const sf::Time& deltaTime)
 		}
 		ready = false;
 		queue.pop();
-		
-
 	}
 	
 

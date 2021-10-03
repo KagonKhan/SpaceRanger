@@ -17,7 +17,7 @@ public:
 	// return vec2f from global bounds 
 
 	// Receives position, and checks if contained in area
-	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& area);
+	static bool CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::FloatRect& area);
 
 
 	static float toDeg(float rad);

@@ -9,7 +9,7 @@ namespace pos {
 
 
 
-class Fleet :
+class Fleet : 
 	public sf::Drawable
 {
 private:

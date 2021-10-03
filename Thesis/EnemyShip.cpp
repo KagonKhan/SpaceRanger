@@ -44,7 +44,7 @@ void EnemyShip::followPath( const sf::Time& deltaTime)
 	m_Direction	= Helpers::normalize(target - m_Position);
 	move(m_Direction * m_Speed * deltaTime.asSeconds());
 
-	if (float length = Helpers::getLength(target - m_Position); length < 5.f)
+	if (Helpers::getLength(target - m_Position) < (m_Speed / 20.f))
 		getNextPoint = true;
 }
 

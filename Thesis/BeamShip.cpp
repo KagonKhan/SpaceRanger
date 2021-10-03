@@ -17,7 +17,7 @@ BeamShip::BeamShip(Configuration::TexturesShips tex_id)
 
 void BeamShip::initWeapons()
 {
-	addWeapon(m_Position, sf::Vector2f(5.f, 20.f), 0.2f, WeaponType::Beam, 0.f);
+	addWeapon(m_Position, sf::Vector2f(5.f, 20.f), 0.2f, WeaponType::Beam, 0.f, *this);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setVisible(false);

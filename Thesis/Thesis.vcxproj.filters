@@ -285,6 +285,9 @@
     <ClCompile Include="Helpers.cpp">
       <Filter>Utilities\Aux</Filter>
     </ClCompile>
+    <ClCompile Include="HasOnDeath.cpp">
+      <Filter>Game\Entities\Attributes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="Helpers.h">
       <Filter>Utilities\Aux</Filter>
+    </ClInclude>
+    <ClInclude Include="HasOnDeath.h">
+      <Filter>Game\Entities\Attributes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

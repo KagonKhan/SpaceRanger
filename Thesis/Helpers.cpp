@@ -97,12 +97,12 @@ void Helpers::ReplaceFirstOccurance(std::string& string, std::string_view toRepl
 }
 
 
-bool Helpers::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::Vector2f& size)
+bool Helpers::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::FloatRect& area)
 {
-	if (pos.x > size.x || pos.x < -size.x || pos.y > size.y || pos.y < -size.y)
-		return false;
-	else
+	if(area.contains(pos))
 		return true;
+	else
+		return false;
 }
 
 float Helpers::toDeg(float rad)

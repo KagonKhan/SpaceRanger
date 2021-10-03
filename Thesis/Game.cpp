@@ -52,19 +52,19 @@ void Game::processEvents()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add)) {
 			m_GameSpeed += 0.05f;
 			if (m_GameSpeed >= 2.f) m_GameSpeed = 2.f;
-			BOOST_LOG_TRIVIAL(info) << m_GameSpeed;
+
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract)) {
 			m_GameSpeed -= 0.05f;
 			if (m_GameSpeed <= .1f) m_GameSpeed = .1f;
-			BOOST_LOG_TRIVIAL(info) << m_GameSpeed;
+
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
 			m_GameView = m_Window.getDefaultView();
 			m_GameView.zoom(2.f);
 			m_Window.setView(m_GameView);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
 			system("PAUSE");
 			return;
 		}

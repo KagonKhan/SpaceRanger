@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "BeamTurret.h"
 #include "Beam.h"
-#include "PlayerShip.h"
+#include "BossEnemyShip.h"
 BeamTurret::BeamTurret(Entity::opt_ref parent)
 	:BeamTurret(Configuration::TexturesWeaponry::turret_laser, parent)
 {
@@ -22,8 +22,9 @@ void BeamTurret::createBullet()
 	m_Shots.push_back(std::move(shot));
 
 	if (m_Parent.has_value())
-		if (PlayerShip* player = dynamic_cast<PlayerShip*>(&m_Parent.value().get()); player != nullptr)
-			player->setAreActionsBlocked(true);
+		if (auto&& parent = m_Parent.value().get(); typeid(parent).name() != typeid(BossEnemyShip).name())
+			dynamic_cast<Ship*>(&m_Parent.value().get())->setAreActionsBlocked(true);
+
 }
 
 void BeamTurret::createSound()
@@ -43,7 +44,7 @@ void BeamTurret::createSound()
 void BeamTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 	if (m_Parent.has_value() && m_Shots.empty())
-		if (auto&& parent = m_Parent.value().get(); typeid(parent).name() == typeid(PlayerShip).name())
-			dynamic_cast<PlayerShip*>(&m_Parent.value().get())->setAreActionsBlocked(false);
+		if (auto&& parent = m_Parent.value().get(); typeid(parent).name() != typeid(BossEnemyShip).name())
+			dynamic_cast<Ship*>(&m_Parent.value().get())->setAreActionsBlocked(false);
 		
 }
