@@ -5,10 +5,10 @@
 Ship::Ship(float max_hp, Configuration::TexturesShips tex_id)
 	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp), m_OnDestroy(*this)
 {
-	m_Sprite.setScale(0.5f, 0.5f);
+	//m_Sprite.setScale(0.5f, 0.5f);
 }
 
-// CAREFUL: order is strictly enforced, which may lead to bugs
+// CAREFUL: order is strictly enforced, which may lead to unexpected results
 void Ship::update(const sf::Time& deltaTime)
 { 
 	// Update weapons even if the entity is not alive, otherwise the shots will just disappear
@@ -90,11 +90,11 @@ int Ship::getMaxCap(const std::vector<Ammunition*> container) const
 
 std::vector<Ammunition*>& Ship::getAmmoOnScreen()
 {
-
 	// TODO: Test if this actually makes a difference
 	int max_cap = getMaxCap(ammoOnScreen);
 	ammoOnScreen.clear();
 	ammoOnScreen.reserve(max_cap);
+
 
 
 	for (auto&& weapon : m_Weapons)

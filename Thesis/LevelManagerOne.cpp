@@ -4,7 +4,7 @@ using namespace pos;
 LevelManagerOne::LevelManagerOne(Level& level)
 	: LevelManager(level)
 {
-	m_CurrentPhase = Phases::two;
+	m_CurrentPhase = Phases::one;
 
 	/*
 	PhaseFunction phase_one;
@@ -211,14 +211,14 @@ void LevelManagerOne::update(const sf::Time& deltaTime)
 {
 	updatePhase(deltaTime);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0))
-		debugSpawn();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
-		m_CurrentPhase = Phases::one;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad2))
-		m_CurrentPhase = Phases::two;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
-		m_CurrentPhase = Phases::three;
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0))
+	//	debugSpawn();
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
+	//	m_CurrentPhase = Phases::one;
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad2))
+	//	m_CurrentPhase = Phases::two;
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
+	//	m_CurrentPhase = Phases::three;
 
 	m_Level.update(deltaTime);
 }
@@ -250,8 +250,6 @@ Fleet* LevelManagerOne::initFleet(EnemyShip::Type type, sf::FloatRect area, sf::
 
 void LevelManagerOne::debugSpawn()
 {
-	
-
 	Fleet::PositionType setPosition = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
 	Fleet* fleet = initFleet(EnemyShip::Type::scout,
 		sf::FloatRect(0, 0, Configuration::boundaries.x, 400),
@@ -315,7 +313,6 @@ void LevelManagerOne::phaseOne(const sf::Time& deltaTime)
 
 	if (fleet->size() == 0) {
 		m_CurrentPhase = Phases::two;
-		m_Level.clearRects();
 	}
 }
 
@@ -356,7 +353,6 @@ void LevelManagerOne::phaseTwo(const sf::Time& deltaTime)
 
 	if (fleet[0]->size() == 0 && fleet[1]->size() == 0){
 		m_CurrentPhase = Phases::three;
-		m_Level.clearRects();
 	}
 }
 
@@ -396,7 +392,6 @@ void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 
 	if (fleet[0]->size() == 0 && fleet[1]->size() == 0){
 		m_CurrentPhase = Phases::four;
-		m_Level.clearRects();
 	}
 }
 
@@ -408,7 +403,9 @@ void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 
 void LevelManagerOne::phaseFour(const sf::Time& deltaTime)
 {
+	m_IsFinished = true;
 }
+
 void LevelManagerOne::phaseFive(const sf::Time& deltaTime)
 {
 }

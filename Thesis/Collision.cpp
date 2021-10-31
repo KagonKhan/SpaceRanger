@@ -67,7 +67,7 @@ public:
 		Bitmasks.insert(std::pair<const sf::Texture*, sf::Uint8*>(tex, mask));
 
 		return mask;
-	}
+	} 
 private:
 	std::map<const sf::Texture*, sf::Uint8*> Bitmasks;
 };

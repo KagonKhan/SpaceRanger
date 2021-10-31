@@ -288,6 +288,9 @@
     <ClCompile Include="OnDestroy.cpp">
       <Filter>Game\Entities\Attributes</Filter>
     </ClCompile>
+    <ClCompile Include="EndState.cpp">
+      <Filter>Game\States\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -494,8 +497,12 @@
     <ClInclude Include="OnDestroy.h">
       <Filter>Game\Entities\Attributes</Filter>
     </ClInclude>
+    <ClInclude Include="EndState.h">
+      <Filter>Game\States\GameStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -14,7 +14,6 @@ protected:
 
 	// Possibly incorrect choice - vector resize invalidates pointers
 	std::vector<Fleet> m_Enemies;
-	std::vector<sf::RectangleShape> m_rects;
 	std::vector<EnemyShip::ptr> m_EnemiesForDeletion;
 
 
@@ -38,7 +37,6 @@ public:
 	void addFleet(Fleet fleet);
 
 
-	void clearRects()							{			m_rects.clear();					}
 	const sf::RenderWindow& getWindow()const	{			return m_Window;					}
 	std::vector<Fleet>& getEnemies()			{			return m_Enemies;					}
 	Fleet& getFleet(int index)					{			return m_Enemies.at(index);			}

@@ -61,7 +61,7 @@ void HangarState::addButtonNext(UnorderedLayout::ptr& unordered_layout)
 {
 	auto next = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "NEXT");
 	next->on_click = [this](const sf::Event&, Button&) {
-		//m_States.emplace(new SpaceState(m_Window, m_States, m_Player.value().getPlayerShip()));
+		m_States.emplace(new SpaceState(m_Window, m_States));
 	};
 
 	next->setPosition(sf::Vector2f(static_cast<float>(m_Window.getSize().x) - next->getSize().x, 0.f));

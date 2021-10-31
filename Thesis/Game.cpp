@@ -27,7 +27,7 @@ void Game::initWindow()
 }
 void Game::initStates()
 {
-	m_States.emplace(new SpaceState(m_Window, m_States));
+	m_States.emplace(new MainMenuState(m_Window, m_States));
 }
 
 void Game::initCursor()
@@ -93,8 +93,6 @@ void Game::update(const sf::Time& deltaTime)
 {
 	updateMouse(deltaTime);
 	updateStates(deltaTime);
-
-	
 }
 
 void Game::updateMouse(const sf::Time& deltaTime)
@@ -105,8 +103,13 @@ void Game::updateMouse(const sf::Time& deltaTime)
 
 void Game::updateStates(const sf::Time& deltaTime)
 {
-	if(!m_States.empty())
+	if (!m_States.empty()) {
 		m_States.top()->update(deltaTime);
+
+		if(m_States.top()->forcedQuit())
+			while (!m_States.empty())
+				m_States.pop();
+	}
 }
 
 void Game::render()

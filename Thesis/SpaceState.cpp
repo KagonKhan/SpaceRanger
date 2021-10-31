@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SpaceState.h"
 #include "PlayerShip.h"
-
+#include "EndState.h"
 #include "StealthShip.h"
 
 
@@ -14,12 +14,6 @@ void SpaceState::draw(sf::RenderTarget& target, sf::RenderStates) const
 	target.draw(bounding);
 }
 
-//SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player)
-//	: State(window, states)//,	m_Player(player)
-//{
-//	puts("SpaceState\tctor");
-//	initPlayer();
-//}
 SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	: State(window, states), m_Player((Configuration::TexturesShips)0, (sf::Vector2f)m_Window.getSize()),
 	m_Background(window, 1, 2), m_Level(m_Window, m_Player)
@@ -29,7 +23,6 @@ SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 	m_LevelManager = std::make_unique<LevelManagerOne>(m_Level);
 
 	initPlayer();
-
 
 
 	bounding.setSize((sf::Vector2f)window.getSize());
@@ -71,6 +64,9 @@ void SpaceState::update(const sf::Time& deltaTime)
 		m_States.pop();
 		return;
 	}
+	if (m_LevelManager->isFinished())
+		m_States.emplace(new EndState(m_Window, m_States));
+
 	m_Player.update(deltaTime);
 	m_Background.update(deltaTime);
 	m_LevelManager->update(deltaTime);

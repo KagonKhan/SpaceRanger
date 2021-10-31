@@ -10,6 +10,8 @@ protected:
 	sf::RenderWindow&							m_Window;
 	sf::Vector2f								m_MousePosition;
 	bool										m_ShouldQuit		{ false };
+	bool										m_ForceQuit			{ false };
+
 
 	using opt_ref = std::optional<std::reference_wrapper<Widget>>;
 
@@ -25,6 +27,6 @@ public:
 	virtual void processEvents(const sf::Event& sfevent) = 0;
 	virtual void update(const sf::Time& deltaTime) = 0;
 
-
+	bool forcedQuit() const { return m_ForceQuit; };
 };
 

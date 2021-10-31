@@ -25,7 +25,7 @@ public:
 	Spline getMirroredPath(bool mirrorByX);
 
 	int getLaps() const								{		    return m_Laps;										}
-	bool isDone()const								{		    return m_Done;										}
+	bool isDone() const								{		    return m_Done;										}
 	const std::vector<sf::Vector2f>& getPath()const {		    return m_Points;									}
 	sf::Vector2f getGradient()						{		    return m_Gradients[m_Index];						}
 	sf::Vector2f getCurrent()						{		    return m_Points[m_Index];							}

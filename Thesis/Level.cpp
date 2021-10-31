@@ -11,8 +11,6 @@ void Level::draw( sf::RenderTarget& target, sf::RenderStates ) const
 	for (auto&& fleet : m_Enemies) 
 		target.draw(fleet);
 	
-	for (auto&& fleet : m_rects)
-		target.draw(fleet);
 	
 	for (auto&& ship : m_EnemiesForDeletion)
 		target.draw(*ship);
@@ -36,7 +34,6 @@ void Level::addRect()
 	shape.setOutlineColor(sf::Color::White);
 	shape.setOutlineThickness(2.f);
 
-	m_rects.push_back(shape);
 }
  
 
@@ -61,11 +58,6 @@ void Level::update(const sf::Time& deltaTime)
 	checkCollisions();
 
 
-	for (int i = 0; i < m_Enemies.size(); ++i) {
-		auto rect = m_Enemies[i].getRectangle();
-		m_rects[i].setPosition(rect.left, rect.top);
-		m_rects[i].setSize(sf::Vector2f(rect.width, rect.height));
-	}
 }
 
 void Level::updateEnemies(const sf::Time& deltaTime)
@@ -89,7 +81,9 @@ void Level::checkCollisions()
 
 
 
-// Enemy hit player
+/// <summary>
+/// 
+/// </summary>
 void Level::checkPlayerCollisions()
 {
 	std::vector<Ammunition*> ammunition;
@@ -97,7 +91,7 @@ void Level::checkPlayerCollisions()
 		for (auto&& enemy : fleet.getShips())
 			ammunition.insert(ammunition.begin(), enemy->getAmmoOnScreen().begin(), enemy->getAmmoOnScreen().end());
 	
-	
+
 	for (auto&& ammo : ammunition)
 		if (Collision::PixelPerfectTest(m_Player.getSprite(), ammo->getSprite(), 253U)) {
 			m_Player.receiveDamage(ammo->dealDamage() * 0.f);
@@ -147,8 +141,6 @@ void Level::checkForDeletion()
 
 	}
 	
-
-
 
 	// TODO: check if this is necessary - do I have to delete an empty subvector or is it automagically
 	for (size_t i = 0; i < m_Enemies.size(); ++i) 

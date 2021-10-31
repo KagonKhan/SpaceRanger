@@ -25,6 +25,8 @@ private:
 
 	void debugSpawn();
 
+
+
 	/* could hold these in an array */
 	void updatePhase(const sf::Time& deltaTime);
 		void phaseOne(const sf::Time& deltaTime);
@@ -42,4 +44,6 @@ public:
 	explicit LevelManagerOne(Level& level);
 
 	void update(const sf::Time& deltaTime) override;
+
+
 };

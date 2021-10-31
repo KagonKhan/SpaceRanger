@@ -187,6 +187,7 @@
     <ClCompile Include="CheckboxButton.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="EndState.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Fleet.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="CircularArray.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Configuration.h" />
+    <ClInclude Include="EndState.h" />
     <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Fleet.h" />
@@ -311,6 +313,7 @@
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

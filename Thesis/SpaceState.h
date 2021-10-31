@@ -13,7 +13,6 @@ private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
 	
 	UserInterface m_UI;
-	//PlayerShip& m_Player;
 	PlayerShip m_Player;
 	SpaceBackground m_Background;
 
@@ -28,7 +27,6 @@ private:
 
 
 public:
-	//SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states, PlayerShip& player);
 	SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states);
 	~SpaceState() final;
 
