@@ -9,8 +9,6 @@ Ammunition::Ammunition(Configuration::TexturesWeaponry tex_id, const sf::Vector2
 		m_OnDestroy(*this)
 {
 	setRadAngle();
-
-	m_Sprite.setScale(0.5f, 0.5f);
 }
 
 Ammunition::~Ammunition()
