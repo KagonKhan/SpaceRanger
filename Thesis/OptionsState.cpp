@@ -13,7 +13,6 @@ void OptionsState::draw(sf::RenderTarget& target, sf::RenderStates) const
 OptionsState::OptionsState(sf::RenderWindow& window, std::stack<State::ptr>& states, sf::Sprite& bgsprite)
 	: State(window, states),  m_WinSize{m_Window.getSize()}, m_BackgroundSprite(bgsprite)
 {
-	puts("OptionsState\tctor");
 	initTitle();
 	initGUI();
 }
@@ -61,23 +60,24 @@ void OptionsState::addButtonResolutions(VerticalLayout::ptr& vert_layout)
 	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
 	sf::Vector2f area_size(500.f, 75.f);
 
-	auto window_sizes= std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, button_text, font, 25u, modes.size(), area_size, sf::Vector2f(100, 50));
+	auto window_sizes = std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, button_text, font, 25u, modes.size(), area_size, sf::Vector2f(100, 50));
 
-	for (unsigned int i = 0; i < modes.size(); ++i) {
+	for (int i = modes.size() - 1; i >= 0; --i) {
+		if (modes[i].width < 1600) 
+			continue;
+
 		button_text = std::to_string(modes[i].width) + "   x   " + std::to_string(modes[i].height);
 		window_sizes->addOption(button_text, font, 25u);
 	}
 
 	vert_layout->add(std::move(window_sizes));
 
-
 	sf::Vector2f layout_pos;
 	layout_pos.x = (static_cast<float>(m_Window.getSize().x) - vert_layout->getSize().x) / 2.f;
 	layout_pos.y = m_Title.getPosition().y + m_Title.getSize().y + 50.f;
 	vert_layout->setPosition(layout_pos);
-
-
 }
+
 void OptionsState::addButtonFullscreen(VerticalLayout::ptr& vert_layout)
 {
 	sf::Vector2f size(m_WinSize.x * 0.8f, 75.f);
@@ -90,6 +90,7 @@ void OptionsState::addButtonFullscreen(VerticalLayout::ptr& vert_layout)
 
 	vert_layout->add(std::move(fullscreen));
 }
+
 void OptionsState::addButtonVSync(VerticalLayout::ptr& vert_layout)
 {
 	sf::Vector2f size(m_WinSize.x * 0.8f, 75.f);

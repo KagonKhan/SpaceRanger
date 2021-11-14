@@ -163,7 +163,7 @@ void MainMenuState::updateBackground(const sf::Time& deltaTime)
 	m_BackgroundSprite.setTextureRect(rect);
 }
 
-void MainMenuState::updateTitle(const sf::Time& deltaTime)
+void MainMenuState::updateTitle(const sf::Time&)
 {
 	static bool move_up = true;
 

@@ -4,7 +4,7 @@
 class OptionsState :
 	public State
 {
-	void draw(sf::RenderTarget& target, sf::RenderStates) const override final;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const final;
 	enum class LayoutIndexes { graphics, back_button, navigation };
 	
 	
@@ -13,6 +13,9 @@ class OptionsState :
 	sf::Sprite&				m_BackgroundSprite;
 	Label					m_Title				{ std::nullopt,"OPTIONS", Configuration::fonts.get(Configuration::Fonts::SpaceGui), 100 };
 
+	/// <summary>
+	/// Sets style, color, position
+	/// </summary>
 	void initTitle();
 #pragma region GUI
 	void initGUI();
