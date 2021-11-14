@@ -34,8 +34,6 @@ sf::Vector2f Configuration::boundaries;
 sf::RectangleShape Configuration::tar;
 
 
-//Player* Configuration::player = nullptr;
-OptionsState* Configuration::m_OptionsState = nullptr;
 MainMenuState* Configuration::m_MainMenu = nullptr;
 sf::Music* Configuration::m_MainMenuMusic = nullptr;
 

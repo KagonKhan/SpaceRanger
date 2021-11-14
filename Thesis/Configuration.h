@@ -140,9 +140,6 @@ public:
 
 	static void initialize();
 
-	//static class Player* player;
-	/* TODO: Decide if I want to hold pointers here, or just have State* in each class */
-	static class OptionsState* m_OptionsState;
 	static class MainMenuState* m_MainMenu;
 
 	static sf::Music* m_MainMenuMusic;
