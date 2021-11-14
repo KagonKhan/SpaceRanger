@@ -3,11 +3,9 @@
 #include "Spline.h"
 void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> fileContents)
 {
-
-
 	std::string title;
-	int x				{ 400 };
-	int y				{ 400 };
+	int x				{ 1024 };
+	int y				{ 768 };
 	int framerate		{ 120 };
 	bool fullscreen		{ false };
 	bool borderless		{ false };
@@ -173,9 +171,6 @@ void Helpers::LoadFileToString(const std::filesystem::path& path, std::string& l
 {
 	std::ifstream file(path, std::ios::in | std::ios::binary);
 
-	/*const auto  size = std::filesystem::file_size(path);
-	loadTo = std::string(size, '\0');
-	file.read(loadTo.data(), size);*/
 	std::string line;
 	while (std::getline(file, line))
 		loadTo += line;

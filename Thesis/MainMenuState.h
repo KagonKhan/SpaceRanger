@@ -11,11 +11,14 @@ friend class OptionsState;
 	sf::Texture&				m_BackgroundTexture		{ Configuration::textures_menu.get(Configuration::TexturesMenuState::background) };
 	sf::Sprite					m_BackgroundSprite;
 	UserInterface				m_UI;
-	Label						m_Title					{ std::nullopt,"SPACE RANGER" };
+	Label						m_Title					{ std::nullopt, "SPACE RANGER" };
 	
 
 
 	void initTitle();
+	/// <summary>
+	/// Initializes all graphic components, adds functionality, assigns keybinds
+	/// </summary>
 	void initGUI();
 	void initBackground();
 	void initMusic() const;

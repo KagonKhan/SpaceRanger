@@ -69,39 +69,30 @@ void MainMenuState::initGUI()
 	m_UI.addLayout(std::move(layout));
 
 	m_UI.bind( Configuration::GuiInputs::N,
-		[](const sf::Event&)
-		{
-			BOOST_LOG_TRIVIAL(info) << "New Game\n";
+		[this](const sf::Event&) {
+			NewGame();
 		}
 	);
 
 	m_UI.bind( Configuration::GuiInputs::O,
-		[](const sf::Event&)
-		{
-			BOOST_LOG_TRIVIAL(info) << "Options\n";
-		}
-	);
+		[this](const sf::Event&) {
+			Options();
+		});
 
 	m_UI.bind( Configuration::GuiInputs::H,
-		[](const sf::Event&)
-		{
+		[](const sf::Event&) {
 			BOOST_LOG_TRIVIAL(info) << "High Scores\n";
-		}
-	);
+		});
 
 	m_UI.bind( Configuration::GuiInputs::Escape,
-		[this](const sf::Event&)
-		{
-			this->m_Window.close();
-		}
-	);
+		[this](const sf::Event&) {
+			m_ShouldQuit = true;
+		});
 
 	m_UI.bind( Configuration::GuiInputs::Q,
-		[this](const sf::Event&)
-		{
+		[this](const sf::Event&) {
 			m_ShouldQuit = true;
-		}
-	);
+		});
 }
 
 void MainMenuState::initBackground()
@@ -130,7 +121,7 @@ void MainMenuState::initMusic() const
 	Configuration::m_MainMenuMusic = &Configuration::musics.get(Configuration::Musics::MainMenuTheme);
 	Configuration::m_MainMenuMusic->setAttenuation(0);
 	Configuration::m_MainMenuMusic->setLoop(true);
-	Configuration::m_MainMenuMusic->setVolume(5);
+	Configuration::m_MainMenuMusic->setVolume(Configuration::m_SoundVolume);
 	Configuration::m_MainMenuMusic->play();
 }
 
@@ -230,8 +221,6 @@ void MainMenuState::NewGame()
 
 void MainMenuState::reposition()
 {
-	
-
 	sf::Vector2u win_size = m_Window.getSize();
 	sf::Vector2u tex_size = m_BackgroundTexture.getSize();
 	sf::IntRect rect(unsigned(0), (tex_size - win_size).y / (unsigned)2, win_size.x, win_size.y);

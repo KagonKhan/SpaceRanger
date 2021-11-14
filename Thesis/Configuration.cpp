@@ -2,9 +2,9 @@
 #include "Configuration.h"
 
 
-short int Configuration::m_MasterVolume = 5;
-short int Configuration::m_SoundEffectsVolume = 5; 
-short int Configuration::m_SoundVolume = 5;
+short int Configuration::m_MasterVolume = 50;
+short int Configuration::m_SoundEffectsVolume = 50; 
+short int Configuration::m_SoundVolume = 50;
 short int Configuration::m_DialogueVolume = 20;
 
 
