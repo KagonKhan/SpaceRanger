@@ -18,17 +18,17 @@ StealthShip::StealthShip(Configuration::TexturesShips tex_id)
 
 void StealthShip::initWeapons()
 {
-	addWeapon(m_Position, sf::Vector2f(-53.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	addWeapon(m_Position, sf::Vector2f( 53.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-53.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 53.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
-	addWeapon(m_Position, sf::Vector2f(-48.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	addWeapon(m_Position, sf::Vector2f( 48.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-48.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 48.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
-	addWeapon(m_Position, sf::Vector2f(-38.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	addWeapon(m_Position, sf::Vector2f( 38.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-38.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 38.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
-	addWeapon(m_Position, sf::Vector2f(-27.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
-	addWeapon(m_Position, sf::Vector2f( 27.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-27.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 27.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
 
 	for (auto&& weapon : m_Weapons)

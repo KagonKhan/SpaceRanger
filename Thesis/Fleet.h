@@ -39,7 +39,7 @@ public:
 	explicit Fleet(std::vector<EnemyShip::ptr> fleet);
 	Fleet() = default;
 	~Fleet()override = default;
-	Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding);
+	Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, bool randomize);
 
 	using ptr = std::unique_ptr<Fleet>;
 	using PositionType = std::tuple< pos::X, pos::Place, pos::Y, pos::Place>;

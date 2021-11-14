@@ -16,7 +16,7 @@ TankShip::TankShip(Configuration::TexturesShips tex_id)
 
 void TankShip::initWeapons()
 {
-	addWeapon(m_Position, sf::Vector2f(-31.f, 0.f), 2.25f, WeaponType::Laser, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-31.f /2.f, 0.f), 2.25f, WeaponType::Laser, 0.f);
 
 
 	for (auto&& weapon : m_Weapons)

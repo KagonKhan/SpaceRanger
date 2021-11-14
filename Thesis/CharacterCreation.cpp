@@ -58,7 +58,6 @@ void CharacterCreation::initAvatars()
 
 		m_AvatarSprites[i].setPosition(m_AvatarFrame.getPosition());
 	}
-
 }
 
 void CharacterCreation::initDescriptions()
@@ -77,9 +76,7 @@ void CharacterCreation::initDescriptions()
 		text.setString(m_CharDescString[index]);
 		index++;
 		text.setPosition(m_TextArea.getPosition());
-
 	}
-
 
 	for (int index = 0; index < 4; index++) {
 		int string_size = m_CharDescString[index].getSize();

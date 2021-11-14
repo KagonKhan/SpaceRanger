@@ -33,7 +33,7 @@ Fleet::Fleet(std::vector<EnemyShip::ptr> fleet)
 	m_MoveQueue.second = true;
 }
 
-Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
+Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, bool randomize = false)
 {
 
 	sf::Vector2f size = EnemyShip::create(type)->getSize();
@@ -52,7 +52,7 @@ Fleet::Fleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding)
 		for (int j = 0; j < num_y; j++) {
 
 			EnemyShip::ptr enemy{ nullptr };
-			if (true) {
+			if (randomize) {
 				enemy = EnemyShip::create(EnemyShip::Type(Helpers::getRandom(0,8)));
 			}
 			else {

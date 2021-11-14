@@ -16,8 +16,8 @@ RocketShip::RocketShip(Configuration::TexturesShips tex_id)
 
 void RocketShip::initWeapons()
 {
-	addWeapon(m_Position, sf::Vector2f(-30.f, -20.f), 0.5f, WeaponType::Missile, 0.f);
-	addWeapon(m_Position, sf::Vector2f( 30.f, -20.f), 0.5f, WeaponType::Missile, 0.f);
+	addWeapon(m_Position, sf::Vector2f(-30.f / 2.f, -20.f), 0.5f, WeaponType::Missile, 0.f);
+	addWeapon(m_Position, sf::Vector2f( 30.f / 2.f, -20.f), 0.5f, WeaponType::Missile, 0.f);
 
 	for (auto&& weapon : m_Weapons)
 		weapon->setVisible(false);

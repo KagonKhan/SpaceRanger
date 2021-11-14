@@ -110,7 +110,7 @@ void Level::checkEnemyCollisions()
 		for (auto&& fleet : m_Enemies) 
 			for (auto&& enemy : fleet.getShips())
 				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) 
-						enemy->receiveDamage(ammo->dealDamage());
+					enemy->receiveDamage(ammo->dealDamage());
 
 				
 }

@@ -28,11 +28,28 @@ private:
 		void addButtonArrows(UnorderedLayout::ptr& unordered_layout);
 		void addButtonConfirm(UnorderedLayout::ptr& unordered_layout);
 
-	void initAvatars();
+	/// <summary>
+	/// Inits the positions for components (avatars, text, buttons)
+	/// </summary>
 	void initShapes();
+	/// <summary>
+	/// Loads sprites into the array, and scales them to fit the area
+	/// </summary>
+	void initAvatars();
+	/// <summary>
+	/// Sets the descriptions for avatars, formats the text, so that it does not break the container by inserting \n in places.
+	/// Does not check if the place is inside a word, resulting in cut words
+	/// </summary>
 	void initDescriptions();
 
+	/// <summary>
+	/// Send the avatar ID to the hangar space, so it can render appropriate one
+	/// </summary>
 	void finishedCreation();
+	/// <summary>
+	/// increase
+	/// </summary>
+	/// <param name="left"></param>
 	void swapAvatarSprite(bool left);
 
 public:

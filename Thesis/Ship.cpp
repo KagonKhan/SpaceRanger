@@ -5,7 +5,7 @@
 Ship::Ship(float max_hp, Configuration::TexturesShips tex_id)
 	: Entity(Configuration::textures_ships.get(tex_id)), IsLiving(max_hp), m_OnDestroy(*this)
 {
-	//m_Sprite.setScale(0.5f, 0.5f);
+	m_Sprite.setScale(0.5f, 0.5f);
 }
 
 // CAREFUL: order is strictly enforced, which may lead to unexpected results

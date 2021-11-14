@@ -211,15 +211,6 @@ void LevelManagerOne::update(const sf::Time& deltaTime)
 {
 	updatePhase(deltaTime);
 
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0))
-	//	debugSpawn();
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
-	//	m_CurrentPhase = Phases::one;
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad2))
-	//	m_CurrentPhase = Phases::two;
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
-	//	m_CurrentPhase = Phases::three;
-
 	m_Level.update(deltaTime);
 }
 
@@ -228,7 +219,7 @@ void LevelManagerOne::update(const sf::Time& deltaTime)
 
 void LevelManagerOne::addFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos)
 {
-	Fleet fleet(type, area, padding);
+	Fleet fleet(type, area, padding, false);
 	fleet.setWeaponsAsActive(false);
 
 	if (pos.has_value())
@@ -239,7 +230,7 @@ void LevelManagerOne::addFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vec
 
 Fleet* LevelManagerOne::initFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos)
 {
-	Fleet* fleet = new Fleet(type, area, padding);
+	Fleet* fleet = new Fleet(type, area, padding, false);
 	fleet->setWeaponsAsActive(false);
 
 	if (pos.has_value())
