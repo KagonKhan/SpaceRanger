@@ -47,37 +47,18 @@ void CharacterCreation::initShapes()
 
 void CharacterCreation::initAvatars()
 {
-	m_AvatarSprites[0].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_0));
-	m_AvatarSprites[1].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_1));
-	m_AvatarSprites[2].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_2));
-	m_AvatarSprites[3].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer::player_avatar_3));
-
 	sprite_id = 0;
+	for (int i = 0; i < 4; ++i) {
+		m_AvatarSprites[i].setTexture(Configuration::textures_player.get(Configuration::TexturesPlayer(i)));
 
-	sf::Vector2f scale(m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[0].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[0].getGlobalBounds().height;
-	m_AvatarSprites[0].setScale(scale);
+		sf::Vector2f scale(m_AvatarFrame.getSize());
+		scale.x /= m_AvatarSprites[i].getGlobalBounds().width;
+		scale.y /= m_AvatarSprites[i].getGlobalBounds().height;
+		m_AvatarSprites[i].setScale(scale);
 
-	scale = (m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[1].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[1].getGlobalBounds().height;
-	m_AvatarSprites[1].setScale(scale);
+		m_AvatarSprites[i].setPosition(m_AvatarFrame.getPosition());
+	}
 
-	scale = (m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[2].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[2].getGlobalBounds().height;
-	m_AvatarSprites[2].setScale(scale);
-
-	scale = (m_AvatarFrame.getSize());
-	scale.x /= m_AvatarSprites[3].getGlobalBounds().width;
-	scale.y /= m_AvatarSprites[3].getGlobalBounds().height;
-	m_AvatarSprites[3].setScale(scale);
-
-	m_AvatarSprites[0].setPosition(m_AvatarFrame.getPosition());
-	m_AvatarSprites[1].setPosition(m_AvatarFrame.getPosition());
-	m_AvatarSprites[2].setPosition(m_AvatarFrame.getPosition());
-	m_AvatarSprites[3].setPosition(m_AvatarFrame.getPosition());
 }
 
 void CharacterCreation::initDescriptions()
