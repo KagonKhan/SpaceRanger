@@ -34,22 +34,28 @@ void OptionsState::initTitle()
 
 void OptionsState::initGUI()
 {
-	addGUIGraphics();
-
-	initGUIMusic();
+	auto vert_layout = std::make_unique<VerticalLayout>(opt_ref(m_UI), 5.f);
+		addGUIGraphics(vert_layout);
+		initGUIMusic(vert_layout);
+	m_UI.addLayout(std::move(vert_layout));
 
 	addGUINavigation();
-}
-void OptionsState::addGUIGraphics()
-{
-	auto vert_layout = std::make_unique<VerticalLayout>(opt_ref(m_UI), 5.f);
-		addButtonResolutions(vert_layout);
-		addButtonFullscreen(vert_layout);
-		addButtonVSync(vert_layout);
-	m_UI.addLayout(std::move(vert_layout));
+
+
+	m_UI.bind(Configuration::GuiInputs::Escape,
+		[this](const sf::Event&) {
+			m_ShouldQuit = true;
+		});
 }
 
-#pragma region GUI/Graphics
+void OptionsState::addGUIGraphics(VerticalLayout::ptr& vert_layout)
+{
+	addButtonResolutions(vert_layout);
+	addButtonFullscreen(vert_layout);
+	addButtonVSync(vert_layout);
+}
+
+#pragma region GUI
 
 void OptionsState::addButtonResolutions(VerticalLayout::ptr& vert_layout)
 {
@@ -85,8 +91,8 @@ void OptionsState::addButtonFullscreen(VerticalLayout::ptr& vert_layout)
 	sf::Vector2f area_size(500.f, 75.f);
 
 	auto fullscreen = std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, "Fullscreen", font, 25u, 2, area_size, sf::Vector2f(100, 50));
-	fullscreen->addOption("On", font, 25u);
 	fullscreen->addOption("Off", font, 25u);
+	fullscreen->addOption("On", font, 25u);
 
 	vert_layout->add(std::move(fullscreen));
 }
@@ -105,71 +111,56 @@ void OptionsState::addButtonVSync(VerticalLayout::ptr& vert_layout)
 	vert_layout->add(std::move(vsync));
 }
 
-#pragma endregion
 
-void OptionsState::initGUIMusic()
+void OptionsState::initGUIMusic(VerticalLayout::ptr& vert_layout)
 {
-	/*
-			uis.insert(std::make_pair<int, UI*>(Music, new UI(m_Window)));
-			HorizontalLayout* music_buttons = new HorizontalLayout();
-			Checkbox* music_checkbox = new Checkbox("Music");
-			music_checkbox->on_click = [this](const sf::Event&, Button& button) {
-				flipMusicState();
-			};
-			TextButton* music_slider = new TextButton("THIS WILL BE A MUSIC SLIDER");
-			music_slider->on_click = [this](const sf::Event&, Button& button) {
-				//TODO: slider implementation();
-			};
-			music_checkbox->setIsChecked(true);
-			music_buttons->add(music_checkbox);
-			music_buttons->add(music_slider);
-			music_buttons->setPosition(sf::Vector2f(50, 400));
-			uis.at(Music)->addLayout(music_buttons);
+	sf::Vector2f size(m_WinSize.x * 0.8f, 75.f);
+	sf::Font& font = Configuration::fonts.get(Configuration::Fonts::SpaceGui);
+	sf::Vector2f area_size(500.f, 75.f);
 
-	*/
+	auto music = std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, "Music", font, 25u, 2, area_size, sf::Vector2f(100, 50));
+	music->addOption("On", font, 25u);
+	music->addOption("Off", font, 25u);
+	
+	auto volume = std::make_unique<ArrowSwitchTextButton>(opt_ref(m_UI), size, "Volume", font, 25u, 2, area_size, sf::Vector2f(100, 50));
+	
+	for (int i = 0; i <= 100; i += 25) {
+		std::string button_text = std::to_string(i);
+		volume->addOption(button_text, font, 25u);
+	}
+
+	vert_layout->add(std::move(music));
+	vert_layout->add(std::move(volume));
+
 }
 
 void OptionsState::addGUINavigation()
 {
 	auto unordered_layout = std::make_unique<UnorderedLayout>(opt_ref(m_UI));
-		addButtonBack(unordered_layout);
+	    auto back = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK");
+	    back->on_click = [this](const sf::Event&, Button&) {
+	    	m_ShouldQuit = true;
+	    };
+	    back->setPosition(sf::Vector2f(0, 0));
+	    
+	    unordered_layout->add(std::move(back));
 	m_UI.addLayout(std::move(unordered_layout));
 
+
 	auto horizontal_layout = std::make_unique<HorizontalLayout>(opt_ref(m_UI), 5.f);
-		addButtonApply(horizontal_layout);
-		addButtonSave(horizontal_layout);
-	horizontal_layout->setPosition(static_cast<sf::Vector2f>(m_Window.getSize()) - horizontal_layout->getSize());
+	    auto apply = std::make_unique<TextButton>(opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "APPLY");
+		apply->on_click = [this](const sf::Event&, Button&) {
+	    	readAndApplyButtonData();
+	    };
+	    horizontal_layout->add(std::move(apply));
+
+	    auto save = std::make_unique<TextButton>(opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "SAVE");
+	    save->on_click = [this](const sf::Event&, Button&) {
+	    	std::cout << "tba\n";// TODO implement functionality;
+	    };
+	    horizontal_layout->add(std::move(save));
+	    horizontal_layout->setPosition(static_cast<sf::Vector2f>(m_Window.getSize()) - horizontal_layout->getSize());
 	m_UI.addLayout(std::move(horizontal_layout));
-}
-#pragma region GUI/navigation
-
-void OptionsState::addButtonBack(UnorderedLayout::ptr& unordered_layout)
-{
-	auto back = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK");
-	back->on_click = [this](const sf::Event&, Button&) {
-		m_ShouldQuit = true;
-	};
-	back->setPosition(sf::Vector2f(0, 0));
-
-	unordered_layout->add(std::move(back));
-}
-
-void OptionsState::addButtonApply(HorizontalLayout::ptr& horizontal_layout)
-{
-	auto save = std::make_unique<TextButton>(opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "APPLY");
-	save->on_click = [this](const sf::Event&, Button&) {
-		readAndApplyButtonData();
-	};
-	horizontal_layout->add(std::move(save));
-}
-
-void OptionsState::addButtonSave(HorizontalLayout::ptr& horizontal_layout)
-{
-	auto save = std::make_unique<TextButton>(opt_ref(*horizontal_layout), std::nullopt, sf::Color::Red, "SAVE");
-	save->on_click = [this](const sf::Event&, Button&) {
-		std::cout << "tba\n";// TODO implement functionality;
-	};
-	horizontal_layout->add(std::move(save));
 }
 
 #pragma endregion
@@ -181,10 +172,6 @@ void OptionsState::addButtonSave(HorizontalLayout::ptr& horizontal_layout)
 void OptionsState::processEvents(const sf::Event& sfevent)
 {
 	m_UI.processEvent(sfevent);
-
-	if (sfevent.type == sf::Event::KeyPressed)
-		if (sfevent.key.code == sf::Keyboard::Key::Escape)
-			m_ShouldQuit = true;
 }
 
 
@@ -200,10 +187,8 @@ void OptionsState::update(const sf::Time& deltaTime)
 
 void OptionsState::readAndApplyButtonData()
 {
-
 	std::string results;
-	auto widgets = m_UI.getAllWidgets();
-	for (auto&& widget : widgets) {
+	for (auto&& widget : m_UI.getAllWidgets()) {
 		if (typeid(*widget).name() == typeid(ArrowSwitchTextButton).name()) {
 			auto ptr = dynamic_cast<ArrowSwitchTextButton*>(widget);
 
@@ -218,10 +203,24 @@ void OptionsState::readAndApplyButtonData()
 			else if (ptr->getString() == "Screen   Resolution") {
 				results += "\nresolution " + ptr->readValue();
 			}
+			else if (ptr->getString() == "Music") {
+
+				auto music = Configuration::m_MainMenuMusic;
+				if (ptr->readValue() == "On" && music->getStatus() != sf::Music::Status::Playing) {
+					music->play();
+				}
+				else if (ptr->readValue() == "Off" && music->getStatus() == sf::Music::Status::Playing) {
+					music->stop();
+				}
+			}
+			else if (ptr->getString() == "Volume") {
+				short int value = (short)std::stoi(ptr->readValue());
+				Configuration::m_MasterVolume = value;
+				Configuration::m_MainMenuMusic->setVolume(Configuration::m_MasterVolume);
+			}
 		}
 	}
-	system("CLS");
-	std::cout << results;
+
 	Helpers::CreateWindow(m_Window, results);
 	reposition();
 }
@@ -231,7 +230,6 @@ void OptionsState::changeResolution(const sf::VideoMode& mode)
 {
 	if (m_Window.getSize() == sf::Vector2u(mode.width, mode.height))
 		return;
-
 
 	/* READ CONTENTS OF SETTINGS FILE TO REPLACE RESOLUTION VALUES, THEN CREATE WINDOW WITH THESE SETTINGS*/
 	std::string file_contents;
