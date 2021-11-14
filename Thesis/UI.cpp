@@ -49,12 +49,13 @@ void UserInterface::processEvent(const sf::Event& sfevent)
 	for (auto&& layout : m_Layouts) {
 		layout->processEvent(sfevent);
 	}
+	ActionTarget::processEvent(sfevent);
 }
 
 sf::Vector2f UserInterface::getSize() const
 {
-	float max_x{}, min_x{ std::numeric_limits<float>::max() };
-	float max_y{}, min_y{ std::numeric_limits<float>::max() };
+	float max_x{ 0.f }, min_x{ std::numeric_limits<float>::max() };
+	float max_y{ 0.f }, min_y{ std::numeric_limits<float>::max() };
 
 	for (auto&& layout : m_Layouts) {
 		const sf::Vector2f curr_layout_size(layout->getSize());

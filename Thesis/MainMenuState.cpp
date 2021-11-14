@@ -25,6 +25,7 @@ MainMenuState::MainMenuState(sf::RenderWindow& window, std::stack<State::ptr>& s
 
 MainMenuState::~MainMenuState()
 {
+	Configuration::m_MainMenu = nullptr;
 	BOOST_LOG_TRIVIAL(info) << "MainMenu dtor";
 }
 
@@ -45,11 +46,11 @@ void MainMenuState::initGUI()
 		Options();
 	};
 	
-	auto high_scores = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)ight Scores");
+	/*auto high_scores = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)ight Scores");
 	high_scores->setLetterSpacing(5);
 	high_scores->on_click = [](const sf::Event&, Button&) {
 		BOOST_LOG_TRIVIAL(info) << "High Scores\n";
-	};	
+	};	*/
 
 	auto quit = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(Q)uit");
 	quit->setLetterSpacing(5);
@@ -60,7 +61,7 @@ void MainMenuState::initGUI()
 
 	layout->add(std::move(new_game));
 	layout->add(std::move(options));
-	layout->add(std::move(high_scores));
+	//layout->add(std::move(high_scores));
 	layout->add(std::move(quit));
 
 
@@ -79,10 +80,10 @@ void MainMenuState::initGUI()
 			Options();
 		});
 
-	m_UI.bind( Configuration::GuiInputs::H,
+	/*m_UI.bind( Configuration::GuiInputs::H,
 		[](const sf::Event&) {
 			BOOST_LOG_TRIVIAL(info) << "High Scores\n";
-		});
+		});*/
 
 	m_UI.bind( Configuration::GuiInputs::Escape,
 		[this](const sf::Event&) {
@@ -162,7 +163,7 @@ void MainMenuState::updateBackground(const sf::Time& deltaTime)
 	m_BackgroundSprite.setTextureRect(rect);
 }
 
-void MainMenuState::updateTitle(const sf::Time&)
+void MainMenuState::updateTitle(const sf::Time& deltaTime)
 {
 	static bool move_up = true;
 
@@ -190,23 +191,6 @@ void MainMenuState::updateTitle(const sf::Time&)
 	m_Title.setOutlineColor(ctc);
 }
 
-void MainMenuState::processEvents(const sf::Event& sfevent)
-{
-	if (sfevent.type == sf::Event::KeyPressed && sfevent.key.code == sf::Keyboard::Key::Escape)
-		m_ShouldQuit = true;
-	m_UI.processEvent(sfevent);
-}
-
-
-void MainMenuState::update(const sf::Time& deltaTime)
-{
-	if (m_ShouldQuit)
-		m_States.pop();
-
-	updateBackground(deltaTime);
-	updateTitle(deltaTime);
-}
-
 
 void MainMenuState::Options()
 {
@@ -226,12 +210,27 @@ void MainMenuState::reposition()
 	sf::IntRect rect(unsigned(0), (tex_size - win_size).y / (unsigned)2, win_size.x, win_size.y);
 	m_BackgroundSprite.setTextureRect(rect);
 
-
 	sf::Vector2f title_position((m_Window.getSize().x - m_Title.getSize().x) / 2.f, 150);
 
 	m_Title.setPosition(title_position);
 
-
 	m_UI.setPositionAtIndex(sf::Vector2f(m_Window.getSize()) / 2.f, 0);
 }
 
+
+void MainMenuState::processEvents(const sf::Event& sfevent)
+{
+	m_UI.processEvent(sfevent);
+}
+
+
+void MainMenuState::update(const sf::Time& deltaTime)
+{
+	/*if (m_ShouldQuit) {
+		m_States.pop();
+		return;
+	}*/
+
+	updateBackground(deltaTime);
+	updateTitle(deltaTime);
+}
