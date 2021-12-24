@@ -6,8 +6,8 @@ class Button :
 	public Widget
 {
 protected:
-	enum class Status { Idle = 0, Hover = 1, HoverAndPressed = 2 };
-	Status m_Status		{ Status::Idle};
+	enum class Status	{ Idle = 0, Hover = 1, HoverAndPressed = 2 };
+	Status m_Status		{ Status::Idle };
 	using FuncType = std::function<void(const sf::Event& sfevent, Button& self)>;
 
 	virtual void processEvent(const sf::Event& sfevent) override = 0;

@@ -15,8 +15,6 @@ void Fleet::addMovementToQueue(sf::Vector2f dir, float length)
 	m_MoveQueue.first.emplace( std::pair{ dir, std::fabsf(length) });
 }
 
-
-
 Fleet::Fleet(Fleet&& other) noexcept
 : m_Ships(std::move(other.m_Ships))
 {}
@@ -86,11 +84,9 @@ void Fleet::setPosition(PositionType pos) const
 {
 	using namespace pos;
 
-
 	auto rect = getRectangle();
 	sf::Vector2f moveTo00(-rect.left, -rect.top);
 	move(moveTo00);
-
 
 	const auto& [X, Xplace, Y, Yplace] = pos;
 	sf::Vector2f moveBy;
@@ -98,7 +94,7 @@ void Fleet::setPosition(PositionType pos) const
 	sf::Vector2f m_WinSize = Configuration::boundaries;
 
 	switch (X) {
-	case X::Left:	moveBy.x += -rect.width + ((Xplace == Place::Inside) ? +rect.width : 0);	break;										break;
+	case X::Left:	moveBy.x += -rect.width + ((Xplace == Place::Inside) ? +rect.width : 0);	break;
 	case X::Middle:	moveBy.x += (m_WinSize.x - rect.width) / 2.f;								break;
 	case X::Right:	moveBy.x += m_WinSize. x + ((Xplace == Place::Inside) ? -rect.width : 0);	break;
 	default:																					break;
@@ -111,8 +107,6 @@ void Fleet::setPosition(PositionType pos) const
 	case Y::Bottom:	moveBy.y += m_WinSize.y + ((Yplace == Place::Inside) ? -rect.height : 0);	break;
 	default:																					break;
 	}	
-
-
 
 	move(moveBy);
 }
@@ -131,7 +125,7 @@ void Fleet::setPath(Spline path) const
 		ship->setPath(path);
 }
 
-// does not work for now - when enemy is destroyed i teleport it to-99999-999999
+
 sf::FloatRect Fleet::getRectangle() const
 {
 	float min_x{ std::numeric_limits<float>::max() };

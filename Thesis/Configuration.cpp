@@ -1,3 +1,4 @@
+
 #include "pch.h"
 #include "Configuration.h"
 
@@ -54,16 +55,6 @@ void Configuration::initialize()
 	initPlayerInputs();
 
 	initGuiInputs();
-
-	/*rand_init();
-	m_Txt_Score.setFont(fonts.get(Fonts::Gui));
-	m_Txt_Score.setCharacterSize(24);
-
-	m_Spr_Life.setTexture(textures.get(Textures::PlayerLife));
-
-	musics.get(Musics::Theme).setLoop(true);
-	musics.get(Musics::Theme).play();*/
-
 }
 
 #pragma region INIT/TEXTURES
@@ -125,7 +116,6 @@ void Configuration::initTexturesPlayer()
 }
 void Configuration::initTexturesWeaponParts()
 {
-
 	textures_weaponry.load(TexturesWeaponry::ammo_laser				, "../media/textures/ammunition/lasers/laser_bullets.png");
 	textures_weaponry.load(TexturesWeaponry::ammo_laser_hit			, "../media/textures/ammunition/lasers/laser_hit.png");
 	

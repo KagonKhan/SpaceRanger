@@ -24,8 +24,6 @@ void Weapon::setFiringRate(float rate)
 	m_FiringDelay = 1 / m_FiringRate;
 }
 
-
-
 void Weapon::shoot(bool makeSound)
 {
 	if(m_IsWeaponActive && m_TimeSinceLastShot > m_FiringDelay) {
@@ -35,7 +33,6 @@ void Weapon::shoot(bool makeSound)
 		m_TimeSinceLastShot = 0;
 
 	}
-
 }
 
 void Weapon::update(const sf::Time& deltaTime)
@@ -67,7 +64,8 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 	}
 }
 
-void Weapon::updateTrackingTarget(const sf::Time& deltaTime)
+
+void Weapon::updateTrackingTarget(const sf::Time&)
 {
 	sf::Vector2f target_pos = m_Target->getPosition();
 	sf::Vector2f weapon_pos = getPosition();

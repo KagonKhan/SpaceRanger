@@ -6,39 +6,17 @@
 *	- Fill out other ship type classes
 *	- Have on death animation
 *	
-*	
-* 
-* 
 *	- ships and ammo has duplicate code in terms of "marked for deletion" "on destroy" fix it
 *	- float Missile::dealDamage() can probably be simplified 
-* 
-* 
 * 
 *	- ADD A MOVE QUEUE TO SHIPS SO THEY MOVE USING THAT INSTEAD OF PATH 
 * 
 *	-  DONE || Rocket explode animation
 */
 
-
-
-
 /*	TODO */
 /*	CODE CLEANUP
-*
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
 */
-
-
-
-
 
 /*
 	BUGS:
@@ -48,21 +26,11 @@
 		- Some sound optimization is required. With many enemies there is too many sound sources
 		- For some reason BeamShip does not make a sound when shooting
 
-
-
-
-
-
-
-
 */
-
-
 
 /*
 	Options Menu 
 	 - Add button to switch between native windows cursor and 
-
 */
 
 /* 
@@ -88,19 +56,8 @@
 */
 
 int main() {
-	Game game;
-	game.run(120);
-
-
-
-	//try {
-	//}
-	//catch (std::exception& e) {
-	//	std::cout << e.what();
-	//}
-	//
-
-
+	Game::getInstance()->run(120);
+	delete Game::getInstance();
 }
 
 /*

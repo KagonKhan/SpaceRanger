@@ -1,10 +1,16 @@
 #pragma once
-
 #include "State.h"
 #include "AnimatedSprite.h"
 class Game
 {
 private:
+	Game();
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
+	Game(Game&&) = delete;
+	Game& operator=(Game&&) = delete;
+
+
 	sf::RenderWindow m_Window;
 	sf::View m_GameView;
 
@@ -29,11 +35,8 @@ private:
 	void renderMouse();
 
 public:
-	Game(const Game&) = delete;
-	Game& operator=(const Game&) = delete;
+	static Game* getInstance();
 
-	Game();
-	~Game();
 	void run(int minFPS);
 };
 

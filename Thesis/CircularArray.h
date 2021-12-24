@@ -26,7 +26,7 @@ public:
     }
     void previous() {
         if (m_Index == 0)
-            m_Index = static_cast<unsigned short>(m_Buffer.size()) - 1;
+            m_Index = static_cast<unsigned short>(m_Buffer.size() - 1u);
         else
             --m_Index;
     }

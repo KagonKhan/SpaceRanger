@@ -12,11 +12,6 @@ Game::Game()
 	initCursor();
 }
 
-Game::~Game()
-{
-	BOOST_LOG_TRIVIAL(info) << "Game dtor";
-}
-
 void Game::initWindow()
 {
 	Helpers::CreateWindow(m_Window);
@@ -32,7 +27,6 @@ void Game::initStates()
 
 void Game::initCursor()
 {
-
 	Animation::Line frames{ 40,10,6 };
 	auto  *cursor_anim = new Animation(&Configuration::textures_game.get(Configuration::TexturesGameState::cursor));
 	cursor_anim->addFrames(frames);
@@ -124,6 +118,12 @@ void Game::render()
 void Game::renderMouse()
 {
 	m_Window.draw(m_Cursor);
+}
+
+Game* Game::getInstance()
+{
+	static Game* INSTANCE = new Game;
+	return INSTANCE;
 }
 
 void Game::run(int minFPS)

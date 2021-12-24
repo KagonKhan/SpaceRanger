@@ -41,16 +41,16 @@ sf::Vector2f Spline::getSplinePoint(const std::vector<sf::Vector2f>& waypoints, 
 
 	t = t - std::floorf(t);
 
-	float tt = t * t;
-	float ttt = t * tt;
+	const float tt = t * t;
+	const float ttt = t * tt;
 
 
 
 	/* Derivative for the gradient */
 	float q1 = -3.f * tt + 4.f * t - 1.f;
-	float q2 = 9.f * tt - 10.f * t;
+	float q2 =  9.f * tt - 10.f * t;
 	float q3 = -9.f * tt + 8.f * t + 1.f;
-	float q4 = 3.f * tt - 2.f * t;
+	float q4 =  3.f * tt - 2.f * t;
 
 	float tx = 0.5f * waypoints[p0].x * q1 + waypoints[p1].x * q2 + waypoints[p2].x * q3 + waypoints[p3].x * q4;
 	float ty = 0.5f * waypoints[p0].y * q1 + waypoints[p1].y * q2 + waypoints[p2].y * q3 + waypoints[p3].y * q4;
@@ -59,9 +59,9 @@ sf::Vector2f Spline::getSplinePoint(const std::vector<sf::Vector2f>& waypoints, 
 
 	/* Spline points */
 	q1 = -ttt + 2.f * tt - t;
-	q2 = 3.f * ttt - 5.f * tt + 2.f;
+	q2 =  3.f * ttt - 5.f * tt + 2.f;
 	q3 = -3.f * ttt + 4.f * tt + t;
-	q4 = ttt - tt;
+	q4 =  ttt - tt;
 
 	tx = waypoints[p0].x * q1 + waypoints[p1].x * q2 + waypoints[p2].x * q3 + waypoints[p3].x * q4;
 	ty = waypoints[p0].y * q1 + waypoints[p1].y * q2 + waypoints[p2].y * q3 + waypoints[p3].y * q4;

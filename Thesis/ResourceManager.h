@@ -21,7 +21,7 @@ template<typename RESOURCE, typename IDENTIFIER>
 template<typename ... Args>
 RESOURCE& ResourceManager<RESOURCE, IDENTIFIER>::load(const IDENTIFIER& id, Args&& ... args)
 {
-	std::unique_ptr<RESOURCE> ptr(new RESOURCE);
+	auto ptr = std::make_unique<RESOURCE>();
 	if (!ptr->loadFromFile(std::forward<Args>(args)...))
 		throw std::runtime_error("[EROR] Cannot load file\n");
 
@@ -60,7 +60,7 @@ template<typename IDENTIFIER>
 template<typename ... Args>
 sf::Music& ResourceManager<sf::Music, IDENTIFIER>::load(const IDENTIFIER& id, Args&& ... args)
 {
-	std::unique_ptr<sf::Music> ptr(new sf::Music);
+	auto ptr = std::make_unique<sf::Music>();
 	if (!ptr->openFromFile(std::forward<Args>(args)...))
 		throw std::runtime_error("[EROR] Cannot load file\n");
 

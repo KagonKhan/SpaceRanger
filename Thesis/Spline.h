@@ -35,19 +35,19 @@ public:
 	//////
 	/// Returns number of laps made around the path
 	//////
-	int getLaps() const								{		    return m_Laps;										}
-	bool isDone() const								{		    return m_Done;										}
+	inline int getLaps() const								{		    return m_Laps;										}
+	inline bool isDone() const								{		    return m_Done;										}
 	//////
 	/// Returns the path as a vector of 2D points
 	//////	
-	const std::vector<sf::Vector2f>& getPath()const {		    return m_Points;									}
-	sf::Vector2f getGradient()						{		    return m_Gradients[m_Index];						}
-	sf::Vector2f getCurrent()						{		    return m_Points[m_Index];							}
+	inline const std::vector<sf::Vector2f>& getPath()const  {		    return m_Points;									}
+	inline sf::Vector2f getGradient()						{		    return m_Gradients[m_Index];						}
+	inline sf::Vector2f getCurrent()						{		    return m_Points[m_Index];							}
 
 	//////
 	/// Returns float precision value of the angle on the path
 	/// allows for accurate sprite rotations while following the path
-	//////	
-	float getAngle() const							{		    return Helpers::toDeg(m_Gradients[m_Index]);		}		
+	//////		
+	inline float getAngle() const							{		    return Helpers::toDeg(m_Gradients[m_Index]);		}		
 };
 

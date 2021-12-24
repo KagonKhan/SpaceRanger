@@ -80,10 +80,6 @@ void Level::checkCollisions()
 
 
 
-
-/// <summary>
-/// 
-/// </summary>
 void Level::checkPlayerCollisions()
 {
 	std::vector<Ammunition*> ammunition;
@@ -97,7 +93,6 @@ void Level::checkPlayerCollisions()
 			m_Player.receiveDamage(ammo->dealDamage() * 0.f);
 		}
 }
-
 
 
 // Player hit enemy
@@ -114,8 +109,6 @@ void Level::checkEnemyCollisions()
 
 				
 }
-
-
 
 
 void Level::checkForDeletion()

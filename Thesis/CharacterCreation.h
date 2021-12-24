@@ -56,6 +56,10 @@ public:
 	CharacterCreation(sf::RenderWindow& window, HangarState& hangar);
 
 
-	bool isDone()const;
+	bool isDone() const;
+	/// <summary>
+	/// Deals with SFML events
+	/// </summary>
+	/// <param name="sfevent"></param>
 	void processEvents(const sf::Event& sfevent);
 };

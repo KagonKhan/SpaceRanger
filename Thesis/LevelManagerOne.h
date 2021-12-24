@@ -33,11 +33,11 @@ private:
 		void phaseTwo(const sf::Time& deltaTime);
 		void phaseThree(const sf::Time& deltaTime);
 		void phaseFour(const sf::Time& deltaTime);
-		void phaseFive(const sf::Time& deltaTime);
+		/*void phaseFive(const sf::Time& deltaTime);
 		void phaseSix(const sf::Time& deltaTime);
 		void phaseSeven(const sf::Time& deltaTime);
 		void phaseEight(const sf::Time& deltaTime);
-		void phaseNine(const sf::Time& deltaTime);
+		void phaseNine(const sf::Time& deltaTime);*/
 
 
 public:

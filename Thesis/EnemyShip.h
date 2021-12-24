@@ -3,7 +3,7 @@
 #include "Spline.h"
 #include "OnDestroy.h"
 
-struct MoveCommand
+struct MoveCommand 
 {
 	std::pair<sf::Vector2f, float> move;
 };

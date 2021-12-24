@@ -52,9 +52,6 @@
     <Filter Include="Game\Entities\Weapon">
       <UniqueIdentifier>{aa6bb40b-9bc6-4510-b539-61a72b6f660f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Entities\Obstacles">
-      <UniqueIdentifier>{908eebe8-4210-4ff8-af8b-c4e9746c2067}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Entities\Attributes">
       <UniqueIdentifier>{1fa5d011-2fb9-4c3f-95d5-90b53b41f22e}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,9 @@
     </Filter>
     <Filter Include="Utilities\Aux">
       <UniqueIdentifier>{6f4e9a56-6701-4750-96cb-ae176d908112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities\Obstacles">
+      <UniqueIdentifier>{908eebe8-4210-4ff8-af8b-c4e9746c2067}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,7 @@
 #pragma once
 #include "Configuration.h"
 
-#pragma warning( disable : 4820)
-
-
+#pragma warning( disable : 4820) // Ignore padding and alignment warnings
 
 class Widget :
 	public sf::Drawable
@@ -13,6 +11,8 @@ public: using opt_ref = std::optional<std::reference_wrapper<Widget>>;
 private:
 	friend class Layout;
 	friend class VerticalLayout;
+	friend class TableLayout;
+	friend class UnorderedLayout;
 
 
 protected:

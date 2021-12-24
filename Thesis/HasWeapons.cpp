@@ -41,8 +41,6 @@ void HasWeapons::addWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, 
 	m_Weapons.push_back(std::move(weapon));
 }
 
-
-
 void HasWeapons::shoot()
 {
 	bool makeSound{ true };

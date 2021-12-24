@@ -269,17 +269,17 @@ void LevelManagerOne::updatePhase(const sf::Time& deltaTime)
 	case Phases::two:		phaseTwo(deltaTime);		break;
 	case Phases::three:		phaseThree(deltaTime);		break;
 	case Phases::four:		phaseFour(deltaTime);		break;
-	case Phases::five:		phaseFive(deltaTime);		break;
-	case Phases::six:		phaseSix(deltaTime);		break;
-	case Phases::seven:		phaseSeven(deltaTime);		break;
-	case Phases::eight:		phaseEight(deltaTime);		break;
-	case Phases::nine:		phaseNine(deltaTime);		break;
+	//case Phases::five:		phaseFive(deltaTime);		break;
+	//case Phases::six:		phaseSix(deltaTime);			break;
+	//case Phases::seven:		phaseSeven(deltaTime);		break;
+	//case Phases::eight:		phaseEight(deltaTime);		break;
+	//case Phases::nine:		phaseNine(deltaTime);		break;
 	default:											break;
 	}
 }
 
 
-void LevelManagerOne::phaseOne(const sf::Time& deltaTime)
+void LevelManagerOne::phaseOne(const sf::Time&)
 {
 	static Fleet* fleet = nullptr;
 	if (static bool firstTime = true; firstTime) {
@@ -307,7 +307,7 @@ void LevelManagerOne::phaseOne(const sf::Time& deltaTime)
 	}
 }
 
-void LevelManagerOne::phaseTwo(const sf::Time& deltaTime)
+void LevelManagerOne::phaseTwo(const sf::Time&)
 {
 	static Fleet* fleet[2]{nullptr,nullptr};
 
@@ -392,23 +392,7 @@ void LevelManagerOne::phaseThree(const sf::Time& deltaTime)
 
 
 
-void LevelManagerOne::phaseFour(const sf::Time& deltaTime)
+void LevelManagerOne::phaseFour(const sf::Time&)
 {
 	m_IsFinished = true;
-}
-
-void LevelManagerOne::phaseFive(const sf::Time& deltaTime)
-{
-}
-void LevelManagerOne::phaseSix(const sf::Time& deltaTime)
-{
-}
-void LevelManagerOne::phaseSeven(const sf::Time& deltaTime)
-{
-}
-void LevelManagerOne::phaseEight(const sf::Time& deltaTime)
-{
-}
-void LevelManagerOne::phaseNine(const sf::Time& deltaTime)
-{
 }

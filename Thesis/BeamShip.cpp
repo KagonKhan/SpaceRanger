@@ -14,7 +14,7 @@ BeamShip::BeamShip(Configuration::TexturesShips tex_id)
 	m_Speed = 50.f;
 }
 
-void BeamShip::stopShooting()
+void BeamShip::stopShooting() const
 {
 	for (auto&& weapon : m_Weapons)
 		if (auto beamWeapon = dynamic_cast<BeamTurret*>(weapon.get()); beamWeapon != nullptr)
@@ -35,7 +35,7 @@ void BeamShip::updateIndividualBehavior(const sf::Time& deltaTime)
 	shoot(deltaTime);
 }
 
-void BeamShip::shoot(const sf::Time& deltaTime)
+void BeamShip::shoot(const sf::Time&)
 {
 
 	HasWeapons::shoot();

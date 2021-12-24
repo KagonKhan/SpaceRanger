@@ -48,7 +48,6 @@ public:
 	
 	void setPosition(PositionType pos) const;
 
-
 	void addMovementToQueue(sf::Vector2f dir, float length);
 
 	void setPath(const std::vector<sf::Vector2f>& waypoints) const;
@@ -56,7 +55,6 @@ public:
 	sf::FloatRect getRectangle() const;
 	void move(const sf::Vector2f& moveBy) const;
 	void setWeaponsAsActive(bool active) const;
-
 
 	void addShips(std::vector<EnemyShip::ptr> fleet)	{			m_Ships = std::move(fleet);										}
 	std::vector<EnemyShip::ptr>& getShips()				{			return m_Ships;													}
