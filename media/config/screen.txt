@@ -1,1 +1,1 @@
-title SpaceRangerresolution 1920 1200framerate 120fullscreen 0borderless 0vsync 0
+title SpaceRangerresolution 1600 900framerate 120fullscreen 0borderless 0vsync 0

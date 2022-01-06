@@ -14,8 +14,6 @@ void PlayerInfoSheet::draw(sf::RenderTarget& target, sf::RenderStates ) const
 	for (auto&& text : m_TextPlayerStats)
 		target.draw(text);
 
-	
-
 	for (auto&& text : m_TextShipStats)
 		target.draw(text);
 
@@ -125,8 +123,8 @@ void PlayerInfoSheet::initShipArea() {
 	sf::Vector2i ship_scale;
 	ship_scale.x = m_ShipArea.getSize().x / ship_size.x;
 	ship_scale.y = m_ShipArea.getSize().y / ship_size.y;
-	ship_scale.x = ship_scale.x * 0.75f;
-	ship_scale.y = ship_scale.y * 0.75f;
+	ship_scale.x = ship_scale.x * 0.5f;
+	ship_scale.y = ship_scale.y * 0.5f;
 	m_ShipSprite.setScale(static_cast<sf::Vector2f>(ship_scale));
 	sf::Vector2f ship_size_scaled(m_ShipSprite.getGlobalBounds().width, m_ShipSprite.getGlobalBounds().height);
 	m_ShipSprite.setOrigin(0, 0);

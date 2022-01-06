@@ -30,8 +30,6 @@ private:
 
 	void initGUI();
 		void addGUINavigation();
-			void addButtonBack(UnorderedLayout::ptr& unordered_layout);
-			void addButtonNext(UnorderedLayout::ptr& unordered_layout);
 			void initGUIKeybinds();
 	void initBackground();
 

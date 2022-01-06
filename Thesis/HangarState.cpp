@@ -45,28 +45,22 @@ void HangarState::initGUI()
 void HangarState::addGUINavigation()
 {
 	auto navigation = std::make_unique<UnorderedLayout>(opt_ref(m_UI));
-	addButtonBack(navigation);
-	addButtonNext(navigation);	
-	m_UI.addLayout(std::move(navigation));
-}
-void HangarState::addButtonBack(UnorderedLayout::ptr& unordered_layout)
-{
-	auto back = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "BACK");
+
+	auto back = std::make_unique<TextButton>(opt_ref(*navigation), std::nullopt, sf::Color::Red, "BACK");
 	back->on_click = [this](const sf::Event&, Button&) {
 		m_ShouldQuit = true;
 	};
-	unordered_layout->add(std::move(back));
-}
-void HangarState::addButtonNext(UnorderedLayout::ptr& unordered_layout)
-{
-	auto next = std::make_unique<TextButton>(opt_ref(*unordered_layout), std::nullopt, sf::Color::Red, "NEXT");
+	auto next = std::make_unique<TextButton>(opt_ref(*navigation), std::nullopt, sf::Color::Red, "NEXT");
 	next->on_click = [this](const sf::Event&, Button&) {
 		m_States.emplace(new SpaceState(m_Window, m_States));
 	};
-
 	next->setPosition(sf::Vector2f(static_cast<float>(m_Window.getSize().x) - next->getSize().x, 0.f));
-	unordered_layout->add(std::move(next));
+
+	navigation->add(std::move(back));
+	navigation->add(std::move(next));
+	m_UI.addLayout(std::move(navigation));
 }
+
 void HangarState::initGUIKeybinds()
 {
 	m_UI.bind(Configuration::GuiInputs::Escape, [this](const sf::Event&) {

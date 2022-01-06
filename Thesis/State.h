@@ -28,5 +28,6 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 
 	bool forcedQuit() const { return m_ForceQuit; };
+	bool shouldQuit() const { return m_ShouldQuit; };
 };
 

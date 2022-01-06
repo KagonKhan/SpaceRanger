@@ -12,12 +12,10 @@ private:
 
 
 	sf::RenderWindow m_Window;
-	sf::View m_GameView;
 
 	std::stack<State::ptr> m_States;
 	sf::Event sfevent;
 
-	float m_GameSpeed{ 1.f };
 
 	AnimatedSprite m_Cursor;
 

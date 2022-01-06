@@ -46,7 +46,7 @@ void MainMenuState::initGUI()
 		Options();
 	};
 	
-	/*auto high_scores = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)ight Scores");
+	/*auto high_scores = std::make_unique<TextButton>(opt_ref(*layout), std::nullopt, sf::Color::Red, "(H)igh Scores");
 	high_scores->setLetterSpacing(5);
 	high_scores->on_click = [](const sf::Event&, Button&) {
 		BOOST_LOG_TRIVIAL(info) << "High Scores\n";
