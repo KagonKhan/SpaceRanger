@@ -181,7 +181,6 @@
     <ClCompile Include="BeamTurret.cpp" />
     <ClCompile Include="BossEnemyShip.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CanCollide.cpp" />
     <ClCompile Include="CharacterCreation.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="CheckboxButton.cpp" />
@@ -255,7 +254,6 @@
     <ClInclude Include="BeamTurret.h" />
     <ClInclude Include="BossEnemyShip.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="CanCollide.h" />
     <ClInclude Include="CharacterCreation.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="CheckboxButton.h" />

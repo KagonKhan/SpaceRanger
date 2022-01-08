@@ -58,10 +58,10 @@ sf::Vector2f Spline::getSplinePoint(const std::vector<sf::Vector2f>& waypoints, 
 	
 
 	/* Spline points */
-	q1 = -ttt + 2.f * tt - t;
+	q1 =	   -ttt + 2.f * tt			- t;
 	q2 =  3.f * ttt - 5.f * tt + 2.f;
-	q3 = -3.f * ttt + 4.f * tt + t;
-	q4 =  ttt - tt;
+	q3 = -3.f * ttt + 4.f * tt			+ t;
+	q4 =		ttt -		tt;
 
 	tx = waypoints[p0].x * q1 + waypoints[p1].x * q2 + waypoints[p2].x * q3 + waypoints[p3].x * q4;
 	ty = waypoints[p0].y * q1 + waypoints[p1].y * q2 + waypoints[p2].y * q3 + waypoints[p3].y * q4;

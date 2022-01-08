@@ -1,13 +1,11 @@
 #pragma once
 #include "Entity.h"
-#include "CanCollide.h"
 #include "AnimatedSprite.h"
 #include "OnDestroy.h"
 
 class Weapon; 
 class Ammunition :
 	public Entity,
-	public CanCollide,
 	private sf::NonCopyable
 {
 private:

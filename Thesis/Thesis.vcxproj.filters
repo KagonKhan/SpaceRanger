@@ -159,9 +159,6 @@
     <ClCompile Include="HasWeapons.cpp">
       <Filter>Game\Entities\Attributes</Filter>
     </ClCompile>
-    <ClCompile Include="CanCollide.cpp">
-      <Filter>Game\Entities\Attributes</Filter>
-    </ClCompile>
     <ClCompile Include="Layout.cpp">
       <Filter>GUI\Widgets\Layouts</Filter>
     </ClCompile>
@@ -360,9 +357,6 @@
       <Filter>Game\Entities\Attributes</Filter>
     </ClInclude>
     <ClInclude Include="HasWeapons.h">
-      <Filter>Game\Entities\Attributes</Filter>
-    </ClInclude>
-    <ClInclude Include="CanCollide.h">
       <Filter>Game\Entities\Attributes</Filter>
     </ClInclude>
     <ClInclude Include="Layout.h">

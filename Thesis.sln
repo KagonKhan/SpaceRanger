@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thesis", "Thesis\Thesis.vcxproj", "{029E6091-D624-4800-876B-6C776D272AE8}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ThesisSetup", "ThesisSetup\ThesisSetup.vdproj", "{1312D89A-5C12-4FB4-8C58-C764023C6886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,11 @@ Global
 		{029E6091-D624-4800-876B-6C776D272AE8}.Release|x64.Build.0 = Release|x64
 		{029E6091-D624-4800-876B-6C776D272AE8}.Release|x86.ActiveCfg = Release|Win32
 		{029E6091-D624-4800-876B-6C776D272AE8}.Release|x86.Build.0 = Release|Win32
+		{1312D89A-5C12-4FB4-8C58-C764023C6886}.Debug|x64.ActiveCfg = Debug
+		{1312D89A-5C12-4FB4-8C58-C764023C6886}.Debug|x86.ActiveCfg = Debug
+		{1312D89A-5C12-4FB4-8C58-C764023C6886}.Release|x64.ActiveCfg = Release
+		{1312D89A-5C12-4FB4-8C58-C764023C6886}.Release|x86.ActiveCfg = Release
+		{1312D89A-5C12-4FB4-8C58-C764023C6886}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

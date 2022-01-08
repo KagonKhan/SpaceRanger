@@ -2,13 +2,10 @@
 #include "Entity.h"
 #include "IsLiving.h"
 #include "HasWeapons.h"
-#include "CanCollide.h"
-
 class Ship :
 	public Entity, 
 	public IsLiving,
-	public HasWeapons,
-	public CanCollide
+	public HasWeapons
 {
 private:
 	int getMaxCap(const std::vector<Ammunition*> container) const;
