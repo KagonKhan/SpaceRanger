@@ -41,7 +41,6 @@ template<typename T>
 inline ActionTarget<T>::ActionTarget(const ActionMap<T>& map)
 	: m_ActionMap(map)
 {
-
 }
 
 template<typename T>
@@ -55,7 +54,6 @@ inline bool ActionTarget<T>::processEvent(const sf::Event& sfevent) const
 			result = true;
 			break;
 		}
-
 	return result;
 }
 

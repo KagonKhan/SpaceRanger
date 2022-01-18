@@ -11,7 +11,7 @@ private:
 
 	enum class RectangleShapesIDs { m_PlayerArea, m_PlayerAreaTop, m_PlayerAvatar, m_PlayerAreaBottom, m_ShipArea, m_ExpBarBackground, m_ExpBar, COUNT };
 	enum class TextPlayerStatsIDs { credits, level, current_experience, luck, level_up_points, piloting_proficiency, damage_proficiency, barter_proficiency, learning_proficiency, COUNT};
-	enum class TextShipStatsIDs { m_CurrentHp, m_MaxHp, m_Armor, m_Plating, COUNT };
+	enum class TextShipStatsIDs   { m_CurrentHp, m_MaxHp, m_Armor, m_Plating, COUNT };
 
 
 	sf::RenderWindow&													m_Window;
@@ -22,8 +22,6 @@ private:
 	std::array<Label, int(TextShipStatsIDs::COUNT)>						m_TextShipStats;
 	UserInterface														m_UI;
 	sf::Sprite															m_ShipSprite;
-
-
 
 
 

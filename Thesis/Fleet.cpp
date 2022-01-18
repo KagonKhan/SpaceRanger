@@ -94,18 +94,18 @@ void Fleet::setPosition(PositionType pos) const
 	sf::Vector2f m_WinSize = Configuration::boundaries;
 
 	switch (X) {
-	case X::Left:	moveBy.x += -rect.width + ((Xplace == Place::Inside) ? +rect.width : 0);	break;
-	case X::Middle:	moveBy.x += (m_WinSize.x - rect.width) / 2.f;								break;
-	case X::Right:	moveBy.x += m_WinSize. x + ((Xplace == Place::Inside) ? -rect.width : 0);	break;
-	default:																					break;
+		case X::Left:	moveBy.x += -rect.width + ((Xplace == Place::Inside)  ? +rect.width : 0);	break;
+		case X::Middle:	moveBy.x += (m_WinSize.x - rect.width) / 2.f;								break;
+		case X::Right:	moveBy.x += m_WinSize. x + ((Xplace == Place::Inside) ? -rect.width : 0);	break;
+		default:																					break;
 	}
 
 	
 	switch (Y) {
-	case Y::Top:	moveBy.y += ((Yplace == Place::Inside) ? 0 : -rect.height);					break;
-	case Y::Middle:	moveBy.y += (m_WinSize.y - rect.height) / 2.f;								break;
-	case Y::Bottom:	moveBy.y += m_WinSize.y + ((Yplace == Place::Inside) ? -rect.height : 0);	break;
-	default:																					break;
+		case Y::Top:	moveBy.y += ((Yplace == Place::Inside) ? 0 : -rect.height);					break;
+		case Y::Middle:	moveBy.y += (m_WinSize.y - rect.height) / 2.f;								break;
+		case Y::Bottom:	moveBy.y += m_WinSize.y + ((Yplace == Place::Inside) ? -rect.height : 0);	break;
+		default:																					break;
 	}	
 
 	move(moveBy);

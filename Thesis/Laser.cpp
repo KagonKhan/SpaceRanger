@@ -34,6 +34,7 @@ void Laser::initAnimation()
 	m_AnimatedSprite.setOrigin(m_AnimatedSprite.getSize() / 2.f);
 	m_AnimatedSprite.play();
 
+
 	sf::Texture* texture = &Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_laser_hit);
 	m_OnDestroy.initAnimation(texture, Animation::Line{ 8,1,0 }, sf::seconds(0.0625f), sf::Vector2f{ 0.15f,0.15f });
 

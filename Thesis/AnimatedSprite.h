@@ -49,23 +49,23 @@ public:
 	void setFrame(size_t index);
 	void setColor(const sf::Color& color);
 
-	Animation* getAnimation() const;
-	bool getLoop() const;
-	int getRepeat() const;
-	Status getStatus() const;
+	Animation* getAnimation() const	{		return m_Animation;		};
+	bool getLoop() const			{		return m_Loop;			};
+	int getRepeat() const			{		return m_Repetitions;	};
+	Status getStatus() const		{		return m_Status;		};
 	sf::Vector2f getSize() const;
 
 
 	void setPosition(const sf::Vector2f& pos);
-	void setOffset(const sf::Vector2f& pos);
+	void setOffset(const sf::Vector2f& pos)	{	m_OffsetPosition = pos;	};
 
 
 	/* forward time, change frame, check if end etc*/
 	void update(const sf::Time& dt);
 	/* set status */
-	void play();
+	void play()		{		m_Status = Playing;		};
 	/* set status */
-	void pause();
+	void pause()	{		m_Status = Paused;		};
 	/* set status */
-	void stop();
+	void stop()		{		m_Status = Stopped;		};
 };

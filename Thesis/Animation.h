@@ -11,8 +11,6 @@ private:
 public:
 	Animation(sf::Texture* texture = nullptr);
 
-
-
 	/* emplace back a frame */
 	Animation& addFrame(const sf::IntRect& rect);
 

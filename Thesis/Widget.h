@@ -19,22 +19,19 @@ protected:
 	sf::Vector2f m_Position;
 	opt_ref m_Parent;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override = 0;
-	virtual void processEvent(const sf::Event& sfevent);
+	virtual void processEvent(const sf::Event& sfevent) {};
 
 public:
 	Widget(opt_ref parent);
-	virtual ~Widget();
 
 
-	virtual void update(const sf::Time&);
-	virtual void setPosition(const sf::Vector2f& pos) = 0;
-	virtual void setPosition(float x, float y);
+	virtual void update(const sf::Time&) {};
 
-	virtual sf::Vector2f getSize() const = 0;
-	const sf::Vector2f& getPosition() const;
-
-	void setParent(opt_ref parent);
+	virtual sf::Vector2f getSize() const				= 0;
+	virtual void setPosition(const sf::Vector2f& pos)	= 0;
+	virtual void setPosition(float x, float y)	{		setPosition(sf::Vector2f(x, y));	};
+	const sf::Vector2f& getPosition() const		{		return m_Position;		};
+	void setParent(opt_ref parent)				{		m_Parent = parent;		};
 
 };
 

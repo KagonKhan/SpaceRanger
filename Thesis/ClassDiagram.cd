@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Game" Collapsed="true">
-    <Position X="30.75" Y="10" Width="1.5" />
+    <Position X="31" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAgAABAACAAACAAAABAAAAYhAAAQAQAEgAAAUAAA=</HashCode>
       <FileName>Game.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player" Collapsed="true">
-    <Position X="30.75" Y="11" Width="1.5" />
+    <Position X="26.75" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAACAAEICIAACEABAAAQAACAAAQAAAAA=</HashCode>
       <FileName>Player.h</FileName>
@@ -36,21 +36,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CharacterCreation" Collapsed="true">
-    <Position X="29" Y="9" Width="1.5" />
+    <Position X="33" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>KCAABQAAQAAAACAQAAIUAACAASQAQAAAQECAJAAAAQA=</HashCode>
       <FileName>CharacterCreation.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerInfoSheet" Collapsed="true">
-    <Position X="32.5" Y="11" Width="1.5" />
+    <Position X="26.75" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>GGBAAFgEAAAAAQgAAAKMiAECAQAAIAAgAAAoJAAAAgA=</HashCode>
       <FileName>PlayerInfoSheet.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceBackground" Collapsed="true">
-    <Position X="29" Y="12" Width="1.5" />
+    <Position X="28.75" Y="17.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAgAAQAAAgAAAAAAAgIEAAAAAAAAQAQAIABAAAAUAAA=</HashCode>
       <FileName>SpaceBackground.h</FileName>
@@ -99,7 +99,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Fleet" Collapsed="true">
-    <Position X="29" Y="10" Width="1.5" />
+    <Position X="37" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAECAIAAACDAgIKIAAAyBAEQAAAAAAAgAgAGAAA=</HashCode>
       <FileName>Fleet.h</FileName>
@@ -232,7 +232,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="OnDestroy" Collapsed="true">
-    <Position X="36" Y="10" Width="1.5" />
+    <Position X="33.5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACBAAAAAAkAAAAgAAIEIAAAAAAAIBAgQAgACECECAg=</HashCode>
       <FileName>OnDestroy.h</FileName>
@@ -253,7 +253,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Level" Collapsed="true">
-    <Position X="34.25" Y="10" Width="1.5" />
+    <Position X="29" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>iIAAAAAAAACQAAACAIIEAAABAIAAAEABAABCAAAEAAA=</HashCode>
       <FileName>Level.h</FileName>
@@ -365,14 +365,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Checkbox" Collapsed="true">
-    <Position X="30.75" Y="9" Width="1.5" />
+    <Position X="29" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAKAAAAgAIAIAAACCxBAAEAAAAAAAAABAAAI=</HashCode>
       <FileName>Checkbox.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CircularArray&lt;T&gt;" Collapsed="true">
-    <Position X="32.5" Y="9" Width="1.5" />
+    <Position X="35.5" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAQAEAAAAAAAAAIAQAAAAAAAAAAABAAACAIAQAA=</HashCode>
       <FileName>CircularArray.h</FileName>
@@ -386,56 +386,56 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BitmaskManager" Collapsed="true">
-    <Position X="36" Y="8" Width="1.5" />
+    <Position X="31" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAARAAAAAAAAAIAAAACAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Collision.cpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OrientedBoundingBox" Collapsed="true">
-    <Position X="29" Y="11" Width="1.5" />
+    <Position X="31" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAgAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Collision.cpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Collision" Collapsed="true">
-    <Position X="34.25" Y="9" Width="1.5" />
+    <Position X="31" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAEABAAAAAAAAAiAAAAAIAAAAgAAAAAAA=</HashCode>
       <FileName>Collision.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Configuration" Collapsed="true">
-    <Position X="36" Y="9" Width="1.5" />
+    <Position X="28.75" Y="18.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAIASIAABQFABgIgAkAQMAIABAMGBBAgAAkBAIQEiA=</HashCode>
       <FileName>Configuration.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ResourceManager&lt;RESOURCE, IDENTIFIER&gt;" Collapsed="true">
-    <Position X="34.25" Y="11" Width="1.5" />
+    <Position X="28.75" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAUAAAAAAAAAAAAAAgAAAAgAA=</HashCode>
       <FileName>ResourceManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ResourceManager&lt;sf::Music, IDENTIFIER&gt;" Collapsed="true">
-    <Position X="36" Y="11" Width="1.5" />
+    <Position X="30.25" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAUAAAAAAAAAAAAAAgAAAAgAA=</HashCode>
       <FileName>ResourceManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Action" Collapsed="true">
-    <Position X="29" Y="8" Width="1.5" />
+    <Position X="31.25" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAACQAAAAAAAAAIAAAgAAAAAAQ=</HashCode>
       <FileName>Action.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ActionMap&lt;T&gt;" Collapsed="true">
-    <Position X="30.75" Y="8" Width="1.5" />
+    <Position X="32.75" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAECAAAAAAAAAAAAAAQAAAAAAAAAAAAAAgAAABAAA=</HashCode>
       <FileName>ActionMap.h</FileName>
@@ -449,35 +449,35 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AnimatedSprite" Collapsed="true">
-    <Position X="32.5" Y="8" Width="1.5" />
+    <Position X="32" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACEABAAABqCAAAEAAgJgAAAKwAKgDAAAIAAhAAAtIAA=</HashCode>
       <FileName>AnimatedSprite.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Animation" Collapsed="true">
-    <Position X="34.25" Y="8" Width="1.5" />
+    <Position X="33.5" Y="16.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAACAAAgAggIAAAIAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Animation.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Helpers" Collapsed="true">
-    <Position X="32.5" Y="10" Width="1.5" />
+    <Position X="28.75" Y="19" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAQIAEAgAAAUAAAAAQgIAAAAAAAAAAAAAAQgACAAAAA=</HashCode>
       <FileName>Helpers.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spline" Collapsed="true">
-    <Position X="30.75" Y="12" Width="1.5" />
+    <Position X="35" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IACAAGIAMgGBAAAAAAAAAEIAAAAAAAgAQAAAAAAAgME=</HashCode>
       <FileName>Spline.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="MoveCommand" Collapsed="true">
-    <Position X="29" Y="13.25" Width="1.5" />
+    <Position X="37" Y="17.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EnemyShip.h</FileName>
@@ -491,21 +491,21 @@
     </TypeIdentifier>
   </Struct>
   <Enum Name="pos::X" Collapsed="true">
-    <Position X="30.75" Y="14.5" Width="1.5" />
+    <Position X="37" Y="18.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACQAAAAAAA=</HashCode>
       <FileName>Fleet.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="pos::Y" Collapsed="true">
-    <Position X="32.5" Y="14.5" Width="1.5" />
+    <Position X="37" Y="18.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Fleet.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="pos::Place" Collapsed="true">
-    <Position X="29" Y="14.5" Width="1.5" />
+    <Position X="37" Y="17.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
       <FileName>Fleet.h</FileName>

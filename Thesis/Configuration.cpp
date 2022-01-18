@@ -112,7 +112,6 @@ void Configuration::initTexturesPlayer()
 	textures_player.load(TexturesPlayer::player_avatar_2, "../media/textures/avatars/avatar4.jpg");
 	textures_player.load(TexturesPlayer::player_avatar_3, "../media/textures/avatars/avatar2.jpg");
 
-
 }
 void Configuration::initTexturesWeaponParts()
 {

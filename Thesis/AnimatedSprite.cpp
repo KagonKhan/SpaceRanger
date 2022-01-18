@@ -19,9 +19,9 @@ void AnimatedSprite::setFrame(size_t index, bool resetTime)
 		m_Vertices[2].position = sf::Vector2f(rect.width, rect.height);
 		m_Vertices[3].position = sf::Vector2f(rect.width, 0.f);
 
-		float left =   static_cast<float>(rect.left);
-		float right =  static_cast<float>(left + rect.width);
-		float top = static_cast<float>(rect.top);
+		float left	 =   static_cast<float>(rect.left);
+		float right  =  static_cast<float>(left + rect.width);
+		float top	 = static_cast<float>(rect.top);
 		float bottom = static_cast<float>(top + rect.height);
 
 		m_Vertices[0].texCoords = sf::Vector2f(left, top);
@@ -83,27 +83,6 @@ void AnimatedSprite::setColor(const sf::Color& color)
 	m_Vertices[3].color = color;
 }
 
-Animation* AnimatedSprite::getAnimation() const
-{
-	return m_Animation;
-}
-
-
-bool AnimatedSprite::getLoop() const
-{
-	return m_Loop;
-}
-
-int AnimatedSprite::getRepeat() const
-{
-	return m_Repetitions;
-}
-
-AnimatedSprite::Status AnimatedSprite::getStatus() const
-{
-	return m_Status;
-}
-
 sf::Vector2f AnimatedSprite::getSize() const
 {
 	sf::IntRect rect = m_Animation->getRect(0);
@@ -115,11 +94,6 @@ void AnimatedSprite::setPosition(const sf::Vector2f& pos)
 	m_Position = pos;
 	Transformable::setPosition(m_Position + m_OffsetPosition);
 
-}
-
-void AnimatedSprite::setOffset(const sf::Vector2f& pos)
-{
-	m_OffsetPosition = pos;
 }
 
 void AnimatedSprite::update(const sf::Time& dt)
@@ -151,19 +125,4 @@ void AnimatedSprite::update(const sf::Time& dt)
 		}
 		setFrame(m_CurrentFrame, false);
 	}
-}
-
-void AnimatedSprite::play()
-{
-	m_Status = Playing;
-}
-
-void AnimatedSprite::pause()
-{
-	m_Status = Paused;
-}
-
-void AnimatedSprite::stop()
-{
-	m_Status = Stopped;
 }

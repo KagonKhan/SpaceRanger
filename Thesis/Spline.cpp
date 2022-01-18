@@ -38,13 +38,9 @@ sf::Vector2f Spline::getSplinePoint(const std::vector<sf::Vector2f>& waypoints, 
 		p3 = p2 + 1;
 		p0 = p1 - 1;
 	}
-
 	t = t - std::floorf(t);
-
 	const float tt = t * t;
 	const float ttt = t * tt;
-
-
 
 	/* Derivative for the gradient */
 	float q1 = -3.f * tt + 4.f * t - 1.f;

@@ -63,9 +63,6 @@ void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> 
 		}
 	}
 
-
-
-
 	using namespace sf::Style;
 
 	if (fullscreen) {
@@ -85,60 +82,6 @@ void Helpers::CreateWindow(sf::RenderWindow& window, std::optional<std::string> 
 	Configuration::boundaries = sf::Vector2f(window.getSize());
 }
 
-void Helpers::ReplaceFirstOccurance(std::string& string, std::string_view toReplace, std::string_view replaceWith)
-{
-	std::size_t pos = string.find(toReplace);
-	if (pos == std::string::npos)
-		return;
-
-	string.replace(pos, toReplace.length(), replaceWith);
-}
-
-
-bool Helpers::CheckIfPointContainedInArea(const sf::Vector2f& pos, const sf::FloatRect& area)
-{
-	if(area.contains(pos))
-		return true;
-	else
-		return false;
-}
-
-float Helpers::toDeg(float rad)
-{
-	return rad * 180.f / static_cast<float>(M_PIl);
-}
-
-float Helpers::toDeg(const sf::Vector2f& vec)
-{
-	return Helpers::toDeg(atan2f(vec.y, vec.x));
-}
-
-float Helpers::toRad(float deg)
-{
-	return deg * static_cast<float>(M_PIl) / 180.f;
-}
-
-sf::Vector2f Helpers::normalize(const sf::Vector2f& vec)
-{
-	sf::Vector2f result = vec;
-	if (float length = std::sqrtf(vec.x * vec.x + vec.y * vec.y); length != 0)
-		result /= length;
-
-	return result;
-}
-
-void Helpers::normalize(sf::Vector2f& vec)
-{
-	float length = getLength(vec);
-	if (length != 0)
-		vec /= length;
-}
-
-float Helpers::getLength(sf::Vector2f vec)
-{
-	return std::sqrtf(vec.x * vec.x + vec.y * vec.y);
-}
-
 
 void Helpers::drawPath(sf::RenderTarget& target, const Spline& path)
 {
@@ -149,29 +92,4 @@ void Helpers::drawPath(sf::RenderTarget& target, const Spline& path)
 		pixel.setPosition(point);
 		target.draw(pixel);
 	}
-}
-
-void Helpers::print(sf::Vector2f vec)
-{
-	BOOST_LOG_TRIVIAL(info) << vec.x << ", " << vec.y << '\n';
-}
-
-float Helpers::perpDot(const sf::Vector2f& A, const sf::Vector2f& B)
-{
-	return (A.x * B.y) - (A.y * B.x);
-}
-
-float Helpers::dot(const sf::Vector2f& A, const sf::Vector2f& B)
-{
-	return (A.x * B.x) + (A.y * B.y);
-}
-
-
-void Helpers::LoadFileToString(const std::filesystem::path& path, std::string& loadTo)
-{
-	std::ifstream file(path, std::ios::in | std::ios::binary);
-
-	std::string line;
-	while (std::getline(file, line))
-		loadTo += line;
 }

@@ -79,7 +79,7 @@ void Level::checkCollisions()
 
 
 
-
+// enemy hit player
 void Level::checkPlayerCollisions()
 {
 	std::vector<Ammunition*> ammunition;
@@ -104,7 +104,7 @@ void Level::checkEnemyCollisions()
 	for(auto&& ammo : ammunition)
 		for (auto&& fleet : m_Enemies) 
 			for (auto&& enemy : fleet.getShips())
-				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite(), 253U)) 
+				if (Collision::PixelPerfectTest(enemy->getSprite(), ammo->getSprite())) 
 					enemy->receiveDamage(ammo->dealDamage());
 
 				

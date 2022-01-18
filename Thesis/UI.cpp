@@ -8,7 +8,7 @@ void UserInterface::draw(sf::RenderTarget& target, sf::RenderStates) const
 	}
 }
 
-void UserInterface::recalculatePositionVariable()
+void UserInterface::reposition()
 {
 	float min_x{ std::numeric_limits<float>::max() };
 	float min_y{ std::numeric_limits<float>::max() };
@@ -29,14 +29,11 @@ UserInterface::UserInterface()
 
 }
 
-UserInterface::~UserInterface()
-{
-}
 
 void UserInterface::setPositionAtIndex(const sf::Vector2f& pos, unsigned int index)
 {
 	m_Layouts.at(index)->setPosition(pos);
-	recalculatePositionVariable();
+	reposition();
 }
 
 void UserInterface::setPositionAtIndex(float x, float y, unsigned int index)
@@ -75,7 +72,7 @@ void UserInterface::addLayout(std::unique_ptr<Layout> layout)
 {
 	m_Layouts.push_back(std::move(layout));
 
-	recalculatePositionVariable();
+	reposition();
 }
 
 void UserInterface::update(const sf::Time& deltaTime)

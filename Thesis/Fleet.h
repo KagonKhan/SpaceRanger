@@ -2,9 +2,9 @@
 #include "EnemyShip.h"
 
 namespace pos {
-	enum class X { Left, Middle, Right, };
-	enum class Y { Top, Middle, Bottom, };
-	enum class Place { Inside, Outside, };
+	enum class X		{ Left, Middle, Right, };
+	enum class Y		{ Top, Middle, Bottom, };
+	enum class Place	{ Inside, Outside, };
 }
 
 
@@ -15,12 +15,9 @@ class Fleet :
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 	std::vector<EnemyShip::ptr> m_Ships;
-
 	std::pair<std::queue<MoveCommand>, bool> m_MoveQueue;
 
-
 public:
-
 #pragma region vector overloads
 	void erase(std::size_t index)				{			m_Ships.erase(m_Ships.begin() + index);	}
 	auto& operator[](std::size_t index)			{			return m_Ships[index];					}
