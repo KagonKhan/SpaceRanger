@@ -34,7 +34,7 @@ public:
 
 
 	void addFleet(std::vector<EnemyShip::ptr> fleet);
-	void addFleet(Fleet fleet);
+	Fleet& addFleet(Fleet fleet);
 
 
 	const sf::RenderWindow& getWindow()const	{			return m_Window;					}

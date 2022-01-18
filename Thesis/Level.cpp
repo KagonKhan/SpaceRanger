@@ -44,10 +44,11 @@ void Level::addFleet(std::vector<EnemyShip::ptr> fleet)
 	addRect();
 }
 
-void Level::addFleet(Fleet fleet)
+Fleet& Level::addFleet(Fleet fleet)
 {
 	m_Enemies.push_back(std::move(fleet));
 	addRect();
+	return m_Enemies.back();
 }
 
 

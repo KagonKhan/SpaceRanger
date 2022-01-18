@@ -17,6 +17,9 @@ private:
 	sf::Event sfevent;
 
 
+	sf::View m_GameView;
+	float m_GameSpeed{ 1.f };
+
 	AnimatedSprite m_Cursor;
 
 	void initWindow();

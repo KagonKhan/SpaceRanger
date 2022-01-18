@@ -16,6 +16,10 @@ void Game::initWindow()
 {
 	Helpers::CreateWindow(m_Window);
 
+	m_GameView = m_Window.getDefaultView();
+	m_GameView.zoom(2.f);
+	m_Window.setView(m_GameView);
+
 }
 void Game::initStates()
 {
@@ -42,13 +46,38 @@ void Game::processEvents()
 			m_Window.close(); //close the window
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
 			system("CLS");
-		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add)) {
+			m_GameSpeed += 0.05f;
+			if (m_GameSpeed >= 6.f) m_GameSpeed = 6.f;
+
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract)) {
+			m_GameSpeed -= 0.05f;
+			if (m_GameSpeed <= .1f) m_GameSpeed = .1f;
+
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
+			m_GameView = m_Window.getDefaultView();
+			m_GameView.zoom(2.f);
+			m_Window.setView(m_GameView);
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
 			system("PAUSE");
 			return;
 		}
 
-	
+		if (sfevent.type == sf::Event::MouseWheelMoved) {
+			auto view = m_Window.getView();
+
+			if (sfevent.mouseWheel.delta < 0)
+				view.zoom(1.01f);
+			else if (sfevent.mouseWheel.delta > 0)
+				view.zoom(0.99f);
+
+
+			m_Window.setView(view);
+		}
+
 
 		m_States.top()->processEvents(sfevent);
 	}
@@ -124,9 +153,9 @@ void Game::run(int minFPS)
 		while (timeSinceLastUpdate >= TimePerFrame) {
 			timeSinceLastUpdate -= TimePerFrame;
 
-			update(TimePerFrame);
+			update(TimePerFrame * m_GameSpeed);
 		}
-		update(timeSinceLastUpdate);
+		update(timeSinceLastUpdate * m_GameSpeed);
 		render();
 	}
 }
