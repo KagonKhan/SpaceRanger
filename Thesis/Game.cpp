@@ -62,7 +62,6 @@ void Game::processEvents()
 			m_Window.setView(m_GameView);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)) {
-			system("PAUSE");
 			return;
 		}
 

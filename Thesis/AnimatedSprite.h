@@ -2,8 +2,6 @@
 
 #include "Animation.h"
 
-
-
 class AnimatedSprite :
 	public sf::Drawable, 
 	public sf::Transformable
@@ -18,8 +16,7 @@ private:
 	int m_Repetitions;
 
 	size_t m_CurrentFrame;
-	sf::Vertex m_Vertices[4];
-
+	std::array<sf::Vertex, 4> m_Vertices;
 
 	sf::Vector2f m_OffsetPosition, m_Position;
 

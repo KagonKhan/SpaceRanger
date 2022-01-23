@@ -47,7 +47,7 @@ void PlayerShip::initWeapons()
 	addWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
 	addWeapon(m_Position, sf::Vector2f(-20.f, 0.f),  10.f, WeaponType::Laser);
 	addWeapon(m_Position, sf::Vector2f( 20.f, 0.f),  10.f, WeaponType::Laser);
-	addWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.0005f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
+	addWeapon(m_Position, sf::Vector2f( 0 ,-10.f),   0.f, WeaponType::Beam, 180.f, Entity::opt_ref(*this));
 }
 
 

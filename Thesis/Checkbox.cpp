@@ -89,16 +89,6 @@ void Checkbox::Cross::setThickness(float thickness)
 
 
 
-
-
-
-
-
-
-
-
-
-
 void Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_Shape);
@@ -117,21 +107,6 @@ Checkbox::Checkbox(float size, const sf::Color& fillColor)
 	m_Shape.setOutlineColor(sf::Color::Black);
 }
 
-Checkbox::~Checkbox()
-{
-}
-
-void Checkbox::setIsChecked(bool checked)
-{
-	m_IsChecked = checked;
-}
-
-bool Checkbox::getIsChecked() const
-{
-	return m_IsChecked;
-}
-
-
 
 #pragma region SETTERS / GETTERS
 
@@ -142,10 +117,6 @@ void Checkbox::setPosition(const sf::Vector2f& pos)
 	m_Cross.setPosition(m_Position);
 }
 
-void Checkbox::setPosition(float x, float y)
-{
-	setPosition(sf::Vector2f(x, y));
-}
 
 void Checkbox::setFillColor(const sf::Color& color)
 {
@@ -153,15 +124,6 @@ void Checkbox::setFillColor(const sf::Color& color)
 	m_Shape.setFillColor(m_FillColor);
 }
 
-void Checkbox::setOutlineThickness(float thickness)
-{
-	m_Shape.setOutlineThickness(thickness);
-}
-
-sf::Vector2f Checkbox::getSize() const
-{
-	return m_Shape.getSize();
-}
 
 void Checkbox::setSize(float size)
 {

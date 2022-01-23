@@ -73,10 +73,14 @@ void Configuration::initTextures()
 void Configuration::initTexturesGameState()
 {
 	textures_game.load(TexturesGameState::cursor, "../media/textures/cursors/Cursor.png");
+
+
+
 }
 void Configuration::initTexturesMenuState()
 {
-	textures_menu.load(TexturesMenuState::background	, "../media/backgrounds/MainMenuBG.jpg");
+	textures_menu.load(TexturesMenuState::background	,	"../media/backgrounds/MainMenuBG.jpg");
+
 }
 void Configuration::initTexturesHangarState()
 {
@@ -94,7 +98,6 @@ void Configuration::initTexturesOptionsState()
 void Configuration::initTexturesSpaceState()
 {
 	textures_space.load(TexturesSpaceState::background	, "../media/textures/space/stars.png").setRepeated(true);
-
 	textures_space.load(TexturesSpaceState::nebula_0	, "../media/textures/space/nebula1.png");
 	textures_space.load(TexturesSpaceState::nebula_1	, "../media/textures/space/nebula2.png");
 	textures_space.load(TexturesSpaceState::nebula_2	, "../media/textures/space/nebula3.png");

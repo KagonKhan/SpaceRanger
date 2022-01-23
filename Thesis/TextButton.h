@@ -29,15 +29,15 @@ public:
     // Text positioning
     enum class Style
     {
-        TopLeft = 1 << 0,
-        TopMiddle = 1 << 1,
-        TopRight = 1 << 2,
-        MiddleLeft = 1 << 3,
-        Middle = 1 << 4,
-        MiddleRight = 1 << 5,
-        BottomLeft = 1 << 6,
-        BottomMiddle = 1 << 7,
-        BottomRight = 1 << 8
+        TopLeft         = 1 << 0,
+        TopMiddle       = 1 << 1,
+        TopRight        = 1 << 2,
+        MiddleLeft      = 1 << 3,
+        Middle          = 1 << 4,
+        MiddleRight     = 1 << 5,
+        BottomLeft      = 1 << 6,
+        BottomMiddle    = 1 << 7,
+        BottomRight     = 1 << 8
     } m_Style{ Style::Middle };
 
     void setIsAutoAdjustable(bool adjust);

@@ -12,7 +12,7 @@ Animation& Animation::addFrame(const sf::IntRect& rect)
 {
 	m_Frames.emplace_back(rect);
 	return *this;
-} 
+}  
 
 /// <param name="number_x">how many frames on x axis</param>
 /// <param name="number_y">how many frames on y axis</param>

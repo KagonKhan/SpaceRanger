@@ -3,7 +3,7 @@
   <Class Name="Game" Collapsed="true">
     <Position X="31" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAgAABAACAAACAAAABAAAAYhAAAQAQAEgAAAUAAA=</HashCode>
+      <HashCode>CAAAQgBABAACAAACAAAABAAAAYhAAAQAQAEgAAAUAAA=</HashCode>
       <FileName>Game.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -15,21 +15,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="State" Collapsed="true">
-    <Position X="4" Y="12.5" Width="1.5" />
+    <Position X="4" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAACBRAAAAAiAAAAAQAAAAAAAAAABhAEAAA=</HashCode>
       <FileName>State.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HangarState" Collapsed="true">
-    <Position X="3" Y="14" Width="1.5" />
+    <Position X="3" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAIEAAEAEQAAACAAAAAAIgAUBgg=</HashCode>
       <FileName>HangarState.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceState" Collapsed="true">
-    <Position X="5.25" Y="14" Width="1.5" />
+    <Position X="5.25" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACgAAIAAAAAAAAAQAAIGAAAAAQAAEAAAAAAAIAgUAAA=</HashCode>
       <FileName>SpaceState.h</FileName>
@@ -57,14 +57,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MainMenuState" Collapsed="true">
-    <Position X="7.5" Y="14" Width="1.5" />
+    <Position X="7.5" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACQAAIAAAAAABAAEEC4AAAAEFQAAIAAAAAAAIABEAAA=</HashCode>
       <FileName>MainMenuState.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OptionsState" Collapsed="true">
-    <Position X="0.75" Y="14" Width="1.5" />
+    <Position X="0.75" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AiAAAAAAAAACAAAEFA4AAAAAAQAAIAQAEABAoIAFAAg=</HashCode>
       <FileName>OptionsState.h</FileName>
@@ -78,7 +78,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerShip" Collapsed="true">
-    <Position X="20.25" Y="4.5" Width="1.5" />
+    <Position X="20.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIEAEAAQBAgAAEDIAAACAAIEAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>PlayerShip.h</FileName>
@@ -92,7 +92,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EnemyShip" Collapsed="true">
-    <Position X="22.25" Y="4.5" Width="1.5" />
+    <Position X="22.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAgAAAEAAAAECBgAIIAIAAgCAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>EnemyShip.h</FileName>
@@ -106,126 +106,126 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BeamShip" Collapsed="true">
-    <Position X="29" Y="6" Width="1.5" />
+    <Position X="29" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEBAAAAAAAAAAAAAAAAAEAAAAAAEAAAACAAAA=</HashCode>
       <FileName>BeamShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BossEnemyShip" Collapsed="true">
-    <Position X="31.25" Y="6" Width="1.5" />
+    <Position X="31.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAABEAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>BossEnemyShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MinigunShip" Collapsed="true">
-    <Position X="13.25" Y="6" Width="1.5" />
+    <Position X="13.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAABAA=</HashCode>
       <FileName>MinigunShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RocketShip" Collapsed="true">
-    <Position X="15.5" Y="6" Width="1.5" />
+    <Position X="15.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAABAAAAAAAAAAAEAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>RocketShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScoutEnemyShip" Collapsed="true">
-    <Position X="17.75" Y="6" Width="1.5" />
+    <Position X="17.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>ScoutEnemyShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScoutShipV2" Collapsed="true">
-    <Position X="20" Y="6" Width="1.5" />
+    <Position X="20" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>ScoutShipV2.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StealthShip" Collapsed="true">
-    <Position X="22.25" Y="6" Width="1.5" />
+    <Position X="22.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>StealthShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SupportShip" Collapsed="true">
-    <Position X="24.5" Y="6" Width="1.5" />
+    <Position X="24.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAI=</HashCode>
       <FileName>SupportShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TankShip" Collapsed="true">
-    <Position X="26.75" Y="6" Width="1.5" />
+    <Position X="26.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAAAEAAA=</HashCode>
       <FileName>TankShip.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ammunition" Collapsed="true">
-    <Position X="15" Y="2.25" Width="1.5" />
+    <Position X="16.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>hAAACIAAAAIAAACAAAIQKAAGCIEQASAKAAAkAAAEAAA=</HashCode>
       <FileName>Ammunition.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Beam" Collapsed="true">
-    <Position X="17.25" Y="4" Width="1.5" />
+    <Position X="18.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAEAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAACAAAA=</HashCode>
       <FileName>Beam.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Laser" Collapsed="true">
-    <Position X="12.75" Y="4" Width="1.5" />
+    <Position X="14" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAEAAAAAACAAAA=</HashCode>
       <FileName>Laser.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Missile" Collapsed="true">
-    <Position X="15" Y="4" Width="1.5" />
+    <Position X="16.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAgACAAAAAAAJAAAAEAAEAAQACAAAAAAiAAAI=</HashCode>
       <FileName>Missile.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BeamTurret" Collapsed="true">
-    <Position X="6.25" Y="4" Width="1.5" />
+    <Position X="7.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAABAAAAAAAAAAEgIAAAAABAAAAAAAA=</HashCode>
       <FileName>BeamTurret.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LaserTurret" Collapsed="true">
-    <Position X="8.5" Y="4" Width="1.5" />
+    <Position X="10" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAABAAAAAAAAAAEAAAAAAAAAAAAAEQA=</HashCode>
       <FileName>LaserTurret.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MissileTurret" Collapsed="true">
-    <Position X="10.75" Y="4" Width="1.5" />
+    <Position X="12.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEIAAAABAAAAAAAAAAEAAAAAABAAAAAAAAA=</HashCode>
       <FileName>MissileTurret.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Weapon" Collapsed="true">
-    <Position X="8.5" Y="2.5" Width="1.5" />
+    <Position X="10" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ggIAAgAEBEAAEAABAAIASBAKAEESQQggAAAGAAAEAAA=</HashCode>
       <FileName>Weapon.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Meteor" Collapsed="true">
-    <Position X="24.5" Y="3" Width="1.5" />
+    <Position X="23.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Meteor.h</FileName>
@@ -239,14 +239,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HasWeapons" Collapsed="true">
-    <Position X="22.25" Y="2.5" Width="1.5" />
+    <Position X="22" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAMAAQAAAAAAAAAAAAAAAAAAAAAEAAAAEAAAAA=</HashCode>
       <FileName>HasWeapons.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IsLiving" Collapsed="true">
-    <Position X="18.25" Y="2.5" Width="1.5" />
+    <Position X="18.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAACAAAIAAAAAAAAAAAAAAAAAAACBAAAAgAAEEABAA=</HashCode>
       <FileName>IsLiving.h</FileName>
@@ -269,89 +269,89 @@
   <Class Name="LevelManagerOne" Collapsed="true">
     <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAQABAAAAAEAABAAAgAAgABAAAEAABEAAQ=</HashCode>
+      <HashCode>AAAAAAAgAAAQABAAAAAEAABAAAAAAgAAAAAAAABEAAQ=</HashCode>
       <FileName>LevelManagerOne.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UserInterface" Collapsed="true">
-    <Position X="4" Y="9" Width="1.5" />
+    <Position X="4" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAABAAAAAKAAAAAAAAICAAECAAAAQEAAAAAAAAAkBAA=</HashCode>
+      <HashCode>EAABAAAAAKAAAAAAEAICAAECAAAAAEAAAAAAAAAkBAA=</HashCode>
       <FileName>UI.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Widget" Collapsed="true">
     <Position X="12.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAQAKAAAAAAAAIAQAACAAAAIAAAAAAAAABEAAA=</HashCode>
+      <HashCode>AAAAIAAAAKAAAAAAAAAAQAACAAAAIAAAAAAAAABEAAA=</HashCode>
       <FileName>Widget.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Button" Collapsed="true">
-    <Position X="19.5" Y="9" Width="1.5" />
+    <Position X="20" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAiAAAAAAACAAAAAAAAAAAAAAEAAEAEAAAAA=</HashCode>
       <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ArrowSwitchTextButton" Collapsed="true">
-    <Position X="16.25" Y="10.5" Width="1.5" />
+    <Position X="17.5" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAEAagAAAggFCOABBBCQBQAkAIAEABEAAIAAgI=</HashCode>
       <FileName>ArrowSwitchTextButton.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CheckboxButton" Collapsed="true">
-    <Position X="18.5" Y="10.5" Width="1.5" />
+    <Position X="19.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAEAaAAQAgwFCYAABBC0BAAkgIAEABgAAAAEgQ=</HashCode>
       <FileName>CheckboxButton.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpriteButton" Collapsed="true">
-    <Position X="20.75" Y="10.5" Width="1.5" />
+    <Position X="21" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAEAKAAAAggBCIABBBiQAABgAMAEAFAAAAAAgA=</HashCode>
       <FileName>SpriteButton.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextButton" Collapsed="true">
-    <Position X="23" Y="10.5" Width="1.5" />
+    <Position X="22.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAECKAAABggBCIABBBDwBABkgIBEAFAAAAAAgA=</HashCode>
       <FileName>TextButton.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Layout" Collapsed="true">
-    <Position X="10.5" Y="9" Width="1.5" />
+    <Position X="10.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAESAAAAAAAEIAAAgGAAAAAAAKAAAAAAAGAAA=</HashCode>
       <FileName>Layout.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HorizontalLayout" Collapsed="true">
-    <Position X="7.25" Y="10.5" Width="1.5" />
+    <Position X="8.25" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAEAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>HorizontalLayout.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TableLayout" Collapsed="true">
-    <Position X="9.5" Y="10.5" Width="1.5" />
+    <Position X="10" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAEAAACAAAIAAAAAAgAAAAAAEAAA=</HashCode>
       <FileName>TableLayout.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UnorderedLayout" Collapsed="true">
-    <Position X="11.75" Y="10.5" Width="1.5" />
+    <Position X="11.75" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAECAAAAAAAAAAgAAAAAAAAAEAAA=</HashCode>
       <FileName>UnorderedLayout.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="VerticalLayout" Collapsed="true">
-    <Position X="14" Y="10.5" Width="1.5" />
+    <Position X="13.5" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAQAAAAAAEAAA=</HashCode>
       <FileName>VerticalLayout.h</FileName>
@@ -423,7 +423,7 @@
   <Class Name="ResourceManager&lt;sf::Music, IDENTIFIER&gt;" Collapsed="true">
     <Position X="30.25" Y="16.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAUAAAAAAAAAAAAAAgAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAIIAAAAAAAAAUAAAAAAAAAAAAAAgAAAAgAA=</HashCode>
       <FileName>ResourceManager.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -442,7 +442,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ActionTarget&lt;T&gt;" Collapsed="true">
-    <Position X="4" Y="7.5" Width="1.5" />
+    <Position X="4" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAKAAAAAAAAAAAAAAAYAAAAAIAAAgAABABAA=</HashCode>
       <FileName>ActionTarget.h</FileName>
@@ -481,13 +481,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EnemyShip.h</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="PhaseFunction" Collapsed="true">
-    <Position X="30.75" Y="13.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>LevelManagerOne.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="pos::X" Collapsed="true">

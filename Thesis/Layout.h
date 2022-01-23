@@ -7,7 +7,7 @@ class Layout :
 private:
 	friend class Widget;
 protected:
-	std::vector<std::unique_ptr<Widget>> m_Widgets;
+	std::vector<Widget::ptr> m_Widgets;
 	float m_Padding;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
@@ -23,9 +23,9 @@ public:
 	void setPosition(const sf::Vector2f& pos) override;
 
 	// move into this
-	void add(std::unique_ptr<Widget> widget);
+	void add(Widget::ptr widget);
 	Widget& getAt(unsigned int index) const;
 
-	const std::vector<std::unique_ptr<Widget>>& getWidgets() const;
+	const std::vector<Widget::ptr>& getWidgets() const;
 };
 

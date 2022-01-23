@@ -38,22 +38,21 @@ private:
 
 public:
 	Checkbox(float size = 25.f, const sf::Color& bgColor = sf::Color(200, 200, 200));
-	virtual ~Checkbox();
 
 
-	void setIsChecked(bool checked);
-	bool getIsChecked() const;
 
 #pragma region SETTERS / GETTERS
 
 	void setPosition(const sf::Vector2f& pos);
-	void setPosition(float x, float y);
 	void setFillColor(const sf::Color& color);
-
-	void setOutlineThickness(float thickness);
-
 	void setSize(float size);
-	sf::Vector2f getSize() const;
+
+	void setIsChecked(bool checked)				{	m_IsChecked = checked;					};
+	bool getIsChecked() const					{	return m_IsChecked;						};
+	void setPosition(float x, float y)			{	setPosition(sf::Vector2f(x, y));		};
+	void setOutlineThickness(float thickness)	{	m_Shape.setOutlineThickness(thickness);	};
+	sf::Vector2f getSize() const				{	return m_Shape.getSize();				};
+
 
 #pragma endregion
 

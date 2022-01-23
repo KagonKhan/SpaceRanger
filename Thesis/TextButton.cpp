@@ -26,12 +26,10 @@ void TextButton::processEvent(const sf::Event& sfevent)
 	if (sfevent.type == sf::Event::MouseButtonPressed && m_Status == Status::Hover)
 		m_Status = Status::HoverAndPressed;
 
-
 	if (sfevent.type == sf::Event::MouseButtonReleased && m_Status == Status::HoverAndPressed && static_cast<sf::Mouse::Button>(sfevent.key.code) == sf::Mouse::Left) {
 		if (m_Shape.getGlobalBounds().contains(static_cast<float>(sfevent.mouseButton.x), static_cast<float>(sfevent.mouseButton.y)))
 			on_click(sfevent, *this);
 	}
-
 
 	else if (sfevent.type == sf::Event::MouseMoved) {
 		const sf::Vector2f mouse_pos(static_cast<float>(sfevent.mouseMove.x), static_cast<float>(sfevent.mouseMove.y));

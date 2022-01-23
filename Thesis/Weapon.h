@@ -15,10 +15,8 @@ protected:
 	const Entity*	m_Target				{ nullptr };
 
 
-	// Constant deletion on random indexes
-	// If testing results in slow processing, I might think of custom containers
-	std::vector<std::unique_ptr<Ammunition>> m_Shots;
 
+	std::vector<std::unique_ptr<Ammunition>> m_Shots;
 	std::queue<std::unique_ptr<sf::Sound>> m_Sounds;
 
 	

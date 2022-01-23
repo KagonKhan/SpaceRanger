@@ -10,8 +10,6 @@ void Layout::draw(sf::RenderTarget& target, sf::RenderStates) const
 Layout::Layout(opt_ref parent,float padding)
 	: Widget(parent), m_Padding(padding)
 {
-
-
 } 
 
 Layout::~Layout()
@@ -25,7 +23,7 @@ void Layout::processEvent(const sf::Event& sfevent)
 		widget->processEvent(sfevent);
 }
 
-void Layout::add(std::unique_ptr<Widget> widget)
+void Layout::add(Widget::ptr widget)
 {
 	m_Widgets.push_back(std::move(widget));
 	updateShape();
@@ -36,7 +34,7 @@ Widget& Layout::getAt(unsigned int index) const
 	return *m_Widgets.at(index).get();
 }
 
-const std::vector<std::unique_ptr<Widget>>& Layout::getWidgets() const
+const std::vector<Widget::ptr>& Layout::getWidgets() const
 {
 	return m_Widgets;
 }

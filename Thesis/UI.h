@@ -6,7 +6,7 @@ class UserInterface :
     protected ActionTarget<int>
 {
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+	void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
 	std::vector<std::unique_ptr<Layout>> m_Layouts;
 

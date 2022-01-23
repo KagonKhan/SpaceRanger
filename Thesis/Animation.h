@@ -15,8 +15,8 @@ public:
 	Animation& addFrame(const sf::IntRect& rect);
 
 
-	struct Line { int number_x, number_y, line,		offset_x{ 0 }, limit_x{ 0 }; };
-	struct Column { int number_x, number_y, column, offset_y{ 0 }, limit_y{ 0 }; };
+	struct Line		{ int number_x, number_y, line,	  offset_x{ 0 }, limit_x{ 0 }; };
+	struct Column	{ int number_x, number_y, column, offset_y{ 0 }, limit_y{ 0 }; };
 	Animation& addFrames(Line frames);
 	Animation& addFrames(Column frames);
 

@@ -132,6 +132,11 @@ void OptionsState::initGUIMusic(VerticalLayout::ptr& vert_layout)
 	vert_layout->add(std::move(music));
 	vert_layout->add(std::move(volume));
 
+
+
+
+
+
 }
 
 void OptionsState::addGUINavigation()

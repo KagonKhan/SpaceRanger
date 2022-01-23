@@ -60,7 +60,6 @@ void Weapon::updateBulletsAndCheckForDeletion(const sf::Time& deltaTime)
 			m_Shots.erase(m_Shots.begin() + i);
 			--i;
 		}
-
 	}
 }
 

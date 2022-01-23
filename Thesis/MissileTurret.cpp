@@ -19,7 +19,7 @@ MissileTurret::~MissileTurret()
 
 void MissileTurret::createBullet()
 {
-	std::unique_ptr<Missile> shot(new Missile(Configuration::TexturesWeaponry::ammo_missile, Configuration::TexturesWeaponry::ammo_missile_thrusters, Configuration::boundaries, -90, 400));
+	auto shot = std::make_unique<Missile>(Configuration::TexturesWeaponry::ammo_missile, Configuration::TexturesWeaponry::ammo_missile_thrusters, Configuration::boundaries, -90, 400);
 	shot->setPosition(m_Position);
 	shot->setRotation(m_Sprite.getRotation());
 
@@ -31,7 +31,7 @@ void MissileTurret::createBullet()
 
 void MissileTurret::createSound()
 {
-	std::unique_ptr<sf::Sound> sound(new sf::Sound(Configuration::sounds.get(Configuration::Sounds::missile)));
+	auto sound = std::make_unique<sf::Sound>(Configuration::sounds.get(Configuration::Sounds::missile));
 	float volume = 100.f * Configuration::m_MasterVolume / 100.f * Configuration::m_SoundEffectsVolume / 100.f;
 	sound->setVolume(volume);
 

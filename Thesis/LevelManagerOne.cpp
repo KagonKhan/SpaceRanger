@@ -10,7 +10,7 @@ LevelManagerOne::LevelManagerOne(Level& level)
 
 
 	Fleet::PositionType setPosition = std::make_tuple(X::Middle, Place::Inside, Y::Top, Place::Outside);
-	auto&& fleet = addFleet(EnemyShip::Type::scout, sf::FloatRect(0, 0, Configuration::boundaries.x, 400), sf::Vector2f(5, 5), setPosition);
+	auto&& fleet = addFleet(EnemyShip::Type::scout, sf::FloatRect(0, 0, Configuration::boundaries.x, 400), sf::Vector2f(15, 15), setPosition);
 	float length = fleet.getRectangle().top;
 	fleet.addMovementToQueue({ 0.f, 1.f }, length);
 }
@@ -28,7 +28,7 @@ void LevelManagerOne::update(const sf::Time& deltaTime)
 
 Fleet& LevelManagerOne::addFleet(EnemyShip::Type type, sf::FloatRect area, sf::Vector2f padding, std::optional<Fleet::PositionType> pos)
 {
-	Fleet fleet(type, area, padding, false);
+	Fleet fleet(type, area, padding, true);
 	fleet.setWeaponsAsActive(false);
 
 	if (pos.has_value())

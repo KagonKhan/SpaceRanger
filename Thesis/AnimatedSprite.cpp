@@ -8,7 +8,7 @@ AnimatedSprite::AnimatedSprite(Animation* animation, Status status, const sf::Ti
 {
 	setAnimation(animation);
 }
-
+ 
 void AnimatedSprite::setFrame(size_t index, bool resetTime)
 {
 	if (m_Animation) {
@@ -19,8 +19,8 @@ void AnimatedSprite::setFrame(size_t index, bool resetTime)
 		m_Vertices[2].position = sf::Vector2f(rect.width, rect.height);
 		m_Vertices[3].position = sf::Vector2f(rect.width, 0.f);
 
-		float left	 =   static_cast<float>(rect.left);
-		float right  =  static_cast<float>(left + rect.width);
+		float left	 = static_cast<float>(rect.left);
+		float right  = static_cast<float>(left + rect.width);
 		float top	 = static_cast<float>(rect.top);
 		float bottom = static_cast<float>(top + rect.height);
 
@@ -39,7 +39,7 @@ void AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	if (m_Animation && m_Animation->m_Texture) {
 		states.transform *= getTransform();
 		states.texture = m_Animation->m_Texture;
-		target.draw(m_Vertices, 4, sf::Quads, states);
+		target.draw(m_Vertices.data(), 4, sf::Quads, states);
 	}
 }
 
@@ -93,7 +93,6 @@ void AnimatedSprite::setPosition(const sf::Vector2f& pos)
 {
 	m_Position = pos;
 	Transformable::setPosition(m_Position + m_OffsetPosition);
-
 }
 
 void AnimatedSprite::update(const sf::Time& dt)
