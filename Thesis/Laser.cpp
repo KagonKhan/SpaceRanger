@@ -9,7 +9,7 @@ void Laser::draw(sf::RenderTarget& target, sf::RenderStates) const
 		return;
 	}
 	
-	target.draw(m_AnimatedSprite);
+	target.draw(m_Sprite);
 	
 }
 
@@ -25,15 +25,9 @@ Laser::Laser(Configuration::TexturesWeaponry tex_id, const sf::Vector2f& boundar
 
 void Laser::initAnimation()
 {
-	Animation::Column frames{ 1,3,0 };
-	m_Animation.addFrames(frames);
 
-	m_AnimatedSprite.setAnimation(&m_Animation);
-	m_AnimatedSprite.setFrameTime(sf::seconds(0.2f));
-	m_AnimatedSprite.setLoop(false);
-	m_AnimatedSprite.setOrigin(m_AnimatedSprite.getSize() / 2.f);
-	m_AnimatedSprite.play();
-
+	m_Sprite.setTextureRect(sf::IntRect(0, 0, 68, 95));
+	m_Sprite.setOrigin(34, 47);
 
 	sf::Texture* texture = &Configuration::textures_weaponry.get(Configuration::TexturesWeaponry::ammo_laser_hit);
 	m_OnDestroy.initAnimation(texture, Animation::Line{ 8,1,0 }, sf::seconds(0.0625f), sf::Vector2f{ 0.15f,0.15f });

@@ -66,7 +66,6 @@ void OnDestroy::start(bool forceDelete)
 	}
 
 
-
 	sf::Vector2f position = m_Parent.getPosition();
 	if (m_DeathAnimatedSprite.has_value()) {
 		auto& sprite = m_DeathAnimatedSprite.value();
