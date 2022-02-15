@@ -11,7 +11,7 @@ protected:
 	enum class	WeaponType		{ Laser, Missile, Beam };
 	std::vector<Weapon::ptr>	m_Weapons;
 
-	void addWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation = 180.f, Entity::opt_ref parent = std::nullopt);
+	Weapon::ptr& addWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation = 180.f, Entity::opt_ref parent = std::nullopt);
 
 public:
 	virtual ~HasWeapons() = default;

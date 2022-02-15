@@ -56,7 +56,7 @@ float Laser::dealDamage()
 {
 	if (!m_OnDestroy.isMarkedForDeletion()) {
 		m_OnDestroy.start();
-		return 200.f;
+		return 20.f;
 	}
 	return 0.f;
 }

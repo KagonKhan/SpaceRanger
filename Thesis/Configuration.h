@@ -43,6 +43,8 @@ public:
 	static short int m_SoundVolume;
 	static short int m_DialogueVolume;
 
+
+	static PlayerShip* player;
 	static 	sf::RectangleShape tar;
 
 

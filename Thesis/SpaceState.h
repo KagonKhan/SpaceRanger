@@ -31,7 +31,6 @@ public:
 	~SpaceState() final;
 
 
-
 	void processEvents(const sf::Event& sfevent) override;
 	void update(const sf::Time& deltaTime) override;
 };

@@ -16,8 +16,6 @@ protected:
 	OnDestroy m_OnDestroy;
 
 
-
-
 	virtual void updateWeapons(const sf::Time& deltaTime);
 	virtual void updateOnDestroy(const sf::Time& deltaTime);
 	virtual void updateIndividualBehavior(const sf::Time& deltaTime) = 0;
@@ -30,7 +28,7 @@ public:
 
 	void update(const sf::Time& deltaTime) override;
 
-
+	// get ammo this weapon has shot
 	std::vector<Ammunition*>& getAmmoOnScreen();
 
 	void setAreActionsBlocked(bool is_blocked);

@@ -37,6 +37,8 @@ sf::RectangleShape Configuration::tar;
 
 MainMenuState* Configuration::m_MainMenu = nullptr;
 sf::Music* Configuration::m_MainMenuMusic = nullptr;
+PlayerShip* Configuration::player = nullptr;
+
 
 
 sf::Color Configuration::Colors::button_fill(86, 20, 19);

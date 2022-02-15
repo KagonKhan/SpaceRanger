@@ -88,9 +88,7 @@ void OnDestroy::start(bool forceDelete)
 
 		if (auto beamship = dynamic_cast<BeamShip*>(&m_Parent); beamship != nullptr) {
 			beamship->stopShooting();
-
 		}
-
 	}
 }
 

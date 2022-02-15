@@ -27,6 +27,7 @@ void MissileTurret::createBullet()
 		shot->lockOnTarget(m_Target);
 
 	m_Shots.push_back(std::move(shot));
+
 }
 
 void MissileTurret::createSound()
@@ -46,4 +47,5 @@ void MissileTurret::createSound()
 
 void MissileTurret::updateIndividualBehavior(const sf::Time& deltaTime)
 {
+
 }

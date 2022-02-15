@@ -20,10 +20,9 @@ SpaceState::SpaceState(sf::RenderWindow& window, std::stack<State::ptr>& states)
 {
 	BOOST_LOG_TRIVIAL(info) << "SpaceState ctor";
 
-	m_LevelManager = std::make_unique<LevelManagerOne>(m_Level);
-
 	initPlayer();
 
+	m_LevelManager = std::make_unique<LevelManagerOne>(m_Level);
 
 	bounding.setSize((sf::Vector2f)window.getSize());
 	bounding.setOutlineColor(sf::Color::White);
@@ -44,6 +43,9 @@ void SpaceState::initPlayer()
 	pos.x /= 2.f;
 	
 	m_Player.setPosition(pos);
+
+
+	Configuration::player = &m_Player;
 }
 
 
@@ -56,6 +58,8 @@ void SpaceState::processEvents(const sf::Event& sfevent)
 SpaceState::~SpaceState()
 {
 	BOOST_LOG_TRIVIAL(info) << "SpaceState dtor";
+
+	Configuration::player = nullptr;
 }
 
 void SpaceState::update(const sf::Time& deltaTime)
@@ -66,6 +70,11 @@ void SpaceState::update(const sf::Time& deltaTime)
 	}
 	if (m_LevelManager->isFinished())
 		m_States.emplace(new EndState(m_Window, m_States));
+
+
+	if (m_Player.getHP() <= 0.0)
+		m_ShouldQuit = true;
+
 
 	m_Player.update(deltaTime);
 	m_Background.update(deltaTime);

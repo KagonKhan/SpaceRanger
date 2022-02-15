@@ -20,8 +20,7 @@ public:
 
 
 	// Potentially virtual to allow for modification
-	// Maybe usage of std::function? some fancy shit
-	// Calls onDestroy() when hp< =0
+	// Maybe usage of std::function? some fancy stuff
 	virtual void receiveDamage(float amount);
 
 

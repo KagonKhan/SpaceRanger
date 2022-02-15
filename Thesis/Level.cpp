@@ -6,7 +6,7 @@
 #include "PlayerShip.h"
 
 
-void Level::draw( sf::RenderTarget& target, sf::RenderStates ) const
+void Level::draw( sf::RenderTarget& target, sf::RenderStates) const
 {
 	for (auto&& fleet : m_Enemies) 
 		target.draw(fleet);
@@ -88,11 +88,15 @@ void Level::checkPlayerCollisions()
 		for (auto&& enemy : fleet.getShips())
 			ammunition.insert(ammunition.begin(), enemy->getAmmoOnScreen().begin(), enemy->getAmmoOnScreen().end());
 	
+	for (auto&& enemy : m_EnemiesForDeletion)
+		ammunition.insert(ammunition.end(), enemy->getAmmoOnScreen().begin(), enemy->getAmmoOnScreen().end());
+
 
 	for (auto&& ammo : ammunition)
 		if (Collision::PixelPerfectTest(m_Player.getSprite(), ammo->getSprite(), 253U)) {
-			m_Player.receiveDamage(ammo->dealDamage() * 0.f);
+			m_Player.receiveDamage(ammo->dealDamage() * 0.1f);
 		}
+		
 }
 
 

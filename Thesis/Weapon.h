@@ -51,10 +51,10 @@ public:
 
 
 	void setSpriteRotation(float angle)					{		m_Sprite.setRotation(angle);		}
+	float getSpriteRotation()const						{		return m_Sprite.getRotation();		}
 	void rotateSprite(float angle)						{		m_Sprite.rotate(angle);				}
 	void setIsWeaponActive(bool isActive)				{		m_IsWeaponActive = isActive;		}
-	virtual void setTarget(const Entity* target)		{		m_Target = target;					}
-	float getSpriteRotation()const						{		return m_Sprite.getRotation();		}
+	void setTarget(Entity* target)						{		m_Target = target;					}
 	bool isActive()const								{		return m_IsWeaponActive;			}
 
 };

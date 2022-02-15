@@ -19,7 +19,7 @@ bool HasWeapons::makeAnotherSound(std::vector<Weapon::ptr>::iterator weaponIt)
 
 
 
-void HasWeapons::addWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation, Entity::opt_ref parent)
+Weapon::ptr& HasWeapons::addWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, float firing_rate, WeaponType weapon_type, float rotation, Entity::opt_ref parent)
 {
 	Weapon::ptr weapon;
 
@@ -39,6 +39,8 @@ void HasWeapons::addWeapon(const sf::Vector2f& pos, const sf::Vector2f& offset, 
 
 
 	m_Weapons.push_back(std::move(weapon));
+
+	return m_Weapons.back();
 }
 
 void HasWeapons::shoot()
