@@ -364,3 +364,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/html/search
+/html
+/latex
+/Thesis/source
+/doxygen thesis.zip

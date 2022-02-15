@@ -39,5 +39,8 @@ public:
 	static Game* getInstance();
 
 	void run(int minFPS);
+
+
+	void setGameSpeed(float speed) { m_GameSpeed = speed; };
 };
 

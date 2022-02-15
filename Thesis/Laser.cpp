@@ -39,6 +39,7 @@ void Laser::initAnimation()
 void Laser::updateIndividualBehavior(const sf::Time& deltaTime)
 {
 
+
 	updateMovementPatters(deltaTime);
 }
 

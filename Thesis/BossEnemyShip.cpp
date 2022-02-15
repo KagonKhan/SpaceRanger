@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "BossEnemyShip.h"
+#include "PlayerShip.h"
+
 
 BossEnemyShip::BossEnemyShip()
 	: BossEnemyShip(Configuration::TexturesShips::enemy_ship_boss)
@@ -22,7 +24,7 @@ void BossEnemyShip::initWeapons()
 	addWeapon(m_Position, sf::Vector2f( 70.f / 2.f, 0.f), 0.5f, WeaponType::Laser, 0.f);
 
 	for (auto&& weapon : m_Weapons)
-		weapon->setVisible(false);
+		weapon->setVisible(true);
 }
 
 void BossEnemyShip::updateIndividualBehavior(const sf::Time& deltaTime)

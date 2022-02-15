@@ -118,7 +118,7 @@ void Level::checkEnemyCollisions()
 
 void Level::checkForDeletion()
 {
-	// Move dead ships to diff container
+
 	for (size_t fleet_num = 0; fleet_num < m_Enemies.size(); ++fleet_num)
 		for(size_t ship_num = 0; ship_num < m_Enemies[fleet_num].size(); ++ship_num)
 			if (m_Enemies[fleet_num][ship_num]->shouldBeDeleted()) {
@@ -129,7 +129,7 @@ void Level::checkForDeletion()
 	
 
 
-	// Check if dead ships are ready for deletion
+
 	for (size_t ship_num = 0; ship_num < m_EnemiesForDeletion.size(); ++ship_num) {
 		if (m_EnemiesForDeletion[ship_num]->canBeDeleted()) {
 			m_EnemiesForDeletion.erase(m_EnemiesForDeletion.begin() + ship_num);
@@ -140,7 +140,7 @@ void Level::checkForDeletion()
 	}
 	
 
-	// TODO: check if this is necessary - do I have to delete an empty subvector or is it automagically
+
 	for (size_t i = 0; i < m_Enemies.size(); ++i) 
 		if (m_Enemies[i].size() == 0)
 			m_Enemies.erase(m_Enemies.begin() + i--);

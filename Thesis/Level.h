@@ -12,7 +12,7 @@ protected:
 	PlayerShip& m_Player;
 	
 
-	// Possibly incorrect choice - vector resize invalidates pointers
+
 	std::vector<Fleet> m_Enemies;
 	std::vector<EnemyShip::ptr> m_EnemiesForDeletion;
 

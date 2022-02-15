@@ -9,7 +9,7 @@
 
 void OnDestroy::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	if(m_DeathAnimatedSprite.has_value())
+	if(m_DeathAnimatedSprite.has_value() && m_DeathAnimatedSprite.value().getStatus() == AnimatedSprite::Status::Playing)
 		target.draw(m_DeathAnimatedSprite.value());
 }
 

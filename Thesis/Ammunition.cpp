@@ -89,6 +89,7 @@ void Ammunition::updatePosition(const sf::Time& deltaTime)
 	Helpers::normalize(m_Direction);
 	sf::Vector2f m_Velocity = m_Direction * m_Speed;
 
+
 	move(m_Velocity * deltaTime.asSeconds());
 }
 
