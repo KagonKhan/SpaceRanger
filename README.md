@@ -1,6 +1,11 @@
 # SpaceRanger
 A 2D space shooting game, utilizing the SFML library. The game style choice was inspired by the *Space Invaders* title. Many game techniques (natural movement, tracking systems, collision detection) and design patterns (singletons, commands, inheritance trees, flyweights, states, factories) have been utilized. Additionally, a GUI system has been implemented.
 
+**Table of Contents**  
+1. [Features](#features)  
+2. [About](#about)  
+3. [Image results](#images-of-the-game)  
+
 
 ## Features
  - 3 weapon types (laser, beam, missile)
@@ -21,10 +26,10 @@ Implemented widgets consist of `Label`, `TextButton`, `SpriteButton`, `CheckboxB
 <table>
     <tr>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/MenuState.png?raw=true" alt="example" title="Example 1" width="350" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/MenuState.png?raw=true" alt="example" title="Example 1" width="450" />
         </td>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/OptionsState.png?raw=true" alt="example" title="Mayhem version" width="350" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/OptionsState.png?raw=true" alt="example" title="Mayhem version" width="450" />
         </td>
     </tr>
 </table>
@@ -47,18 +52,18 @@ The final product is achieved using a basic Painter’s Algorithm.
 <table>
     <tr>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex1.png?raw=true" alt="example" title="Example 1" width="350" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex1.png?raw=true" alt="example" title="Example 1" width="450" />
         </td>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex2.png?raw=true" alt="example" title="Mayhem version" width="350" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex2.png?raw=true" alt="example" title="Mayhem version" width="450" />
         </td>
     </tr>
     <tr>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex3.png?raw=true" alt="example" title="Missile enemies" width="350" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex3.png?raw=true" alt="example" title="Missile enemies" width="450" />
         </td>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex4.png?raw=true" alt="example" title="Aiming enemies" width="350" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/ex4.png?raw=true" alt="example" title="Aiming enemies" width="450" />
         </td>
     </tr>
 </table>
