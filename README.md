@@ -26,10 +26,10 @@ Implemented widgets consist of `Label`, `TextButton`, `SpriteButton`, `CheckboxB
 <table>
     <tr>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/MenuState.png?raw=true" alt="example" title="Example 1" width="450" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/MenuState.png?raw=true" alt="" title="Main Menu page" width="450" />
         </td>
         <td>
-            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/OptionsState.png?raw=true" alt="example" title="Mayhem version" width="450" />
+            <img src="https://github.com/KagonKhan/SpaceRanger/blob/master/examples/OptionsState.png?raw=true" alt="" title="Options page" width="450" />
         </td>
     </tr>
 </table>
